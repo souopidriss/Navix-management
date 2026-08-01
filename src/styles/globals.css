@@ -1,0 +1,231 @@
+/* ==========================================================================
+   Navix Management — Global styles
+   --------------------------------------------------------------------------
+   Contenu :
+     1.  Base / Reset
+     2.  Hiérarchie typographique
+     3.  Liens
+     4.  Focus visible (accessibilité)
+     5.  Sélection de texte
+     6.  Scrollbar personnalisée
+     7.  Mouvement réduit (accessibilité)
+     8.  Chrome applicatif (layouts)
+
+   Aucune couleur n'est codée en dur : toutes les valeurs proviennent
+   des tokens de `variables.css`.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Base / Reset
+   -------------------------------------------------------------------------- */
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--navix-background);
+  color: var(--navix-text-primary);
+  font-family: var(--navix-font-sans);
+  font-size: var(--navix-font-size-base);
+  font-weight: var(--navix-font-weight-normal);
+  line-height: var(--navix-line-height-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* --------------------------------------------------------------------------
+   2. Hiérarchie typographique
+   -------------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: var(--navix-space-4);
+  color: var(--navix-text-primary);
+  font-family: var(--navix-font-sans);
+  font-weight: var(--navix-font-weight-semibold);
+  line-height: var(--navix-line-height-tight);
+  letter-spacing: var(--navix-letter-spacing-tight);
+}
+
+h1,
+.h1 {
+  font-size: var(--navix-font-size-h1);
+}
+
+h2,
+.h2 {
+  font-size: var(--navix-font-size-h2);
+}
+
+h3,
+.h3 {
+  font-size: var(--navix-font-size-h3);
+}
+
+h4,
+.h4 {
+  font-size: var(--navix-font-size-h4);
+}
+
+h5,
+.h5 {
+  font-size: var(--navix-font-size-h5);
+}
+
+/* Display — grand titre de mise en avant */
+.navix-display {
+  font-size: var(--navix-font-size-display);
+  font-weight: var(--navix-font-weight-bold);
+  line-height: var(--navix-line-height-tight);
+  letter-spacing: var(--navix-letter-spacing-tight);
+}
+
+/* Caption — libellés courts en capitales */
+.navix-caption {
+  color: var(--navix-text-muted);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-medium);
+  line-height: var(--navix-line-height-caption);
+  letter-spacing: var(--navix-letter-spacing-caption);
+  text-transform: uppercase;
+}
+
+small {
+  font-size: var(--navix-font-size-sm);
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: var(--navix-space-4);
+}
+
+/* --------------------------------------------------------------------------
+   3. Liens
+   -------------------------------------------------------------------------- */
+a {
+  color: var(--navix-primary);
+  text-decoration: none;
+  transition: color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+a:hover {
+  color: var(--navix-primary-hover);
+}
+
+/* --------------------------------------------------------------------------
+   4. Focus visible (accessibilité)
+   -------------------------------------------------------------------------- */
+:focus-visible {
+  outline: var(--navix-focus-ring-width) solid var(--navix-focus-ring-color);
+  outline-offset: var(--navix-focus-ring-offset);
+}
+
+/* --------------------------------------------------------------------------
+   5. Sélection de texte
+   -------------------------------------------------------------------------- */
+::selection {
+  background-color: var(--navix-selection-background);
+  color: var(--navix-selection-color);
+}
+
+/* --------------------------------------------------------------------------
+   6. Scrollbar personnalisée
+   -------------------------------------------------------------------------- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--navix-scrollbar-thumb) var(--navix-scrollbar-track);
+}
+
+::-webkit-scrollbar {
+  width: var(--navix-scrollbar-width);
+  height: var(--navix-scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--navix-scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--navix-scrollbar-thumb);
+  border: 2px solid transparent;
+  border-radius: var(--navix-radius-full);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--navix-scrollbar-thumb-hover);
+}
+
+/* --------------------------------------------------------------------------
+   7. Mouvement réduit (accessibilité)
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Chrome applicatif (layouts)
+   -------------------------------------------------------------------------- */
+.navix-dashboard {
+  overflow-x: hidden;
+}
+
+.navix-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--navix-sidebar-width);
+  z-index: var(--navix-z-offcanvas);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform var(--navix-transition-base) var(--navix-ease-out);
+}
+
+.navix-sidebar--open {
+  transform: translateX(0);
+}
+
+.navix-topbar {
+  min-height: var(--navix-topbar-height);
+  position: sticky;
+  top: 0;
+  z-index: var(--navix-z-sticky);
+}
+
+/* === Breakpoint: var(--navix-breakpoint-lg) = 992px === */
+@media (min-width: 992px) {
+  .navix-sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    transform: none;
+    flex: 0 0 var(--navix-sidebar-width);
+    transition:
+      width var(--navix-transition-base) var(--navix-ease-out),
+      flex-basis var(--navix-transition-base) var(--navix-ease-out);
+  }
+
+  .navix-dashboard--collapsed .navix-sidebar {
+    width: 0;
+    flex-basis: 0;
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,477 @@
+/* ==========================================================================
+   Navix Management — Theme
+   --------------------------------------------------------------------------
+   Thème SOMBRE par défaut.
+   Les fichiers Bootstrap ne sont pas modifiés : ce fichier ne contient
+   que des overrides, réalisés via les variables CSS de Bootstrap (--bs-*)
+   et les tokens du Design System (variables.css).
+
+   Le thème clair sera ajouté ultérieurement dans un bloc
+   `[data-bs-theme="light"] { ... }` dédié.
+   ========================================================================== */
+
+:root {
+  /* ------------------------------------------------------------------
+     1. Couleurs sémantiques Bootstrap
+     ------------------------------------------------------------------ */
+  --bs-primary: var(--navix-primary);
+  --bs-primary-rgb: var(--navix-primary-rgb);
+  --bs-secondary: var(--navix-secondary);
+  --bs-secondary-rgb: var(--navix-secondary-rgb);
+  --bs-success: var(--navix-success);
+  --bs-success-rgb: var(--navix-success-rgb);
+  --bs-warning: var(--navix-warning);
+  --bs-warning-rgb: var(--navix-warning-rgb);
+  --bs-danger: var(--navix-danger);
+  --bs-danger-rgb: var(--navix-danger-rgb);
+  --bs-info: var(--navix-info);
+  --bs-info-rgb: var(--navix-info-rgb);
+
+  /* ------------------------------------------------------------------
+     2. Fonds & textes
+     ------------------------------------------------------------------ */
+  --bs-body-bg: var(--navix-background);
+  --bs-body-bg-rgb: var(--navix-background-rgb);
+  --bs-body-color: var(--navix-text-primary);
+  --bs-body-color-rgb: var(--navix-text-primary-rgb);
+  --bs-emphasis-color: var(--navix-text-primary);
+  --bs-emphasis-color-rgb: var(--navix-text-primary-rgb);
+  --bs-secondary-color: var(--navix-text-secondary);
+  --bs-secondary-color-rgb: var(--navix-text-secondary-rgb);
+  --bs-secondary-bg: var(--navix-surface);
+  --bs-secondary-bg-rgb: var(--navix-surface-rgb);
+  --bs-tertiary-color: var(--navix-text-muted);
+  --bs-tertiary-color-rgb: var(--navix-text-muted-rgb);
+  --bs-tertiary-bg: var(--navix-background);
+  --bs-tertiary-bg-rgb: var(--navix-background-rgb);
+  --bs-heading-color: var(--navix-text-primary);
+
+  /* ------------------------------------------------------------------
+     3. Typographie
+     ------------------------------------------------------------------ */
+  --bs-body-font-family: var(--navix-font-sans);
+  --bs-body-font-size: var(--navix-font-size-base);
+  --bs-body-font-weight: var(--navix-font-weight-normal);
+  --bs-body-line-height: var(--navix-line-height-base);
+  --bs-font-sans-serif: var(--navix-font-sans);
+  --bs-font-monospace: var(--navix-font-mono);
+
+  /* ------------------------------------------------------------------
+     4. Bordures & rayons
+     ------------------------------------------------------------------ */
+  --bs-border-width: 1px;
+  --bs-border-color: var(--navix-border-color);
+  --bs-border-color-translucent: rgba(var(--navix-border-color-rgb), 0.6);
+  --bs-border-radius: var(--navix-radius-md);
+  --bs-border-radius-sm: var(--navix-radius-sm);
+  --bs-border-radius-lg: var(--navix-radius-lg);
+  --bs-border-radius-xl: var(--navix-radius-xl);
+  --bs-border-radius-2xl: var(--navix-radius-xl);
+  --bs-border-radius-pill: var(--navix-radius-full);
+
+  /* ------------------------------------------------------------------
+     5. Ombres
+     ------------------------------------------------------------------ */
+  --bs-box-shadow: var(--navix-shadow-md);
+  --bs-box-shadow-sm: var(--navix-shadow-sm);
+  --bs-box-shadow-lg: var(--navix-shadow-lg);
+
+  /* ------------------------------------------------------------------
+     6. Focus ring
+     ------------------------------------------------------------------ */
+  --bs-focus-ring-width: var(--navix-focus-ring-width);
+  --bs-focus-ring-color: var(--navix-focus-ring-color);
+  --bs-focus-ring-opacity: 0.45;
+  --bs-focus-ring-blur: 0;
+  --bs-focus-ring-box-shadow: 0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color);
+
+  /* ------------------------------------------------------------------
+     7. Liens
+     ------------------------------------------------------------------ */
+  --bs-link-color: var(--navix-primary);
+  --bs-link-hover-color: var(--navix-primary-hover);
+  --bs-link-decoration: none;
+
+  /* ------------------------------------------------------------------
+     8. Composants Bootstrap
+     ------------------------------------------------------------------ */
+
+  /* Cartes */
+  --bs-card-bg: var(--navix-card);
+  --bs-card-bg-rgb: var(--navix-card-rgb);
+  --bs-card-color: var(--navix-text-primary);
+  --bs-card-border-color: var(--navix-border-color);
+  --bs-card-cap-bg: var(--navix-card);
+  --bs-card-cap-color: var(--navix-text-secondary);
+
+  /* Menus déroulants */
+  --bs-dropdown-bg: var(--navix-raised);
+  --bs-dropdown-color: var(--navix-text-primary);
+  --bs-dropdown-border-color: var(--navix-border-color);
+  --bs-dropdown-divider-bg: var(--navix-border-color);
+  --bs-dropdown-link-color: var(--navix-text-primary);
+  --bs-dropdown-link-hover-bg: var(--navix-hover);
+  --bs-dropdown-link-hover-color: var(--navix-text-primary);
+  --bs-dropdown-link-active-bg: var(--navix-primary);
+  --bs-dropdown-link-active-color: var(--navix-text-inverse);
+  --bs-dropdown-link-disabled-color: var(--navix-text-disabled);
+  --bs-dropdown-header-color: var(--navix-text-muted);
+
+  /* Modales */
+  --bs-modal-bg: var(--navix-raised);
+  --bs-modal-color: var(--navix-text-primary);
+  --bs-modal-border-color: var(--navix-border-color);
+  --bs-modal-footer-border-color: var(--navix-border-color);
+
+  /* Offcanvas */
+  --bs-offcanvas-bg: var(--navix-sidebar);
+  --bs-offcanvas-color: var(--navix-text-primary);
+  --bs-offcanvas-border-color: var(--navix-border-color);
+
+  /* Barres de navigation */
+  --bs-navbar-bg: var(--navix-navbar);
+  --bs-navbar-color: var(--navix-text-secondary);
+  --bs-navbar-hover-color: var(--navix-text-primary);
+  --bs-navbar-active-color: var(--navix-text-primary);
+  --bs-navbar-brand-color: var(--navix-text-primary);
+  --bs-navbar-brand-hover-color: var(--navix-text-primary);
+  --bs-navbar-toggler-border-color: var(--navix-border-color-strong);
+
+  /* Listes groupées */
+  --bs-list-group-bg: var(--navix-surface);
+  --bs-list-group-color: var(--navix-text-primary);
+  --bs-list-group-border-color: var(--navix-border-color);
+  --bs-list-group-hover-bg: var(--navix-hover);
+  --bs-list-group-active-bg: var(--navix-primary);
+  --bs-list-group-active-border-color: var(--navix-primary);
+  --bs-list-group-active-color: var(--navix-text-inverse);
+
+  /* Tableaux */
+  --bs-table-color: var(--navix-text-primary);
+  --bs-table-color-state: var(--navix-text-primary);
+  --bs-table-border-color: var(--navix-border-color);
+  --bs-table-striped-bg: rgba(var(--navix-text-primary-rgb), 0.03);
+  --bs-table-hover-bg: rgba(var(--navix-text-primary-rgb), 0.05);
+  --bs-table-active-bg: rgba(var(--navix-text-primary-rgb), 0.08);
+
+  /* Alertes */
+  --bs-alert-bg: var(--navix-card);
+  --bs-alert-border-color: var(--navix-border-color);
+  --bs-alert-color: var(--navix-text-primary);
+
+  /* Champs de formulaire */
+  --bs-form-control-bg: var(--navix-surface);
+  --bs-form-control-color: var(--navix-text-primary);
+  --bs-form-control-border-color: var(--navix-border-color);
+  --bs-form-control-disabled-bg: var(--navix-muted-bg);
+  --bs-form-control-disabled-color: var(--navix-text-disabled);
+  --bs-input-bg: var(--navix-surface);
+  --bs-input-color: var(--navix-text-primary);
+  --bs-input-border-color: var(--navix-border-color);
+  --bs-input-focus-border-color: var(--navix-primary);
+  --bs-input-group-addon-bg: var(--navix-surface);
+  --bs-form-check-input-border-color: var(--navix-border-color-strong);
+  --bs-form-check-input-checked-bg-color: var(--navix-primary);
+  --bs-form-check-input-checked-border-color: var(--navix-primary);
+  --bs-form-range-thumb-bg: var(--navix-primary);
+  --bs-form-range-thumb-active-bg: var(--navix-primary-hover);
+
+  /* Progression */
+  --bs-progress-bg: var(--navix-muted-bg);
+
+  /* Info-bulles & popovers */
+  --bs-tooltip-bg: var(--navix-raised);
+  --bs-tooltip-color: var(--navix-text-primary);
+  --bs-popover-bg: var(--navix-raised);
+  --bs-popover-color: var(--navix-text-primary);
+  --bs-popover-border-color: var(--navix-border-color);
+  --bs-popover-header-bg: var(--navix-raised);
+  --bs-popover-body-color: var(--navix-text-primary);
+
+  /* Pagination */
+  --bs-pagination-bg: var(--navix-surface);
+  --bs-pagination-color: var(--navix-text-secondary);
+  --bs-pagination-border-color: var(--navix-border-color);
+  --bs-pagination-hover-bg: var(--navix-hover);
+  --bs-pagination-hover-color: var(--navix-text-primary);
+  --bs-pagination-active-bg: var(--navix-primary);
+  --bs-pagination-active-border-color: var(--navix-primary);
+  --bs-pagination-active-color: var(--navix-text-inverse);
+
+  /* Boutons */
+  --bs-btn-border-radius: var(--navix-radius-md);
+  --bs-btn-color: var(--navix-text-primary);
+  --bs-btn-transition:
+    color var(--navix-transition-fast) var(--navix-ease-out),
+    background-color var(--navix-transition-fast) var(--navix-ease-out),
+    border-color var(--navix-transition-fast) var(--navix-ease-out),
+    box-shadow var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+/* --------------------------------------------------------------------------
+   9. Boutons
+   -------------------------------------------------------------------------- */
+.btn {
+  border-radius: var(--navix-radius-md);
+  font-weight: var(--navix-font-weight-medium);
+  transition: var(--bs-btn-transition);
+}
+
+.btn:active,
+.btn.active {
+  transform: translateY(1px);
+}
+
+/* Primary */
+.btn-primary {
+  --bs-btn-bg: var(--navix-primary);
+  --bs-btn-border-color: var(--navix-primary);
+  --bs-btn-hover-bg: var(--navix-primary-hover);
+  --bs-btn-hover-border-color: var(--navix-primary-hover);
+  --bs-btn-active-bg: var(--navix-primary-active);
+  --bs-btn-active-border-color: var(--navix-primary-active);
+  --bs-btn-disabled-bg: var(--navix-primary);
+  --bs-btn-disabled-border-color: var(--navix-primary);
+  --bs-btn-color: var(--navix-text-inverse);
+  --bs-btn-hover-color: var(--navix-text-inverse);
+  --bs-btn-active-color: var(--navix-text-inverse);
+  --bs-btn-focus-shadow-rgb: var(--navix-primary-rgb);
+}
+
+/* Outline primary */
+.btn-outline-primary {
+  --bs-btn-color: var(--navix-primary);
+  --bs-btn-border-color: var(--navix-primary);
+  --bs-btn-hover-bg: var(--navix-primary);
+  --bs-btn-hover-border-color: var(--navix-primary);
+  --bs-btn-hover-color: var(--navix-text-inverse);
+  --bs-btn-active-bg: var(--navix-primary-active);
+  --bs-btn-active-border-color: var(--navix-primary-active);
+  --bs-btn-active-color: var(--navix-text-inverse);
+  --bs-btn-focus-shadow-rgb: var(--navix-primary-rgb);
+}
+
+/* Secondary */
+.btn-secondary {
+  --bs-btn-bg: var(--navix-secondary);
+  --bs-btn-border-color: var(--navix-secondary);
+  --bs-btn-hover-bg: var(--navix-secondary-hover);
+  --bs-btn-hover-border-color: var(--navix-secondary-hover);
+  --bs-btn-active-bg: var(--navix-secondary-hover);
+  --bs-btn-active-border-color: var(--navix-secondary-hover);
+  --bs-btn-color: var(--navix-text-inverse);
+  --bs-btn-hover-color: var(--navix-text-inverse);
+  --bs-btn-active-color: var(--navix-text-inverse);
+  --bs-btn-focus-shadow-rgb: var(--navix-secondary-rgb);
+}
+
+/* Outline secondary */
+.btn-outline-secondary {
+  --bs-btn-color: var(--navix-text-secondary);
+  --bs-btn-border-color: var(--navix-border-color-strong);
+  --bs-btn-hover-bg: var(--navix-hover);
+  --bs-btn-hover-border-color: var(--navix-border-color-hover);
+  --bs-btn-hover-color: var(--navix-text-primary);
+  --bs-btn-active-bg: var(--navix-active);
+  --bs-btn-active-border-color: var(--navix-border-color-hover);
+  --bs-btn-active-color: var(--navix-text-primary);
+  --bs-btn-focus-shadow-rgb: var(--navix-primary-rgb);
+}
+
+/* Success */
+.btn-success {
+  --bs-btn-bg: var(--navix-success);
+  --bs-btn-border-color: var(--navix-success);
+  --bs-btn-hover-bg: var(--navix-success-hover);
+  --bs-btn-hover-border-color: var(--navix-success-hover);
+  --bs-btn-active-bg: var(--navix-success-hover);
+  --bs-btn-active-border-color: var(--navix-success-hover);
+  --bs-btn-color: var(--navix-on-accent);
+  --bs-btn-hover-color: var(--navix-on-accent);
+  --bs-btn-active-color: var(--navix-on-accent);
+  --bs-btn-disabled-color: var(--navix-on-accent);
+  --bs-btn-focus-shadow-rgb: var(--navix-success-rgb);
+}
+
+/* Warning */
+.btn-warning {
+  --bs-btn-bg: var(--navix-warning);
+  --bs-btn-border-color: var(--navix-warning);
+  --bs-btn-hover-bg: var(--navix-warning-hover);
+  --bs-btn-hover-border-color: var(--navix-warning-hover);
+  --bs-btn-active-bg: var(--navix-warning-hover);
+  --bs-btn-active-border-color: var(--navix-warning-hover);
+  --bs-btn-color: var(--navix-on-accent);
+  --bs-btn-hover-color: var(--navix-on-accent);
+  --bs-btn-active-color: var(--navix-on-accent);
+  --bs-btn-disabled-color: var(--navix-on-accent);
+  --bs-btn-focus-shadow-rgb: var(--navix-warning-rgb);
+}
+
+/* Danger */
+.btn-danger {
+  --bs-btn-bg: var(--navix-danger);
+  --bs-btn-border-color: var(--navix-danger);
+  --bs-btn-hover-bg: var(--navix-danger-hover);
+  --bs-btn-hover-border-color: var(--navix-danger-hover);
+  --bs-btn-active-bg: var(--navix-danger-hover);
+  --bs-btn-active-border-color: var(--navix-danger-hover);
+  --bs-btn-color: var(--navix-text-inverse);
+  --bs-btn-hover-color: var(--navix-text-inverse);
+  --bs-btn-active-color: var(--navix-text-inverse);
+  --bs-btn-focus-shadow-rgb: var(--navix-danger-rgb);
+}
+
+/* Info */
+.btn-info {
+  --bs-btn-bg: var(--navix-info);
+  --bs-btn-border-color: var(--navix-info);
+  --bs-btn-hover-bg: var(--navix-info-hover);
+  --bs-btn-hover-border-color: var(--navix-info-hover);
+  --bs-btn-active-bg: var(--navix-info-hover);
+  --bs-btn-active-border-color: var(--navix-info-hover);
+  --bs-btn-color: var(--navix-on-accent);
+  --bs-btn-hover-color: var(--navix-on-accent);
+  --bs-btn-active-color: var(--navix-on-accent);
+  --bs-btn-disabled-color: var(--navix-on-accent);
+  --bs-btn-focus-shadow-rgb: var(--navix-info-rgb);
+}
+
+/* --------------------------------------------------------------------------
+   10. Cartes
+   -------------------------------------------------------------------------- */
+.card {
+  background-color: var(--navix-card);
+  border: 1px solid var(--navix-border-color);
+  box-shadow: var(--navix-shadow-sm);
+  transition:
+    border-color var(--navix-transition-fast) var(--navix-ease-out),
+    box-shadow var(--navix-transition-base) var(--navix-ease-out);
+}
+
+.card:hover {
+  border-color: var(--navix-border-color-strong);
+}
+
+.card-header {
+  background-color: var(--navix-card);
+  border-bottom: 1px solid var(--navix-border-color);
+}
+
+.card-footer {
+  background-color: var(--navix-card);
+  border-top: 1px solid var(--navix-border-color);
+}
+
+/* --------------------------------------------------------------------------
+   11. Navigation (nav, dropdown, pagination, breadcrumb)
+   -------------------------------------------------------------------------- */
+.nav-link {
+  color: var(--navix-text-secondary);
+  transition:
+    color var(--navix-transition-fast) var(--navix-ease-out),
+    background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.nav-link:hover {
+  color: var(--navix-text-primary);
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .nav-link.show {
+  background-color: var(--navix-primary);
+  color: var(--navix-text-inverse);
+}
+
+.dropdown-item {
+  transition:
+    color var(--navix-transition-fast) var(--navix-ease-out),
+    background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.breadcrumb-item.active {
+  color: var(--navix-text-muted);
+}
+
+.breadcrumb-item a {
+  color: var(--navix-text-secondary);
+}
+
+.breadcrumb-item a:hover {
+  color: var(--navix-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   12. Formulaires
+   -------------------------------------------------------------------------- */
+.form-control,
+.form-select {
+  background-color: var(--navix-form-control-bg);
+  border: 1px solid var(--navix-border-color);
+  color: var(--navix-form-control-color);
+  border-radius: var(--navix-radius-md);
+  transition:
+    border-color var(--navix-transition-fast) var(--navix-ease-out),
+    box-shadow var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--navix-primary);
+  box-shadow: var(--navix-shadow-focus);
+}
+
+.form-control::placeholder {
+  color: var(--navix-text-disabled);
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  background-color: var(--navix-muted-bg);
+  color: var(--navix-text-disabled);
+}
+
+.form-check-input {
+  background-color: var(--navix-surface);
+  border: 1px solid var(--navix-border-color-strong);
+}
+
+.form-check-input:checked {
+  background-color: var(--navix-primary);
+  border-color: var(--navix-primary);
+}
+
+.form-check-input:focus {
+  box-shadow: var(--navix-shadow-focus);
+}
+
+/* --------------------------------------------------------------------------
+   13. Tableaux
+   -------------------------------------------------------------------------- */
+.table > thead th {
+  color: var(--navix-text-secondary);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  letter-spacing: var(--navix-letter-spacing-caption);
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   14. Progression
+   -------------------------------------------------------------------------- */
+.progress {
+  background-color: var(--navix-muted-bg);
+}
+
+/* --------------------------------------------------------------------------
+   15. Chrome applicatif (skins)
+   -------------------------------------------------------------------------- */
+.navix-sidebar {
+  background-color: var(--navix-sidebar);
+  border-color: var(--navix-border-color);
+}
+
+.navix-topbar {
+  background-color: var(--navix-navbar);
+  border-color: var(--navix-border-color);
+}

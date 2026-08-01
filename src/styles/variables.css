@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ==========================================================================
+   Navix Management — Design tokens (CSS variables)
+   --------------------------------------------------------------------------
+   Thème SOMBRE par défaut.
+   Toutes les valeurs sont centralisées ici et mutualisées par :
+     - globals.css  → structure (reset, typographie, chrome applicatif)
+     - theme.css    → skin (overrides de Bootstrap)
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* ------------------------------------------------------------------
+     1. Couleurs de marque
+     ------------------------------------------------------------------ */
+
+  /* Primary — bleu moderne (accent principal) */
+  --navix-primary: #4a5df5;
+  --navix-primary-rgb: 74, 93, 245;
+  --navix-primary-hover: #6b7cff;
+  --navix-primary-active: #3b4bd4;
+  --navix-primary-muted: rgba(74, 93, 245, 0.16);
+
+  /* Secondary — ardoise */
+  --navix-secondary: #7c8698;
+  --navix-secondary-rgb: 124, 134, 152;
+  --navix-secondary-hover: #8d97a9;
+
+  /* Success — vert */
+  --navix-success: #3fcb8f;
+  --navix-success-rgb: 63, 203, 143;
+  --navix-success-hover: #56d79f;
+
+  /* Warning — orange */
+  --navix-warning: #f5a524;
+  --navix-warning-rgb: 245, 165, 36;
+  --navix-warning-hover: #f9b94f;
+
+  /* Danger — rouge */
+  --navix-danger: #f0484d;
+  --navix-danger-rgb: 240, 72, 77;
+  --navix-danger-hover: #f46a6e;
+
+  /* Info — bleu ciel */
+  --navix-info: #4da3ff;
+  --navix-info-rgb: 77, 163, 255;
+  --navix-info-hover: #6fb4ff;
+
+  /* ------------------------------------------------------------------
+     2. Échelle de neutres
+     ------------------------------------------------------------------ */
+  --navix-neutral-50: #f5f7fa;
+  --navix-neutral-100: #e7ebf2;
+  --navix-neutral-200: #c4cbd8;
+  --navix-neutral-300: #9aa4b8;
+  --navix-neutral-400: #6b7590;
+  --navix-neutral-500: #4a536b;
+  --navix-neutral-600: #343d52;
+  --navix-neutral-700: #252d40;
+  --navix-neutral-800: #1a2131;
+  --navix-neutral-850: #151b28;
+  --navix-neutral-900: #10141e;
+  --navix-neutral-950: #0b0d14;
+
+  /* ------------------------------------------------------------------
+     3. Fonds
+     ------------------------------------------------------------------ */
+  --navix-background: var(--navix-neutral-950);
+  --navix-background-rgb: 11, 13, 20;
+  --navix-surface: var(--navix-neutral-900);
+  --navix-surface-rgb: 16, 20, 30;
+  --navix-card: var(--navix-neutral-850);
+  --navix-card-rgb: 21, 27, 40;
+  --navix-raised: var(--navix-neutral-800);
+  --navix-raised-rgb: 26, 33, 49;
+  --navix-sidebar: var(--navix-neutral-900);
+  --navix-navbar: var(--navix-neutral-900);
+  --navix-hover: rgba(255, 255, 255, 0.04);
+  --navix-active: rgba(255, 255, 255, 0.08);
+  --navix-muted-bg: rgba(255, 255, 255, 0.03);
+
+  /* ------------------------------------------------------------------
+     4. Textes
+     ------------------------------------------------------------------ */
+  --navix-text-primary: var(--navix-neutral-50);
+  --navix-text-primary-rgb: 245, 247, 250;
+  --navix-text-secondary: var(--navix-neutral-200);
+  --navix-text-secondary-rgb: 196, 203, 216;
+  --navix-text-muted: var(--navix-neutral-300);
+  --navix-text-muted-rgb: 154, 164, 184;
+  --navix-text-disabled: var(--navix-neutral-400);
+  --navix-text-inverse: #ffffff;
+  --navix-on-accent: var(--navix-neutral-950);
+
+  /* ------------------------------------------------------------------
+     5. Bordures
+     ------------------------------------------------------------------ */
+  --navix-border-color: var(--navix-neutral-700);
+  --navix-border-color-rgb: 37, 45, 64;
+  --navix-border-color-strong: var(--navix-neutral-600);
+  --navix-border-color-subtle: var(--navix-neutral-800);
+  --navix-border-color-hover: var(--navix-neutral-500);
+
+  /* ------------------------------------------------------------------
+     6. Ombres
+     ------------------------------------------------------------------ */
+  --navix-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --navix-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
+  --navix-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+  --navix-shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.25);
+  --navix-shadow-focus: 0 0 0 var(--navix-focus-ring-width) var(--navix-focus-ring-color);
+
+  /* ------------------------------------------------------------------
+     7. Rayons de bordure
+     ------------------------------------------------------------------ */
+  --navix-radius-sm: 4px;
+  --navix-radius-md: 6px;
+  --navix-radius-lg: 10px;
+  --navix-radius-xl: 16px;
+  --navix-radius-full: 9999px;
+
+  /* ------------------------------------------------------------------
+     8. Transitions
+     ------------------------------------------------------------------ */
+  --navix-transition-fast: 150ms;
+  --navix-transition-base: 250ms;
+  --navix-transition-slow: 400ms;
+  --navix-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --navix-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --navix-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --navix-transition-hover: var(--navix-transition-fast) var(--navix-ease-out);
+  --navix-transition-focus: var(--navix-transition-fast) var(--navix-ease-out);
+  --navix-transition-active: var(--navix-transition-fast) var(--navix-ease-in);
+  --navix-transition-fade: opacity var(--navix-transition-base) var(--navix-ease-in-out);
+  --navix-transition-scale: transform var(--navix-transition-base) var(--navix-ease-in-out);
+
+  /* ------------------------------------------------------------------
+     9. Z-index
+     ------------------------------------------------------------------ */
+  --navix-z-dropdown: 1000;
+  --navix-z-sticky: 1020;
+  --navix-z-fixed: 1030;
+  --navix-z-offcanvas: 1045;
+  --navix-z-modal-backdrop: 1040;
+  --navix-z-modal: 1050;
+  --navix-z-popover: 1060;
+  --navix-z-tooltip: 1070;
+  --navix-z-toast: 1080;
+
+  /* ------------------------------------------------------------------
+     10. Opacité
+     ------------------------------------------------------------------ */
+  --navix-opacity-0: 0;
+  --navix-opacity-25: 0.25;
+  --navix-opacity-50: 0.5;
+  --navix-opacity-75: 0.75;
+  --navix-opacity-100: 1;
+  --navix-opacity-hover: 0.8;
+  --navix-opacity-disabled: 0.5;
+
+  /* ------------------------------------------------------------------
+     11. Espacements (base 4px)
+     ------------------------------------------------------------------ */
+  --navix-space-unit: 0.25rem;
+  --navix-space-1: 0.25rem; /*   4px */
+  --navix-space-2: 0.5rem; /*    8px */
+  --navix-space-3: 0.75rem; /*  12px */
+  --navix-space-4: 1rem; /*    16px */
+  --navix-space-5: 1.25rem; /*  20px */
+  --navix-space-6: 1.5rem; /*   24px */
+  --navix-space-8: 2rem; /*    32px */
+  --navix-space-10: 2.5rem; /*  40px */
+  --navix-space-12: 3rem; /*   48px */
+  --navix-space-16: 4rem; /*   64px */
+
+  /* ------------------------------------------------------------------
+     12. Breakpoints
+     ------------------------------------------------------------------ */
+  --navix-breakpoint-sm: 576px;
+  --navix-breakpoint-md: 768px;
+  --navix-breakpoint-lg: 992px;
+  --navix-breakpoint-xl: 1200px;
+  --navix-breakpoint-xxl: 1400px;
+
+  /* ------------------------------------------------------------------
+     13. Typographie (Inter)
+     ------------------------------------------------------------------ */
+  --navix-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --navix-font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  --navix-font-size-display: 2.5rem; /*  40px */
+  --navix-font-size-h1: 2rem; /*       32px */
+  --navix-font-size-h2: 1.5rem; /*     24px */
+  --navix-font-size-h3: 1.25rem; /*    20px */
+  --navix-font-size-h4: 1.125rem; /*   18px */
+  --navix-font-size-h5: 1rem; /*       16px */
+  --navix-font-size-base: 0.9375rem; /* 15px */
+  --navix-font-size-sm: 0.8125rem; /*   13px */
+  --navix-font-size-caption: 0.75rem; /* 12px */
+
+  --navix-font-weight-normal: 400;
+  --navix-font-weight-medium: 500;
+  --navix-font-weight-semibold: 600;
+  --navix-font-weight-bold: 700;
+
+  --navix-line-height-tight: 1.2;
+  --navix-line-height-base: 1.5;
+  --navix-line-height-relaxed: 1.6;
+  --navix-line-height-caption: 1.4;
+
+  --navix-letter-spacing-tight: -0.02em;
+  --navix-letter-spacing-normal: 0;
+  --navix-letter-spacing-wide: 0.02em;
+  --navix-letter-spacing-caption: 0.04em;
+
+  /* ------------------------------------------------------------------
+     14. Focus (accessibilité)
+     ------------------------------------------------------------------ */
+  --navix-focus-ring-color: rgba(74, 93, 245, 0.45);
+  --navix-focus-ring-width: 3px;
+  --navix-focus-ring-offset: 2px;
+
+  /* ------------------------------------------------------------------
+     15. Sélection de texte
+     ------------------------------------------------------------------ */
+  --navix-selection-background: rgba(74, 93, 245, 0.3);
+  --navix-selection-color: var(--navix-text-primary);
+
+  /* ------------------------------------------------------------------
+     16. Scrollbar
+     ------------------------------------------------------------------ */
+  --navix-scrollbar-width: 10px;
+  --navix-scrollbar-track: transparent;
+  --navix-scrollbar-thumb: var(--navix-neutral-600);
+  --navix-scrollbar-thumb-hover: var(--navix-neutral-500);
+
+  /* ------------------------------------------------------------------
+     17. Dimensions du chrome applicatif
+     ------------------------------------------------------------------ */
+  --navix-sidebar-width: 16rem;
+  --navix-topbar-height: 3.75rem;
+}
