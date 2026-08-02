@@ -52,7 +52,15 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <PlaceholderPage title="Tableau de bord" icon="bi-speedometer2" />,
+            element: <PlaceholderPage title="Dashboard" icon="bi-speedometer2" />,
+          },
+          {
+            path: 'companies',
+            element: <PlaceholderPage title="Entreprises" icon="bi-buildings" />,
+          },
+          {
+            path: 'agencies',
+            element: <PlaceholderPage title="Agences" icon="bi-diagram-3" />,
           },
           {
             path: 'vehicles',
@@ -60,15 +68,39 @@ const router = createBrowserRouter([
           },
           {
             path: 'drivers',
-            element: <PlaceholderPage title="Conducteurs" icon="bi-person-badge" />,
+            element: <PlaceholderPage title="Chauffeurs" icon="bi-person-badge" />,
+          },
+          {
+            path: 'assignments',
+            element: <PlaceholderPage title="Affectations" icon="bi-shuffle" />,
           },
           {
             path: 'trips',
             element: <PlaceholderPage title="Trajets" icon="bi-signpost-split" />,
           },
           {
+            path: 'fuel',
+            element: <PlaceholderPage title="Carburant" icon="bi-fuel-pump" />,
+          },
+          {
             path: 'maintenance',
-            element: <PlaceholderPage title="Maintenance" icon="bi-wrench-adjustable" />,
+            element: <PlaceholderPage title="Entretiens" icon="bi-wrench-adjustable" />,
+          },
+          {
+            path: 'files',
+            element: <PlaceholderPage title="Documents" icon="bi-folder2-open" />,
+          },
+          {
+            path: 'invoices',
+            element: <PlaceholderPage title="Facturation" icon="bi-receipt" />,
+          },
+          {
+            path: 'subscriptions',
+            element: <PlaceholderPage title="Abonnements" icon="bi-credit-card" />,
+          },
+          {
+            path: 'notifications',
+            element: <PlaceholderPage title="Notifications" icon="bi-bell" />,
           },
           {
             path: 'reports',

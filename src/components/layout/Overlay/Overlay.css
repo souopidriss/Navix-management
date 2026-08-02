@@ -1,0 +1,14 @@
+.navix-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--navix-z-modal-backdrop);
+  background-color: var(--navix-backdrop);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--navix-transition-base) var(--navix-ease-in-out);
+}
+
+.navix-overlay--visible {
+  opacity: 1;
+  pointer-events: auto;
+}

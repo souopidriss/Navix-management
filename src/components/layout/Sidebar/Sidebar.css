@@ -1,0 +1,232 @@
+/* ==========================================================================
+   Navix Sidebar — contenu (logo, navigation, pied)
+   --------------------------------------------------------------------------
+   Le positionnement est assuré par le chrome applicatif :
+     - desktop  : .navix-sidebar (globals.css)  → rail collapsible
+     - mobile   : .navix-mobile-sidebar         → tiroir off-canvas
+   Aucune couleur codée en dur : uniquement les tokens de variables.css.
+   ========================================================================== */
+
+.navix-sidebar__inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  width: 100%;
+}
+
+/* ---- Logo / marque ---------------------------------------------------- */
+.navix-sidebar__brand {
+  display: flex;
+  align-items: center;
+  padding: var(--navix-space-4);
+  border-bottom: 1px solid var(--navix-border-color-subtle);
+}
+
+.navix-sidebar__brand-link {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  color: var(--navix-text-primary);
+  text-decoration: none;
+}
+
+.navix-sidebar__brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: 0 0 2.25rem;
+  border-radius: var(--navix-radius-lg);
+  background: linear-gradient(135deg, var(--navix-primary), var(--navix-info));
+  color: var(--navix-text-inverse);
+  font-size: 1.125rem;
+  box-shadow: var(--navix-shadow-sm);
+}
+
+.navix-sidebar__brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.navix-sidebar__brand-name {
+  font-size: var(--navix-font-size-h5);
+  font-weight: var(--navix-font-weight-bold);
+  letter-spacing: var(--navix-letter-spacing-tight);
+}
+
+.navix-sidebar__brand-tag {
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+  letter-spacing: var(--navix-letter-spacing-caption);
+  text-transform: uppercase;
+}
+
+/* ---- Navigation ------------------------------------------------------- */
+.navix-sidebar__nav {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--navix-space-3);
+}
+
+.navix-sidebar__section {
+  margin-bottom: var(--navix-space-2);
+}
+
+.navix-sidebar__section-label {
+  margin: 0;
+  padding: var(--navix-space-2) var(--navix-space-3) var(--navix-space-1);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  letter-spacing: var(--navix-letter-spacing-caption);
+  text-transform: uppercase;
+  color: var(--navix-text-muted);
+}
+
+.navix-sidebar__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navix-sidebar__item-wrap {
+  display: block;
+}
+
+.navix-sidebar__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  padding: var(--navix-space-2) var(--navix-space-3);
+  border-radius: var(--navix-radius-md);
+  color: var(--navix-text-secondary);
+  font-size: var(--navix-font-size-base);
+  font-weight: var(--navix-font-weight-medium);
+  transition:
+    color var(--navix-transition-fast) var(--navix-ease-out),
+    background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-sidebar__item:hover {
+  background-color: var(--navix-hover);
+  color: var(--navix-text-primary);
+}
+
+.navix-sidebar__item > i {
+  width: 1.25rem;
+  flex: 0 0 1.25rem;
+  font-size: 1.05rem;
+  text-align: center;
+}
+
+.navix-sidebar__item--active {
+  background-color: var(--navix-primary-muted);
+  color: var(--navix-primary);
+}
+
+.navix-sidebar__item--active::before {
+  content: '';
+  position: absolute;
+  top: 25%;
+  bottom: 25%;
+  left: -0.75rem;
+  width: 0.1875rem;
+  border-radius: var(--navix-radius-full);
+  background-color: var(--navix-primary);
+}
+
+.navix-sidebar__label {
+  white-space: nowrap;
+}
+
+.navix-sidebar__badge {
+  margin-left: auto;
+  padding: 0.125rem 0.4375rem;
+  border-radius: var(--navix-radius-full);
+  background-color: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+/* ---- Pied ------------------------------------------------------------- */
+.navix-sidebar__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--navix-space-3) var(--navix-space-4);
+  border-top: 1px solid var(--navix-border-color-subtle);
+  color: var(--navix-text-muted);
+  font-size: var(--navix-font-size-sm);
+}
+
+.navix-sidebar__footer-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  white-space: nowrap;
+}
+
+.navix-sidebar__footer-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--navix-success);
+  box-shadow: 0 0 0 4px rgba(var(--navix-success-rgb), 0.2);
+}
+
+/* ---- Rail réduit (desktop) ------------------------------------------- */
+@media (min-width: 992px) {
+  .navix-sidebar--collapsed {
+    width: var(--navix-sidebar-width-collapsed) !important;
+    flex: 0 0 var(--navix-sidebar-width-collapsed) !important;
+  }
+
+  .navix-sidebar--collapsed .navix-sidebar__brand {
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .navix-sidebar--collapsed .navix-sidebar__nav {
+    padding-inline: var(--navix-space-2);
+  }
+
+  .navix-sidebar--collapsed .navix-sidebar__item {
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .navix-sidebar--collapsed .navix-sidebar__item--active::before {
+    left: -0.5rem;
+  }
+
+  .navix-sidebar--collapsed .navix-sidebar__label,
+  .navix-sidebar--collapsed .navix-sidebar__badge {
+    display: none;
+  }
+
+  .navix-sidebar--collapsed .navix-sidebar__section {
+    margin: var(--navix-space-2) 0;
+    padding-top: var(--navix-space-1);
+    border-top: 1px solid var(--navix-border-color-subtle);
+  }
+
+  .navix-sidebar--collapsed .navix-sidebar__section-label {
+    display: none;
+  }
+
+  .navix-sidebar--collapsed .navix-sidebar__footer {
+    padding-inline: 0;
+  }
+
+  .navix-sidebar--collapsed .navix-sidebar__footer-text {
+    display: none;
+  }
+}

@@ -80,6 +80,7 @@
   --navix-hover: rgba(255, 255, 255, 0.04);
   --navix-active: rgba(255, 255, 255, 0.08);
   --navix-muted-bg: rgba(255, 255, 255, 0.03);
+  --navix-backdrop: rgba(0, 0, 0, 0.55);
 
   /* ------------------------------------------------------------------
      4. Textes
@@ -242,5 +243,6 @@
      17. Dimensions du chrome applicatif
      ------------------------------------------------------------------ */
   --navix-sidebar-width: 16rem;
+  --navix-sidebar-width-collapsed: 4.5rem;
   --navix-topbar-height: 3.75rem;
 }

@@ -1,0 +1,273 @@
+/* ==========================================================================
+   Navix Topbar (Navbar) — barre supérieure du dashboard
+   --------------------------------------------------------------------------
+   Structure : bouton menu, marque (mobile), recherche, fil d'Ariane, actions.
+   Aucune couleur codée en dur : uniquement les tokens de variables.css.
+   ========================================================================== */
+
+.navix-topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding-inline: var(--navix-space-4);
+  border-bottom: 1px solid var(--navix-border-color);
+  background-color: rgba(var(--navix-surface-rgb), 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ---- Boutons icônes --------------------------------------------------- */
+.navix-topbar__toggle,
+.navix-topbar__icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  flex: 0 0 2.375rem;
+  border: none;
+  border-radius: var(--navix-radius-md);
+  background-color: transparent;
+  color: var(--navix-text-secondary);
+  font-size: 1.125rem;
+  transition:
+    background-color var(--navix-transition-fast) var(--navix-ease-out),
+    color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-topbar__toggle:hover,
+.navix-topbar__icon-btn:hover {
+  background-color: var(--navix-hover);
+  color: var(--navix-text-primary);
+}
+
+/* ---- Marque (mobile) -------------------------------------------------- */
+.navix-topbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  color: var(--navix-text-primary);
+  font-weight: var(--navix-font-weight-bold);
+  letter-spacing: var(--navix-letter-spacing-tight);
+  text-decoration: none;
+}
+
+.navix-topbar__brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--navix-radius-md);
+  background: linear-gradient(135deg, var(--navix-primary), var(--navix-info));
+  color: var(--navix-text-inverse);
+  font-size: 0.875rem;
+}
+
+/* ---- Recherche -------------------------------------------------------- */
+.navix-topbar__search {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  width: 15rem;
+  max-width: 100%;
+  height: 2.25rem;
+  padding: 0 var(--navix-space-3);
+  border: 1px solid var(--navix-border-color);
+  border-radius: var(--navix-radius-full);
+  background-color: var(--navix-muted-bg);
+  color: var(--navix-text-muted);
+  transition:
+    border-color var(--navix-transition-fast) var(--navix-ease-out),
+    box-shadow var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-topbar__search:focus-within {
+  border-color: var(--navix-primary);
+  box-shadow: var(--navix-shadow-focus);
+}
+
+.navix-topbar__search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  color: var(--navix-text-primary);
+  font-size: var(--navix-font-size-sm);
+  outline: none;
+}
+
+.navix-topbar__search-input::placeholder {
+  color: var(--navix-text-disabled);
+}
+
+.navix-topbar__search-kbd {
+  padding: 0.125rem 0.375rem;
+  border: 1px solid var(--navix-border-color);
+  border-radius: var(--navix-radius-sm);
+  background-color: var(--navix-surface);
+  color: var(--navix-text-muted);
+  font-family: var(--navix-font-sans);
+  font-size: var(--navix-font-size-caption);
+}
+
+/* ---- Fil d'Ariane ----------------------------------------------------- */
+.navix-topbar__breadcrumb {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---- Actions ---------------------------------------------------------- */
+.navix-topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-1);
+  margin-left: auto;
+}
+
+/* ---- Sélecteur d'entreprise ------------------------------------------- */
+.navix-topbar__company {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-1) var(--navix-space-2);
+  border: none;
+  border-radius: var(--navix-radius-full);
+  background-color: transparent;
+  color: var(--navix-text-primary);
+  transition: background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-topbar__company:hover {
+  background-color: var(--navix-hover);
+}
+
+.navix-topbar__company-name {
+  max-width: 11rem;
+  overflow: hidden;
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navix-topbar__company-caret {
+  color: var(--navix-text-muted);
+  font-size: var(--navix-font-size-caption);
+}
+
+/* ---- Utilisateur ------------------------------------------------------ */
+.navix-topbar__user {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-1) var(--navix-space-2);
+  border: none;
+  border-radius: var(--navix-radius-full);
+  background-color: transparent;
+  color: var(--navix-text-primary);
+  transition: background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-topbar__user:hover {
+  background-color: var(--navix-hover);
+}
+
+.navix-topbar__user-meta {
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+
+.navix-topbar__user-name {
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.navix-topbar__user-role {
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+}
+
+.navix-topbar__user-caret {
+  color: var(--navix-text-muted);
+  font-size: var(--navix-font-size-caption);
+}
+
+/* ---- Menus déroulants ------------------------------------------------- */
+.navix-topbar__menu,
+.navix-topbar__company-menu {
+  min-width: 14rem;
+  padding: var(--navix-space-2);
+  border: 1px solid var(--navix-border-color);
+  border-radius: var(--navix-radius-lg);
+  box-shadow: var(--navix-shadow-lg);
+}
+
+.navix-topbar__notif {
+  width: 19rem;
+  padding: var(--navix-space-2);
+  border: 1px solid var(--navix-border-color);
+  border-radius: var(--navix-radius-lg);
+  box-shadow: var(--navix-shadow-lg);
+}
+
+.navix-topbar__menu-header {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  padding: var(--navix-space-2) var(--navix-space-3);
+}
+
+.navix-topbar__menu-meta {
+  min-width: 0;
+}
+
+.navix-topbar__menu-name {
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.navix-topbar__menu-email {
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+}
+
+.navix-topbar__notif-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--navix-space-2) var(--navix-space-3);
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.navix-topbar__notif-count {
+  padding: 0.125rem 0.4375rem;
+  border-radius: var(--navix-radius-full);
+  background-color: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.navix-topbar__notif-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-6) var(--navix-space-3);
+  text-align: center;
+}
+
+.navix-topbar__notif-empty-icon {
+  color: var(--navix-text-disabled);
+  font-size: 1.75rem;
+}
+
+.navix-topbar__notif-empty-text {
+  margin: 0;
+  color: var(--navix-text-muted);
+  font-size: var(--navix-font-size-sm);
+}

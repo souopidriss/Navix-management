@@ -1,0 +1,16 @@
+.navix-breadcrumb {
+  font-size: var(--navix-font-size-sm);
+}
+
+.navix-breadcrumb .breadcrumb {
+  --bs-breadcrumb-divider: '›';
+  margin-bottom: 0;
+}
+
+.navix-breadcrumb .breadcrumb-item {
+  white-space: nowrap;
+}
+
+.navix-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  color: var(--navix-text-disabled);
+}
