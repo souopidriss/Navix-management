@@ -3,20 +3,40 @@ import { persist } from 'zustand/middleware';
 import config from '@/config';
 import { STORAGE_KEYS, THEME_MODES } from '@/config';
 
+const getSystemTheme = () =>
+  typeof window !== 'undefined' && window.matchMedia?.('(prefers-color-scheme: dark)').matches
+    ? THEME_MODES.DARK
+    : THEME_MODES.LIGHT;
+
 const useThemeStore = create(
   persist(
-    (set, get) => ({
-      mode: config.theme.defaultMode === THEME_MODES.DARK ? THEME_MODES.DARK : THEME_MODES.LIGHT,
+    (set) => ({
+      theme: config.theme.defaultMode,
+      resolvedTheme: getSystemTheme(),
 
-      setMode: (mode) => set({ mode }),
-
-      toggleMode: () =>
-        set({
-          mode: get().mode === THEME_MODES.DARK ? THEME_MODES.LIGHT : THEME_MODES.DARK,
+      setTheme: (theme) =>
+        set((state) => {
+          const next = Object.values(THEME_MODES).includes(theme) ? theme : state.theme;
+          return {
+            theme: next,
+            resolvedTheme: next === THEME_MODES.SYSTEM ? getSystemTheme() : next,
+          };
         }),
+
+      toggleTheme: () =>
+        set((state) => {
+          const next = state.resolvedTheme === THEME_MODES.DARK ? THEME_MODES.LIGHT : THEME_MODES.DARK;
+          return { theme: next, resolvedTheme: next };
+        }),
+
+      initializeTheme: () =>
+        set((state) => ({
+          resolvedTheme: state.theme === THEME_MODES.SYSTEM ? getSystemTheme() : state.theme,
+        })),
     }),
     {
       name: STORAGE_KEYS.THEME,
+      partialize: (state) => ({ theme: state.theme }),
     },
   ),
 );

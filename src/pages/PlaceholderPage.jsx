@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { PageHeader } from '@/components/layout';
+import { PageContainer, PageHeader } from '@/components/layout';
 
 const PlaceholderPage = ({ title, description = 'Ce module est en cours de développement.', icon = 'bi-cone-striped' }) => (
-  <section className="container">
+  <PageContainer>
     <Helmet>
       <title>{title}</title>
     </Helmet>
@@ -13,7 +13,7 @@ const PlaceholderPage = ({ title, description = 'Ce module est en cours de déve
         <p className="text-secondary mt-3 mb-0">{description}</p>
       </div>
     </div>
-  </section>
+  </PageContainer>
 );
 
 export default PlaceholderPage;

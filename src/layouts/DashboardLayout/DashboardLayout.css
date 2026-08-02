@@ -7,13 +7,7 @@
   flex: 1;
 }
 
+/* Le padding et la largeur du contenu sont gérés par PageContainer. */
 .navix-dashboard__main {
   flex: 1;
-  padding: var(--navix-space-6);
-}
-
-@media (max-width: 991.98px) {
-  .navix-dashboard__main {
-    padding: var(--navix-space-4);
-  }
 }

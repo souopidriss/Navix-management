@@ -3,7 +3,16 @@
 /* ==========================================================================
    Navix Management — Design tokens (CSS variables)
    --------------------------------------------------------------------------
-   Thème SOMBRE par défaut.
+   Deux thèmes :
+     - [data-bs-theme="dark"]  → thème SOMBRE (défaut)
+     - [data-bs-theme="light"] → thème CLAIR
+
+   Les tokens invariants (couleurs de marque, neutres, rayons, transitions,
+   espacements, typographie…) vivent dans `:root`.
+
+   Les tokens dépendants du thème (fonds, textes, bordures, ombres…) sont
+   redéfinis dans chaque bloc `[data-bs-theme="…"]`.
+
    Toutes les valeurs sont centralisées ici et mutualisées par :
      - globals.css  → structure (reset, typographie, chrome applicatif)
      - theme.css    → skin (overrides de Bootstrap)
@@ -49,7 +58,7 @@
   --navix-info-hover: #6fb4ff;
 
   /* ------------------------------------------------------------------
-     2. Échelle de neutres
+     2. Échelle de neutres (50 = plus clair → 950 = plus sombre)
      ------------------------------------------------------------------ */
   --navix-neutral-50: #f5f7fa;
   --navix-neutral-100: #e7ebf2;
@@ -65,56 +74,7 @@
   --navix-neutral-950: #0b0d14;
 
   /* ------------------------------------------------------------------
-     3. Fonds
-     ------------------------------------------------------------------ */
-  --navix-background: var(--navix-neutral-950);
-  --navix-background-rgb: 11, 13, 20;
-  --navix-surface: var(--navix-neutral-900);
-  --navix-surface-rgb: 16, 20, 30;
-  --navix-card: var(--navix-neutral-850);
-  --navix-card-rgb: 21, 27, 40;
-  --navix-raised: var(--navix-neutral-800);
-  --navix-raised-rgb: 26, 33, 49;
-  --navix-sidebar: var(--navix-neutral-900);
-  --navix-navbar: var(--navix-neutral-900);
-  --navix-hover: rgba(255, 255, 255, 0.04);
-  --navix-active: rgba(255, 255, 255, 0.08);
-  --navix-muted-bg: rgba(255, 255, 255, 0.03);
-  --navix-backdrop: rgba(0, 0, 0, 0.55);
-
-  /* ------------------------------------------------------------------
-     4. Textes
-     ------------------------------------------------------------------ */
-  --navix-text-primary: var(--navix-neutral-50);
-  --navix-text-primary-rgb: 245, 247, 250;
-  --navix-text-secondary: var(--navix-neutral-200);
-  --navix-text-secondary-rgb: 196, 203, 216;
-  --navix-text-muted: var(--navix-neutral-300);
-  --navix-text-muted-rgb: 154, 164, 184;
-  --navix-text-disabled: var(--navix-neutral-400);
-  --navix-text-inverse: #ffffff;
-  --navix-on-accent: var(--navix-neutral-950);
-
-  /* ------------------------------------------------------------------
-     5. Bordures
-     ------------------------------------------------------------------ */
-  --navix-border-color: var(--navix-neutral-700);
-  --navix-border-color-rgb: 37, 45, 64;
-  --navix-border-color-strong: var(--navix-neutral-600);
-  --navix-border-color-subtle: var(--navix-neutral-800);
-  --navix-border-color-hover: var(--navix-neutral-500);
-
-  /* ------------------------------------------------------------------
-     6. Ombres
-     ------------------------------------------------------------------ */
-  --navix-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
-  --navix-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
-  --navix-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
-  --navix-shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.25);
-  --navix-shadow-focus: 0 0 0 var(--navix-focus-ring-width) var(--navix-focus-ring-color);
-
-  /* ------------------------------------------------------------------
-     7. Rayons de bordure
+     3. Rayons de bordure
      ------------------------------------------------------------------ */
   --navix-radius-sm: 4px;
   --navix-radius-md: 6px;
@@ -123,7 +83,7 @@
   --navix-radius-full: 9999px;
 
   /* ------------------------------------------------------------------
-     8. Transitions
+     4. Transitions
      ------------------------------------------------------------------ */
   --navix-transition-fast: 150ms;
   --navix-transition-base: 250ms;
@@ -138,7 +98,7 @@
   --navix-transition-scale: transform var(--navix-transition-base) var(--navix-ease-in-out);
 
   /* ------------------------------------------------------------------
-     9. Z-index
+     5. Z-index
      ------------------------------------------------------------------ */
   --navix-z-dropdown: 1000;
   --navix-z-sticky: 1020;
@@ -151,7 +111,7 @@
   --navix-z-toast: 1080;
 
   /* ------------------------------------------------------------------
-     10. Opacité
+     6. Opacité
      ------------------------------------------------------------------ */
   --navix-opacity-0: 0;
   --navix-opacity-25: 0.25;
@@ -162,7 +122,7 @@
   --navix-opacity-disabled: 0.5;
 
   /* ------------------------------------------------------------------
-     11. Espacements (base 4px)
+     7. Espacements (base 4px)
      ------------------------------------------------------------------ */
   --navix-space-unit: 0.25rem;
   --navix-space-1: 0.25rem; /*   4px */
@@ -177,7 +137,7 @@
   --navix-space-16: 4rem; /*   64px */
 
   /* ------------------------------------------------------------------
-     12. Breakpoints
+     8. Breakpoints
      ------------------------------------------------------------------ */
   --navix-breakpoint-sm: 576px;
   --navix-breakpoint-md: 768px;
@@ -186,7 +146,7 @@
   --navix-breakpoint-xxl: 1400px;
 
   /* ------------------------------------------------------------------
-     13. Typographie (Inter)
+     9. Typographie (Inter)
      ------------------------------------------------------------------ */
   --navix-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
@@ -219,30 +179,135 @@
   --navix-letter-spacing-caption: 0.04em;
 
   /* ------------------------------------------------------------------
-     14. Focus (accessibilité)
+     10. Focus (accessibilité)
      ------------------------------------------------------------------ */
   --navix-focus-ring-color: rgba(74, 93, 245, 0.45);
   --navix-focus-ring-width: 3px;
   --navix-focus-ring-offset: 2px;
 
   /* ------------------------------------------------------------------
-     15. Sélection de texte
+     11. Sélection de texte
      ------------------------------------------------------------------ */
   --navix-selection-background: rgba(74, 93, 245, 0.3);
   --navix-selection-color: var(--navix-text-primary);
 
   /* ------------------------------------------------------------------
-     16. Scrollbar
+     12. Scrollbar
      ------------------------------------------------------------------ */
   --navix-scrollbar-width: 10px;
   --navix-scrollbar-track: transparent;
-  --navix-scrollbar-thumb: var(--navix-neutral-600);
-  --navix-scrollbar-thumb-hover: var(--navix-neutral-500);
 
   /* ------------------------------------------------------------------
-     17. Dimensions du chrome applicatif
+     13. Dimensions du chrome applicatif
      ------------------------------------------------------------------ */
   --navix-sidebar-width: 16rem;
   --navix-sidebar-width-collapsed: 4.5rem;
   --navix-topbar-height: 3.75rem;
+  --navix-page-max-width: 80rem;
+}
+
+/* ==========================================================================
+   Thème SOMBRE (défaut)
+   ========================================================================== */
+
+[data-bs-theme='dark'] {
+  color-scheme: dark;
+
+  /* Fonds */
+  --navix-background: var(--navix-neutral-950);
+  --navix-background-rgb: 11, 13, 20;
+  --navix-surface: var(--navix-neutral-900);
+  --navix-surface-rgb: 16, 20, 30;
+  --navix-card: var(--navix-neutral-850);
+  --navix-card-rgb: 21, 27, 40;
+  --navix-raised: var(--navix-neutral-800);
+  --navix-raised-rgb: 26, 33, 49;
+  --navix-sidebar: var(--navix-neutral-900);
+  --navix-navbar: var(--navix-neutral-900);
+  --navix-hover: rgba(255, 255, 255, 0.04);
+  --navix-active: rgba(255, 255, 255, 0.08);
+  --navix-muted-bg: rgba(255, 255, 255, 0.03);
+  --navix-backdrop: rgba(0, 0, 0, 0.55);
+
+  /* Textes */
+  --navix-text-primary: var(--navix-neutral-50);
+  --navix-text-primary-rgb: 245, 247, 250;
+  --navix-text-secondary: var(--navix-neutral-200);
+  --navix-text-secondary-rgb: 196, 203, 216;
+  --navix-text-muted: var(--navix-neutral-300);
+  --navix-text-muted-rgb: 154, 164, 184;
+  --navix-text-disabled: var(--navix-neutral-400);
+  --navix-text-inverse: #ffffff;
+  --navix-on-accent: var(--navix-neutral-950);
+
+  /* Bordures */
+  --navix-border-color: var(--navix-neutral-700);
+  --navix-border-color-rgb: 37, 45, 64;
+  --navix-border-color-strong: var(--navix-neutral-600);
+  --navix-border-color-subtle: var(--navix-neutral-800);
+  --navix-border-color-hover: var(--navix-neutral-500);
+
+  /* Ombres */
+  --navix-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --navix-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
+  --navix-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+  --navix-shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.25);
+  --navix-shadow-focus: 0 0 0 var(--navix-focus-ring-width) var(--navix-focus-ring-color);
+
+  /* Scrollbar */
+  --navix-scrollbar-thumb: var(--navix-neutral-600);
+  --navix-scrollbar-thumb-hover: var(--navix-neutral-500);
+}
+
+/* ==========================================================================
+   Thème CLAIR
+   ========================================================================== */
+
+[data-bs-theme='light'] {
+  color-scheme: light;
+
+  /* Fonds */
+  --navix-background: var(--navix-neutral-50);
+  --navix-background-rgb: 245, 247, 250;
+  --navix-surface: var(--navix-neutral-100);
+  --navix-surface-rgb: 231, 235, 242;
+  --navix-card: #ffffff;
+  --navix-card-rgb: 255, 255, 255;
+  --navix-raised: #ffffff;
+  --navix-raised-rgb: 255, 255, 255;
+  --navix-sidebar: var(--navix-neutral-100);
+  --navix-navbar: var(--navix-neutral-100);
+  --navix-hover: rgba(16, 20, 30, 0.04);
+  --navix-active: rgba(16, 20, 30, 0.08);
+  --navix-muted-bg: rgba(16, 20, 30, 0.03);
+  --navix-backdrop: rgba(0, 0, 0, 0.35);
+
+  /* Textes */
+  --navix-text-primary: var(--navix-neutral-900);
+  --navix-text-primary-rgb: 16, 20, 30;
+  --navix-text-secondary: var(--navix-neutral-600);
+  --navix-text-secondary-rgb: 52, 61, 82;
+  --navix-text-muted: var(--navix-neutral-500);
+  --navix-text-muted-rgb: 74, 83, 107;
+  --navix-text-disabled: var(--navix-neutral-400);
+  --navix-text-inverse: #ffffff;
+  --navix-on-accent: var(--navix-neutral-950);
+
+  /* Bordures */
+  --navix-border-color: var(--navix-neutral-200);
+  --navix-border-color-rgb: 196, 203, 216;
+  --navix-border-color-strong: var(--navix-neutral-300);
+  --navix-border-color-subtle: var(--navix-neutral-100);
+  --navix-border-color-hover: var(--navix-neutral-400);
+
+  /* Ombres */
+  --navix-shadow-sm: 0 1px 2px rgba(16, 20, 30, 0.05);
+  --navix-shadow-md: 0 2px 4px rgba(16, 20, 30, 0.04), 0 6px 16px rgba(16, 20, 30, 0.06);
+  --navix-shadow-lg: 0 8px 24px rgba(16, 20, 30, 0.06), 0 2px 8px rgba(16, 20, 30, 0.04);
+  --navix-shadow-xl: 0 16px 48px rgba(16, 20, 30, 0.08), 0 4px 12px rgba(16, 20, 30, 0.04);
+  --navix-shadow-focus: 0 0 0 var(--navix-focus-ring-width) var(--navix-focus-ring-color);
+
+  /* Scrollbar */
+  --navix-scrollbar-thumb: var(--navix-neutral-300);
+  --navix-scrollbar-thumb-hover: var(--navix-neutral-400);
 }

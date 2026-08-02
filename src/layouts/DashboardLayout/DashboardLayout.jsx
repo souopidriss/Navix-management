@@ -4,14 +4,12 @@ import Sidebar from '@/components/layout/Sidebar';
 import MobileSidebar from '@/components/layout/MobileSidebar';
 import Overlay from '@/components/layout/Overlay';
 import { Navbar } from '@/components/layout/Navbar';
-import { useMediaQuery, useTheme } from '@/hooks';
+import { useMediaQuery } from '@/hooks';
 import './DashboardLayout.css';
 
 const DESKTOP_QUERY = '(min-width: 992px)';
 
 const DashboardLayout = () => {
-  useTheme();
-
   const isDesktop = useMediaQuery(DESKTOP_QUERY);
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);

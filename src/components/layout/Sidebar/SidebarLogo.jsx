@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ROUTES } from '@/routes/route.constants';
+import { APP_NAME } from '@/config';
 
 const SidebarLogo = ({ collapsed = false, onNavigate }) => (
   <div className="navix-sidebar__brand">
@@ -7,8 +8,8 @@ const SidebarLogo = ({ collapsed = false, onNavigate }) => (
       to={ROUTES.DASHBOARD}
       className="navix-sidebar__brand-link"
       onClick={onNavigate}
-      aria-label="Navix Management"
-      title={collapsed ? 'Navix Management' : undefined}
+      aria-label={APP_NAME}
+      title={collapsed ? APP_NAME : undefined}
     >
       <span className="navix-sidebar__brand-mark">
         <i className="bi bi-geo-alt-fill" aria-hidden="true" />

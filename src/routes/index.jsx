@@ -1,10 +1,16 @@
+import { lazy } from 'react';
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import { publicRoutes } from './public.routes';
 import { authRoutes } from './auth.routes';
 import { privateRoutes } from './private.routes';
 import { ROUTES } from './route.constants';
-import NotFoundPage from '@/pages/NotFoundPage';
-import UnauthorizedPage from '@/pages/UnauthorizedPage';
+
+/**
+ * Routes racines.
+ * Les pages d'erreur sont également chargées à la demande (React.lazy).
+ */
+const UnauthorizedPage = lazy(() => import('@/pages/UnauthorizedPage'));
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
 
 const router = createBrowserRouter(
   createRoutesFromElements(

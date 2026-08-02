@@ -4,3 +4,4 @@ export { default as Overlay } from './Overlay';
 export { Navbar } from './Navbar';
 export { default as Breadcrumb } from './Breadcrumb';
 export { default as PageHeader } from './PageHeader';
+export { default as PageContainer } from './PageContainer';

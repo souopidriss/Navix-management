@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import useAuthStore from '@/store/auth.store';
+import useAuthStore from '@/features/auth/store/auth.store';
 import { ROUTES } from '@/routes/route.constants';
 import { Avatar } from '@/components/ui';
 
 const UserDropdown = () => {
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
-  const clearAuth = useAuthStore((state) => state.clearAuth);
+  const logout = useAuthStore((state) => state.logout);
 
   const handleLogout = () => {
-    clearAuth();
+    logout();
     navigate(ROUTES.LOGIN);
   };
 

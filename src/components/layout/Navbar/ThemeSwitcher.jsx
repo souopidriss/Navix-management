@@ -1,22 +1,23 @@
-import { useTheme } from '@/hooks';
+import { THEME_MODES } from '@/config';
+import useThemeStore from '@/store/theme.store';
 
 const THEME_OPTIONS = [
-  { value: 'light', label: 'Clair', icon: 'bi-sun' },
-  { value: 'dark', label: 'Sombre', icon: 'bi-moon-stars' },
-  { value: 'system', label: 'Système', icon: 'bi-circle-half' },
+  { value: THEME_MODES.LIGHT, label: 'Clair', icon: 'bi-sun' },
+  { value: THEME_MODES.DARK, label: 'Sombre', icon: 'bi-moon-stars' },
+  { value: THEME_MODES.SYSTEM, label: 'Système', icon: 'bi-circle-half' },
 ];
 
 const ThemeSwitcher = () => {
-  const { mode, setMode } = useTheme();
+  const theme = useThemeStore((state) => state.theme);
+  const resolvedTheme = useThemeStore((state) => state.resolvedTheme);
+  const setTheme = useThemeStore((state) => state.setTheme);
 
-  const handleSelect = (value) => {
-    if (value === 'system') {
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      setMode(prefersDark ? 'dark' : 'light');
-    } else {
-      setMode(value);
-    }
-  };
+  const toggleIcon =
+    theme === THEME_MODES.SYSTEM
+      ? 'bi-circle-half'
+      : resolvedTheme === THEME_MODES.DARK
+        ? 'bi-moon-stars'
+        : 'bi-sun';
 
   return (
     <div className="dropdown">
@@ -27,7 +28,7 @@ const ThemeSwitcher = () => {
         aria-expanded="false"
         aria-label="Changer de thème"
       >
-        <i className={`bi ${mode === 'dark' ? 'bi-moon-stars' : 'bi-sun'}`} aria-hidden="true" />
+        <i className={`bi ${toggleIcon}`} aria-hidden="true" />
       </button>
 
       <div className="dropdown-menu dropdown-menu-end navix-topbar__menu">
@@ -37,11 +38,12 @@ const ThemeSwitcher = () => {
             key={option.value}
             type="button"
             className="dropdown-item d-flex align-items-center gap-2"
-            onClick={() => handleSelect(option.value)}
+            aria-pressed={theme === option.value}
+            onClick={() => setTheme(option.value)}
           >
             <i className={`bi ${option.icon}`} aria-hidden="true" />
             <span className="flex-grow-1">{option.label}</span>
-            {mode === option.value && <i className="bi bi-check-lg" aria-hidden="true" />}
+            {theme === option.value && <i className="bi bi-check-lg" aria-hidden="true" />}
           </button>
         ))}
       </div>

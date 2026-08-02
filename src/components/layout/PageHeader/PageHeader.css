@@ -1,7 +1,4 @@
-.navix-page-header {
-  margin-bottom: var(--navix-space-6);
-}
-
+/* Espacement avec le contenu suivant géré par PageContainer (gap). */
 .navix-page-header__breadcrumb {
   margin-bottom: var(--navix-space-3);
 }

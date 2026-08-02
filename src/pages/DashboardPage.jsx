@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { PageHeader } from '@/components/layout';
+import { PageContainer, PageHeader } from '@/components/layout';
 
 const DashboardPage = () => (
-  <>
+  <PageContainer>
     <Helmet>
       <title>Dashboard</title>
     </Helmet>
@@ -17,7 +17,7 @@ const DashboardPage = () => (
         <p className="text-secondary mt-3 mb-0">Le tableau de bord de gestion de flotte sera développé ici.</p>
       </div>
     </div>
-  </>
+  </PageContainer>
 );
 
 export default DashboardPage;

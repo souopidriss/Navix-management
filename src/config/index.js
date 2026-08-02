@@ -1,17 +1,19 @@
-export { API_ENDPOINTS } from './endpoints';
-export { APP_NAME, STORAGE_KEYS, THEME_MODES } from './constants';
+import { APP_NAME, appConfig } from './app';
+import { API_ENDPOINTS } from './endpoints';
+import { STORAGE_KEYS, THEME_MODES } from './constants';
+
+export { APP_NAME, appConfig };
+export { API_ENDPOINTS };
+export { STORAGE_KEYS, THEME_MODES };
 
 const config = {
-  app: {
-    name: import.meta.env.VITE_APP_NAME || 'Navix Management',
-    env: import.meta.env.VITE_APP_ENV || 'development',
-  },
+  app: appConfig,
   api: {
     baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api',
     timeout: Number(import.meta.env.VITE_API_TIMEOUT) || 15000,
   },
   theme: {
-    defaultMode: import.meta.env.VITE_DEFAULT_THEME || 'light',
+    defaultMode: import.meta.env.VITE_DEFAULT_THEME || 'dark',
   },
 };
 

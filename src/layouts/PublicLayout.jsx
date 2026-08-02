@@ -1,11 +1,9 @@
 import { Link, Outlet } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import { APP_NAME } from '@/config';
 import { ROUTES } from '@/routes/route.constants';
 
 const PublicLayout = () => (
   <div className="d-flex flex-column min-vh-100">
-    <Helmet titleTemplate="%s — Navix Management" defaultTitle="Navix Management" />
-
     <nav className="navbar navbar-expand-lg border-bottom bg-body">
       <div className="container">
         <Link to={ROUTES.HOME} className="navbar-brand fw-bold d-flex align-items-center gap-2">
@@ -29,7 +27,7 @@ const PublicLayout = () => (
     <footer className="border-top bg-body py-4">
       <div className="container d-flex flex-wrap justify-content-between align-items-center gap-2">
         <span className="text-secondary small">
-          © {new Date().getFullYear()} Navix Management. Tous droits réservés.
+          © {new Date().getFullYear()} {APP_NAME}. Tous droits réservés.
         </span>
         <ul className="list-inline mb-0">
           <li className="list-inline-item">

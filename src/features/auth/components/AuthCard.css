@@ -1,0 +1,26 @@
+/* ==========================================================================
+   Navix Auth — AuthCard
+   --------------------------------------------------------------------------
+   Espacement de la coquille d'authentification. Les couleurs proviennent
+   uniquement des tokens (variables.css) ; le corps de la carte est géré
+   par le composant UI Card (padding xl).
+   ========================================================================== */
+
+.navix-auth-card__header {
+  margin-bottom: var(--navix-space-3);
+}
+
+.navix-auth-card__title {
+  margin-bottom: var(--navix-space-1);
+  font-weight: var(--navix-font-weight-bold);
+}
+
+.navix-auth-card__subtitle {
+  margin-bottom: 0;
+}
+
+.navix-auth-card__footer {
+  margin-top: var(--navix-space-4);
+  padding-top: var(--navix-space-3);
+  border-top: 1px solid var(--navix-border-color);
+}

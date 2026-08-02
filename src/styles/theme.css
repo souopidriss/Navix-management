@@ -1,16 +1,19 @@
 /* ==========================================================================
    Navix Management — Theme
    --------------------------------------------------------------------------
-   Thème SOMBRE par défaut.
+   Deux thèmes complets : dark (défaut) et light.
    Les fichiers Bootstrap ne sont pas modifiés : ce fichier ne contient
    que des overrides, réalisés via les variables CSS de Bootstrap (--bs-*)
    et les tokens du Design System (variables.css).
 
-   Le thème clair sera ajouté ultérieurement dans un bloc
-   `[data-bs-theme="light"] { ... }` dédié.
+   Le mapping --bs-* est partagé par les deux thèmes : il référence les
+   tokens --navix-*, dont les valeurs sont redéfinies par thème dans
+   `[data-bs-theme="dark"]` et `[data-bs-theme="light"]`.
    ========================================================================== */
 
-:root {
+:root,
+[data-bs-theme='dark'],
+[data-bs-theme='light'] {
   /* ------------------------------------------------------------------
      1. Couleurs sémantiques Bootstrap
      ------------------------------------------------------------------ */

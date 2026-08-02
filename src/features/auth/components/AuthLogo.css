@@ -1,0 +1,32 @@
+/* ==========================================================================
+   Navix Auth — AuthLogo
+   --------------------------------------------------------------------------
+   Marque d'application (pictogramme + nom). Toutes les couleurs proviennent
+   des tokens (variables.css), fonctionne en thème clair comme sombre.
+   ========================================================================== */
+
+.navix-auth-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+}
+
+.navix-auth-logo__mark {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--navix-radius-lg);
+  background-color: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  font-size: 1.5rem;
+}
+
+.navix-auth-logo__name {
+  color: var(--navix-text-primary);
+  font-size: var(--navix-font-size-h4);
+  font-weight: var(--navix-font-weight-bold);
+  letter-spacing: var(--navix-letter-spacing-tight);
+}

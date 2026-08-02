@@ -1,8 +1,15 @@
+import { lazy } from 'react';
 import { Route } from 'react-router-dom';
 import DashboardLayout from '@/layouts/DashboardLayout';
-import DashboardPage from '@/pages/DashboardPage';
-import PlaceholderPage from '@/pages/PlaceholderPage';
 import { ROUTES } from './route.constants';
+
+/**
+ * Routes privées du Dashboard.
+ * Toutes les pages sont chargées à la demande (React.lazy).
+ * Ajouter une future page : créer le fichier dans src/pages/ puis l'importer ici en lazy.
+ */
+const DashboardPage = lazy(() => import('@/pages/DashboardPage'));
+const PlaceholderPage = lazy(() => import('@/pages/PlaceholderPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
