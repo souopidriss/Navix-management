@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '@/store/auth.store';
+import { ROUTES } from '@/routes/route.constants';
 import { Avatar } from '@/components/ui';
 
 const UserDropdown = () => {
@@ -9,7 +10,7 @@ const UserDropdown = () => {
 
   const handleLogout = () => {
     clearAuth();
-    navigate('/auth/login');
+    navigate(ROUTES.LOGIN);
   };
 
   return (
@@ -41,7 +42,7 @@ const UserDropdown = () => {
         <button
           type="button"
           className="dropdown-item"
-          onClick={() => navigate('/dashboard/settings')}
+          onClick={() => navigate(ROUTES.SETTINGS)}
         >
           <i className="bi bi-gear me-2" aria-hidden="true" />
           Paramètres
@@ -49,7 +50,7 @@ const UserDropdown = () => {
         <button
           type="button"
           className="dropdown-item"
-          onClick={() => navigate('/dashboard/settings')}
+          onClick={() => navigate(ROUTES.PROFILE)}
         >
           <i className="bi bi-person me-2" aria-hidden="true" />
           Profil

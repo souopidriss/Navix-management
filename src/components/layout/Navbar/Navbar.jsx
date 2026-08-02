@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ROUTES } from '@/routes/route.constants';
 import Breadcrumb from '../Breadcrumb';
 import CompanySwitcher from './CompanySwitcher';
 import NotificationDropdown from './NotificationDropdown';
@@ -17,7 +18,7 @@ const Navbar = ({ onMenuClick }) => (
       <i className="bi bi-list" aria-hidden="true" />
     </button>
 
-    <Link to="/dashboard" className="navix-topbar__brand d-lg-none">
+    <Link to={ROUTES.DASHBOARD} className="navix-topbar__brand d-lg-none">
       <span className="navix-topbar__brand-mark">
         <i className="bi bi-geo-alt-fill" aria-hidden="true" />
       </span>

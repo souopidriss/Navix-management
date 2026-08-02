@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
+import { ROUTES } from '@/routes/route.constants';
 
 const SidebarLogo = ({ collapsed = false, onNavigate }) => (
   <div className="navix-sidebar__brand">
     <Link
-      to="/dashboard"
+      to={ROUTES.DASHBOARD}
       className="navix-sidebar__brand-link"
       onClick={onNavigate}
       aria-label="Navix Management"

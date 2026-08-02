@@ -2,23 +2,23 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '@/routes/route.constants';
 
-const NotFoundPage = () => (
+const UnauthorizedPage = () => (
   <section className="d-flex align-items-center justify-content-center min-vh-100 bg-body py-5">
     <Helmet>
-      <title>Page introuvable</title>
+      <title>Accès refusé</title>
     </Helmet>
     <div className="text-center px-3">
       <span
-        className="d-inline-flex align-items-center justify-content-center rounded-circle mb-4 text-secondary"
-        style={{ width: '5rem', height: '5rem', backgroundColor: 'var(--navix-muted-bg)' }}
+        className="d-inline-flex align-items-center justify-content-center rounded-circle mb-4 text-danger"
+        style={{ width: '5rem', height: '5rem', backgroundColor: 'rgba(var(--navix-danger-rgb), 0.12)' }}
         aria-hidden="true"
       >
-        <i className="bi bi-compass fs-1" />
+        <i className="bi bi-shield-lock fs-1" />
       </span>
-      <p className="display-4 fw-bold mb-0">404</p>
-      <h1 className="h5 mt-2 mb-2">Page introuvable</h1>
+      <p className="display-4 fw-bold mb-0">403</p>
+      <h1 className="h5 mt-2 mb-2">Accès refusé</h1>
       <p className="text-secondary mb-4">
-        La page demandée est introuvable ou a été déplacée.
+        Vous n'avez pas les permissions nécessaires pour accéder à cette page.
       </p>
       <div className="d-flex flex-wrap justify-content-center gap-2">
         <Link to={ROUTES.DASHBOARD} className="btn btn-primary">
@@ -34,4 +34,4 @@ const NotFoundPage = () => (
   </section>
 );
 
-export default NotFoundPage;
+export default UnauthorizedPage;
