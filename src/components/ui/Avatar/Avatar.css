@@ -1,0 +1,44 @@
+/* ==========================================================================
+   Navix UI — Avatar
+   --------------------------------------------------------------------------
+   Avatar rond (image, initiales ou icône).
+   Tailles basées sur les tokens d'espacement, couleurs sur les tokens.
+   ========================================================================== */
+
+.navix-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--navix-space-10);
+  height: var(--navix-space-10);
+  border-radius: var(--navix-radius-full);
+  background-color: var(--navix-muted-bg);
+  color: var(--navix-text-secondary);
+  font-weight: var(--navix-font-weight-semibold);
+  font-size: var(--navix-font-size-base);
+  line-height: 1;
+  overflow: hidden;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* Image : remplir la surface */
+img.navix-avatar {
+  object-fit: cover;
+}
+
+/* Tailles */
+.navix-avatar--xs { width: var(--navix-space-6); height: var(--navix-space-6); font-size: var(--navix-font-size-caption); }
+.navix-avatar--sm { width: var(--navix-space-8); height: var(--navix-space-8); font-size: var(--navix-font-size-sm); }
+.navix-avatar--lg { width: var(--navix-space-12); height: var(--navix-space-12); font-size: var(--navix-font-size-h4); }
+.navix-avatar--xl { width: var(--navix-space-16); height: var(--navix-space-16); font-size: var(--navix-font-size-h2); }
+
+/* Variantes de couleur — fond translucide + texte de la couleur du token */
+.navix-avatar--primary { background-color: color-mix(in srgb, var(--navix-primary) 18%, transparent); color: var(--navix-primary); }
+.navix-avatar--secondary { background-color: color-mix(in srgb, var(--navix-secondary) 18%, transparent); color: var(--navix-text-secondary); }
+.navix-avatar--success { background-color: color-mix(in srgb, var(--navix-success) 18%, transparent); color: var(--navix-success); }
+.navix-avatar--danger { background-color: color-mix(in srgb, var(--navix-danger) 18%, transparent); color: var(--navix-danger); }
+.navix-avatar--warning { background-color: color-mix(in srgb, var(--navix-warning) 18%, transparent); color: var(--navix-warning); }
+.navix-avatar--info { background-color: color-mix(in srgb, var(--navix-info) 18%, transparent); color: var(--navix-info); }
+.navix-avatar--light { background-color: var(--navix-neutral-200); color: var(--navix-neutral-900); }
+.navix-avatar--dark { background-color: var(--navix-neutral-800); color: var(--navix-text-primary); }

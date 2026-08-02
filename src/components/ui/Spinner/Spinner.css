@@ -1,0 +1,51 @@
+/* ==========================================================================
+   Navix UI — Spinner
+   --------------------------------------------------------------------------
+   Variantes de taille et de couleur + modes overlay / fullscreen.
+   La couleur par défaut hérite de currentColor (aucune couleur en dur).
+   ========================================================================== */
+
+.navix-spinner {
+  color: currentColor;
+}
+
+/* Couleurs */
+.navix-spinner--primary { color: var(--navix-primary); }
+.navix-spinner--secondary { color: var(--navix-text-secondary); }
+.navix-spinner--success { color: var(--navix-success); }
+.navix-spinner--danger { color: var(--navix-danger); }
+.navix-spinner--warning { color: var(--navix-warning); }
+.navix-spinner--info { color: var(--navix-info); }
+.navix-spinner--light { color: var(--navix-text-primary); }
+.navix-spinner--dark { color: var(--navix-neutral-400); }
+
+/* Taille lg — via les variables Bootstrap --bs-spinner-* */
+.spinner-border.navix-spinner--lg,
+.spinner-grow.navix-spinner--lg {
+  --bs-spinner-width: 3rem;
+  --bs-spinner-height: 3rem;
+}
+
+.spinner-border.navix-spinner--lg {
+  --bs-spinner-border-width: 0.35em;
+}
+
+/* Superposition : centré sur le conteneur parent (position:relative) */
+.navix-spinner__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: var(--navix-z-sticky);
+  display: grid;
+  place-items: center;
+  background-color: rgba(var(--navix-background-rgb), 0.6);
+}
+
+/* Plein écran */
+.navix-spinner__fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: var(--navix-z-modal);
+  display: grid;
+  place-items: center;
+  background-color: rgba(var(--navix-background-rgb), 0.85);
+}

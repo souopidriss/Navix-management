@@ -1,0 +1,77 @@
+/* ==========================================================================
+   Navix UI — Alert
+   --------------------------------------------------------------------------
+   Message contextuel avec bordure d'accent, icône et fermeture animée.
+   Les couleurs passent par les tokens (variables.css) via des propriétés
+   personnalisées --navix-alert-* : aucune couleur n'est codée en dur.
+   ========================================================================== */
+
+.navix-alert {
+  --navix-alert-color: var(--navix-text-primary);
+  --navix-alert-bg: var(--navix-card);
+  --navix-alert-accent: var(--navix-border-color);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--navix-space-3);
+  padding: var(--navix-space-4);
+  border: 1px solid var(--navix-border-color);
+  border-left: 3px solid var(--navix-alert-accent);
+  border-radius: var(--navix-radius-lg);
+  background-color: var(--navix-alert-bg);
+  color: var(--navix-alert-color);
+  transition:
+    opacity var(--navix-transition-base) var(--navix-ease-in-out),
+    transform var(--navix-transition-base) var(--navix-ease-in-out);
+}
+
+/* Icône */
+.navix-alert > .bi {
+  flex-shrink: 0;
+  margin-top: calc(var(--navix-space-1) / 4);
+  color: var(--navix-alert-accent);
+  font-size: var(--navix-font-size-h4);
+  line-height: 1;
+}
+
+/* Corps */
+.navix-alert__body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Bouton de fermeture personnalisé (l'icône hérite de currentColor) */
+.navix-alert__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--navix-space-6);
+  height: var(--navix-space-6);
+  padding: 0;
+  border: 0;
+  border-radius: var(--navix-radius-md);
+  background: transparent;
+  color: var(--navix-text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    color var(--navix-transition-fast) var(--navix-ease-out),
+    background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-alert__close:hover {
+  background-color: var(--navix-hover);
+  color: var(--navix-text-primary);
+}
+
+/* Variantes — accent et fond teinté via tokens */
+.navix-alert--success { --navix-alert-accent: var(--navix-success); --navix-alert-bg: color-mix(in srgb, var(--navix-success) 12%, var(--navix-card)); }
+.navix-alert--warning { --navix-alert-accent: var(--navix-warning); --navix-alert-bg: color-mix(in srgb, var(--navix-warning) 12%, var(--navix-card)); }
+.navix-alert--danger { --navix-alert-accent: var(--navix-danger); --navix-alert-bg: color-mix(in srgb, var(--navix-danger) 12%, var(--navix-card)); }
+.navix-alert--info { --navix-alert-accent: var(--navix-info); --navix-alert-bg: color-mix(in srgb, var(--navix-info) 12%, var(--navix-card)); }
+.navix-alert--primary { --navix-alert-accent: var(--navix-primary); --navix-alert-bg: color-mix(in srgb, var(--navix-primary) 12%, var(--navix-card)); }
+
+/* Sortie animée */
+.navix-alert--leaving {
+  opacity: var(--navix-opacity-0);
+  transform: translateX(var(--navix-space-2));
+}

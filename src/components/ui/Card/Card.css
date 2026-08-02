@@ -1,0 +1,93 @@
+/* ==========================================================================
+   Navix UI — Card
+   --------------------------------------------------------------------------
+   Carte SaaS (sans la classe Bootstrap .card pour éviter toute collision) :
+     - en-tête / corps / pied
+     - variations : borderless, hoverable, ombres, padding
+   Toutes les couleurs proviennent des tokens (variables.css).
+   ========================================================================== */
+
+.navix-card {
+  --navix-card-padding: var(--navix-space-4);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background-color: var(--navix-card);
+  border: 1px solid var(--navix-border-color);
+  border-radius: var(--navix-radius-lg);
+  box-shadow: var(--navix-shadow-sm);
+}
+
+/* Sans bordure */
+.navix-card--borderless {
+  border: 0;
+}
+
+/* Carte interactive : élévation au survol */
+.navix-card--hoverable {
+  transition:
+    border-color var(--navix-transition-fast) var(--navix-ease-out),
+    box-shadow var(--navix-transition-base) var(--navix-ease-out),
+    transform var(--navix-transition-base) var(--navix-ease-out);
+}
+
+.navix-card--hoverable:hover {
+  border-color: var(--navix-border-color-hover);
+  box-shadow: var(--navix-shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Ombres explicites */
+.navix-card--shadow-none { box-shadow: none; }
+.navix-card--shadow-sm { box-shadow: var(--navix-shadow-sm); }
+.navix-card--shadow-md { box-shadow: var(--navix-shadow-md); }
+.navix-card--shadow-lg { box-shadow: var(--navix-shadow-lg); }
+.navix-card--shadow-xl { box-shadow: var(--navix-shadow-xl); }
+
+/* En-tête : titre + sous-titre + actions */
+.navix-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--navix-space-4);
+  padding: var(--navix-card-padding);
+  border-bottom: 1px solid var(--navix-border-color);
+}
+
+.navix-card__title {
+  margin: 0;
+  color: var(--navix-text-primary);
+  font-size: var(--navix-font-size-h5);
+  font-weight: var(--navix-font-weight-semibold);
+  line-height: var(--navix-line-height-tight);
+}
+
+.navix-card__subtitle {
+  margin: calc(var(--navix-space-1) / 2) 0 0;
+  color: var(--navix-text-muted);
+  font-size: var(--navix-font-size-sm);
+}
+
+.navix-card__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  flex-shrink: 0;
+}
+
+/* Corps */
+.navix-card__body {
+  padding: var(--navix-card-padding);
+}
+
+.navix-card__body--flush {
+  padding: 0;
+}
+
+/* Pied */
+.navix-card__footer {
+  padding: var(--navix-space-3) var(--navix-card-padding);
+  border-top: 1px solid var(--navix-border-color);
+  background-color: transparent;
+}

@@ -1,0 +1,17 @@
+/* ==========================================================================
+   Navix UI — Tooltip
+   --------------------------------------------------------------------------
+   Finitions de l'info-bulle Bootstrap : contenu aéré, bordure cohérente
+   avec le thème. Le fond et la couleur proviennent déjà de --bs-tooltip-bg
+   / --bs-tooltip-color (theme.css).
+   ========================================================================== */
+
+.tooltip.navix-tooltip .tooltip-inner {
+  max-width: 320px;
+  padding: var(--navix-space-2) var(--navix-space-3);
+  border: 1px solid var(--navix-border-color);
+  border-radius: var(--navix-radius-md);
+  font-size: var(--navix-font-size-sm);
+  line-height: var(--navix-line-height-base);
+  text-align: left;
+}

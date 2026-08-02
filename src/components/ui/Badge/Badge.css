@@ -1,0 +1,60 @@
+/* ==========================================================================
+   Navix UI — Badge
+   --------------------------------------------------------------------------
+   Étiquette de statut sur la base Bootstrap .badge.
+   Les overrides passent par les variables --bs-badge-* et des sélecteurs
+   à double classe pour l'emporter dans la cascade, quel que soit l'ordre
+   d'import des feuilles de style.
+   ========================================================================== */
+
+/* Base : pilule, contenu centré, poids semi-gras */
+.badge.navix-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  --bs-badge-border-radius: var(--navix-radius-full);
+  --bs-badge-font-weight: var(--navix-font-weight-semibold);
+}
+
+/* Tailles */
+.badge.navix-badge--sm {
+  --bs-badge-font-size: var(--navix-font-size-caption);
+  --bs-badge-padding-y: calc(var(--navix-space-1) / 2);
+  --bs-badge-padding-x: var(--navix-space-2);
+}
+
+.badge.navix-badge--lg {
+  --bs-badge-font-size: var(--navix-font-size-base);
+  --bs-badge-padding-y: var(--navix-space-2);
+  --bs-badge-padding-x: var(--navix-space-4);
+}
+
+/* Variantes solides */
+.badge.navix-badge--primary { --bs-badge-color: var(--navix-text-inverse); background-color: var(--navix-primary); }
+.badge.navix-badge--secondary { --bs-badge-color: var(--navix-text-inverse); background-color: var(--navix-secondary); }
+.badge.navix-badge--success { --bs-badge-color: var(--navix-on-accent); background-color: var(--navix-success); }
+.badge.navix-badge--warning { --bs-badge-color: var(--navix-on-accent); background-color: var(--navix-warning); }
+.badge.navix-badge--info { --bs-badge-color: var(--navix-on-accent); background-color: var(--navix-info); }
+.badge.navix-badge--danger { --bs-badge-color: var(--navix-text-inverse); background-color: var(--navix-danger); }
+.badge.navix-badge--dark { --bs-badge-color: var(--navix-text-primary); background-color: var(--navix-neutral-800); }
+.badge.navix-badge--light { --bs-badge-color: var(--navix-neutral-900); background-color: var(--navix-neutral-200); }
+
+/* Variantes douces (translucides) */
+.badge.navix-badge--soft { --bs-badge-color: var(--navix-text-secondary); background-color: var(--navix-muted-bg); }
+.badge.navix-badge--soft.navix-badge--primary { --bs-badge-color: var(--navix-primary); background-color: color-mix(in srgb, var(--navix-primary) 16%, transparent); }
+.badge.navix-badge--soft.navix-badge--secondary { --bs-badge-color: var(--navix-text-secondary); background-color: color-mix(in srgb, var(--navix-secondary) 16%, transparent); }
+.badge.navix-badge--soft.navix-badge--success { --bs-badge-color: var(--navix-success); background-color: color-mix(in srgb, var(--navix-success) 16%, transparent); }
+.badge.navix-badge--soft.navix-badge--warning { --bs-badge-color: var(--navix-warning); background-color: color-mix(in srgb, var(--navix-warning) 16%, transparent); }
+.badge.navix-badge--soft.navix-badge--info { --bs-badge-color: var(--navix-info); background-color: color-mix(in srgb, var(--navix-info) 16%, transparent); }
+.badge.navix-badge--soft.navix-badge--danger { --bs-badge-color: var(--navix-danger); background-color: color-mix(in srgb, var(--navix-danger) 16%, transparent); }
+.badge.navix-badge--soft.navix-badge--dark { --bs-badge-color: var(--navix-text-primary); background-color: var(--navix-muted-bg); }
+.badge.navix-badge--soft.navix-badge--light { --bs-badge-color: var(--navix-text-secondary); background-color: var(--navix-muted-bg); }
+
+/* Point de statut */
+.navix-badge__dot {
+  width: calc(var(--navix-space-1) * 1.5);
+  height: calc(var(--navix-space-1) * 1.5);
+  border-radius: var(--navix-radius-full);
+  background-color: currentColor;
+  flex-shrink: 0;
+}

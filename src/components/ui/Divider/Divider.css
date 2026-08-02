@@ -1,0 +1,49 @@
+/* ==========================================================================
+   Navix UI — Divider
+   --------------------------------------------------------------------------
+   Séparateur horizontal / vertical / à libellé centré.
+   Couleur via les tokens de bordure (variables.css).
+   ========================================================================== */
+
+.navix-divider {
+  display: block;
+  height: 1px;
+  margin: var(--navix-space-4) 0;
+  background-color: var(--navix-border-color);
+}
+
+/* Vertical — adapté aux conteneurs flex (align-self: stretch) */
+.navix-divider--vertical {
+  display: inline-block;
+  width: 1px;
+  height: auto;
+  margin: 0 var(--navix-space-3);
+  background-color: var(--navix-border-color);
+  align-self: stretch;
+}
+
+/* Horizontal avec libellé centré */
+.navix-divider--text {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-4);
+  height: auto;
+  margin: var(--navix-space-5) 0;
+  background-color: transparent;
+}
+
+.navix-divider__line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--navix-border-color);
+}
+
+.navix-divider__content {
+  color: var(--navix-text-muted);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-medium);
+  letter-spacing: var(--navix-letter-spacing-caption);
+  line-height: var(--navix-line-height-caption);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
