@@ -40,6 +40,7 @@ export const API_ENDPOINTS = {
   },
   FUEL: {
     LIST: '/fuel',
+    DETAIL: (id) => `/fuel/${id}`,
     STATS: '/fuel/stats',
   },
   MAINTENANCE: {

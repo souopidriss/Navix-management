@@ -43,6 +43,8 @@ export const PERMISSIONS = {
   /* Carburant */
   FUEL_READ: 'fuel.read',
   FUEL_CREATE: 'fuel.create',
+  FUEL_UPDATE: 'fuel.update',
+  FUEL_DELETE: 'fuel.delete',
 
   /* Entretiens / maintenance */
   MAINTENANCE_READ: 'maintenance.read',

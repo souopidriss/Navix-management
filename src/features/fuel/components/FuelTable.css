@@ -1,0 +1,70 @@
+.navix-fuel-table__date {
+  white-space: nowrap;
+}
+
+.navix-fuel-table__link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bs-emphasis-color);
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navix-fuel-table__link:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+.navix-fuel-table__date-sub {
+  display: block;
+  font-size: var(--navix-font-size-sm, 0.75rem);
+  font-weight: 400;
+  color: var(--bs-secondary-color);
+  white-space: nowrap;
+}
+
+.navix-fuel-table__vehicle {
+  max-width: 11rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.navix-fuel-table__vehicle-sub {
+  display: block;
+  font-size: var(--navix-font-size-sm, 0.75rem);
+  font-weight: 400;
+  color: var(--bs-secondary-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navix-fuel-table__driver,
+.navix-fuel-table__num {
+  white-space: nowrap;
+}
+
+.navix-fuel-table__amount {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.navix-fuel-table__station {
+  min-width: 10rem;
+}
+
+.navix-fuel-table__anomaly {
+  margin-left: 0.375rem;
+  color: var(--bs-warning);
+}
+
+@media (max-width: 991.98px) {
+  .navix-fuel-table {
+    display: none;
+  }
+}

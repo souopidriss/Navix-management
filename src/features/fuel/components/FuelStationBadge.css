@@ -1,0 +1,40 @@
+.navix-fuel-station {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.navix-fuel-station__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--bs-primary);
+  background: var(--bs-primary-bg-subtle);
+  flex-shrink: 0;
+}
+
+.navix-fuel-station__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.navix-fuel-station__name {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navix-fuel-station__city {
+  font-size: var(--navix-font-size-sm, 0.75rem);
+  color: var(--bs-secondary-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

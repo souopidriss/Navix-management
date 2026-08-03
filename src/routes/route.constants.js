@@ -45,6 +45,10 @@ export const ROUTES = {
   TRIPS_EDIT: '/dashboard/trips/:id/edit',
   TRIPS_HISTORY: '/dashboard/trips/history',
   FUEL: '/dashboard/fuel',
+  FUEL_CREATE: '/dashboard/fuel/new',
+  FUEL_DETAIL: '/dashboard/fuel/:id',
+  FUEL_EDIT: '/dashboard/fuel/:id/edit',
+  FUEL_STATISTICS: '/dashboard/fuel/statistics',
   ENTRETIENS: '/dashboard/maintenance',
   FILES: '/dashboard/files',
   INVOICES: '/dashboard/invoices',
@@ -88,6 +92,12 @@ export const tripDetailPath = (id) => `${ROUTES.TRIPS}/${id}`;
 /** Construit le chemin d'édition d'un trajet. */
 export const tripEditPath = (id) => `${ROUTES.TRIPS}/${id}/edit`;
 
+/** Construit le chemin de détail d'un plein de carburant. */
+export const fuelDetailPath = (id) => `${ROUTES.FUEL}/${id}`;
+
+/** Construit le chemin d'édition d'un plein de carburant. */
+export const fuelEditPath = (id) => `${ROUTES.FUEL}/${id}/edit`;
+
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.COMPANIES,
@@ -114,6 +124,10 @@ export const PRIVATE_ROUTES = [
   ROUTES.TRIPS_EDIT,
   ROUTES.TRIPS_HISTORY,
   ROUTES.FUEL,
+  ROUTES.FUEL_CREATE,
+  ROUTES.FUEL_DETAIL,
+  ROUTES.FUEL_EDIT,
+  ROUTES.FUEL_STATISTICS,
   ROUTES.ENTRETIENS,
   ROUTES.FILES,
   ROUTES.INVOICES,

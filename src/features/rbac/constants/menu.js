@@ -93,6 +93,18 @@ export const ROUTE_META = {
   [ROUTES.FUEL]: {
     requiredPermissions: [PERMISSIONS.FUEL_READ],
   },
+  [ROUTES.FUEL_CREATE]: {
+    requiredPermissions: [PERMISSIONS.FUEL_CREATE],
+  },
+  [ROUTES.FUEL_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.FUEL_READ],
+  },
+  [ROUTES.FUEL_EDIT]: {
+    requiredPermissions: [PERMISSIONS.FUEL_UPDATE],
+  },
+  [ROUTES.FUEL_STATISTICS]: {
+    requiredPermissions: [PERMISSIONS.FUEL_READ],
+  },
   [ROUTES.ENTRETIENS]: {
     requiredPermissions: [PERMISSIONS.MAINTENANCE_READ],
   },

@@ -32,6 +32,11 @@ const TripDetailsPage = lazy(() => import('@/features/trips/pages/TripDetailsPag
 const TripCreatePage = lazy(() => import('@/features/trips/pages/TripCreatePage'));
 const TripEditPage = lazy(() => import('@/features/trips/pages/TripEditPage'));
 const TripHistoryPage = lazy(() => import('@/features/trips/pages/TripHistoryPage'));
+const FuelListPage = lazy(() => import('@/features/fuel/pages/FuelListPage'));
+const FuelDetailsPage = lazy(() => import('@/features/fuel/pages/FuelDetailsPage'));
+const FuelCreatePage = lazy(() => import('@/features/fuel/pages/FuelCreatePage'));
+const FuelEditPage = lazy(() => import('@/features/fuel/pages/FuelEditPage'));
+const FuelStatisticsPage = lazy(() => import('@/features/fuel/pages/FuelStatisticsPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -59,7 +64,11 @@ export const dashboardRoutes = (
     <Route path={ROUTES.TRIPS_DETAIL} element={<TripDetailsPage />} />
     <Route path={ROUTES.TRIPS_EDIT} element={<TripEditPage />} />
     <Route path={ROUTES.TRIPS_HISTORY} element={<TripHistoryPage />} />
-    <Route path={ROUTES.FUEL} element={<PlaceholderPage title="Carburant" icon="bi-fuel-pump" />} />
+    <Route path={ROUTES.FUEL} element={<FuelListPage />} />
+    <Route path={ROUTES.FUEL_CREATE} element={<FuelCreatePage />} />
+    <Route path={ROUTES.FUEL_DETAIL} element={<FuelDetailsPage />} />
+    <Route path={ROUTES.FUEL_EDIT} element={<FuelEditPage />} />
+    <Route path={ROUTES.FUEL_STATISTICS} element={<FuelStatisticsPage />} />
     <Route path={ROUTES.ENTRETIENS} element={<PlaceholderPage title="Entretiens" icon="bi-wrench-adjustable" />} />
     <Route path={ROUTES.FILES} element={<PlaceholderPage title="Documents" icon="bi-folder2-open" />} />
     <Route path={ROUTES.INVOICES} element={<PlaceholderPage title="Facturation" icon="bi-receipt" />} />

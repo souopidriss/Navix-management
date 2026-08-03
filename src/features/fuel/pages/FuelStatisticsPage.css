@@ -1,0 +1,47 @@
+.navix-fuel-ranking__rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--bs-primary);
+  background: var(--bs-primary-bg-subtle);
+  flex-shrink: 0;
+}
+
+.navix-fuel-ranking__rank--warning {
+  color: var(--bs-warning);
+  background: var(--bs-warning-bg-subtle);
+}
+
+.navix-fuel-ranking__name {
+  display: block;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navix-fuel-ranking__sub {
+  display: block;
+  font-size: var(--navix-font-size-sm, 0.75rem);
+  color: var(--bs-secondary-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navix-fuel-ranking__value {
+  font-weight: 700;
+  color: var(--bs-emphasis-color);
+  white-space: nowrap;
+}
+
+.navix-fuel-ranking__more {
+  margin-top: 0.75rem;
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+  color: var(--bs-secondary-color);
+}
