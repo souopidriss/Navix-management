@@ -1,0 +1,50 @@
+.navix-assignment-history-table__number {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.navix-assignment-history-table__link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bs-emphasis-color);
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navix-assignment-history-table__link:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+.navix-assignment-history-table__driver,
+.navix-assignment-history-table__date {
+  white-space: nowrap;
+}
+
+.navix-assignment-history-table__vehicle {
+  max-width: 11rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.navix-assignment-history-table__vehicle-sub {
+  display: block;
+  font-size: var(--navix-font-size-sm, 0.75rem);
+  font-weight: 400;
+  color: var(--bs-secondary-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navix-assignment-history-table__company {
+  max-width: 11rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -63,6 +63,18 @@ export const ROUTE_META = {
   [ROUTES.ASSIGNMENTS]: {
     requiredPermissions: [PERMISSIONS.ASSIGNMENTS_READ],
   },
+  [ROUTES.ASSIGNMENTS_CREATE]: {
+    requiredPermissions: [PERMISSIONS.ASSIGNMENTS_CREATE],
+  },
+  [ROUTES.ASSIGNMENTS_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.ASSIGNMENTS_READ],
+  },
+  [ROUTES.ASSIGNMENTS_EDIT]: {
+    requiredPermissions: [PERMISSIONS.ASSIGNMENTS_UPDATE],
+  },
+  [ROUTES.ASSIGNMENTS_HISTORY]: {
+    requiredPermissions: [PERMISSIONS.ASSIGNMENTS_READ],
+  },
   [ROUTES.TRIPS]: {
     requiredPermissions: [PERMISSIONS.TRIPS_READ],
   },

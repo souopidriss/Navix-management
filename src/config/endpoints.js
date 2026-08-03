@@ -28,6 +28,11 @@ export const API_ENDPOINTS = {
     LIST: '/companies',
     DETAIL: (id) => `/companies/${id}`,
   },
+  ASSIGNMENTS: {
+    LIST: '/assignments',
+    DETAIL: (id) => `/assignments/${id}`,
+    HISTORY: '/assignments/history',
+  },
   FUEL: {
     LIST: '/fuel',
     STATS: '/fuel/stats',

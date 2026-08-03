@@ -374,7 +374,7 @@ export const MOCK_VEHICLES = [
     updatedAt: '2026-06-15T08:42:00.000Z',
   },
   {
-    id: '01J9M2N3P4Q5R6S7T8U9V0W1X3',
+    id: '01J9X8Y7Z6A5B4C3D2E1F0G9H8J7K6',
     companyId: '01J8C2D3E4F5G6H7J8K9L0M1N2', // LogiSud
     registrationNumber: 'EF-8821-OP',
     vin: 'KMAZC21A2LZ012345',

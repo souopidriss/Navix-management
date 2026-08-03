@@ -35,6 +35,10 @@ export const ROUTES = {
   DRIVERS_DETAIL: '/dashboard/drivers/:id',
   DRIVERS_EDIT: '/dashboard/drivers/:id/edit',
   ASSIGNMENTS: '/dashboard/assignments',
+  ASSIGNMENTS_CREATE: '/dashboard/assignments/new',
+  ASSIGNMENTS_DETAIL: '/dashboard/assignments/:id',
+  ASSIGNMENTS_EDIT: '/dashboard/assignments/:id/edit',
+  ASSIGNMENTS_HISTORY: '/dashboard/assignments/history',
   TRIPS: '/dashboard/trips',
   FUEL: '/dashboard/fuel',
   ENTRETIENS: '/dashboard/maintenance',
@@ -68,6 +72,12 @@ export const driverDetailPath = (id) => `${ROUTES.DRIVERS}/${id}`;
 /** Construit le chemin d'édition d'un chauffeur. */
 export const driverEditPath = (id) => `${ROUTES.DRIVERS}/${id}/edit`;
 
+/** Construit le chemin de détail d'une affectation. */
+export const assignmentDetailPath = (id) => `${ROUTES.ASSIGNMENTS}/${id}`;
+
+/** Construit le chemin d'édition d'une affectation. */
+export const assignmentEditPath = (id) => `${ROUTES.ASSIGNMENTS}/${id}/edit`;
+
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.COMPANIES,
@@ -84,6 +94,10 @@ export const PRIVATE_ROUTES = [
   ROUTES.DRIVERS_DETAIL,
   ROUTES.DRIVERS_EDIT,
   ROUTES.ASSIGNMENTS,
+  ROUTES.ASSIGNMENTS_CREATE,
+  ROUTES.ASSIGNMENTS_DETAIL,
+  ROUTES.ASSIGNMENTS_EDIT,
+  ROUTES.ASSIGNMENTS_HISTORY,
   ROUTES.TRIPS,
   ROUTES.FUEL,
   ROUTES.ENTRETIENS,
