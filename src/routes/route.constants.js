@@ -31,6 +31,9 @@ export const ROUTES = {
   VEHICLES_DETAIL: '/dashboard/vehicles/:id',
   VEHICLES_EDIT: '/dashboard/vehicles/:id/edit',
   DRIVERS: '/dashboard/drivers',
+  DRIVERS_CREATE: '/dashboard/drivers/new',
+  DRIVERS_DETAIL: '/dashboard/drivers/:id',
+  DRIVERS_EDIT: '/dashboard/drivers/:id/edit',
   ASSIGNMENTS: '/dashboard/assignments',
   TRIPS: '/dashboard/trips',
   FUEL: '/dashboard/fuel',
@@ -59,6 +62,12 @@ export const vehicleDetailPath = (id) => `${ROUTES.VEHICLES}/${id}`;
 /** Construit le chemin d'édition d'un véhicule. */
 export const vehicleEditPath = (id) => `${ROUTES.VEHICLES}/${id}/edit`;
 
+/** Construit le chemin de détail d'un chauffeur. */
+export const driverDetailPath = (id) => `${ROUTES.DRIVERS}/${id}`;
+
+/** Construit le chemin d'édition d'un chauffeur. */
+export const driverEditPath = (id) => `${ROUTES.DRIVERS}/${id}/edit`;
+
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.COMPANIES,
@@ -71,6 +80,9 @@ export const PRIVATE_ROUTES = [
   ROUTES.VEHICLES_DETAIL,
   ROUTES.VEHICLES_EDIT,
   ROUTES.DRIVERS,
+  ROUTES.DRIVERS_CREATE,
+  ROUTES.DRIVERS_DETAIL,
+  ROUTES.DRIVERS_EDIT,
   ROUTES.ASSIGNMENTS,
   ROUTES.TRIPS,
   ROUTES.FUEL,

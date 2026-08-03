@@ -18,6 +18,10 @@ const VehicleListPage = lazy(() => import('@/features/vehicles/pages/VehicleList
 const VehicleDetailsPage = lazy(() => import('@/features/vehicles/pages/VehicleDetailsPage'));
 const VehicleCreatePage = lazy(() => import('@/features/vehicles/pages/VehicleCreatePage'));
 const VehicleEditPage = lazy(() => import('@/features/vehicles/pages/VehicleEditPage'));
+const DriverListPage = lazy(() => import('@/features/drivers/pages/DriverListPage'));
+const DriverDetailsPage = lazy(() => import('@/features/drivers/pages/DriverDetailsPage'));
+const DriverCreatePage = lazy(() => import('@/features/drivers/pages/DriverCreatePage'));
+const DriverEditPage = lazy(() => import('@/features/drivers/pages/DriverEditPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -31,7 +35,10 @@ export const dashboardRoutes = (
     <Route path={ROUTES.VEHICLES_CREATE} element={<VehicleCreatePage />} />
     <Route path={ROUTES.VEHICLES_DETAIL} element={<VehicleDetailsPage />} />
     <Route path={ROUTES.VEHICLES_EDIT} element={<VehicleEditPage />} />
-    <Route path={ROUTES.DRIVERS} element={<PlaceholderPage title="Chauffeurs" icon="bi-person-badge" />} />
+    <Route path={ROUTES.DRIVERS} element={<DriverListPage />} />
+    <Route path={ROUTES.DRIVERS_CREATE} element={<DriverCreatePage />} />
+    <Route path={ROUTES.DRIVERS_DETAIL} element={<DriverDetailsPage />} />
+    <Route path={ROUTES.DRIVERS_EDIT} element={<DriverEditPage />} />
     <Route path={ROUTES.ASSIGNMENTS} element={<PlaceholderPage title="Affectations" icon="bi-shuffle" />} />
     <Route path={ROUTES.TRIPS} element={<PlaceholderPage title="Trajets" icon="bi-signpost-split" />} />
     <Route path={ROUTES.FUEL} element={<PlaceholderPage title="Carburant" icon="bi-fuel-pump" />} />

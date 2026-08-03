@@ -51,6 +51,15 @@ export const ROUTE_META = {
   [ROUTES.DRIVERS]: {
     requiredPermissions: [PERMISSIONS.DRIVERS_READ],
   },
+  [ROUTES.DRIVERS_CREATE]: {
+    requiredPermissions: [PERMISSIONS.DRIVERS_CREATE],
+  },
+  [ROUTES.DRIVERS_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.DRIVERS_READ],
+  },
+  [ROUTES.DRIVERS_EDIT]: {
+    requiredPermissions: [PERMISSIONS.DRIVERS_UPDATE],
+  },
   [ROUTES.ASSIGNMENTS]: {
     requiredPermissions: [PERMISSIONS.ASSIGNMENTS_READ],
   },
