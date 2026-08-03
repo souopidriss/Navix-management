@@ -1,0 +1,111 @@
+/**
+ * Navix Core — FileUploader styles.
+ */
+.navix-uploader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-3);
+}
+
+.navix-uploader__drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-8) var(--navix-space-4);
+  border: 2px dashed var(--navix-border-color);
+  border-radius: var(--navix-radius-lg);
+  background: var(--navix-muted-bg);
+  color: var(--navix-text-secondary);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--navix-transition-hover), background var(--navix-transition-hover);
+}
+
+.navix-uploader__drop:hover,
+.navix-uploader__drop:focus-visible {
+  border-color: var(--navix-primary);
+  background: var(--navix-primary-muted);
+}
+
+.navix-uploader__drop--over {
+  border-color: var(--navix-primary);
+  background: var(--navix-primary-muted);
+}
+
+.navix-uploader__icon {
+  font-size: 2rem;
+  color: var(--navix-text-muted);
+}
+
+.navix-uploader__label {
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--navix-text-primary);
+}
+
+.navix-uploader__hint {
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-muted);
+}
+
+.navix-uploader__error {
+  margin: 0;
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-danger);
+}
+
+.navix-uploader__preview {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+  gap: var(--navix-space-3);
+}
+
+.navix-uploader__file {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  padding: var(--navix-space-2) var(--navix-space-3);
+  background: var(--navix-card);
+  border: 1px solid var(--navix-border-color-subtle);
+  border-radius: var(--navix-radius-md);
+}
+
+.navix-uploader__file .navix-image-preview,
+.navix-uploader__file-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+}
+
+.navix-uploader__file-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: var(--navix-text-muted);
+  background: var(--navix-muted-bg);
+  border-radius: var(--navix-radius-md);
+}
+
+.navix-uploader__file-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 0%;
+}
+
+.navix-uploader__file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-primary);
+}
+
+.navix-uploader__file-size {
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+}

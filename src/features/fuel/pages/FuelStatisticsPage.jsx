@@ -9,8 +9,8 @@
 import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { Alert, Button, Card, Spinner } from '@/components/ui';
-import { PageContainer, PageHeader } from '@/components/layout';
+import { Alert, Button, Card } from '@/components/ui';
+import { PageContainer, PageHeader, StatsCards, LoadingState } from '@/components/core';
 import { ROUTES } from '@/routes/route.constants';
 import { useVehiclesStore } from '@/features/vehicles';
 import { useFuelStore } from '../store';
@@ -20,7 +20,6 @@ import {
   formatFuelQuantity,
   formatFuelConsumption,
 } from '../constants';
-import '../components/FuelStatsCards.css';
 import './FuelStatisticsPage.css';
 
 const FuelStatisticsPage = () => {
@@ -116,27 +115,10 @@ const FuelStatisticsPage = () => {
       )}
 
       {isLoading && !statistics ? (
-        <div className="d-flex justify-content-center py-5">
-          <Spinner size="lg" label="Chargement des statistiques…" />
-        </div>
+        <LoadingState variant="cards" rows={4} label="Chargement des statistiques…" />
       ) : statistics ? (
         <>
-          <div className="row g-3 navix-fuel-stats">
-            {stats.map((stat) => (
-              <div key={stat.key} className="col-6 col-lg-3">
-                <Card className="navix-fuel-stat">
-                  <span className={`navix-fuel-stat__icon navix-fuel-stat__icon--${stat.variant}`} aria-hidden="true">
-                    <i className={`bi ${stat.icon}`} />
-                  </span>
-                  <span className="navix-fuel-stat__body">
-                    <span className="navix-fuel-stat__value">{stat.value}</span>
-                    <span className="navix-fuel-stat__label">{stat.label}</span>
-                  </span>
-                </Card>
-              </div>
-            ))}
-          </div>
-
+          <StatsCards stats={stats} />
           <div className="row g-3">
             <div className="col-lg-6">
               <Card title="Évolution mensuelle — Coût">

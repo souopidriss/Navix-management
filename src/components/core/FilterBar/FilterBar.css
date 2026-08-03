@@ -1,0 +1,92 @@
+/**
+ * Navix Core — FilterBar styles.
+ * Seules les variables CSS du Design System sont utilisées.
+ */
+.navix-filterbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-3);
+}
+
+.navix-filterbar__fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--navix-space-2) var(--navix-space-3);
+}
+
+.navix-filterbar__field {
+  position: relative;
+  min-width: 11rem;
+  max-width: 100%;
+}
+
+.navix-filterbar__field--checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  min-width: auto;
+}
+
+.navix-filterbar__field--checkbox .form-check-input {
+  margin: 0;
+  cursor: pointer;
+}
+
+.navix-filterbar__multi {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--navix-space-2);
+  text-align: left;
+  cursor: pointer;
+}
+
+.navix-filterbar__multi-summary {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navix-filterbar__multi-panel {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  z-index: var(--navix-z-dropdown);
+  min-width: 14rem;
+  max-height: 16rem;
+  overflow-y: auto;
+  padding: var(--navix-space-2);
+  background: var(--navix-card);
+  border: 1px solid var(--navix-border-color);
+  border-radius: var(--navix-radius-md);
+  box-shadow: var(--navix-shadow-md);
+}
+
+.navix-filterbar__multi-option {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: 0.375rem 0.5rem;
+  border-radius: var(--navix-radius-sm);
+  color: var(--navix-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.navix-filterbar__multi-option:hover {
+  background: var(--navix-hover);
+}
+
+.navix-filterbar__multi-option input {
+  margin: 0;
+  flex: none;
+}
+
+.navix-filterbar__multi-option--all {
+  border-bottom: 1px solid var(--navix-border-color-subtle);
+  border-radius: 0;
+  margin-bottom: var(--navix-space-1);
+  padding-bottom: 0.5rem;
+  font-weight: var(--navix-font-weight-semibold);
+}

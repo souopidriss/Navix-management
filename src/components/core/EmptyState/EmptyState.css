@@ -1,0 +1,47 @@
+/**
+ * Navix Core — EmptyState styles.
+ */
+.navix-empty {
+  padding: var(--navix-space-8) var(--navix-space-4);
+  color: var(--navix-text-primary);
+}
+
+.navix-empty--compact {
+  padding: var(--navix-space-6) var(--navix-space-4);
+}
+
+.navix-empty__visual {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin-bottom: var(--navix-space-4);
+  border-radius: var(--navix-radius-full);
+  font-size: 2rem;
+  color: var(--navix-text-muted);
+  background: var(--navix-muted-bg);
+}
+
+.navix-empty__image {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: var(--navix-radius-full);
+  object-fit: cover;
+}
+
+.navix-empty__title {
+  margin-bottom: var(--navix-space-2);
+  font-size: var(--navix-font-size-h4);
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.navix-empty__description {
+  max-width: 32rem;
+  margin: 0 auto var(--navix-space-4);
+  color: var(--navix-text-muted);
+}
+
+.navix-empty__action {
+  margin-top: var(--navix-space-4);
+}

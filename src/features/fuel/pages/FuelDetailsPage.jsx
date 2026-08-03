@@ -10,8 +10,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
-import { Alert, Badge, Button, Card, Spinner } from '@/components/ui';
-import { PageContainer, PageHeader } from '@/components/layout';
+import { Alert, Badge, Button, Card } from '@/components/ui';
+import { PageContainer, PageHeader, LoadingState } from '@/components/core';
 import {
   ROUTES,
   fuelEditPath,
@@ -159,9 +159,7 @@ const FuelDetailsPage = () => {
       />
 
       {isLoading && !fuel ? (
-        <div className="d-flex justify-content-center py-5">
-          <Spinner size="lg" label="Chargement du plein…" />
-        </div>
+        <LoadingState variant="text" lines={6} label="Chargement du plein…" />
       ) : error || !fuel ? (
         <Alert variant="danger" closable onClose={clearError} className="mb-3">
           {error || 'Plein introuvable.'}

@@ -1,47 +1,40 @@
-.navix-fuel-table__date {
-  white-space: nowrap;
-}
-
+/**
+ * Navix Fuel — FuelTable styles (styles de cellules métier uniquement ;
+ * la structure et le thème du tableau proviennent du DataTable core).
+ */
 .navix-fuel-table__link {
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--bs-emphasis-color);
-  font-weight: 600;
+  color: var(--navix-text-primary);
+  font-weight: var(--navix-font-weight-semibold);
   text-align: left;
   text-decoration: none;
   white-space: nowrap;
 }
 
 .navix-fuel-table__link:hover {
-  color: var(--bs-primary);
+  color: var(--navix-primary);
   text-decoration: underline;
 }
 
-.navix-fuel-table__date-sub {
+.navix-fuel-table__date-sub,
+.navix-fuel-table__vehicle-sub {
   display: block;
-  font-size: var(--navix-font-size-sm, 0.75rem);
-  font-weight: 400;
-  color: var(--bs-secondary-color);
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-normal);
+  color: var(--navix-text-muted);
   white-space: nowrap;
 }
 
 .navix-fuel-table__vehicle {
+  display: inline-block;
   max-width: 11rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: 500;
-}
-
-.navix-fuel-table__vehicle-sub {
-  display: block;
-  font-size: var(--navix-font-size-sm, 0.75rem);
-  font-weight: 400;
-  color: var(--bs-secondary-color);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-weight: var(--navix-font-weight-medium);
+  vertical-align: middle;
 }
 
 .navix-fuel-table__driver,
@@ -51,20 +44,15 @@
 
 .navix-fuel-table__amount {
   white-space: nowrap;
-  font-weight: 600;
+  font-weight: var(--navix-font-weight-semibold);
 }
 
 .navix-fuel-table__station {
+  display: inline-block;
   min-width: 10rem;
 }
 
 .navix-fuel-table__anomaly {
   margin-left: 0.375rem;
-  color: var(--bs-warning);
-}
-
-@media (max-width: 991.98px) {
-  .navix-fuel-table {
-    display: none;
-  }
+  color: var(--navix-warning);
 }

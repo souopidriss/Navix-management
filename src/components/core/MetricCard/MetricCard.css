@@ -1,0 +1,105 @@
+/**
+ * Navix Core — MetricCard styles.
+ * Seules les variables CSS du Design System sont utilisées.
+ */
+.navix-metric__card {
+  height: 100%;
+}
+
+.navix-metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-2);
+  color: var(--navix-text-primary);
+}
+
+a.navix-metric.navix-metric--link {
+  text-decoration: none;
+}
+
+a.navix-metric.navix-metric--link:hover {
+  color: var(--navix-text-primary);
+}
+
+.navix-metric__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--navix-space-2);
+}
+
+.navix-metric__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--navix-radius-md);
+  font-size: 1.25rem;
+  color: var(--navix-metric-color, var(--navix-primary));
+  background: var(--navix-metric-bg, var(--navix-primary-muted));
+}
+
+.navix-metric__variation {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--navix-text-secondary);
+  white-space: nowrap;
+}
+
+.navix-metric__value {
+  font-size: var(--navix-font-size-h2);
+  font-weight: var(--navix-font-weight-bold);
+  line-height: var(--navix-line-height-tight);
+  letter-spacing: var(--navix-letter-spacing-tight);
+  color: var(--navix-text-primary);
+}
+
+.navix-metric__label {
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-muted);
+}
+
+.navix-metric__skeleton {
+  width: 6rem;
+  height: 1.4rem;
+}
+
+/* Variantes de couleur (icône + fond) — toutes issues des tokens */
+.navix-metric--primary {
+  --navix-metric-color: var(--navix-primary);
+  --navix-metric-bg: var(--navix-primary-muted);
+}
+
+.navix-metric--success {
+  --navix-metric-color: var(--navix-success);
+  --navix-metric-bg: rgba(var(--navix-success-rgb), 0.14);
+}
+
+.navix-metric--warning {
+  --navix-metric-color: var(--navix-warning);
+  --navix-metric-bg: rgba(var(--navix-warning-rgb), 0.14);
+}
+
+.navix-metric--danger {
+  --navix-metric-color: var(--navix-danger);
+  --navix-metric-bg: rgba(var(--navix-danger-rgb), 0.14);
+}
+
+.navix-metric--info {
+  --navix-metric-color: var(--navix-info);
+  --navix-metric-bg: rgba(var(--navix-info-rgb), 0.14);
+}
+
+.navix-metric--secondary {
+  --navix-metric-color: var(--navix-secondary);
+  --navix-metric-bg: rgba(var(--navix-secondary-rgb), 0.14);
+}
+
+.navix-metric--dark {
+  --navix-metric-color: var(--navix-text-secondary);
+  --navix-metric-bg: var(--navix-muted-bg);
+}

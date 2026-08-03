@@ -9,8 +9,8 @@ import { useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
-import { Alert, Card, Spinner } from '@/components/ui';
-import { PageContainer, PageHeader } from '@/components/layout';
+import { Alert, Card } from '@/components/ui';
+import { PageContainer, PageHeader, LoadingState } from '@/components/core';
 import { ROUTES, fuelDetailPath } from '@/routes/route.constants';
 import { useCompaniesStore } from '@/features/companies';
 import { useVehiclesStore } from '@/features/vehicles';
@@ -88,9 +88,7 @@ const FuelEditPage = () => {
       />
 
       {isLoading && !fuel ? (
-        <div className="d-flex justify-content-center py-5">
-          <Spinner size="lg" label="Chargement du plein…" />
-        </div>
+        <LoadingState variant="form" label="Chargement du plein…" />
       ) : error && !fuel ? (
         <Alert variant="danger" closable onClose={clearError} className="mb-3">
           {error}

@@ -1,20 +1,23 @@
 /**
  * Navix Fuel — FuelTable
  * --------------------------------------------------------------------------
- * Tableau des pleins (affichage desktop) : date, véhicule, chauffeur,
- * station, type, quantité, prix unitaire, montant, consommation moyenne
- * (avec alerte sur consommation anormale), statut et actions (voir,
- * modifier, supprimer).
+ * Tableau des pleins (affichage desktop) construit sur le DataTable générique
+ * de la bibliothèque core : colonnes déclaratives, tri par en-tête, état
+ * chargement (skeleton) et colonne d'actions. Les libellés et badges restent
+ * propres au module.
  *
  * Props :
- *   fuelRecords : liste des pleins à afficher (filtrée/triée/paginée)
- *   driverById  : carte { id → { fullName } } des chauffeurs
- *   vehicleById : carte { id → { registrationNumber, brand, model, category } }
- *   onView      : (id: string) => void
- *   onEdit      : (id: string) => void
- *   onDelete    : (fuel: object) => void
+ *   fuelRecords  : liste des pleins à afficher (filtrée/triée/paginée)
+ *   driverById   : carte { id → { fullName } } des chauffeurs
+ *   vehicleById  : carte { id → { registrationNumber, brand, model, category } }
+ *   sort         : { by, direction } — tri contrôlé
+ *   onSortChange : (by, direction) => void
+ *   onView       : (id: string) => void
+ *   onEdit       : (id: string) => void
+ *   onDelete     : (fuel: object) => void
  */
-import { Badge, Button } from '@/components/ui';
+import { Badge } from '@/components/ui';
+import { DataTable } from '@/components/core';
 import FuelStatusBadge from './FuelStatusBadge';
 import FuelStationBadge from './FuelStationBadge';
 import {
@@ -32,124 +35,163 @@ const FuelTable = ({
   fuelRecords = [],
   driverById = {},
   vehicleById = {},
+  sort,
+  onSortChange,
   onView,
   onEdit,
   onDelete,
-}) => (
-  <div className="table-responsive">
-    <table className="table table-hover align-middle mb-0 navix-fuel-table">
-      <thead>
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Véhicule</th>
-          <th scope="col">Chauffeur</th>
-          <th scope="col">Station</th>
-          <th scope="col">Type</th>
-          <th scope="col" className="text-end">Quantité</th>
-          <th scope="col" className="text-end">Prix/L</th>
-          <th scope="col" className="text-end">Montant</th>
-          <th scope="col" className="text-end">Conso moyenne</th>
-          <th scope="col">Statut</th>
-          <th scope="col" className="text-end">
-            <span className="visually-hidden">Actions</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {fuelRecords.map((fuel) => {
-          const type = getFuelType(fuel.fuelType);
-          const vehicle = vehicleById[fuel.vehicleId] ?? {};
-          const vehicleLabel =
-            vehicle.registrationNumber || `${vehicle.brand ?? ''} ${vehicle.model ?? ''}`.trim();
-          const abnormal = isAbnormalFuelConsumption(fuel.consumptionAverage, vehicle.category);
+}) => {
+  const columns = [
+    {
+      key: 'createdAt',
+      label: 'Date',
+      sortable: true,
+      width: '9rem',
+      render: (fuel) => (
+        <>
+          <button
+            type="button"
+            className="navix-fuel-table__link"
+            onClick={() => onView(fuel.id)}
+            title={`Voir ${fuel.fuelNumber}`}
+          >
+            {fuel.fuelNumber}
+          </button>
+          <span className="navix-fuel-table__date-sub">{formatFuelDate(fuel.createdAt)}</span>
+        </>
+      ),
+    },
+    {
+      key: 'vehicleId',
+      label: 'Véhicule',
+      sortable: true,
+      sortValue: (fuel) => vehicleById[fuel.vehicleId]?.registrationNumber ?? '',
+      render: (fuel) => {
+        const vehicle = vehicleById[fuel.vehicleId] ?? {};
+        const label = vehicle.registrationNumber || `${vehicle.brand ?? ''} ${vehicle.model ?? ''}`.trim();
+        return (
+          <span className="navix-fuel-table__vehicle">
+            {label || '—'}
+            {vehicle.brand && vehicle.model && (
+              <span className="navix-fuel-table__vehicle-sub">
+                {vehicle.brand} {vehicle.model}
+              </span>
+            )}
+          </span>
+        );
+      },
+    },
+    {
+      key: 'driverId',
+      label: 'Chauffeur',
+      render: (fuel) => <span className="navix-fuel-table__driver">{driverById[fuel.driverId]?.fullName ?? '—'}</span>,
+    },
+    {
+      key: 'stationName',
+      label: 'Station',
+      render: (fuel) => (
+        <span className="navix-fuel-table__station">
+          <FuelStationBadge stationName={fuel.stationName} stationCity={fuel.stationCity} />
+        </span>
+      ),
+    },
+    {
+      key: 'fuelType',
+      label: 'Type',
+      render: (fuel) => {
+        const type = getFuelType(fuel.fuelType);
+        return (
+          <Badge variant={type.variant} soft>
+            <i className={`bi ${type.icon} me-1`} aria-hidden="true" />
+            {type.label}
+          </Badge>
+        );
+      },
+    },
+    {
+      key: 'quantity',
+      label: 'Quantité',
+      align: 'end',
+      sortable: true,
+      render: (fuel) => <span className="navix-fuel-table__num">{formatFuelQuantity(fuel.quantity)}</span>,
+    },
+    {
+      key: 'unitPrice',
+      label: 'Prix/L',
+      align: 'end',
+      render: (fuel) => (
+        <span className="navix-fuel-table__num">{formatFuelUnitPrice(fuel.unitPrice, fuel.currency)}</span>
+      ),
+    },
+    {
+      key: 'totalCost',
+      label: 'Montant',
+      align: 'end',
+      sortable: true,
+      render: (fuel) => (
+        <span className="navix-fuel-table__amount">{formatFuelMoney(fuel.totalCost, fuel.currency)}</span>
+      ),
+    },
+    {
+      key: 'consumptionAverage',
+      label: 'Conso moyenne',
+      align: 'end',
+      sortable: true,
+      render: (fuel) => {
+        const abnormal = isAbnormalFuelConsumption(fuel.consumptionAverage, vehicleById[fuel.vehicleId]?.category);
+        return (
+          <span className="navix-fuel-table__num">
+            {formatFuelConsumption(fuel.consumptionAverage)}
+            {abnormal && (
+              <i
+                className="bi bi-exclamation-triangle-fill navix-fuel-table__anomaly"
+                title="Consommation anormale"
+                aria-label="Consommation anormale"
+              />
+            )}
+          </span>
+        );
+      },
+    },
+    {
+      key: 'status',
+      label: 'Statut',
+      render: (fuel) => <FuelStatusBadge status={fuel.status} />,
+    },
+  ];
 
-          return (
-            <tr key={fuel.id}>
-              <td className="navix-fuel-table__date">
-                <button
-                  type="button"
-                  className="navix-fuel-table__link"
-                  onClick={() => onView(fuel.id)}
-                  title={`Voir ${fuel.fuelNumber}`}
-                >
-                  {fuel.fuelNumber}
-                </button>
-                <span className="navix-fuel-table__date-sub">{formatFuelDate(fuel.createdAt)}</span>
-              </td>
-              <td className="navix-fuel-table__vehicle">
-                {vehicleLabel || '—'}
-                {vehicle.brand && vehicle.model && (
-                  <span className="navix-fuel-table__vehicle-sub">
-                    {vehicle.brand} {vehicle.model}
-                  </span>
-                )}
-              </td>
-              <td className="navix-fuel-table__driver">
-                {driverById[fuel.driverId]?.fullName ?? '—'}
-              </td>
-              <td className="navix-fuel-table__station">
-                <FuelStationBadge stationName={fuel.stationName} stationCity={fuel.stationCity} />
-              </td>
-              <td>
-                <Badge variant={type.variant} soft>
-                  <i className={`bi ${type.icon} me-1`} aria-hidden="true" />
-                  {type.label}
-                </Badge>
-              </td>
-              <td className="text-end navix-fuel-table__num">{formatFuelQuantity(fuel.quantity)}</td>
-              <td className="text-end navix-fuel-table__num">
-                {formatFuelUnitPrice(fuel.unitPrice, fuel.currency)}
-              </td>
-              <td className="text-end navix-fuel-table__amount">
-                {formatFuelMoney(fuel.totalCost, fuel.currency)}
-              </td>
-              <td className="text-end navix-fuel-table__num">
-                {formatFuelConsumption(fuel.consumptionAverage)}
-                {abnormal && (
-                  <i
-                    className="bi bi-exclamation-triangle-fill navix-fuel-table__anomaly"
-                    title="Consommation anormale"
-                    aria-label="Consommation anormale"
-                  />
-                )}
-              </td>
-              <td>
-                <FuelStatusBadge status={fuel.status} />
-              </td>
-              <td>
-                <div className="d-flex justify-content-end gap-1">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon="bi-eye"
-                    onClick={() => onView(fuel.id)}
-                    title="Voir le détail"
-                    aria-label={`Voir le détail de ${fuel.fuelNumber}`}
-                  />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon="bi-pencil"
-                    onClick={() => onEdit(fuel.id)}
-                    title="Modifier"
-                    aria-label={`Modifier ${fuel.fuelNumber}`}
-                  />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon="bi-trash3"
-                    onClick={() => onDelete(fuel)}
-                    title="Supprimer"
-                    aria-label={`Supprimer ${fuel.fuelNumber}`}
-                  />
-                </div>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  </div>
-);
+  return (
+    <DataTable
+      className="navix-fuel-table"
+      columns={columns}
+      rows={fuelRecords}
+      sort={sort}
+      onSortChange={onSortChange}
+      actions={[
+        {
+          key: 'view',
+          label: (fuel) => `Voir le détail de ${fuel.fuelNumber}`,
+          title: 'Voir le détail',
+          icon: 'bi-eye',
+          onClick: (fuel) => onView(fuel.id),
+        },
+        {
+          key: 'edit',
+          label: (fuel) => `Modifier ${fuel.fuelNumber}`,
+          title: 'Modifier',
+          icon: 'bi-pencil',
+          onClick: (fuel) => onEdit(fuel.id),
+        },
+        {
+          key: 'delete',
+          label: (fuel) => `Supprimer ${fuel.fuelNumber}`,
+          title: 'Supprimer',
+          icon: 'bi-trash3',
+          onClick: (fuel) => onDelete(fuel),
+        },
+      ]}
+    />
+  );
+};
 
 export default FuelTable;

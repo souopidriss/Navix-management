@@ -1,0 +1,67 @@
+/**
+ * Navix Core — Styles de dialogue partagés (FormModal, ConfirmDialog,
+ * DeleteModal). Toutes les couleurs proviennent des tokens du Design System.
+ */
+.navix-modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--navix-z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--navix-space-4);
+}
+
+.navix-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--navix-backdrop);
+}
+
+.navix-modal__dialog {
+  position: relative;
+  width: 100%;
+  max-width: var(--navix-modal-width, 32rem);
+  max-height: calc(100vh - 2 * var(--navix-space-4));
+  display: flex;
+  flex-direction: column;
+  animation: navix-modal-in 0.15s var(--navix-ease-out);
+}
+
+.navix-modal--sm {
+  --navix-modal-width: 24rem;
+}
+
+.navix-modal--md {
+  --navix-modal-width: 32rem;
+}
+
+.navix-modal--lg {
+  --navix-modal-width: 48rem;
+}
+
+.navix-modal--xl {
+  --navix-modal-width: 64rem;
+}
+
+@keyframes navix-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navix-modal__body-scroll {
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.navix-modal-open {
+  overflow: hidden;
+}

@@ -1,0 +1,33 @@
+/**
+ * Navix Core — Toolbar styles.
+ */
+.navix-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--navix-space-3);
+}
+
+.navix-toolbar--nowrap {
+  flex-wrap: nowrap;
+}
+
+.navix-toolbar--start {
+  justify-content: flex-start;
+}
+
+.navix-toolbar--between {
+  justify-content: space-between;
+}
+
+.navix-toolbar--end {
+  justify-content: flex-end;
+}
+
+.navix-toolbar--gap-sm {
+  gap: var(--navix-space-2);
+}
+
+.navix-toolbar--gap-lg {
+  gap: var(--navix-space-5);
+}

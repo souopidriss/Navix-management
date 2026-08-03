@@ -1,0 +1,36 @@
+/**
+ * Navix Core — Skeleton (chargement par morphing)
+ * --------------------------------------------------------------------------
+ * Bloc de base du skeleton loader, partagé par LoadingState et DataTable.
+ * Le dégradé animé n'utilise que des tokens du Design System.
+ */
+.navix-skeleton {
+  display: inline-block;
+  height: 1em;
+  border-radius: var(--navix-radius-sm);
+  background: var(--navix-muted-bg);
+  background-image: linear-gradient(
+    90deg,
+    var(--navix-muted-bg) 25%,
+    var(--navix-hover) 50%,
+    var(--navix-muted-bg) 75%
+  );
+  background-size: 200% 100%;
+  animation: navix-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes navix-skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navix-skeleton {
+    animation: none;
+  }
+}

@@ -1,0 +1,19 @@
+/**
+ * Navix Core — SearchBar styles.
+ */
+.navix-searchbar {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  flex-wrap: wrap;
+}
+
+.navix-searchbar .input-group {
+  max-width: 34rem;
+}
+
+.navix-searchbar__count {
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-muted);
+  white-space: nowrap;
+}

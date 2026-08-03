@@ -1,0 +1,46 @@
+/**
+ * Navix Core — ImagePreview styles.
+ */
+.navix-image-preview {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: var(--navix-muted-bg);
+  border: 1px solid var(--navix-border-color-subtle);
+  border-radius: var(--navix-radius-md);
+}
+
+.navix-image-preview--square {
+  aspect-ratio: 1 / 1;
+}
+
+.navix-image-preview--4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+.navix-image-preview--16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+.navix-image-preview--auto {
+  aspect-ratio: auto;
+}
+
+.navix-image-preview--rounded {
+  border-radius: var(--navix-radius-full);
+}
+
+.navix-image-preview__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.navix-image-preview--empty {
+  color: var(--navix-text-muted);
+  font-size: 1.75rem;
+}

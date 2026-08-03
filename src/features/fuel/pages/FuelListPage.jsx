@@ -9,8 +9,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
-import { Alert, Button, Pagination, Spinner } from '@/components/ui';
-import { PageContainer, PageHeader } from '@/components/layout';
+import { Alert, Button } from '@/components/ui';
+import { PageContainer, PageHeader, Pagination, LoadingState } from '@/components/core';
 import { ROUTES, fuelDetailPath, fuelEditPath } from '@/routes/route.constants';
 import { useMediaQuery } from '@/hooks';
 import { useCompaniesStore } from '@/features/companies';
@@ -161,17 +161,13 @@ const FuelListPage = () => {
         companies={companies}
         drivers={drivers}
         vehicles={vehicles}
-        sort={sort}
         onChange={setFilter}
-        onSortChange={(by, direction) => setSort(by, direction)}
         onReset={resetFilters}
         hasActiveFilters={hasActiveFilters}
       />
 
       {isLoading && fuelRecords.length === 0 ? (
-        <div className="d-flex justify-content-center py-5">
-          <Spinner size="lg" label="Chargement des pleins…" />
-        </div>
+        <LoadingState variant="table" rows={6} cols={6} label="Chargement des pleins…" />
       ) : items.length === 0 ? (
         <FuelEmptyState hasQuery={hasActiveFilters} onReset={hasActiveFilters ? resetFilters : undefined} />
       ) : (
@@ -200,6 +196,8 @@ const FuelListPage = () => {
               fuelRecords={items}
               driverById={driverById}
               vehicleById={vehicleById}
+              sort={sort}
+              onSortChange={(by, direction) => setSort(by, direction)}
               onView={(id) => navigate(fuelDetailPath(id))}
               onEdit={(id) => navigate(fuelEditPath(id))}
               onDelete={setDeleteTarget}

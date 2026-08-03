@@ -1,0 +1,14 @@
+/**
+ * Navix Core — StatsCards styles.
+ */
+.navix-stats {
+  margin-bottom: var(--navix-space-4);
+}
+
+.navix-stats > [class*='col'] {
+  display: flex;
+}
+
+.navix-stats > [class*='col'] > * {
+  flex: 1 1 0%;
+}

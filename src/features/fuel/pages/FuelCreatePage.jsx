@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import toast from 'react-hot-toast';
 import { Card } from '@/components/ui';
-import { PageContainer, PageHeader } from '@/components/layout';
+import { PageContainer, PageHeader } from '@/components/core';
 import { ROUTES, fuelDetailPath } from '@/routes/route.constants';
 import { useCompaniesStore } from '@/features/companies';
 import { useVehiclesStore } from '@/features/vehicles';

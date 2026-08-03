@@ -1,0 +1,60 @@
+/**
+ * Navix Core — DataTable styles.
+ */
+.navix-datatable {
+  width: 100%;
+}
+
+.navix-datatable__header {
+  margin-bottom: var(--navix-space-3);
+}
+
+.navix-datatable__footer {
+  margin-top: var(--navix-space-3);
+}
+
+.navix-datatable__table th {
+  white-space: nowrap;
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.navix-datatable__table td {
+  vertical-align: middle;
+}
+
+.navix-datatable__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: var(--navix-font-weight-semibold);
+  color: inherit;
+  cursor: pointer;
+}
+
+.navix-datatable__sort:hover,
+.navix-datatable__sort:focus-visible,
+.navix-datatable__sort.is-active {
+  color: var(--navix-primary);
+}
+
+.navix-datatable__sort .bi {
+  font-size: 0.85em;
+  opacity: 0.7;
+}
+
+.navix-datatable__row--clickable {
+  cursor: pointer;
+}
+
+.navix-datatable__row--clickable:focus-visible {
+  outline: var(--navix-focus-ring-width) solid var(--navix-focus-ring-color);
+  outline-offset: -2px;
+}
+
+.navix-datatable .navix-skeleton {
+  height: 1em;
+}

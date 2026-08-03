@@ -1,0 +1,117 @@
+/**
+ * Navix Core — Timeline styles.
+ */
+.navix-timeline {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-5);
+}
+
+.navix-timeline__item {
+  position: relative;
+  display: flex;
+  gap: var(--navix-space-4);
+  padding-left: 0;
+}
+
+.navix-timeline__item::before {
+  content: '';
+  position: absolute;
+  top: 1.75rem;
+  bottom: -1.5rem;
+  left: 1.25rem;
+  width: 2px;
+  background: var(--navix-border-color-subtle);
+}
+
+.navix-timeline__item:last-child::before {
+  display: none;
+}
+
+.navix-timeline__marker {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--navix-radius-full);
+  font-size: 1rem;
+  color: var(--navix-timeline-color, var(--navix-primary));
+  background: var(--navix-card);
+  border: 1px solid var(--navix-border-color);
+  box-shadow: var(--navix-shadow-sm);
+}
+
+.navix-timeline__marker--active {
+  box-shadow: 0 0 0 0.25rem var(--navix-timeline-ring, var(--navix-primary-muted));
+}
+
+.navix-timeline__marker--primary {
+  --navix-timeline-color: var(--navix-primary);
+  --navix-timeline-ring: var(--navix-primary-muted);
+}
+
+.navix-timeline__marker--success {
+  --navix-timeline-color: var(--navix-success);
+  --navix-timeline-ring: rgba(var(--navix-success-rgb), 0.16);
+}
+
+.navix-timeline__marker--warning {
+  --navix-timeline-color: var(--navix-warning);
+  --navix-timeline-ring: rgba(var(--navix-warning-rgb), 0.16);
+}
+
+.navix-timeline__marker--danger {
+  --navix-timeline-color: var(--navix-danger);
+  --navix-timeline-ring: rgba(var(--navix-danger-rgb), 0.16);
+}
+
+.navix-timeline__marker--info {
+  --navix-timeline-color: var(--navix-info);
+  --navix-timeline-ring: rgba(var(--navix-info-rgb), 0.16);
+}
+
+.navix-timeline__marker--secondary {
+  --navix-timeline-color: var(--navix-secondary);
+  --navix-timeline-ring: rgba(var(--navix-secondary-rgb), 0.16);
+}
+
+.navix-timeline__content {
+  flex: 1 1 0%;
+  min-width: 0;
+  padding-top: 0.25rem;
+}
+
+.navix-timeline__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--navix-space-3);
+  flex-wrap: wrap;
+}
+
+.navix-timeline__title {
+  margin: 0;
+  font-size: var(--navix-font-size-base);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--navix-text-primary);
+}
+
+.navix-timeline__date {
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+  white-space: nowrap;
+}
+
+.navix-timeline__description {
+  margin: var(--navix-space-1) 0 0;
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-muted);
+}
