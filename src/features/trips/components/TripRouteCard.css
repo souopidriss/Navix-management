@@ -1,0 +1,101 @@
+.navix-trip-route-card {
+  padding: 1rem;
+}
+
+.navix-trip-route-card__path {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.navix-trip-route-card__point {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.navix-trip-route-card__point-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.navix-trip-route-card__point-icon--departure {
+  color: var(--bs-primary);
+  background: var(--bs-primary-bg-subtle);
+}
+
+.navix-trip-route-card__point-icon--arrival {
+  color: var(--bs-success);
+  background: var(--bs-success-bg-subtle);
+}
+
+.navix-trip-route-card__city {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navix-trip-route-card__time {
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+  color: var(--bs-secondary-color);
+}
+
+.navix-trip-route-card__connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  align-self: center;
+  color: var(--bs-secondary-color);
+  flex-shrink: 0;
+}
+
+.navix-trip-route-card__connector span {
+  width: 1px;
+  height: 0.375rem;
+  background: var(--bs-border-color);
+}
+
+.navix-trip-route-card__metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.navix-trip-route-card__metric {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.navix-trip-route-card__metric-label {
+  font-size: var(--navix-font-size-sm, 0.75rem);
+  color: var(--bs-secondary-color);
+}
+
+.navix-trip-route-card__metric-value {
+  font-weight: 600;
+  color: var(--bs-emphasis-color);
+}
+
+@media (max-width: 575.98px) {
+  .navix-trip-route-card__connector {
+    display: none;
+  }
+
+  .navix-trip-route-card__path {
+    flex-direction: column;
+  }
+}

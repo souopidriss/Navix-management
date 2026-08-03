@@ -1,0 +1,60 @@
+.navix-trip-vehicle-card__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.navix-trip-vehicle-card__plate {
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+  color: var(--bs-secondary-color);
+  font-weight: 600;
+}
+
+.navix-trip-vehicle-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  font-size: 1.25rem;
+  color: var(--bs-primary);
+  background: var(--bs-primary-bg-subtle);
+  flex-shrink: 0;
+}
+
+.navix-trip-vehicle-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0.75rem 0;
+}
+
+.navix-trip-vehicle-card__meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.375rem 1rem;
+  margin: 0;
+}
+
+.navix-trip-vehicle-card__meta div {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.navix-trip-vehicle-card__meta dt {
+  font-size: var(--navix-font-size-sm, 0.75rem);
+  color: var(--bs-secondary-color);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.navix-trip-vehicle-card__meta dd {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+}

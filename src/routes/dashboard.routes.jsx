@@ -27,6 +27,11 @@ const AssignmentDetailsPage = lazy(() => import('@/features/assignments/pages/As
 const AssignmentCreatePage = lazy(() => import('@/features/assignments/pages/AssignmentCreatePage'));
 const AssignmentEditPage = lazy(() => import('@/features/assignments/pages/AssignmentEditPage'));
 const AssignmentHistoryPage = lazy(() => import('@/features/assignments/pages/AssignmentHistoryPage'));
+const TripListPage = lazy(() => import('@/features/trips/pages/TripListPage'));
+const TripDetailsPage = lazy(() => import('@/features/trips/pages/TripDetailsPage'));
+const TripCreatePage = lazy(() => import('@/features/trips/pages/TripCreatePage'));
+const TripEditPage = lazy(() => import('@/features/trips/pages/TripEditPage'));
+const TripHistoryPage = lazy(() => import('@/features/trips/pages/TripHistoryPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -49,7 +54,11 @@ export const dashboardRoutes = (
     <Route path={ROUTES.ASSIGNMENTS_CREATE} element={<AssignmentCreatePage />} />
     <Route path={ROUTES.ASSIGNMENTS_DETAIL} element={<AssignmentDetailsPage />} />
     <Route path={ROUTES.ASSIGNMENTS_EDIT} element={<AssignmentEditPage />} />
-    <Route path={ROUTES.TRIPS} element={<PlaceholderPage title="Trajets" icon="bi-signpost-split" />} />
+    <Route path={ROUTES.TRIPS} element={<TripListPage />} />
+    <Route path={ROUTES.TRIPS_CREATE} element={<TripCreatePage />} />
+    <Route path={ROUTES.TRIPS_DETAIL} element={<TripDetailsPage />} />
+    <Route path={ROUTES.TRIPS_EDIT} element={<TripEditPage />} />
+    <Route path={ROUTES.TRIPS_HISTORY} element={<TripHistoryPage />} />
     <Route path={ROUTES.FUEL} element={<PlaceholderPage title="Carburant" icon="bi-fuel-pump" />} />
     <Route path={ROUTES.ENTRETIENS} element={<PlaceholderPage title="Entretiens" icon="bi-wrench-adjustable" />} />
     <Route path={ROUTES.FILES} element={<PlaceholderPage title="Documents" icon="bi-folder2-open" />} />

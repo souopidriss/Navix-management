@@ -40,6 +40,10 @@ export const ROUTES = {
   ASSIGNMENTS_EDIT: '/dashboard/assignments/:id/edit',
   ASSIGNMENTS_HISTORY: '/dashboard/assignments/history',
   TRIPS: '/dashboard/trips',
+  TRIPS_CREATE: '/dashboard/trips/new',
+  TRIPS_DETAIL: '/dashboard/trips/:id',
+  TRIPS_EDIT: '/dashboard/trips/:id/edit',
+  TRIPS_HISTORY: '/dashboard/trips/history',
   FUEL: '/dashboard/fuel',
   ENTRETIENS: '/dashboard/maintenance',
   FILES: '/dashboard/files',
@@ -78,6 +82,12 @@ export const assignmentDetailPath = (id) => `${ROUTES.ASSIGNMENTS}/${id}`;
 /** Construit le chemin d'édition d'une affectation. */
 export const assignmentEditPath = (id) => `${ROUTES.ASSIGNMENTS}/${id}/edit`;
 
+/** Construit le chemin de détail d'un trajet. */
+export const tripDetailPath = (id) => `${ROUTES.TRIPS}/${id}`;
+
+/** Construit le chemin d'édition d'un trajet. */
+export const tripEditPath = (id) => `${ROUTES.TRIPS}/${id}/edit`;
+
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.COMPANIES,
@@ -99,6 +109,10 @@ export const PRIVATE_ROUTES = [
   ROUTES.ASSIGNMENTS_EDIT,
   ROUTES.ASSIGNMENTS_HISTORY,
   ROUTES.TRIPS,
+  ROUTES.TRIPS_CREATE,
+  ROUTES.TRIPS_DETAIL,
+  ROUTES.TRIPS_EDIT,
+  ROUTES.TRIPS_HISTORY,
   ROUTES.FUEL,
   ROUTES.ENTRETIENS,
   ROUTES.FILES,

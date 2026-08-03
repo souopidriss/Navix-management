@@ -78,6 +78,18 @@ export const ROUTE_META = {
   [ROUTES.TRIPS]: {
     requiredPermissions: [PERMISSIONS.TRIPS_READ],
   },
+  [ROUTES.TRIPS_CREATE]: {
+    requiredPermissions: [PERMISSIONS.TRIPS_CREATE],
+  },
+  [ROUTES.TRIPS_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.TRIPS_READ],
+  },
+  [ROUTES.TRIPS_EDIT]: {
+    requiredPermissions: [PERMISSIONS.TRIPS_UPDATE],
+  },
+  [ROUTES.TRIPS_HISTORY]: {
+    requiredPermissions: [PERMISSIONS.TRIPS_READ],
+  },
   [ROUTES.FUEL]: {
     requiredPermissions: [PERMISSIONS.FUEL_READ],
   },
