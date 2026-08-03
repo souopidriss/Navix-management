@@ -21,6 +21,18 @@ export const ROUTE_META = {
     requiredPermissions: [PERMISSIONS.COMPANIES_MANAGE],
     requiredRole: [ROLES.SUPER_ADMIN, ROLES.COMPANY_OWNER],
   },
+  [ROUTES.COMPANIES_CREATE]: {
+    requiredPermissions: [PERMISSIONS.COMPANIES_MANAGE],
+    requiredRole: [ROLES.SUPER_ADMIN, ROLES.COMPANY_OWNER],
+  },
+  [ROUTES.COMPANIES_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.COMPANIES_MANAGE],
+    requiredRole: [ROLES.SUPER_ADMIN, ROLES.COMPANY_OWNER],
+  },
+  [ROUTES.COMPANIES_EDIT]: {
+    requiredPermissions: [PERMISSIONS.COMPANIES_MANAGE],
+    requiredRole: [ROLES.SUPER_ADMIN, ROLES.COMPANY_OWNER],
+  },
   [ROUTES.AGENCIES]: {
     requiredPermissions: [PERMISSIONS.AGENCIES_MANAGE],
   },

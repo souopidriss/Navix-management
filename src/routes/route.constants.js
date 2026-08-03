@@ -22,6 +22,9 @@ export const ROUTES = {
   /* Privées (dashboard) */
   DASHBOARD: '/dashboard',
   COMPANIES: '/dashboard/companies',
+  COMPANIES_CREATE: '/dashboard/companies/new',
+  COMPANIES_DETAIL: '/dashboard/companies/:id',
+  COMPANIES_EDIT: '/dashboard/companies/:id/edit',
   AGENCIES: '/dashboard/agencies',
   VEHICLES: '/dashboard/vehicles',
   DRIVERS: '/dashboard/drivers',
@@ -41,9 +44,18 @@ export const PUBLIC_ROUTES = [ROUTES.HOME, ROUTES.MAINTENANCE];
 
 export const AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD, ROUTES.RESET_PASSWORD];
 
+/** Construit le chemin de détail d'une entreprise. */
+export const companyDetailPath = (id) => `${ROUTES.COMPANIES}/${id}`;
+
+/** Construit le chemin d'édition d'une entreprise. */
+export const companyEditPath = (id) => `${ROUTES.COMPANIES}/${id}/edit`;
+
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.COMPANIES,
+  ROUTES.COMPANIES_CREATE,
+  ROUTES.COMPANIES_DETAIL,
+  ROUTES.COMPANIES_EDIT,
   ROUTES.AGENCIES,
   ROUTES.VEHICLES,
   ROUTES.DRIVERS,

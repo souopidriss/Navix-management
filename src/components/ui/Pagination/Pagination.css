@@ -1,0 +1,43 @@
+.navix-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.navix-pagination__summary {
+  margin: 0;
+  font-size: var(--navix-font-size-sm, 0.875rem);
+  color: var(--bs-secondary-color, #6c757d);
+}
+
+.navix-pagination__nav .page-link {
+  min-width: 2.25rem;
+  text-align: center;
+}
+
+.navix-pagination__size {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--navix-font-size-sm, 0.875rem);
+  color: var(--bs-secondary-color, #6c757d);
+}
+
+.navix-pagination__size .form-select {
+  width: auto;
+  min-width: 4.5rem;
+}
+
+@media (max-width: 575.98px) {
+  .navix-pagination {
+    justify-content: center;
+  }
+
+  .navix-pagination__summary {
+    width: 100%;
+    text-align: center;
+  }
+}

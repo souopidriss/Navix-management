@@ -10,11 +10,18 @@ import { ROUTES } from './route.constants';
  */
 const DashboardPage = lazy(() => import('@/pages/DashboardPage'));
 const PlaceholderPage = lazy(() => import('@/pages/PlaceholderPage'));
+const CompanyListPage = lazy(() => import('@/features/companies/pages/CompanyListPage'));
+const CompanyDetailsPage = lazy(() => import('@/features/companies/pages/CompanyDetailsPage'));
+const CompanyCreatePage = lazy(() => import('@/features/companies/pages/CompanyCreatePage'));
+const CompanyEditPage = lazy(() => import('@/features/companies/pages/CompanyEditPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
     <Route path={ROUTES.DASHBOARD} element={<DashboardPage />} />
-    <Route path={ROUTES.COMPANIES} element={<PlaceholderPage title="Entreprises" icon="bi-buildings" />} />
+    <Route path={ROUTES.COMPANIES} element={<CompanyListPage />} />
+    <Route path={ROUTES.COMPANIES_CREATE} element={<CompanyCreatePage />} />
+    <Route path={ROUTES.COMPANIES_DETAIL} element={<CompanyDetailsPage />} />
+    <Route path={ROUTES.COMPANIES_EDIT} element={<CompanyEditPage />} />
     <Route path={ROUTES.AGENCIES} element={<PlaceholderPage title="Agences" icon="bi-diagram-3" />} />
     <Route path={ROUTES.VEHICLES} element={<PlaceholderPage title="Véhicules" icon="bi-truck" />} />
     <Route path={ROUTES.DRIVERS} element={<PlaceholderPage title="Chauffeurs" icon="bi-person-badge" />} />

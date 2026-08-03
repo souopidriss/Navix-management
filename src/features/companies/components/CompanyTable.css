@@ -1,0 +1,28 @@
+.navix-company-table__logo {
+  width: 3.25rem;
+}
+
+.navix-company-table__name {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bs-emphasis-color);
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+}
+
+.navix-company-table__name:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 991.98px) {
+  .navix-company-table {
+    display: none;
+  }
+}

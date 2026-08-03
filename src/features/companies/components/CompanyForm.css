@@ -1,0 +1,9 @@
+.navix-company-form .navix-divider {
+  margin: 0.75rem 0 0.25rem;
+}
+
+@media (max-width: 575.98px) {
+  .navix-company-form {
+    padding: 0;
+  }
+}
