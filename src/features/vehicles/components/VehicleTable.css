@@ -1,0 +1,72 @@
+.navix-vehicle-table__photo {
+  width: 3.25rem;
+}
+
+.navix-vehicle-table__reg {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bs-emphasis-color);
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navix-vehicle-table__reg:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+.navix-vehicle-table__company {
+  max-width: 11rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navix-vehicle-table__expiry {
+  white-space: nowrap;
+}
+
+.navix-vehicle-table__expiry-date {
+  display: inline-block;
+  font-weight: 600;
+}
+
+.navix-vehicle-table__expiry-date--success {
+  color: var(--bs-success);
+}
+
+.navix-vehicle-table__expiry-date--warning {
+  color: var(--bs-warning);
+}
+
+.navix-vehicle-table__expiry-date--danger {
+  color: var(--bs-danger);
+}
+
+.navix-vehicle-table__expiry-tag {
+  display: block;
+  font-size: var(--navix-font-size-sm, 0.75rem);
+  line-height: 1;
+  margin-top: 0.15rem;
+}
+
+.navix-vehicle-table__expiry-tag--warning {
+  color: var(--bs-warning);
+}
+
+.navix-vehicle-table__expiry-tag--danger {
+  color: var(--bs-danger);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 991.98px) {
+  .navix-vehicle-table {
+    display: none;
+  }
+}
