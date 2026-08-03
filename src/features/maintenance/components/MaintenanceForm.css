@@ -1,0 +1,12 @@
+/**
+ * Navix Maintenance — MaintenanceForm styles.
+ * La grille repose sur Bootstrap (row/col) ; on apporte ici uniquement les
+ * ajustements métier (rangée, petites retouches responsive).
+ */
+.navix-maint-form {
+  text-align: left;
+}
+
+.navix-maint-form .invalid-feedback {
+  display: block;
+}

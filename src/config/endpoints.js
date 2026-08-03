@@ -46,6 +46,9 @@ export const API_ENDPOINTS = {
   MAINTENANCE: {
     LIST: '/maintenance',
     DETAIL: (id) => `/maintenance/${id}`,
+    STATS: '/maintenance/stats',
+    CALENDAR: '/maintenance/calendar',
+    HISTORY: '/maintenance/history',
   },
   SUBSCRIPTIONS: {
     LIST: '/subscriptions',

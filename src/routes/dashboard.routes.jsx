@@ -37,6 +37,12 @@ const FuelDetailsPage = lazy(() => import('@/features/fuel/pages/FuelDetailsPage
 const FuelCreatePage = lazy(() => import('@/features/fuel/pages/FuelCreatePage'));
 const FuelEditPage = lazy(() => import('@/features/fuel/pages/FuelEditPage'));
 const FuelStatisticsPage = lazy(() => import('@/features/fuel/pages/FuelStatisticsPage'));
+const MaintenanceListPage = lazy(() => import('@/features/maintenance/pages/MaintenanceListPage'));
+const MaintenanceDetailsPage = lazy(() => import('@/features/maintenance/pages/MaintenanceDetailsPage'));
+const MaintenanceCreatePage = lazy(() => import('@/features/maintenance/pages/MaintenanceCreatePage'));
+const MaintenanceEditPage = lazy(() => import('@/features/maintenance/pages/MaintenanceEditPage'));
+const MaintenanceCalendarPage = lazy(() => import('@/features/maintenance/pages/MaintenanceCalendarPage'));
+const MaintenanceStatisticsPage = lazy(() => import('@/features/maintenance/pages/MaintenanceStatisticsPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -69,7 +75,12 @@ export const dashboardRoutes = (
     <Route path={ROUTES.FUEL_DETAIL} element={<FuelDetailsPage />} />
     <Route path={ROUTES.FUEL_EDIT} element={<FuelEditPage />} />
     <Route path={ROUTES.FUEL_STATISTICS} element={<FuelStatisticsPage />} />
-    <Route path={ROUTES.ENTRETIENS} element={<PlaceholderPage title="Entretiens" icon="bi-wrench-adjustable" />} />
+    <Route path={ROUTES.ENTRETIENS} element={<MaintenanceListPage />} />
+    <Route path={ROUTES.MAINTENANCE_CALENDAR} element={<MaintenanceCalendarPage />} />
+    <Route path={ROUTES.MAINTENANCE_STATISTICS} element={<MaintenanceStatisticsPage />} />
+    <Route path={ROUTES.MAINTENANCE_CREATE} element={<MaintenanceCreatePage />} />
+    <Route path={ROUTES.MAINTENANCE_DETAIL} element={<MaintenanceDetailsPage />} />
+    <Route path={ROUTES.MAINTENANCE_EDIT} element={<MaintenanceEditPage />} />
     <Route path={ROUTES.FILES} element={<PlaceholderPage title="Documents" icon="bi-folder2-open" />} />
     <Route path={ROUTES.INVOICES} element={<PlaceholderPage title="Facturation" icon="bi-receipt" />} />
     <Route path={ROUTES.SUBSCRIPTIONS} element={<PlaceholderPage title="Abonnements" icon="bi-credit-card" />} />

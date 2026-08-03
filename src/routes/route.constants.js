@@ -50,6 +50,11 @@ export const ROUTES = {
   FUEL_EDIT: '/dashboard/fuel/:id/edit',
   FUEL_STATISTICS: '/dashboard/fuel/statistics',
   ENTRETIENS: '/dashboard/maintenance',
+  MAINTENANCE_CREATE: '/dashboard/maintenance/new',
+  MAINTENANCE_DETAIL: '/dashboard/maintenance/:id',
+  MAINTENANCE_EDIT: '/dashboard/maintenance/:id/edit',
+  MAINTENANCE_CALENDAR: '/dashboard/maintenance/calendar',
+  MAINTENANCE_STATISTICS: '/dashboard/maintenance/statistics',
   FILES: '/dashboard/files',
   INVOICES: '/dashboard/invoices',
   SUBSCRIPTIONS: '/dashboard/subscriptions',
@@ -98,6 +103,12 @@ export const fuelDetailPath = (id) => `${ROUTES.FUEL}/${id}`;
 /** Construit le chemin d'édition d'un plein de carburant. */
 export const fuelEditPath = (id) => `${ROUTES.FUEL}/${id}/edit`;
 
+/** Construit le chemin de détail d'un entretien. */
+export const maintenanceDetailPath = (id) => `${ROUTES.ENTRETIENS}/${id}`;
+
+/** Construit le chemin d'édition d'un entretien. */
+export const maintenanceEditPath = (id) => `${ROUTES.ENTRETIENS}/${id}/edit`;
+
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.COMPANIES,
@@ -129,6 +140,11 @@ export const PRIVATE_ROUTES = [
   ROUTES.FUEL_EDIT,
   ROUTES.FUEL_STATISTICS,
   ROUTES.ENTRETIENS,
+  ROUTES.MAINTENANCE_CREATE,
+  ROUTES.MAINTENANCE_DETAIL,
+  ROUTES.MAINTENANCE_EDIT,
+  ROUTES.MAINTENANCE_CALENDAR,
+  ROUTES.MAINTENANCE_STATISTICS,
   ROUTES.FILES,
   ROUTES.INVOICES,
   ROUTES.SUBSCRIPTIONS,

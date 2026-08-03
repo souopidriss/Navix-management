@@ -1,0 +1,47 @@
+/**
+ * Navix Maintenance — MaintenanceTable styles (styles de cellules métier
+ * uniquement ; la structure et le thème proviennent du DataTable core).
+ */
+.navix-maint-table__link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--navix-text-primary);
+  font-weight: var(--navix-font-weight-semibold);
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navix-maint-table__link:hover {
+  color: var(--navix-primary);
+  text-decoration: underline;
+}
+
+.navix-maint-table__date-sub,
+.navix-maint-table__vehicle-sub {
+  display: block;
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-normal);
+  color: var(--navix-text-muted);
+  white-space: nowrap;
+}
+
+.navix-maint-table__vehicle {
+  display: inline-block;
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: var(--navix-font-weight-medium);
+  vertical-align: middle;
+}
+
+.navix-maint-table__num {
+  white-space: nowrap;
+}
+
+.navix-maint-table__amount {
+  white-space: nowrap;
+  font-weight: var(--navix-font-weight-semibold);
+}

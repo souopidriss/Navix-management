@@ -1,0 +1,81 @@
+/**
+ * Navix Maintenance — MaintenanceDetailsPage styles.
+ */
+.navix-maint-detail__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bs-primary) 12%, transparent);
+  color: var(--bs-primary);
+  flex-shrink: 0;
+}
+
+.navix-maint-detail__label {
+  font-size: var(--navix-font-size-sm, 0.75rem);
+  color: var(--bs-secondary-color);
+  margin: 0;
+}
+
+.navix-maint-detail__value {
+  font-weight: var(--navix-font-weight-medium, 500);
+}
+
+.navix-maint-detail__link {
+  padding: 0;
+  vertical-align: baseline;
+}
+
+.navix-maint-detail__alerts {
+  margin-top: 0.5rem;
+  min-height: 1.25rem;
+}
+
+.navix-maint-detail__stats {
+  flex-wrap: wrap;
+}
+
+.navix-maint-detail__stat {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius, 0.5rem);
+  background: var(--bs-body-bg);
+  min-width: 9rem;
+}
+
+.navix-maint-detail__stat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bs-primary) 12%, transparent);
+  color: var(--bs-primary);
+  flex-shrink: 0;
+}
+
+.navix-maint-detail__stat-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.navix-maint-detail__stat-value {
+  font-weight: var(--navix-font-weight-bold, 700);
+  white-space: nowrap;
+}
+
+.navix-maint-detail__stat-label {
+  font-size: var(--navix-font-size-sm, 0.75rem);
+  color: var(--bs-secondary-color);
+}
+
+.navix-maint-detail__parts {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
