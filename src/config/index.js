@@ -6,12 +6,13 @@ export { APP_NAME, appConfig };
 export { API_ENDPOINTS };
 export { STORAGE_KEYS, THEME_MODES };
 
+/*
+ * La configuration HTTP (baseURL, timeout, version, mode mock) est
+ * centralisée dans `src/services/config/apiConfig` — source unique de
+ * vérité pour le client Axios. Ne pas recréer de config API ici.
+ */
 const config = {
   app: appConfig,
-  api: {
-    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api',
-    timeout: Number(import.meta.env.VITE_API_TIMEOUT) || 15000,
-  },
   theme: {
     defaultMode: import.meta.env.VITE_DEFAULT_THEME || 'dark',
   },

@@ -15,7 +15,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { STORAGE_KEYS } from '@/config';
-import { authService } from '../services/auth.service';
+import { authService } from '@/services/api';
 
 const initialSession = {
   user: null,
