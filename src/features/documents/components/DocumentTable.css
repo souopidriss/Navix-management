@@ -1,0 +1,40 @@
+.navix-doc-table__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.navix-doc-table__name-icon {
+  font-size: 1.1rem;
+  color: var(--bs-primary);
+}
+
+.navix-doc-table__link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bs-emphasis-color);
+  text-align: left;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.navix-doc-table__link:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+.navix-doc-table__name-sub {
+  display: block;
+  font-size: var(--navix-font-size-sm, 0.75rem);
+  color: var(--bs-secondary-color);
+}
+
+.navix-doc-table__company {
+  color: var(--bs-emphasis-color);
+}
+
+.navix-doc-table__date {
+  white-space: nowrap;
+}

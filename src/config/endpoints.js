@@ -50,6 +50,16 @@ export const API_ENDPOINTS = {
     CALENDAR: '/maintenance/calendar',
     HISTORY: '/maintenance/history',
   },
+  DOCUMENTS: {
+    LIST: '/documents',
+    DETAIL: (id) => `/documents/${id}`,
+    STATS: '/documents/stats',
+    UPLOAD: '/documents/upload',
+    PREVIEW: (id) => `/documents/${id}/preview`,
+    DOWNLOAD: (id) => `/documents/${id}/download`,
+    FILE_TYPES: '/documents/file-types',
+    FILE_TYPE_DETAIL: (id) => `/documents/file-types/${id}`,
+  },
   SUBSCRIPTIONS: {
     LIST: '/subscriptions',
     CURRENT: '/subscriptions/current',

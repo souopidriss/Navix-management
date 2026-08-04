@@ -43,6 +43,11 @@ const MaintenanceCreatePage = lazy(() => import('@/features/maintenance/pages/Ma
 const MaintenanceEditPage = lazy(() => import('@/features/maintenance/pages/MaintenanceEditPage'));
 const MaintenanceCalendarPage = lazy(() => import('@/features/maintenance/pages/MaintenanceCalendarPage'));
 const MaintenanceStatisticsPage = lazy(() => import('@/features/maintenance/pages/MaintenanceStatisticsPage'));
+const DocumentListPage = lazy(() => import('@/features/documents/pages/DocumentListPage'));
+const DocumentDetailsPage = lazy(() => import('@/features/documents/pages/DocumentDetailsPage'));
+const DocumentCreatePage = lazy(() => import('@/features/documents/pages/DocumentCreatePage'));
+const DocumentEditPage = lazy(() => import('@/features/documents/pages/DocumentEditPage'));
+const FileTypesPage = lazy(() => import('@/features/documents/pages/FileTypesPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -81,7 +86,11 @@ export const dashboardRoutes = (
     <Route path={ROUTES.MAINTENANCE_CREATE} element={<MaintenanceCreatePage />} />
     <Route path={ROUTES.MAINTENANCE_DETAIL} element={<MaintenanceDetailsPage />} />
     <Route path={ROUTES.MAINTENANCE_EDIT} element={<MaintenanceEditPage />} />
-    <Route path={ROUTES.FILES} element={<PlaceholderPage title="Documents" icon="bi-folder2-open" />} />
+    <Route path={ROUTES.FILES} element={<DocumentListPage />} />
+    <Route path={ROUTES.FILES_CREATE} element={<DocumentCreatePage />} />
+    <Route path={ROUTES.FILES_DETAIL} element={<DocumentDetailsPage />} />
+    <Route path={ROUTES.FILES_EDIT} element={<DocumentEditPage />} />
+    <Route path={ROUTES.FILE_TYPES} element={<FileTypesPage />} />
     <Route path={ROUTES.INVOICES} element={<PlaceholderPage title="Facturation" icon="bi-receipt" />} />
     <Route path={ROUTES.SUBSCRIPTIONS} element={<PlaceholderPage title="Abonnements" icon="bi-credit-card" />} />
     <Route path={ROUTES.NOTIFICATIONS} element={<PlaceholderPage title="Notifications" icon="bi-bell" />} />

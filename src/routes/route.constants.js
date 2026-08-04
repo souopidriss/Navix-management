@@ -56,6 +56,10 @@ export const ROUTES = {
   MAINTENANCE_CALENDAR: '/dashboard/maintenance/calendar',
   MAINTENANCE_STATISTICS: '/dashboard/maintenance/statistics',
   FILES: '/dashboard/files',
+  FILES_CREATE: '/dashboard/files/new',
+  FILES_DETAIL: '/dashboard/files/:id',
+  FILES_EDIT: '/dashboard/files/:id/edit',
+  FILE_TYPES: '/dashboard/files/file-types',
   INVOICES: '/dashboard/invoices',
   SUBSCRIPTIONS: '/dashboard/subscriptions',
   NOTIFICATIONS: '/dashboard/notifications',
@@ -109,6 +113,12 @@ export const maintenanceDetailPath = (id) => `${ROUTES.ENTRETIENS}/${id}`;
 /** Construit le chemin d'édition d'un entretien. */
 export const maintenanceEditPath = (id) => `${ROUTES.ENTRETIENS}/${id}/edit`;
 
+/** Construit le chemin de détail d'un document. */
+export const documentDetailPath = (id) => `${ROUTES.FILES}/${id}`;
+
+/** Construit le chemin d'édition d'un document. */
+export const documentEditPath = (id) => `${ROUTES.FILES}/${id}/edit`;
+
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.COMPANIES,
@@ -146,6 +156,10 @@ export const PRIVATE_ROUTES = [
   ROUTES.MAINTENANCE_CALENDAR,
   ROUTES.MAINTENANCE_STATISTICS,
   ROUTES.FILES,
+  ROUTES.FILES_CREATE,
+  ROUTES.FILES_DETAIL,
+  ROUTES.FILES_EDIT,
+  ROUTES.FILE_TYPES,
   ROUTES.INVOICES,
   ROUTES.SUBSCRIPTIONS,
   ROUTES.NOTIFICATIONS,
