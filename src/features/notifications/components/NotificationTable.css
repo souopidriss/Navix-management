@@ -1,0 +1,39 @@
+/* Navix Notifications — NotificationTable */
+
+.navix-notif-table__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--navix-space-3);
+  min-width: 0;
+}
+
+.navix-notif-table__item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.navix-notif-table__title {
+  overflow: hidden;
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--navix-text-primary);
+}
+
+.navix-notif-table__title.is-unread {
+  color: var(--navix-text-primary);
+}
+
+.navix-notif-table__kind {
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+}
+
+.navix-notif-table__date {
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-secondary);
+  white-space: nowrap;
+}

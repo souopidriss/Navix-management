@@ -1,0 +1,92 @@
+/* Navix Notifications — NotificationDetailsPage */
+
+.navix-notif-detail__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: 0 0 1.75rem;
+  border-radius: var(--navix-radius-md);
+  background-color: var(--navix-muted-bg);
+  color: var(--navix-text-secondary);
+  font-size: var(--navix-font-size-sm);
+}
+
+.navix-notif-detail__label {
+  margin: 0;
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--navix-letter-spacing-caption);
+}
+
+.navix-notif-detail__value {
+  margin-top: 0.125rem;
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-primary);
+}
+
+.navix-notif-detail__hero {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--navix-space-4);
+}
+
+.navix-notif-detail__hero-body {
+  min-width: 0;
+}
+
+.navix-notif-detail__hero-title {
+  font-size: var(--navix-font-size-h3);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--navix-text-primary);
+}
+
+.navix-notif-detail__hero-message {
+  margin-top: var(--navix-space-2);
+  color: var(--navix-text-secondary);
+  line-height: var(--navix-line-height-relaxed);
+}
+
+.navix-notif-detail__resource {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  padding: var(--navix-space-3);
+  border: 1px solid var(--navix-border-color);
+  border-radius: var(--navix-radius-md);
+  color: var(--navix-text-primary);
+  text-decoration: none;
+  transition:
+    border-color var(--navix-transition-fast) var(--navix-ease-out),
+    background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-notif-detail__resource:hover {
+  border-color: var(--navix-primary);
+  background-color: var(--navix-primary-muted);
+}
+
+.navix-notif-detail__resource-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--navix-radius-full);
+  background-color: var(--navix-primary-muted);
+  color: var(--navix-primary);
+}
+
+.navix-notif-detail__resource-type {
+  display: block;
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+  text-transform: capitalize;
+}
+
+.navix-notif-detail__resource-id {
+  display: block;
+  font-size: var(--navix-font-size-sm);
+}

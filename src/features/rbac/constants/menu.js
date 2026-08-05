@@ -142,6 +142,9 @@ export const ROUTE_META = {
   [ROUTES.NOTIFICATIONS]: {
     requiredPermissions: [PERMISSIONS.NOTIFICATIONS_READ],
   },
+  [ROUTES.NOTIFICATIONS_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.NOTIFICATIONS_READ],
+  },
   [ROUTES.SETTINGS]: {
     requiredPermissions: [PERMISSIONS.SETTINGS_MANAGE],
   },

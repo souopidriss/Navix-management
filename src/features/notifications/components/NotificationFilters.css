@@ -1,0 +1,6 @@
+/* Navix Notifications — NotificationFilters */
+
+.navix-notif-filters__sort {
+  padding-top: var(--navix-space-2);
+  border-top: 1px solid var(--navix-border-color-subtle);
+}

@@ -1,0 +1,75 @@
+/* Navix Notifications — NotificationIcon
+   Pastille ronde teintée du token RGB de la variante (lisible en clair/sombre). */
+
+.navix-notif-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: var(--navix-radius-full);
+  color: var(--navix-text-secondary);
+  background-color: var(--navix-muted-bg);
+  background-image: linear-gradient(
+    135deg,
+    rgba(var(--navix-text-primary-rgb), 0.06),
+    rgba(var(--navix-text-primary-rgb), 0.02)
+  );
+}
+
+.navix-notif-icon--sm {
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: 0.8125rem;
+}
+
+.navix-notif-icon--md {
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1rem;
+}
+
+.navix-notif-icon--lg {
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.25rem;
+}
+
+.navix-notif-icon--primary {
+  color: var(--navix-primary);
+  background-color: rgba(var(--navix-primary-rgb), 0.14);
+}
+
+.navix-notif-icon--success {
+  color: var(--navix-success);
+  background-color: rgba(var(--navix-success-rgb), 0.14);
+}
+
+.navix-notif-icon--warning {
+  color: var(--navix-warning);
+  background-color: rgba(var(--navix-warning-rgb), 0.16);
+}
+
+.navix-notif-icon--danger {
+  color: var(--navix-danger);
+  background-color: rgba(var(--navix-danger-rgb), 0.16);
+}
+
+.navix-notif-icon--info {
+  color: var(--navix-info);
+  background-color: rgba(var(--navix-info-rgb), 0.14);
+}
+
+.navix-notif-icon--secondary {
+  color: var(--navix-text-secondary);
+  background-color: var(--navix-muted-bg);
+}
+
+.navix-notif-icon--dark {
+  color: var(--navix-text-secondary);
+  background-color: var(--navix-muted-bg);
+}
+
+.navix-notif-icon--light {
+  color: var(--navix-text-primary);
+  background-color: var(--navix-muted-bg);
+}

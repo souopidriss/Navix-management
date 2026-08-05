@@ -1,0 +1,25 @@
+/* Navix Notifications — AlertBanner */
+
+.navix-alert-banner {
+  width: 100%;
+}
+
+.navix-alert-banner__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--navix-space-3);
+  flex-wrap: wrap;
+}
+
+.navix-alert-banner__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.navix-alert-banner__meta {
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-secondary);
+}

@@ -1,0 +1,148 @@
+/* Navix Notifications — NotificationDropdown (centre de notifications du Header) */
+
+.navix-notif-dropdown {
+  position: relative;
+}
+
+/* ---- Badge de compteur sur la cloche ---------------------------------- */
+.navix-notif-dropdown__badge {
+  position: absolute;
+  top: 0.125rem;
+  right: 0.125rem;
+  min-width: 1.125rem;
+  height: 1.125rem;
+  padding: 0 0.25rem;
+  border-radius: var(--navix-radius-full);
+  background-color: var(--navix-danger);
+  color: var(--navix-text-inverse);
+  font-size: 0.625rem;
+  font-weight: var(--navix-font-weight-bold);
+  line-height: 1.125rem;
+  text-align: center;
+}
+
+/* ---- Panneau ---------------------------------------------------------- */
+.navix-notif-dropdown__panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: auto;
+  z-index: var(--navix-z-dropdown);
+  margin-top: 0.25rem;
+}
+
+.navix-notif-dropdown__count {
+  margin-inline-start: var(--navix-space-2);
+  padding: 0.125rem 0.4375rem;
+  border-radius: var(--navix-radius-full);
+  background-color: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.navix-notif-dropdown__mark-all {
+  border: none;
+  background: none;
+  color: var(--navix-primary);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-medium);
+  padding: 0;
+}
+
+.navix-notif-dropdown__mark-all:hover {
+  color: var(--navix-primary-hover);
+  text-decoration: underline;
+}
+
+/* ---- Liste ------------------------------------------------------------ */
+.navix-notif-dropdown__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 24rem;
+  overflow-y: auto;
+}
+
+.navix-notif-dropdown__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--navix-space-3);
+  width: 100%;
+  padding: var(--navix-space-2) var(--navix-space-3);
+  border: none;
+  border-radius: var(--navix-radius-md);
+  background-color: transparent;
+  color: var(--navix-text-primary);
+  text-align: start;
+  transition: background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-notif-dropdown__item:hover,
+.navix-notif-dropdown__item:focus-visible {
+  background-color: var(--navix-hover);
+  outline: none;
+}
+
+.navix-notif-dropdown__item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.navix-notif-dropdown__item-title {
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-semibold);
+  line-height: var(--navix-line-height-tight);
+}
+
+.navix-notif-dropdown__item-message {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+  line-height: var(--navix-line-height-caption);
+}
+
+.navix-notif-dropdown__item-time {
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-disabled);
+}
+
+/* ---- Pied ------------------------------------------------------------- */
+.navix-notif-dropdown__footer {
+  padding: var(--navix-space-2) var(--navix-space-3);
+  border-top: 1px solid var(--navix-border-color-subtle);
+}
+
+.navix-notif-dropdown__all {
+  width: 100%;
+  padding: var(--navix-space-2);
+  border: none;
+  border-radius: var(--navix-radius-md);
+  background-color: transparent;
+  color: var(--navix-primary);
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-medium);
+  transition: background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-notif-dropdown__all:hover {
+  background-color: var(--navix-primary-muted);
+}
+
+@media (max-width: 767.98px) {
+  .navix-notif-dropdown__panel {
+    position: fixed;
+    top: var(--navix-topbar-height);
+    right: var(--navix-space-2);
+    left: auto;
+    width: calc(100vw - var(--navix-space-4));
+    max-width: 21rem;
+  }
+}

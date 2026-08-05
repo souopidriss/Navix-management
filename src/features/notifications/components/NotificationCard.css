@@ -1,0 +1,54 @@
+/* Navix Notifications — NotificationCard (vue mobile) */
+
+.navix-notif-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-3);
+}
+
+.navix-notif-card.is-unread {
+  border-color: var(--navix-primary-muted);
+  box-shadow: inset 3px 0 0 var(--navix-primary);
+}
+
+.navix-notif-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--navix-space-3);
+}
+
+.navix-notif-card__identity {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--navix-space-3);
+  min-width: 0;
+}
+
+.navix-notif-card__title {
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--navix-text-primary);
+}
+
+.navix-notif-card__company {
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+}
+
+.navix-notif-card__message {
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-secondary);
+  line-height: var(--navix-line-height-relaxed);
+}
+
+.navix-notif-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--navix-space-2);
+}
+
+.navix-notif-card__meta {
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+}
