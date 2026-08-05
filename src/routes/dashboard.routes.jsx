@@ -53,6 +53,10 @@ const AgencyDetailsPage = lazy(() => import('@/features/agencies/pages/AgencyDet
 const AgencyCreatePage = lazy(() => import('@/features/agencies/pages/AgencyCreatePage'));
 const AgencyEditPage = lazy(() => import('@/features/agencies/pages/AgencyEditPage'));
 const AgencyStatisticsPage = lazy(() => import('@/features/agencies/pages/AgencyStatisticsPage'));
+const SubscriptionListPage = lazy(() => import('@/features/subscriptions/pages/SubscriptionListPage'));
+const SubscriptionDetailsPage = lazy(() => import('@/features/subscriptions/pages/SubscriptionDetailsPage'));
+const SubscriptionPlansPage = lazy(() => import('@/features/subscriptions/pages/SubscriptionPlansPage'));
+const SubscriptionUsagePage = lazy(() => import('@/features/subscriptions/pages/SubscriptionUsagePage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -101,7 +105,10 @@ export const dashboardRoutes = (
     <Route path={ROUTES.FILES_EDIT} element={<DocumentEditPage />} />
     <Route path={ROUTES.FILE_TYPES} element={<FileTypesPage />} />
     <Route path={ROUTES.INVOICES} element={<PlaceholderPage title="Facturation" icon="bi-receipt" />} />
-    <Route path={ROUTES.SUBSCRIPTIONS} element={<PlaceholderPage title="Abonnements" icon="bi-credit-card" />} />
+    <Route path={ROUTES.SUBSCRIPTIONS} element={<SubscriptionListPage />} />
+    <Route path={ROUTES.SUBSCRIPTIONS_PLANS} element={<SubscriptionPlansPage />} />
+    <Route path={ROUTES.SUBSCRIPTIONS_USAGE} element={<SubscriptionUsagePage />} />
+    <Route path={ROUTES.SUBSCRIPTIONS_DETAIL} element={<SubscriptionDetailsPage />} />
     <Route path={ROUTES.NOTIFICATIONS} element={<PlaceholderPage title="Notifications" icon="bi-bell" />} />
     <Route path={ROUTES.SETTINGS} element={<PlaceholderPage title="Paramètres" icon="bi-gear" />} />
     <Route path={ROUTES.PROFILE} element={<PlaceholderPage title="Profil" icon="bi-person" />} />

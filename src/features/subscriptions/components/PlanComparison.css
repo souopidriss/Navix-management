@@ -1,0 +1,57 @@
+.navix-plan-comparison {
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--navix-radius-lg);
+  overflow: hidden;
+  background: var(--navix-card);
+}
+
+.navix-plan-comparison__table {
+  min-width: 640px;
+}
+
+.navix-plan-comparison__feature-head {
+  min-width: 220px;
+}
+
+.navix-plan-comparison__plan-name {
+  display: block;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--bs-emphasis-color);
+}
+
+.navix-plan-comparison__plan-price {
+  display: block;
+  font-size: var(--navix-font-size-caption);
+  color: var(--bs-secondary-color);
+}
+
+.navix-plan-comparison__category th {
+  background: var(--navix-surface);
+  color: var(--bs-secondary-color);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  letter-spacing: var(--navix-letter-spacing-caption);
+  text-transform: uppercase;
+  padding: var(--navix-space-2) var(--navix-space-4);
+}
+
+.navix-plan-comparison__feature {
+  font-weight: var(--navix-font-weight-normal);
+  color: var(--bs-body-color);
+}
+
+.navix-plan-comparison__feature-icon {
+  color: var(--bs-secondary-color);
+  margin-right: var(--navix-space-2);
+}
+
+.navix-plan-comparison__included {
+  color: var(--bs-success);
+  font-size: 1.125rem;
+}
+
+.navix-plan-comparison__excluded {
+  color: var(--bs-secondary-color);
+  font-size: 1.125rem;
+  opacity: var(--navix-opacity-50);
+}

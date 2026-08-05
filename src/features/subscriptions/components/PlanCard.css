@@ -1,0 +1,118 @@
+.navix-plan-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.navix-plan-card--popular {
+  border-color: var(--bs-primary);
+  box-shadow: var(--navix-shadow-md);
+}
+
+.navix-plan-card--active {
+  border-color: var(--bs-success);
+}
+
+.navix-plan-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--navix-space-3);
+  flex-wrap: wrap;
+}
+
+.navix-plan-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--navix-radius-lg);
+  font-size: 1.25rem;
+}
+
+.navix-plan-card__icon--primary {
+  color: var(--bs-primary);
+  background: var(--bs-primary-bg-subtle);
+}
+
+.navix-plan-card__icon--info {
+  color: var(--bs-info);
+  background: var(--bs-info-bg-subtle);
+}
+
+.navix-plan-card__icon--warning {
+  color: var(--bs-warning);
+  background: var(--bs-warning-bg-subtle);
+}
+
+.navix-plan-card__icon--dark {
+  color: var(--navix-text-primary);
+  background: var(--navix-muted-bg);
+}
+
+.navix-plan-card__name {
+  font-size: var(--navix-font-size-h4);
+  font-weight: var(--navix-font-weight-bold);
+  color: var(--bs-emphasis-color);
+}
+
+.navix-plan-card__price {
+  margin-top: var(--navix-space-4);
+}
+
+.navix-plan-card__amount {
+  font-size: 2rem;
+  font-weight: var(--navix-font-weight-bold);
+  color: var(--bs-emphasis-color);
+  line-height: 1;
+}
+
+.navix-plan-card__interval {
+  font-size: var(--navix-font-size-sm);
+  color: var(--bs-secondary-color);
+}
+
+.navix-plan-card__description {
+  margin-top: var(--navix-space-3);
+  color: var(--bs-secondary-color);
+  font-size: var(--navix-font-size-sm);
+}
+
+.navix-plan-card__trial {
+  margin-top: var(--navix-space-2);
+  font-size: var(--navix-font-size-sm);
+  color: var(--bs-info);
+}
+
+.navix-plan-card__features {
+  list-style: none;
+  margin: var(--navix-space-4) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-2);
+  flex: 1 1 auto;
+}
+
+.navix-plan-card__features li {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  font-size: var(--navix-font-size-sm);
+  color: var(--bs-body-color);
+}
+
+.navix-plan-card__check {
+  color: var(--bs-success);
+  flex-shrink: 0;
+}
+
+.navix-plan-card__more {
+  color: var(--bs-secondary-color);
+  font-style: italic;
+}
+
+.navix-plan-card__footer {
+  margin-top: var(--navix-space-5);
+}

@@ -83,7 +83,16 @@ export const API_ENDPOINTS = {
   },
   SUBSCRIPTIONS: {
     LIST: '/subscriptions',
+    DETAIL: (id) => `/subscriptions/${id}`,
     CURRENT: '/subscriptions/current',
+    FEATURES: '/subscriptions/features',
+    PLAN_FEATURES: (planId) => `/subscriptions/plans/${planId}/features`,
+    PLAN_LIMITS: (planId) => `/subscriptions/plans/${planId}/limits`,
+    USAGE: (companyId) => `/subscriptions/usage/${companyId}`,
+    CANCEL: (id) => `/subscriptions/${id}/cancel`,
+    RESUME: (id) => `/subscriptions/${id}/resume`,
+    RENEW: (id) => `/subscriptions/${id}/renew`,
+    DELETE: (id) => `/subscriptions/${id}`,
   },
   INVOICES: {
     LIST: '/invoices',

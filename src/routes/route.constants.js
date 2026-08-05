@@ -66,6 +66,9 @@ export const ROUTES = {
   FILE_TYPES: '/dashboard/files/file-types',
   INVOICES: '/dashboard/invoices',
   SUBSCRIPTIONS: '/dashboard/subscriptions',
+  SUBSCRIPTIONS_PLANS: '/dashboard/subscriptions/plans',
+  SUBSCRIPTIONS_USAGE: '/dashboard/subscriptions/usage',
+  SUBSCRIPTIONS_DETAIL: '/dashboard/subscriptions/:id',
   NOTIFICATIONS: '/dashboard/notifications',
   SETTINGS: '/dashboard/settings',
   PROFILE: '/dashboard/profile',
@@ -132,6 +135,9 @@ export const documentDetailPath = (id) => `${ROUTES.FILES}/${id}`;
 /** Construit le chemin d'édition d'un document. */
 export const documentEditPath = (id) => `${ROUTES.FILES}/${id}/edit`;
 
+/** Construit le chemin de détail d'un abonnement. */
+export const subscriptionDetailPath = (id) => `${ROUTES.SUBSCRIPTIONS}/${id}`;
+
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.COMPANIES,
@@ -179,6 +185,9 @@ export const PRIVATE_ROUTES = [
   ROUTES.FILE_TYPES,
   ROUTES.INVOICES,
   ROUTES.SUBSCRIPTIONS,
+  ROUTES.SUBSCRIPTIONS_PLANS,
+  ROUTES.SUBSCRIPTIONS_USAGE,
+  ROUTES.SUBSCRIPTIONS_DETAIL,
   ROUTES.NOTIFICATIONS,
   ROUTES.SETTINGS,
   ROUTES.PROFILE,

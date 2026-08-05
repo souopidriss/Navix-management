@@ -1,0 +1,31 @@
+.navix-usage-page__link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--bs-primary);
+  font-weight: var(--navix-font-weight-semibold);
+  text-align: start;
+}
+
+.navix-usage-page__link:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+.navix-usage-page__plan {
+  color: var(--bs-body-color);
+  font-size: var(--navix-font-size-sm);
+  white-space: nowrap;
+}
+
+.navix-usage-page__cell {
+  min-width: 10rem;
+}
+
+.navix-usage-page__cell-label {
+  display: block;
+  font-size: var(--navix-font-size-caption);
+  color: var(--bs-secondary-color);
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+}

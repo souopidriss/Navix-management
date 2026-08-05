@@ -1,0 +1,17 @@
+/**
+ * Navix Subscriptions — Barrels des mocks du module.
+ */
+export {
+  MOCK_PLANS,
+  MOCK_PLANS_BY_ID,
+  MOCK_PLANS_BY_CODE,
+  MOCK_FEATURES,
+  MOCK_FEATURES_BY_CODE,
+  MOCK_PLAN_FEATURES,
+  MOCK_PLAN_LIMITS,
+  MOCK_SUBSCRIPTIONS,
+  MOCK_SUBSCRIPTIONS_BY_ID,
+  MOCK_USAGE,
+  MOCK_COMPANY_NAMES,
+  MOCK_SUBSCRIPTIONS_COMPANY_REFERENCE,
+} from './subscriptions.mock';

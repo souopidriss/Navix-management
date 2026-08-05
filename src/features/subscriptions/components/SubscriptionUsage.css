@@ -1,0 +1,30 @@
+.navix-subscription-usage__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--navix-space-3);
+  margin-bottom: var(--navix-space-3);
+}
+
+.navix-subscription-usage__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-1);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-medium);
+}
+
+.navix-subscription-usage__legend-item--success {
+  color: var(--bs-success);
+}
+
+.navix-subscription-usage__legend-item--warning {
+  color: var(--bs-warning);
+}
+
+.navix-subscription-usage__legend-item--danger {
+  color: var(--bs-danger);
+}
+
+.navix-subscription-usage__rows > .navix-usage-progress + .navix-usage-progress {
+  border-top: 1px solid var(--bs-border-color);
+}

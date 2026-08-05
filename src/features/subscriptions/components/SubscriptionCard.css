@@ -1,0 +1,93 @@
+.navix-subscription-card {
+  height: 100%;
+}
+
+.navix-subscription-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--navix-space-3);
+}
+
+.navix-subscription-card__identity {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  min-width: 0;
+}
+
+.navix-subscription-card__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--navix-radius-lg);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.navix-subscription-card__logo--primary {
+  color: var(--bs-primary);
+  background: var(--bs-primary-bg-subtle);
+}
+
+.navix-subscription-card__logo--info {
+  color: var(--bs-info);
+  background: var(--bs-info-bg-subtle);
+}
+
+.navix-subscription-card__logo--warning {
+  color: var(--bs-warning);
+  background: var(--bs-warning-bg-subtle);
+}
+
+.navix-subscription-card__logo--dark {
+  color: var(--navix-text-primary);
+  background: var(--navix-muted-bg);
+}
+
+.navix-subscription-card__company {
+  font-size: var(--navix-font-size-h5);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--bs-emphasis-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navix-subscription-card__meta {
+  font-size: var(--navix-font-size-sm);
+  color: var(--bs-secondary-color);
+}
+
+.navix-subscription-card__details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--navix-space-3);
+  margin: var(--navix-space-4) 0 0;
+}
+
+.navix-subscription-card__details dt {
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--bs-secondary-color);
+  text-transform: uppercase;
+  letter-spacing: var(--navix-letter-spacing-caption);
+}
+
+.navix-subscription-card__details dd {
+  margin: 0;
+  font-size: var(--navix-font-size-sm);
+  color: var(--bs-body-color);
+}
+
+.navix-subscription-card__actions {
+  margin-top: var(--navix-space-4);
+}
+
+@media (max-width: 575.98px) {
+  .navix-subscription-card__details {
+    grid-template-columns: 1fr;
+  }
+}
