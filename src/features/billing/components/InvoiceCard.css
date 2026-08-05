@@ -1,0 +1,107 @@
+.navix-invoice-card {
+  height: 100%;
+}
+
+.navix-invoice-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--navix-space-3);
+}
+
+.navix-invoice-card__identity {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  min-width: 0;
+}
+
+.navix-invoice-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--navix-radius-lg);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  color: var(--bs-primary);
+  background: var(--bs-primary-bg-subtle);
+}
+
+.navix-invoice-card__number {
+  font-size: var(--navix-font-size-h6);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--bs-emphasis-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navix-invoice-card__company {
+  font-size: var(--navix-font-size-sm);
+  color: var(--bs-secondary-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navix-invoice-card__amount {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--navix-space-3);
+  margin-top: var(--navix-space-4);
+  padding: var(--navix-space-3);
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-muted-bg);
+}
+
+.navix-invoice-card__amount-label {
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--bs-secondary-color);
+  text-transform: uppercase;
+  letter-spacing: var(--navix-letter-spacing-caption);
+}
+
+.navix-invoice-card__amount-value {
+  font-size: var(--navix-font-size-h5);
+  font-weight: var(--navix-font-weight-bold);
+  color: var(--bs-emphasis-color);
+}
+
+.navix-invoice-card__details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--navix-space-3);
+  margin: var(--navix-space-4) 0 0;
+}
+
+.navix-invoice-card__details dt {
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--bs-secondary-color);
+  text-transform: uppercase;
+  letter-spacing: var(--navix-letter-spacing-caption);
+}
+
+.navix-invoice-card__details dd {
+  margin: 0;
+  font-size: var(--navix-font-size-sm);
+  color: var(--bs-body-color);
+}
+
+.navix-invoice-card__due {
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.navix-invoice-card__actions {
+  margin-top: var(--navix-space-4);
+}
+
+@media (max-width: 575.98px) {
+  .navix-invoice-card__details {
+    grid-template-columns: 1fr;
+  }
+}

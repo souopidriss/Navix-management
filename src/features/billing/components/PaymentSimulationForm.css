@@ -1,0 +1,55 @@
+.navix-payment-simulation__summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--navix-space-3);
+  padding: var(--navix-space-3);
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-muted-bg);
+}
+
+.navix-payment-simulation__summary dt {
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--bs-secondary-color);
+  text-transform: uppercase;
+  letter-spacing: var(--navix-letter-spacing-caption);
+}
+
+.navix-payment-simulation__summary dd {
+  margin: 0;
+  font-size: var(--navix-font-size-sm);
+  color: var(--bs-body-color);
+}
+
+.navix-payment-simulation__method {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-2) var(--navix-space-3);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--navix-radius-md);
+  cursor: pointer;
+  font-size: var(--navix-font-size-sm);
+  color: var(--bs-secondary-color);
+  transition: border-color var(--navix-transition-fast), background var(--navix-transition-fast),
+    color var(--navix-transition-fast);
+}
+
+.navix-payment-simulation__method input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navix-payment-simulation__method--selected {
+  border-color: var(--bs-primary);
+  background: var(--bs-primary-bg-subtle);
+  color: var(--bs-primary);
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+@media (max-width: 575.98px) {
+  .navix-payment-simulation__summary {
+    grid-template-columns: 1fr;
+  }
+}

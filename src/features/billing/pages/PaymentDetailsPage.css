@@ -1,0 +1,49 @@
+.navix-payment-detail__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--navix-radius-md);
+  color: var(--bs-success);
+  background: var(--bs-success-bg-subtle);
+  flex-shrink: 0;
+}
+
+.navix-payment-detail__label {
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--bs-secondary-color);
+  text-transform: uppercase;
+  letter-spacing: var(--navix-letter-spacing-caption);
+}
+
+.navix-payment-detail__value {
+  font-size: var(--navix-font-size-sm);
+  color: var(--bs-body-color);
+}
+
+.navix-payment-detail__amount {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-1);
+  min-width: 10rem;
+  padding: var(--navix-space-2) var(--navix-space-3);
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-muted-bg);
+  flex-shrink: 0;
+}
+
+.navix-payment-detail__amount-label {
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--bs-secondary-color);
+  text-transform: uppercase;
+  letter-spacing: var(--navix-letter-spacing-caption);
+}
+
+.navix-payment-detail__amount-value {
+  font-size: var(--navix-font-size-h5);
+  font-weight: var(--navix-font-weight-bold);
+  color: var(--bs-emphasis-color);
+}

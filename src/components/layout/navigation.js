@@ -27,7 +27,7 @@ export const SIDEBAR_SECTIONS = [
   {
     label: 'Finances',
     items: [
-      { to: ROUTES.INVOICES, label: 'Facturation', icon: 'bi-receipt' },
+      { to: ROUTES.BILLING, label: 'Facturation', icon: 'bi-receipt' },
       { to: ROUTES.SUBSCRIPTIONS, label: 'Abonnements', icon: 'bi-credit-card' },
     ],
   },

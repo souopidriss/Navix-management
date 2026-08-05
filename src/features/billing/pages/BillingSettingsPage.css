@@ -1,0 +1,13 @@
+.navix-billing-settings__issuer dt {
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--bs-secondary-color);
+  text-transform: uppercase;
+  letter-spacing: var(--navix-letter-spacing-caption);
+}
+
+.navix-billing-settings__issuer dd {
+  margin: 0 0 var(--navix-space-2);
+  color: var(--bs-body-color);
+  font-size: var(--navix-font-size-sm);
+}

@@ -1,0 +1,50 @@
+.navix-billing-dashboard__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navix-billing-dashboard__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--navix-space-3);
+  width: 100%;
+  border: 0;
+  background: none;
+  padding: var(--navix-space-2) 0;
+  text-align: start;
+  cursor: pointer;
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+.navix-billing-dashboard__list li:last-child .navix-billing-dashboard__row {
+  border-bottom: 0;
+}
+
+.navix-billing-dashboard__row:hover .navix-billing-dashboard__row-sub {
+  color: var(--bs-primary);
+}
+
+.navix-billing-dashboard__row-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-1);
+  min-width: 0;
+}
+
+.navix-billing-dashboard__row-sub {
+  font-size: var(--navix-font-size-sm);
+  color: var(--bs-secondary-color);
+  transition: color var(--navix-transition-fast);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navix-billing-dashboard__row-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  flex-shrink: 0;
+}

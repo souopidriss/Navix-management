@@ -114,6 +114,27 @@ export const ROUTE_META = {
   [ROUTES.INVOICES]: {
     requiredPermissions: [PERMISSIONS.BILLING_MANAGE],
   },
+  [ROUTES.BILLING]: {
+    requiredPermissions: [PERMISSIONS.BILLING_MANAGE],
+  },
+  [ROUTES.BILLING_INVOICES]: {
+    requiredPermissions: [PERMISSIONS.BILLING_MANAGE],
+  },
+  [ROUTES.BILLING_INVOICE_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.BILLING_MANAGE],
+  },
+  [ROUTES.BILLING_PAYMENTS]: {
+    requiredPermissions: [PERMISSIONS.BILLING_MANAGE],
+  },
+  [ROUTES.BILLING_PAYMENT_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.BILLING_MANAGE],
+  },
+  [ROUTES.BILLING_HISTORY]: {
+    requiredPermissions: [PERMISSIONS.BILLING_MANAGE],
+  },
+  [ROUTES.BILLING_SETTINGS]: {
+    requiredPermissions: [PERMISSIONS.BILLING_MANAGE],
+  },
   [ROUTES.SUBSCRIPTIONS]: {
     requiredPermissions: [PERMISSIONS.SUBSCRIPTIONS_MANAGE],
     requiredRole: [ROLES.SUPER_ADMIN, ROLES.COMPANY_OWNER],

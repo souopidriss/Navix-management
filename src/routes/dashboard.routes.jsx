@@ -57,6 +57,13 @@ const SubscriptionListPage = lazy(() => import('@/features/subscriptions/pages/S
 const SubscriptionDetailsPage = lazy(() => import('@/features/subscriptions/pages/SubscriptionDetailsPage'));
 const SubscriptionPlansPage = lazy(() => import('@/features/subscriptions/pages/SubscriptionPlansPage'));
 const SubscriptionUsagePage = lazy(() => import('@/features/subscriptions/pages/SubscriptionUsagePage'));
+const BillingDashboardPage = lazy(() => import('@/features/billing/pages/BillingDashboardPage'));
+const BillingHistoryPage = lazy(() => import('@/features/billing/pages/BillingHistoryPage'));
+const BillingSettingsPage = lazy(() => import('@/features/billing/pages/BillingSettingsPage'));
+const InvoiceListPage = lazy(() => import('@/features/billing/pages/InvoicesPage'));
+const InvoiceDetailsPage = lazy(() => import('@/features/billing/pages/InvoiceDetailsPage'));
+const PaymentListPage = lazy(() => import('@/features/billing/pages/PaymentsPage'));
+const PaymentDetailsPage = lazy(() => import('@/features/billing/pages/PaymentDetailsPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -104,7 +111,14 @@ export const dashboardRoutes = (
     <Route path={ROUTES.FILES_DETAIL} element={<DocumentDetailsPage />} />
     <Route path={ROUTES.FILES_EDIT} element={<DocumentEditPage />} />
     <Route path={ROUTES.FILE_TYPES} element={<FileTypesPage />} />
-    <Route path={ROUTES.INVOICES} element={<PlaceholderPage title="Facturation" icon="bi-receipt" />} />
+    <Route path={ROUTES.INVOICES} element={<InvoiceListPage />} />
+    <Route path={ROUTES.BILLING} element={<BillingDashboardPage />} />
+    <Route path={ROUTES.BILLING_INVOICES} element={<InvoiceListPage />} />
+    <Route path={ROUTES.BILLING_INVOICE_DETAIL} element={<InvoiceDetailsPage />} />
+    <Route path={ROUTES.BILLING_PAYMENTS} element={<PaymentListPage />} />
+    <Route path={ROUTES.BILLING_PAYMENT_DETAIL} element={<PaymentDetailsPage />} />
+    <Route path={ROUTES.BILLING_HISTORY} element={<BillingHistoryPage />} />
+    <Route path={ROUTES.BILLING_SETTINGS} element={<BillingSettingsPage />} />
     <Route path={ROUTES.SUBSCRIPTIONS} element={<SubscriptionListPage />} />
     <Route path={ROUTES.SUBSCRIPTIONS_PLANS} element={<SubscriptionPlansPage />} />
     <Route path={ROUTES.SUBSCRIPTIONS_USAGE} element={<SubscriptionUsagePage />} />

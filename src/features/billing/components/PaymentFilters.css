@@ -1,0 +1,5 @@
+.navix-payment-filter__sort {
+  margin-top: var(--navix-space-2);
+  border-top: 1px solid var(--bs-border-color);
+  padding-top: var(--navix-space-2);
+}

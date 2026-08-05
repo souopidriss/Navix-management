@@ -65,6 +65,13 @@ export const ROUTES = {
   FILES_EDIT: '/dashboard/files/:id/edit',
   FILE_TYPES: '/dashboard/files/file-types',
   INVOICES: '/dashboard/invoices',
+  BILLING: '/dashboard/billing',
+  BILLING_INVOICES: '/dashboard/billing/invoices',
+  BILLING_INVOICE_DETAIL: '/dashboard/billing/invoices/:id',
+  BILLING_PAYMENTS: '/dashboard/billing/payments',
+  BILLING_PAYMENT_DETAIL: '/dashboard/billing/payments/:id',
+  BILLING_HISTORY: '/dashboard/billing/history',
+  BILLING_SETTINGS: '/dashboard/billing/settings',
   SUBSCRIPTIONS: '/dashboard/subscriptions',
   SUBSCRIPTIONS_PLANS: '/dashboard/subscriptions/plans',
   SUBSCRIPTIONS_USAGE: '/dashboard/subscriptions/usage',
@@ -138,6 +145,12 @@ export const documentEditPath = (id) => `${ROUTES.FILES}/${id}/edit`;
 /** Construit le chemin de détail d'un abonnement. */
 export const subscriptionDetailPath = (id) => `${ROUTES.SUBSCRIPTIONS}/${id}`;
 
+/** Construit le chemin de détail d'une facture. */
+export const invoiceDetailPath = (id) => `${ROUTES.BILLING_INVOICES}/${id}`;
+
+/** Construit le chemin de détail d'un paiement. */
+export const paymentDetailPath = (id) => `${ROUTES.BILLING_PAYMENTS}/${id}`;
+
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.COMPANIES,
@@ -184,6 +197,13 @@ export const PRIVATE_ROUTES = [
   ROUTES.FILES_EDIT,
   ROUTES.FILE_TYPES,
   ROUTES.INVOICES,
+  ROUTES.BILLING,
+  ROUTES.BILLING_INVOICES,
+  ROUTES.BILLING_INVOICE_DETAIL,
+  ROUTES.BILLING_PAYMENTS,
+  ROUTES.BILLING_PAYMENT_DETAIL,
+  ROUTES.BILLING_HISTORY,
+  ROUTES.BILLING_SETTINGS,
   ROUTES.SUBSCRIPTIONS,
   ROUTES.SUBSCRIPTIONS_PLANS,
   ROUTES.SUBSCRIPTIONS_USAGE,
