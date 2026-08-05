@@ -1,0 +1,7 @@
+.navix-dash-table__sub {
+  font-size: var(--navix-font-size-sm, 0.75rem);
+  color: var(--bs-secondary-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

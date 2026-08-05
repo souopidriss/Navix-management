@@ -60,6 +60,17 @@ export const API_ENDPOINTS = {
     FILE_TYPES: '/documents/file-types',
     FILE_TYPE_DETAIL: (id) => `/documents/file-types/${id}`,
   },
+  DASHBOARD: {
+    OVERVIEW: '/dashboard/overview',
+    FLEET: '/dashboard/fleet',
+    FUEL: '/dashboard/fuel',
+    MAINTENANCE: '/dashboard/maintenance',
+    FINANCIAL: '/dashboard/financial',
+    ALERTS: '/dashboard/alerts',
+    ACTIVITIES: '/dashboard/activities',
+    TOP_VEHICLES: '/dashboard/top-vehicles',
+    TOP_DRIVERS: '/dashboard/top-drivers',
+  },
   SUBSCRIPTIONS: {
     LIST: '/subscriptions',
     CURRENT: '/subscriptions/current',

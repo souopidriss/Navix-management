@@ -8,7 +8,7 @@ import { ROUTES } from './route.constants';
  * Toutes les pages sont chargées à la demande (React.lazy).
  * Ajouter une future page : créer le fichier dans src/pages/ puis l'importer ici en lazy.
  */
-const DashboardPage = lazy(() => import('@/pages/DashboardPage'));
+const DashboardPage = lazy(() => import('@/features/dashboard/pages/DashboardPage'));
 const PlaceholderPage = lazy(() => import('@/pages/PlaceholderPage'));
 const CompanyListPage = lazy(() => import('@/features/companies/pages/CompanyListPage'));
 const CompanyDetailsPage = lazy(() => import('@/features/companies/pages/CompanyDetailsPage'));
