@@ -28,6 +28,16 @@ export const API_ENDPOINTS = {
     LIST: '/companies',
     DETAIL: (id) => `/companies/${id}`,
   },
+  AGENCIES: {
+    LIST: '/agencies',
+    DETAIL: (id) => `/agencies/${id}`,
+    STATS: '/agencies/stats',
+    VEHICLES: (id) => `/agencies/${id}/vehicles`,
+    DRIVERS: (id) => `/agencies/${id}/drivers`,
+    ACTIVITY: (id) => `/agencies/${id}/activity`,
+    ACTIVATE: (id) => `/agencies/${id}/activate`,
+    DEACTIVATE: (id) => `/agencies/${id}/deactivate`,
+  },
   ASSIGNMENTS: {
     LIST: '/assignments',
     DETAIL: (id) => `/assignments/${id}`,

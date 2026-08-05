@@ -1,0 +1,38 @@
+.navix-agency-drivers__list {
+  margin-bottom: 0;
+}
+
+.navix-agency-drivers__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  color: var(--bs-primary);
+  background: var(--bs-primary-bg-subtle);
+  flex-shrink: 0;
+}
+
+.navix-agency-drivers__main {
+  font-weight: 600;
+  color: var(--bs-emphasis-color);
+}
+
+.navix-agency-drivers__sub {
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+  color: var(--bs-secondary-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navix-agency-drivers__status {
+  white-space: nowrap;
+}
+
+@media (max-width: 575.98px) {
+  .navix-agency-drivers__status {
+    display: none;
+  }
+}

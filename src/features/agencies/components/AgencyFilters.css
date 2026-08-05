@@ -1,0 +1,8 @@
+.navix-agency-filter__sort {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  margin-top: 0.75rem;
+  border-top: 1px solid var(--bs-border-color);
+}

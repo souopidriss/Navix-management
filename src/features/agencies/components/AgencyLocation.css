@@ -1,0 +1,35 @@
+.navix-agency-location {
+  display: grid;
+  gap: 0.625rem;
+}
+
+.navix-agency-location__address,
+.navix-agency-location__coordinates {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  color: var(--bs-body-color);
+  min-width: 0;
+}
+
+.navix-agency-location__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  border-radius: 0.5rem;
+  color: var(--bs-primary);
+  background: var(--bs-primary-bg-subtle);
+  flex-shrink: 0;
+  font-size: 0.875rem;
+}
+
+.navix-agency-location__icon--coords {
+  color: var(--bs-success);
+  background: var(--bs-success-bg-subtle);
+}
+
+.navix-agency-location__coordinates code {
+  overflow-wrap: anywhere;
+}

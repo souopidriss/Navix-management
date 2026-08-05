@@ -70,7 +70,7 @@ export const MOCK_COMPANIES = [
     updatedAt: '2026-05-20T15:10:00.000Z',
     vehicleCount: 3,
     driverCount: 2,
-    agencyCount: 0,
+    agencyCount: 1,
   },
   {
     id: '01J8D2E3F4G5H6J7K8L9M0N1P2',
@@ -154,7 +154,7 @@ export const MOCK_COMPANIES = [
     updatedAt: '2026-01-15T10:00:00.000Z',
     vehicleCount: 2,
     driverCount: 1,
-    agencyCount: 0,
+    agencyCount: 1,
   },
   {
     id: '01J8H2J3K4L5M6N7P8Q9R0S1T2',
@@ -175,7 +175,7 @@ export const MOCK_COMPANIES = [
     updatedAt: '2026-06-25T08:50:00.000Z',
     vehicleCount: 1,
     driverCount: 1,
-    agencyCount: 0,
+    agencyCount: 1,
   },
   {
     id: '01J8J2K3L4M5N6P7Q8R9S0T1U2',

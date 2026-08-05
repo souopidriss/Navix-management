@@ -1,0 +1,42 @@
+.navix-agency-table__name {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.navix-agency-table__link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bs-emphasis-color);
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+}
+
+.navix-agency-table__link:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+.navix-agency-table__sub {
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+  color: var(--bs-secondary-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navix-agency-table__location {
+  color: var(--bs-body-color);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 991.98px) {
+  .navix-agency-table {
+    display: none;
+  }
+}

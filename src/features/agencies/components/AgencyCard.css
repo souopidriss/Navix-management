@@ -1,0 +1,57 @@
+.navix-agency-card__name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.navix-agency-card__link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bs-emphasis-color);
+  text-align: left;
+  text-decoration: none;
+}
+
+.navix-agency-card__link:hover {
+  color: var(--bs-primary);
+  text-decoration: underline;
+}
+
+.navix-agency-card__code {
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+}
+
+.navix-agency-card__meta {
+  display: grid;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+}
+
+.navix-agency-card__meta div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.navix-agency-card__meta dt {
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+  color: var(--bs-secondary-color);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.navix-agency-card__meta dd {
+  margin: 0;
+  color: var(--bs-emphasis-color);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.navix-agency-card__stats {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  color: var(--bs-secondary-color);
+  font-size: var(--navix-font-size-sm, 0.875rem);
+}

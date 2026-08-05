@@ -48,6 +48,11 @@ const DocumentDetailsPage = lazy(() => import('@/features/documents/pages/Docume
 const DocumentCreatePage = lazy(() => import('@/features/documents/pages/DocumentCreatePage'));
 const DocumentEditPage = lazy(() => import('@/features/documents/pages/DocumentEditPage'));
 const FileTypesPage = lazy(() => import('@/features/documents/pages/FileTypesPage'));
+const AgencyListPage = lazy(() => import('@/features/agencies/pages/AgencyListPage'));
+const AgencyDetailsPage = lazy(() => import('@/features/agencies/pages/AgencyDetailsPage'));
+const AgencyCreatePage = lazy(() => import('@/features/agencies/pages/AgencyCreatePage'));
+const AgencyEditPage = lazy(() => import('@/features/agencies/pages/AgencyEditPage'));
+const AgencyStatisticsPage = lazy(() => import('@/features/agencies/pages/AgencyStatisticsPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -56,7 +61,11 @@ export const dashboardRoutes = (
     <Route path={ROUTES.COMPANIES_CREATE} element={<CompanyCreatePage />} />
     <Route path={ROUTES.COMPANIES_DETAIL} element={<CompanyDetailsPage />} />
     <Route path={ROUTES.COMPANIES_EDIT} element={<CompanyEditPage />} />
-    <Route path={ROUTES.AGENCIES} element={<PlaceholderPage title="Agences" icon="bi-diagram-3" />} />
+    <Route path={ROUTES.AGENCIES} element={<AgencyListPage />} />
+    <Route path={ROUTES.AGENCIES_CREATE} element={<AgencyCreatePage />} />
+    <Route path={ROUTES.AGENCIES_DETAIL} element={<AgencyDetailsPage />} />
+    <Route path={ROUTES.AGENCIES_EDIT} element={<AgencyEditPage />} />
+    <Route path={ROUTES.AGENCIES_STATISTICS} element={<AgencyStatisticsPage />} />
     <Route path={ROUTES.VEHICLES} element={<VehicleListPage />} />
     <Route path={ROUTES.VEHICLES_CREATE} element={<VehicleCreatePage />} />
     <Route path={ROUTES.VEHICLES_DETAIL} element={<VehicleDetailsPage />} />
