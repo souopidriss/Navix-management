@@ -1,0 +1,26 @@
+.navix-users-table__user {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  line-height: 1.3;
+}
+
+.navix-users-table__user > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.navix-users-table__name {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.navix-users-table__email {
+  font-size: 0.75rem;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 12rem;
+}

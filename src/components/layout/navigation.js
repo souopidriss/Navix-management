@@ -36,6 +36,9 @@ export const SIDEBAR_SECTIONS = [
     items: [
       { to: ROUTES.NOTIFICATIONS, label: 'Notifications', icon: 'bi-bell' },
       { to: ROUTES.AUDIT_LOGS, label: 'Journal des actions', icon: 'bi-journal-text' },
+      { to: ROUTES.USERS, label: 'Utilisateurs', icon: 'bi-people' },
+      { to: ROUTES.ROLES, label: 'Rôles', icon: 'bi-person-badge' },
+      { to: ROUTES.PERMISSIONS, label: 'Permissions', icon: 'bi-shield-check' },
       { to: ROUTES.SETTINGS, label: 'Paramètres', icon: 'bi-gear' },
     ],
   },

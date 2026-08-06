@@ -79,6 +79,11 @@ export class ApiError extends Error {
     return new ApiError({ status: 404, code: STATUS_CODES[404], message });
   }
 
+  /** Erreur générique 409 (conflit — ressource déjà existante). */
+  static conflict(message = 'Conflit avec une ressource existante.', details = null) {
+    return new ApiError({ status: 409, code: STATUS_CODES[409], message, details });
+  }
+
   /** Erreur générique 500 (erreur serveur). */
   static internal(message = 'Erreur interne du serveur.') {
     return new ApiError({ status: 500, code: STATUS_CODES[500], message });

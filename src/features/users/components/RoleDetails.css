@@ -1,0 +1,47 @@
+.navix-role-details__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.navix-role-details__identity {
+  min-width: 0;
+}
+
+.navix-role-details__code {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+}
+
+.navix-role-details__description {
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+  max-width: 48rem;
+}
+
+.navix-role-details__permissions {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.navix-role-details__groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: 1rem;
+}
+
+.navix-role-details__group {
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius, 0.375rem);
+  padding: 0.75rem;
+}
+
+.navix-role-details__group-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+}

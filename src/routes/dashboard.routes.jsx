@@ -68,6 +68,13 @@ const NotificationsPage = lazy(() => import('@/features/notifications/pages/Noti
 const NotificationDetailsPage = lazy(() => import('@/features/notifications/pages/NotificationDetailsPage'));
 const AuditLogsPage = lazy(() => import('@/features/audit/pages/AuditLogsPage'));
 const AuditLogDetailsPage = lazy(() => import('@/features/audit/pages/AuditLogDetailsPage'));
+const UsersPage = lazy(() => import('@/features/users/pages/UsersPage'));
+const UserDetailsPage = lazy(() => import('@/features/users/pages/UserDetailsPage'));
+const CreateUserPage = lazy(() => import('@/features/users/pages/CreateUserPage'));
+const EditUserPage = lazy(() => import('@/features/users/pages/EditUserPage'));
+const RolesPage = lazy(() => import('@/features/users/pages/RolesPage'));
+const RoleDetailsPage = lazy(() => import('@/features/users/pages/RoleDetailsPage'));
+const PermissionsPage = lazy(() => import('@/features/users/pages/PermissionsPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -131,6 +138,13 @@ export const dashboardRoutes = (
     <Route path={ROUTES.NOTIFICATIONS_DETAIL} element={<NotificationDetailsPage />} />
     <Route path={ROUTES.AUDIT_LOGS} element={<AuditLogsPage />} />
     <Route path={ROUTES.AUDIT_LOGS_DETAIL} element={<AuditLogDetailsPage />} />
+    <Route path={ROUTES.USERS} element={<UsersPage />} />
+    <Route path={ROUTES.USERS_CREATE} element={<CreateUserPage />} />
+    <Route path={ROUTES.USERS_DETAIL} element={<UserDetailsPage />} />
+    <Route path={ROUTES.USERS_EDIT} element={<EditUserPage />} />
+    <Route path={ROUTES.ROLES} element={<RolesPage />} />
+    <Route path={ROUTES.ROLES_DETAIL} element={<RoleDetailsPage />} />
+    <Route path={ROUTES.PERMISSIONS} element={<PermissionsPage />} />
     <Route path={ROUTES.SETTINGS} element={<PlaceholderPage title="Paramètres" icon="bi-gear" />} />
     <Route path={ROUTES.PROFILE} element={<PlaceholderPage title="Profil" icon="bi-person" />} />
   </Route>

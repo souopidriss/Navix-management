@@ -1,0 +1,44 @@
+.navix-role-permission-editor__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.navix-role-permission-editor__group {
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius, 0.375rem);
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.navix-role-permission-editor__group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.625rem;
+}
+
+.navix-role-permission-editor__group-title {
+  font-weight: 600;
+}
+
+.navix-role-permission-editor__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0.375rem 1.5rem;
+}
+
+.navix-role-permission-editor__permission {
+  margin: 0;
+}
+
+.navix-role-permission-editor__permission .form-check-label {
+  font-size: 0.875rem;
+}
+
+.navix-role-permission-editor__readonly {
+  display: flex;
+  align-items: center;
+}

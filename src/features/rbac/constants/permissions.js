@@ -72,6 +72,19 @@ export const PERMISSIONS = {
   AUDIT_EXPORT: 'audit.export',
   AUDIT_VIEW_SENSITIVE: 'audit.viewSensitive',
   AUDIT_VIEW_ALL_COMPANIES: 'audit.viewAllCompanies',
+
+  /* Utilisateurs, rôles et permissions */
+  USERS_VIEW: 'users.view',
+  USERS_CREATE: 'users.create',
+  USERS_UPDATE: 'users.update',
+  USERS_DELETE: 'users.delete',
+  USERS_ASSIGN: 'users.assign',
+  ROLES_VIEW: 'roles.view',
+  ROLES_CREATE: 'roles.create',
+  ROLES_UPDATE: 'roles.update',
+  ROLES_DELETE: 'roles.delete',
+  ROLES_MANAGE: 'roles.manage',
+  PERMISSIONS_VIEW: 'permissions.view',
 };
 
 /** Liste exhaustive de toutes les permissions de l'application. */

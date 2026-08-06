@@ -151,6 +151,27 @@ export const ROUTE_META = {
   [ROUTES.AUDIT_LOGS_DETAIL]: {
     requiredPermissions: [PERMISSIONS.AUDIT_VIEW],
   },
+  [ROUTES.USERS]: {
+    requiredPermissions: [PERMISSIONS.USERS_VIEW],
+  },
+  [ROUTES.USERS_CREATE]: {
+    requiredPermissions: [PERMISSIONS.USERS_CREATE],
+  },
+  [ROUTES.USERS_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.USERS_VIEW],
+  },
+  [ROUTES.USERS_EDIT]: {
+    requiredPermissions: [PERMISSIONS.USERS_UPDATE],
+  },
+  [ROUTES.ROLES]: {
+    requiredPermissions: [PERMISSIONS.ROLES_VIEW],
+  },
+  [ROUTES.ROLES_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.ROLES_VIEW],
+  },
+  [ROUTES.PERMISSIONS]: {
+    requiredPermissions: [PERMISSIONS.PERMISSIONS_VIEW],
+  },
   [ROUTES.SETTINGS]: {
     requiredPermissions: [PERMISSIONS.SETTINGS_MANAGE],
   },

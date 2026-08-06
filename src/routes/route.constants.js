@@ -80,6 +80,13 @@ export const ROUTES = {
   NOTIFICATIONS_DETAIL: '/dashboard/notifications/:id',
   AUDIT_LOGS: '/dashboard/audit-logs',
   AUDIT_LOGS_DETAIL: '/dashboard/audit-logs/:id',
+  USERS: '/dashboard/users',
+  USERS_CREATE: '/dashboard/users/new',
+  USERS_DETAIL: '/dashboard/users/:id',
+  USERS_EDIT: '/dashboard/users/:id/edit',
+  ROLES: '/dashboard/roles',
+  ROLES_DETAIL: '/dashboard/roles/:id',
+  PERMISSIONS: '/dashboard/permissions',
   SETTINGS: '/dashboard/settings',
   PROFILE: '/dashboard/profile',
 };
@@ -160,6 +167,15 @@ export const notificationDetailPath = (id) => `${ROUTES.NOTIFICATIONS}/${id}`;
 /** Construit le chemin de détail d'une entrée du journal des actions. */
 export const auditLogDetailPath = (id) => `${ROUTES.AUDIT_LOGS}/${id}`;
 
+/** Construit le chemin de détail d'un utilisateur. */
+export const userDetailPath = (id) => `${ROUTES.USERS}/${id}`;
+
+/** Construit le chemin d'édition d'un utilisateur. */
+export const userEditPath = (id) => `${ROUTES.USERS}/${id}/edit`;
+
+/** Construit le chemin de détail d'un rôle. */
+export const roleDetailPath = (id) => `${ROUTES.ROLES}/${id}`;
+
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.COMPANIES,
@@ -221,6 +237,13 @@ export const PRIVATE_ROUTES = [
   ROUTES.NOTIFICATIONS_DETAIL,
   ROUTES.AUDIT_LOGS,
   ROUTES.AUDIT_LOGS_DETAIL,
+  ROUTES.USERS,
+  ROUTES.USERS_CREATE,
+  ROUTES.USERS_DETAIL,
+  ROUTES.USERS_EDIT,
+  ROUTES.ROLES,
+  ROUTES.ROLES_DETAIL,
+  ROUTES.PERMISSIONS,
   ROUTES.SETTINGS,
   ROUTES.PROFILE,
 ];
