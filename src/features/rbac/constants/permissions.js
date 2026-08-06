@@ -66,6 +66,12 @@ export const PERMISSIONS = {
   NOTIFICATIONS_READ: 'notifications.read',
   SETTINGS_MANAGE: 'settings.manage',
   USERS_MANAGE: 'users.manage',
+
+  /* Journal des actions (audit) */
+  AUDIT_VIEW: 'audit.view',
+  AUDIT_EXPORT: 'audit.export',
+  AUDIT_VIEW_SENSITIVE: 'audit.viewSensitive',
+  AUDIT_VIEW_ALL_COMPANIES: 'audit.viewAllCompanies',
 };
 
 /** Liste exhaustive de toutes les permissions de l'application. */

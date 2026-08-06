@@ -119,4 +119,10 @@ export const API_ENDPOINTS = {
     LIST: '/notifications',
     UNREAD_COUNT: '/notifications/unread-count',
   },
+  AUDIT: {
+    LIST: '/audit-logs',
+    DETAIL: (id) => `/audit-logs/${id}`,
+    STATISTICS: '/audit-logs/statistics',
+    EXPORT: '/audit-logs/export',
+  },
 };

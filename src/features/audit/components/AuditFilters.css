@@ -1,0 +1,6 @@
+/* Navix Audit — AuditFilters */
+
+.navix-audit-filters__sort {
+  padding-top: var(--navix-space-2);
+  border-top: 1px solid var(--navix-border-color-subtle);
+}

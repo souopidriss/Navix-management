@@ -1,0 +1,96 @@
+/* Navix Audit — AuditLogDetails */
+
+.navix-audit-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-3);
+}
+
+.navix-audit-details__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-3);
+}
+
+.navix-audit-details__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.navix-audit-details__description {
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.navix-audit-details__resource {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+}
+
+.navix-audit-details__title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: var(--navix-space-3);
+}
+
+.navix-audit-details__card {
+  height: 100%;
+}
+
+.navix-audit-details__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--navix-space-2) 0;
+  margin: 0;
+}
+
+.navix-audit-details__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding-bottom: var(--navix-space-2);
+  border-bottom: 1px solid var(--navix-border-color-subtle);
+}
+
+.navix-audit-details__field:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.navix-audit-details__label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+  margin: 0;
+}
+
+.navix-audit-details__value {
+  font-size: 0.875rem;
+  margin: 0;
+  word-break: break-word;
+}
+
+.navix-audit-details__code {
+  font-size: 0.8125rem;
+  word-break: break-all;
+}
+
+.navix-audit-details__ua {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+.navix-audit-details__json {
+  margin: 0;
+  padding: var(--navix-space-2);
+  background: var(--navix-surface-subtle);
+  border-radius: var(--navix-radius-md, 0.5rem);
+  font-size: 0.8125rem;
+  overflow-x: auto;
+}

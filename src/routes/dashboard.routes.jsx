@@ -66,6 +66,8 @@ const PaymentListPage = lazy(() => import('@/features/billing/pages/PaymentsPage
 const PaymentDetailsPage = lazy(() => import('@/features/billing/pages/PaymentDetailsPage'));
 const NotificationsPage = lazy(() => import('@/features/notifications/pages/NotificationsPage'));
 const NotificationDetailsPage = lazy(() => import('@/features/notifications/pages/NotificationDetailsPage'));
+const AuditLogsPage = lazy(() => import('@/features/audit/pages/AuditLogsPage'));
+const AuditLogDetailsPage = lazy(() => import('@/features/audit/pages/AuditLogDetailsPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -127,6 +129,8 @@ export const dashboardRoutes = (
     <Route path={ROUTES.SUBSCRIPTIONS_DETAIL} element={<SubscriptionDetailsPage />} />
     <Route path={ROUTES.NOTIFICATIONS} element={<NotificationsPage />} />
     <Route path={ROUTES.NOTIFICATIONS_DETAIL} element={<NotificationDetailsPage />} />
+    <Route path={ROUTES.AUDIT_LOGS} element={<AuditLogsPage />} />
+    <Route path={ROUTES.AUDIT_LOGS_DETAIL} element={<AuditLogDetailsPage />} />
     <Route path={ROUTES.SETTINGS} element={<PlaceholderPage title="Paramètres" icon="bi-gear" />} />
     <Route path={ROUTES.PROFILE} element={<PlaceholderPage title="Profil" icon="bi-person" />} />
   </Route>

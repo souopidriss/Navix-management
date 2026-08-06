@@ -78,6 +78,8 @@ export const ROUTES = {
   SUBSCRIPTIONS_DETAIL: '/dashboard/subscriptions/:id',
   NOTIFICATIONS: '/dashboard/notifications',
   NOTIFICATIONS_DETAIL: '/dashboard/notifications/:id',
+  AUDIT_LOGS: '/dashboard/audit-logs',
+  AUDIT_LOGS_DETAIL: '/dashboard/audit-logs/:id',
   SETTINGS: '/dashboard/settings',
   PROFILE: '/dashboard/profile',
 };
@@ -155,6 +157,9 @@ export const paymentDetailPath = (id) => `${ROUTES.BILLING_PAYMENTS}/${id}`;
 /** Construit le chemin de détail d'une notification. */
 export const notificationDetailPath = (id) => `${ROUTES.NOTIFICATIONS}/${id}`;
 
+/** Construit le chemin de détail d'une entrée du journal des actions. */
+export const auditLogDetailPath = (id) => `${ROUTES.AUDIT_LOGS}/${id}`;
+
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.COMPANIES,
@@ -214,6 +219,8 @@ export const PRIVATE_ROUTES = [
   ROUTES.SUBSCRIPTIONS_DETAIL,
   ROUTES.NOTIFICATIONS,
   ROUTES.NOTIFICATIONS_DETAIL,
+  ROUTES.AUDIT_LOGS,
+  ROUTES.AUDIT_LOGS_DETAIL,
   ROUTES.SETTINGS,
   ROUTES.PROFILE,
 ];

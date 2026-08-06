@@ -1,0 +1,44 @@
+.navix-audit-table__date {
+  font-size: 0.8125rem;
+  white-space: nowrap;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+}
+
+.navix-audit-table__user {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.navix-audit-table__user-name {
+  font-weight: 600;
+}
+
+.navix-audit-table__user-role {
+  font-size: 0.75rem;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+}
+
+.navix-audit-table__resource {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  line-height: 1.3;
+}
+
+.navix-audit-table__resource-name {
+  font-size: 0.8125rem;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 14rem;
+}
+
+.navix-audit-table__description {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 20rem;
+}
