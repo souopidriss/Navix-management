@@ -1,0 +1,278 @@
+/* Navix Reports — styles communs des graphiques (CSS pur, thème clair/sombre). */
+
+.navix-report-chart {
+  width: 100%;
+}
+
+.navix-report-chart__empty {
+  color: var(--bs-secondary-color);
+  text-align: center;
+  padding: 1.5rem 0;
+  margin: 0;
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+}
+
+/* ---- Barres ---- */
+.navix-report-chart__bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+.navix-report-chart__group {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.375rem;
+  height: 100%;
+}
+
+.navix-report-chart__cols {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.navix-report-chart__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.navix-report-chart__value {
+  font-size: var(--navix-font-size-xs, 0.6875rem);
+  color: var(--bs-secondary-color);
+  white-space: nowrap;
+}
+
+.navix-report-chart__bar {
+  width: 1.5rem;
+  min-height: 6px;
+  border-radius: 0.375rem 0.375rem 0 0;
+}
+
+.navix-report-chart__bar--dense {
+  width: 0.875rem;
+}
+
+.navix-report-chart__bar--narrow {
+  width: 0.625rem;
+}
+
+.navix-report-chart__label {
+  font-size: var(--navix-font-size-xs, 0.6875rem);
+  color: var(--bs-secondary-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
+}
+
+/* ---- Légende ---- */
+.navix-report-chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 0.75rem;
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+  color: var(--bs-secondary-color);
+}
+
+.navix-report-chart__legend-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.navix-report-chart__legend-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ---- Variantes de couleurs ---- */
+.navix-report-chart__bar--primary,
+.navix-report-chart__legend-dot--primary { background: var(--bs-primary); }
+
+.navix-report-chart__bar--info,
+.navix-report-chart__legend-dot--info { background: var(--bs-info); }
+
+.navix-report-chart__bar--success,
+.navix-report-chart__legend-dot--success { background: var(--bs-success); }
+
+.navix-report-chart__bar--warning,
+.navix-report-chart__legend-dot--warning { background: var(--bs-warning); }
+
+.navix-report-chart__bar--danger,
+.navix-report-chart__legend-dot--danger { background: var(--bs-danger); }
+
+.navix-report-chart__bar--secondary,
+.navix-report-chart__legend-dot--secondary { background: var(--bs-secondary); }
+
+.navix-report-chart__bar--dark,
+.navix-report-chart__legend-dot--dark { background: var(--bs-dark); }
+
+.navix-report-chart__bar--light,
+.navix-report-chart__legend-dot--light { background: var(--bs-light); }
+
+/* ---- SVG courbes / aires ---- */
+.navix-report-chart__svg-wrap {
+  position: relative;
+  width: 100%;
+  height: 15rem;
+}
+
+.navix-report-chart__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.navix-report-chart__grid {
+  stroke: var(--bs-border-color);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.navix-report-chart__area {
+  opacity: 0.16;
+}
+
+.navix-report-chart__line {
+  fill: none;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.navix-report-chart__dot {
+  vector-effect: non-scaling-stroke;
+}
+
+.navix-report-chart__xlabels {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+}
+
+.navix-report-chart__xlabel {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-size: var(--navix-font-size-xs, 0.6875rem);
+  color: var(--bs-secondary-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---- Donut ---- */
+.navix-report-chart__donut {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.navix-report-chart__donut-ring {
+  position: relative;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.navix-report-chart__donut-hole {
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background: var(--bs-body-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.125rem;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.navix-report-chart__donut-total {
+  font-size: var(--navix-font-size-lg, 1.125rem);
+  font-weight: 600;
+  color: var(--bs-body-color);
+  line-height: 1.1;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navix-report-chart__donut-caption {
+  font-size: var(--navix-font-size-xs, 0.6875rem);
+  color: var(--bs-secondary-color);
+}
+
+.navix-report-chart__donut-list {
+  flex: 1;
+  min-width: 10rem;
+  max-width: 18rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.navix-report-chart__donut-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+}
+
+.navix-report-chart__donut-name {
+  flex: 1;
+  min-width: 0;
+  color: var(--bs-body-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navix-report-chart__donut-value {
+  color: var(--bs-secondary-color);
+  white-space: nowrap;
+}
+
+/* ---- Sparkline ---- */
+.navix-report-chart__sparkline {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  width: 100%;
+}
+
+.navix-report-chart__sparkbar {
+  flex: 1;
+  min-height: 4px;
+  border-radius: 2px 2px 0 0;
+}
+
+.navix-report-chart__sparkbar--primary { background: var(--bs-primary); }
+.navix-report-chart__sparkbar--info { background: var(--bs-info); }
+.navix-report-chart__sparkbar--success { background: var(--bs-success); }
+.navix-report-chart__sparkbar--warning { background: var(--bs-warning); }
+.navix-report-chart__sparkbar--danger { background: var(--bs-danger); }
+.navix-report-chart__sparkbar--secondary { background: var(--bs-secondary); }

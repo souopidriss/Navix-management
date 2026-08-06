@@ -85,6 +85,15 @@ export const PERMISSIONS = {
   ROLES_DELETE: 'roles.delete',
   ROLES_MANAGE: 'roles.manage',
   PERMISSIONS_VIEW: 'permissions.view',
+
+  /* Rapports & analytics */
+  REPORTS_VIEW: 'reports.view',
+  REPORTS_EXPORT: 'reports.export',
+  REPORTS_CREATE: 'reports.create',
+  REPORTS_UPDATE: 'reports.update',
+  REPORTS_DELETE: 'reports.delete',
+  REPORTS_VIEW_FINANCIAL: 'reports.viewFinancial',
+  REPORTS_VIEW_SENSITIVE: 'reports.viewSensitive',
 };
 
 /** Liste exhaustive de toutes les permissions de l'application. */

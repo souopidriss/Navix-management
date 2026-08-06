@@ -87,6 +87,20 @@ export const ROUTES = {
   ROLES: '/dashboard/roles',
   ROLES_DETAIL: '/dashboard/roles/:id',
   PERMISSIONS: '/dashboard/permissions',
+  REPORTS: '/dashboard/reports',
+  REPORTS_FLEET: '/dashboard/reports/fleet',
+  REPORTS_VEHICLES: '/dashboard/reports/vehicles',
+  REPORTS_DRIVERS: '/dashboard/reports/drivers',
+  REPORTS_ASSIGNMENTS: '/dashboard/reports/assignments',
+  REPORTS_TRIPS: '/dashboard/reports/trips',
+  REPORTS_FUEL: '/dashboard/reports/fuel',
+  REPORTS_MAINTENANCE: '/dashboard/reports/maintenance',
+  REPORTS_DOCUMENTS: '/dashboard/reports/documents',
+  REPORTS_FINANCIAL: '/dashboard/reports/financial',
+  REPORTS_SUBSCRIPTIONS: '/dashboard/reports/subscriptions',
+  REPORTS_AUDIT: '/dashboard/reports/audit',
+  REPORTS_COMPANIES: '/dashboard/reports/companies',
+  REPORTS_CUSTOM: '/dashboard/reports/custom',
   SETTINGS: '/dashboard/settings',
   PROFILE: '/dashboard/profile',
 };
@@ -176,6 +190,12 @@ export const userEditPath = (id) => `${ROUTES.USERS}/${id}/edit`;
 /** Construit le chemin de détail d'un rôle. */
 export const roleDetailPath = (id) => `${ROUTES.ROLES}/${id}`;
 
+/** Construit le chemin d'un rapport de catégorie. */
+export const reportCategoryPath = (id) => `${ROUTES.REPORTS}/${id}`;
+
+/** Construit le chemin du rapport personnalisé. */
+export const customReportPath = () => ROUTES.REPORTS_CUSTOM;
+
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
   ROUTES.COMPANIES,
@@ -244,6 +264,20 @@ export const PRIVATE_ROUTES = [
   ROUTES.ROLES,
   ROUTES.ROLES_DETAIL,
   ROUTES.PERMISSIONS,
+  ROUTES.REPORTS,
+  ROUTES.REPORTS_FLEET,
+  ROUTES.REPORTS_VEHICLES,
+  ROUTES.REPORTS_DRIVERS,
+  ROUTES.REPORTS_ASSIGNMENTS,
+  ROUTES.REPORTS_TRIPS,
+  ROUTES.REPORTS_FUEL,
+  ROUTES.REPORTS_MAINTENANCE,
+  ROUTES.REPORTS_DOCUMENTS,
+  ROUTES.REPORTS_FINANCIAL,
+  ROUTES.REPORTS_SUBSCRIPTIONS,
+  ROUTES.REPORTS_AUDIT,
+  ROUTES.REPORTS_COMPANIES,
+  ROUTES.REPORTS_CUSTOM,
   ROUTES.SETTINGS,
   ROUTES.PROFILE,
 ];

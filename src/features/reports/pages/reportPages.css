@@ -1,0 +1,22 @@
+/**
+ * Navix Reports — Styles des pages
+ * --------------------------------------------------------------------------
+ * Micro-ajustements des gabarits de page (aucune couleur en dur).
+ */
+.navix-report-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.navix-report-hub {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 575.98px) {
+  .navix-report-content .row > [class*='col-'] + [class*='col-'] {
+    margin-top: 1rem;
+  }
+}

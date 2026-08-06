@@ -32,6 +32,12 @@ export const SIDEBAR_SECTIONS = [
     ],
   },
   {
+    label: 'Rapports',
+    items: [
+      { to: ROUTES.REPORTS, label: 'Rapports & Analytics', icon: 'bi-file-earmark-bar-graph' },
+    ],
+  },
+  {
     label: 'Système',
     items: [
       { to: ROUTES.NOTIFICATIONS, label: 'Notifications', icon: 'bi-bell' },

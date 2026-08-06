@@ -75,6 +75,20 @@ const EditUserPage = lazy(() => import('@/features/users/pages/EditUserPage'));
 const RolesPage = lazy(() => import('@/features/users/pages/RolesPage'));
 const RoleDetailsPage = lazy(() => import('@/features/users/pages/RoleDetailsPage'));
 const PermissionsPage = lazy(() => import('@/features/users/pages/PermissionsPage'));
+const ReportsPage = lazy(() => import('@/features/reports/pages/ReportsPage'));
+const FleetReportPage = lazy(() => import('@/features/reports/pages/FleetReportPage'));
+const VehicleReportPage = lazy(() => import('@/features/reports/pages/VehicleReportPage'));
+const DriverReportPage = lazy(() => import('@/features/reports/pages/DriverReportPage'));
+const AssignmentReportPage = lazy(() => import('@/features/reports/pages/AssignmentReportPage'));
+const TripReportPage = lazy(() => import('@/features/reports/pages/TripReportPage'));
+const FuelReportPage = lazy(() => import('@/features/reports/pages/FuelReportPage'));
+const MaintenanceReportPage = lazy(() => import('@/features/reports/pages/MaintenanceReportPage'));
+const DocumentReportPage = lazy(() => import('@/features/reports/pages/DocumentReportPage'));
+const FinancialReportPage = lazy(() => import('@/features/reports/pages/FinancialReportPage'));
+const SubscriptionReportPage = lazy(() => import('@/features/reports/pages/SubscriptionReportPage'));
+const AuditReportPage = lazy(() => import('@/features/reports/pages/AuditReportPage'));
+const CompanyReportPage = lazy(() => import('@/features/reports/pages/CompanyReportPage'));
+const CustomReportPage = lazy(() => import('@/features/reports/pages/CustomReportPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -145,6 +159,20 @@ export const dashboardRoutes = (
     <Route path={ROUTES.ROLES} element={<RolesPage />} />
     <Route path={ROUTES.ROLES_DETAIL} element={<RoleDetailsPage />} />
     <Route path={ROUTES.PERMISSIONS} element={<PermissionsPage />} />
+    <Route path={ROUTES.REPORTS} element={<ReportsPage />} />
+    <Route path={ROUTES.REPORTS_FLEET} element={<FleetReportPage />} />
+    <Route path={ROUTES.REPORTS_VEHICLES} element={<VehicleReportPage />} />
+    <Route path={ROUTES.REPORTS_DRIVERS} element={<DriverReportPage />} />
+    <Route path={ROUTES.REPORTS_ASSIGNMENTS} element={<AssignmentReportPage />} />
+    <Route path={ROUTES.REPORTS_TRIPS} element={<TripReportPage />} />
+    <Route path={ROUTES.REPORTS_FUEL} element={<FuelReportPage />} />
+    <Route path={ROUTES.REPORTS_MAINTENANCE} element={<MaintenanceReportPage />} />
+    <Route path={ROUTES.REPORTS_DOCUMENTS} element={<DocumentReportPage />} />
+    <Route path={ROUTES.REPORTS_FINANCIAL} element={<FinancialReportPage />} />
+    <Route path={ROUTES.REPORTS_SUBSCRIPTIONS} element={<SubscriptionReportPage />} />
+    <Route path={ROUTES.REPORTS_AUDIT} element={<AuditReportPage />} />
+    <Route path={ROUTES.REPORTS_COMPANIES} element={<CompanyReportPage />} />
+    <Route path={ROUTES.REPORTS_CUSTOM} element={<CustomReportPage />} />
     <Route path={ROUTES.SETTINGS} element={<PlaceholderPage title="Paramètres" icon="bi-gear" />} />
     <Route path={ROUTES.PROFILE} element={<PlaceholderPage title="Profil" icon="bi-person" />} />
   </Route>

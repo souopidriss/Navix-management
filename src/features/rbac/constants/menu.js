@@ -172,6 +172,48 @@ export const ROUTE_META = {
   [ROUTES.PERMISSIONS]: {
     requiredPermissions: [PERMISSIONS.PERMISSIONS_VIEW],
   },
+  [ROUTES.REPORTS]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW],
+  },
+  [ROUTES.REPORTS_FLEET]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW],
+  },
+  [ROUTES.REPORTS_VEHICLES]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW],
+  },
+  [ROUTES.REPORTS_DRIVERS]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW],
+  },
+  [ROUTES.REPORTS_ASSIGNMENTS]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW],
+  },
+  [ROUTES.REPORTS_TRIPS]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW],
+  },
+  [ROUTES.REPORTS_FUEL]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW],
+  },
+  [ROUTES.REPORTS_MAINTENANCE]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW],
+  },
+  [ROUTES.REPORTS_DOCUMENTS]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW],
+  },
+  [ROUTES.REPORTS_FINANCIAL]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW_FINANCIAL],
+  },
+  [ROUTES.REPORTS_SUBSCRIPTIONS]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW],
+  },
+  [ROUTES.REPORTS_AUDIT]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW_SENSITIVE],
+  },
+  [ROUTES.REPORTS_COMPANIES]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_VIEW],
+  },
+  [ROUTES.REPORTS_CUSTOM]: {
+    requiredPermissions: [PERMISSIONS.REPORTS_CREATE],
+  },
   [ROUTES.SETTINGS]: {
     requiredPermissions: [PERMISSIONS.SETTINGS_MANAGE],
   },
