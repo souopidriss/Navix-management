@@ -140,10 +140,10 @@ export const ROUTE_META = {
     requiredRole: [ROLES.SUPER_ADMIN, ROLES.COMPANY_OWNER],
   },
   [ROUTES.NOTIFICATIONS]: {
-    requiredPermissions: [PERMISSIONS.NOTIFICATIONS_READ],
+    requiredPermissions: [PERMISSIONS.NOTIFICATIONS_VIEW],
   },
   [ROUTES.NOTIFICATIONS_DETAIL]: {
-    requiredPermissions: [PERMISSIONS.NOTIFICATIONS_READ],
+    requiredPermissions: [PERMISSIONS.NOTIFICATIONS_VIEW],
   },
   [ROUTES.AUDIT_LOGS]: {
     requiredPermissions: [PERMISSIONS.AUDIT_VIEW],

@@ -4,3 +4,7 @@
 export { notificationService } from './notificationService';
 export { alertService } from './alertService';
 export { notificationRealtimeService } from './notificationRealtimeService';
+export {
+  emitNotificationAuditLog,
+  emitNotificationPreferencesAuditLog,
+} from './notificationIntegrationService';

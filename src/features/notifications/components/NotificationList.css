@@ -1,0 +1,82 @@
+/* Navix Notifications — NotificationList (liste groupée par période) */
+
+.navix-notif-list__group + .navix-notif-list__group {
+  margin-top: var(--navix-space-4);
+}
+
+.navix-notif-list__group-title {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  margin: 0 0 var(--navix-space-2);
+  padding: 0 var(--navix-space-3);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navix-text-muted);
+}
+
+.navix-notif-list__group-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.375rem;
+  border-radius: var(--navix-radius-full);
+  background-color: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  font-size: 0.6875rem;
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.navix-notif-list__items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+/* ---- État vide --------------------------------------------------------- */
+.navix-notif-list__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--navix-space-1);
+  padding: var(--navix-space-5) var(--navix-space-3);
+  text-align: center;
+}
+
+.navix-notif-list__empty-icon {
+  font-size: 2.5rem;
+  color: var(--navix-text-disabled);
+}
+
+.navix-notif-list__empty-title {
+  margin: 0;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--navix-text-primary);
+}
+
+.navix-notif-list__empty-text {
+  margin: 0;
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+}
+
+.navix-notif-list__empty-action {
+  margin-top: var(--navix-space-2);
+  padding: var(--navix-space-1) var(--navix-space-3);
+  border: none;
+  border-radius: var(--navix-radius-md);
+  background-color: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-medium);
+}
+
+.navix-notif-list__empty-action:hover {
+  background-color: var(--navix-primary);
+  color: var(--navix-text-inverse);
+}

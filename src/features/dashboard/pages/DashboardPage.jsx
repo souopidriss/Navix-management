@@ -6,7 +6,7 @@
  * par groupe, graphiques CSS (flotte, carburant, entretiens, coûts),
  * finances, alertes, activité récente, classements et tableau du parc.
  */
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Alert, Button, Card } from '@/components/ui';
@@ -20,6 +20,9 @@ import {
 } from '@/components/core';
 import { useDashboardStore } from '../store';
 import { useDashboardData } from '../hooks';
+import { NotificationCenter } from '@/features/notifications/components';
+import { useNotificationsStore } from '@/features/notifications';
+import { useCompaniesStore } from '@/features/companies';
 import {
   DashboardFilters,
   FleetOverviewCard,
@@ -43,6 +46,14 @@ const DashboardPage = () => {
   const setFilter = useDashboardStore((state) => state.setFilter);
   const resetFilters = useDashboardStore((state) => state.resetFilters);
   const clearError = useDashboardStore((state) => state.clearError);
+
+  const fetchNotifications = useNotificationsStore((state) => state.fetchNotifications);
+  const fetchCompanies = useCompaniesStore((state) => state.fetchCompanies);
+
+  useEffect(() => {
+    fetchNotifications();
+    fetchCompanies();
+  }, [fetchNotifications, fetchCompanies]);
 
   const {
     filters,
@@ -173,6 +184,26 @@ const DashboardPage = () => {
               <FinancialOverview financial={financialStatistics} />
             </div>
             <div className="col-xl-8">
+              <DashboardAlerts alerts={alerts} />
+            </div>
+          </div>
+
+          <div className="row g-3">
+            <div className="col-lg-5">
+              <Card
+                className="h-100"
+                flush
+                title={
+                  <span>
+                    <i className="bi bi-bell me-2" aria-hidden="true" />
+                    Centre de notifications
+                  </span>
+                }
+              >
+                <NotificationCenter limit={6} />
+              </Card>
+            </div>
+            <div className="col-lg-7">
               <DashboardAlerts alerts={alerts} />
             </div>
           </div>

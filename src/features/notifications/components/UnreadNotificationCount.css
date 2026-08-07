@@ -1,0 +1,18 @@
+/* Navix Notifications — UnreadNotificationCount (badge de non-lues) */
+
+.navix-unread-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.3125rem;
+  border-radius: var(--navix-radius-full);
+  background-color: var(--navix-danger);
+  color: var(--navix-text-inverse);
+  font-size: 0.6875rem;
+  font-weight: var(--navix-font-weight-bold);
+  line-height: 1.25rem;
+  text-align: center;
+  white-space: nowrap;
+}

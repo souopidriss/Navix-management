@@ -10,6 +10,10 @@
  *   companyById   : carte { id → { name } }
  *   sort          : { by, direction } — tri contrôlé
  *   onSortChange  : (by, direction) => void
+ *   selectable    : active la colonne de sélection (bulk)
+ *   selectedIds   : ids sélectionnés
+ *   onToggleSelect: (id: string) => void
+ *   onToggleSelectAll: (ids: string[]) => void
  *   onView        : (notification) => void
  *   onMarkAsRead  : (id: string) => void
  *   onMarkAsUnread: (id: string) => void
@@ -30,6 +34,10 @@ const NotificationTable = ({
   companyById = {},
   sort,
   onSortChange,
+  selectable = false,
+  selectedIds = [],
+  onToggleSelect,
+  onToggleSelectAll,
   onView,
   onMarkAsRead,
   onMarkAsUnread,
@@ -37,7 +45,39 @@ const NotificationTable = ({
   onDismiss,
   onDelete,
 }) => {
+  const isAllSelected =
+    notifications.length > 0 && notifications.every((notification) => selectedIds.includes(notification.id));
+
   const columns = [
+    ...(selectable
+      ? [
+          {
+            key: 'selection',
+            label: '',
+            width: '3rem',
+            headerClassName: 'navix-notif-table__select-head',
+            renderHeader: () => (
+              <input
+                type="checkbox"
+                className="form-check-input navix-notif-table__checkbox"
+                checked={isAllSelected}
+                aria-label="Tout sélectionner sur cette page"
+                onChange={() => onToggleSelectAll(notifications.map((notification) => notification.id))}
+              />
+            ),
+            render: (notification) => (
+              <input
+                type="checkbox"
+                className="form-check-input navix-notif-table__checkbox"
+                checked={selectedIds.includes(notification.id)}
+                aria-label={`Sélectionner ${notification.title}`}
+                onClick={(event) => event.stopPropagation()}
+                onChange={() => onToggleSelect(notification.id)}
+              />
+            ),
+          },
+        ]
+      : []),
     {
       key: 'title',
       label: 'Notification',

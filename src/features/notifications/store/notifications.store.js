@@ -19,6 +19,10 @@
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
 import { notificationService, alertService } from '../services';
+import {
+  emitNotificationAuditLog,
+  emitNotificationPreferencesAuditLog,
+} from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
 
@@ -28,6 +32,8 @@ const initialState = {
   unreadCount: 0,
   stats: null,
   alerts: [],
+  preferences: null,
+  selectedIds: [],
   search: '',
   filters: {
     status: '',
@@ -36,6 +42,7 @@ const initialState = {
     severity: '',
     resourceType: '',
     companyId: '',
+    period: '',
     dateFrom: '',
     dateTo: '',
     showUnread: false,
@@ -257,6 +264,11 @@ const useNotificationsStore = create((set) => ({
             : state.unreadCount,
         isSaving: false,
       }));
+      emitNotificationAuditLog({
+        action: 'ARCHIVE',
+        ids: [id],
+        titles: notification.title,
+      });
       return { success: true, data: notification };
     } catch (error) {
       const message = toErrorMessage(error, 'Impossible d’archiver la notification.');
@@ -302,8 +314,10 @@ const useNotificationsStore = create((set) => ({
     set({ isSaving: true, error: null });
 
     try {
+      const state = useNotificationsStore.getState();
+      const target = state.notifications.find((item) => item.id === id);
       await notificationService.remove(id);
-      set((state) => ({
+      set({
         notifications: state.notifications.filter((item) => item.id !== id),
         selectedNotification:
           state.selectedNotification?.id === id ? null : state.selectedNotification,
@@ -311,8 +325,14 @@ const useNotificationsStore = create((set) => ({
           state.notifications.find((item) => item.id === id)?.status === 'unread'
             ? Math.max(0, state.unreadCount - 1)
             : state.unreadCount,
+        selectedIds: state.selectedIds.filter((selectedId) => selectedId !== id),
         isSaving: false,
-      }));
+      });
+      emitNotificationAuditLog({
+        action: 'DELETE',
+        ids: [id],
+        titles: target?.title,
+      });
       return { success: true };
     } catch (error) {
       const message = toErrorMessage(error, 'Impossible de supprimer la notification.');
@@ -354,6 +374,216 @@ const useNotificationsStore = create((set) => ({
       filters: { ...state.filters, [key]: value },
       pagination: { ...state.pagination, page: 1 },
     })),
+
+  /* ------------------------------------------------------------------------
+     Sélection multiple
+     ------------------------------------------------------------------------ */
+
+  /** Sélectionne / désélectionne une notification. */
+  toggleSelect: (id) =>
+    set((state) => ({
+      selectedIds: state.selectedIds.includes(id)
+        ? state.selectedIds.filter((selectedId) => selectedId !== id)
+        : [...state.selectedIds, id],
+    })),
+
+  /** Sélectionne / désélectionne un lot (souvent la page courante). */
+  toggleSelectAll: (ids) =>
+    set((state) => {
+      const selected = new Set(state.selectedIds);
+      const allSelected = ids.length > 0 && ids.every((id) => selected.has(id));
+      if (allSelected) {
+        ids.forEach((id) => selected.delete(id));
+      } else {
+        ids.forEach((id) => selected.add(id));
+      }
+      return { selectedIds: Array.from(selected) };
+    }),
+
+  /** Vide la sélection. */
+  clearSelection: () => set({ selectedIds: [] }),
+
+  /* ------------------------------------------------------------------------
+     Actions groupées (bulk)
+     ------------------------------------------------------------------------ */
+
+  /**
+   * Marque la sélection courante comme lue.
+   * @returns {Promise<{ success: boolean, error?: string }>}
+   */
+  markSelectedAsRead: async () => {
+    const ids = useNotificationsStore.getState().selectedIds;
+    if (ids.length === 0) return { success: true };
+    set({ isSaving: true, error: null });
+
+    try {
+      const result = await notificationService.markManyAsRead(ids);
+      set((state) => ({
+        notifications: state.notifications.map((item) =>
+          ids.includes(item.id) && item.status === 'unread'
+            ? { ...item, status: 'read', isRead: true, readAt: new Date().toISOString() }
+            : item,
+        ),
+        unreadCount: Math.max(0, state.unreadCount - (result.count ?? ids.length)),
+        selectedIds: [],
+        isSaving: false,
+      }));
+      return { success: true, count: result.count ?? ids.length };
+    } catch (error) {
+      const message = toErrorMessage(error, 'Impossible de marquer la sélection comme lue.');
+      set({ isSaving: false, error: message });
+      return { success: false, error: message };
+    }
+  },
+
+  /**
+   * Marque la sélection courante comme non lue.
+   * @returns {Promise<{ success: boolean, error?: string }>}
+   */
+  markSelectedAsUnread: async () => {
+    const ids = useNotificationsStore.getState().selectedIds;
+    if (ids.length === 0) return { success: true };
+    set({ isSaving: true, error: null });
+
+    try {
+      const result = await notificationService.markManyAsUnread(ids);
+      set((state) => ({
+        notifications: state.notifications.map((item) =>
+          ids.includes(item.id) && item.status === 'read'
+            ? { ...item, status: 'unread', isRead: false, readAt: null }
+            : item,
+        ),
+        unreadCount: state.unreadCount + (result.count ?? ids.length),
+        selectedIds: [],
+        isSaving: false,
+      }));
+      return { success: true, count: result.count ?? ids.length };
+    } catch (error) {
+      const message = toErrorMessage(error, 'Impossible de marquer la sélection comme non lue.');
+      set({ isSaving: false, error: message });
+      return { success: false, error: message };
+    }
+  },
+
+  /**
+   * Archive la sélection courante.
+   * @returns {Promise<{ success: boolean, error?: string }>}
+   */
+  archiveSelected: async () => {
+    const ids = useNotificationsStore.getState().selectedIds;
+    if (ids.length === 0) return { success: true };
+    set({ isSaving: true, error: null });
+
+    try {
+      const result = await notificationService.archiveMany(ids);
+      set((state) => {
+        const selectedUnread = state.notifications.filter(
+          (item) => ids.includes(item.id) && item.status === 'unread',
+        ).length;
+        return {
+          notifications: state.notifications.map((item) =>
+            ids.includes(item.id)
+              ? { ...item, status: 'archived', isRead: true, readAt: item.readAt ?? new Date().toISOString() }
+              : item,
+          ),
+          unreadCount: Math.max(0, state.unreadCount - selectedUnread),
+          selectedIds: [],
+          isSaving: false,
+        };
+      });
+      const titles = useNotificationsStore
+        .getState()
+        .notifications.filter((item) => ids.includes(item.id))
+        .map((item) => item.title);
+      emitNotificationAuditLog({ action: 'ARCHIVE', ids, titles });
+      return { success: true, count: result.count ?? ids.length };
+    } catch (error) {
+      const message = toErrorMessage(error, 'Impossible d’archiver la sélection.');
+      set({ isSaving: false, error: message });
+      return { success: false, error: message };
+    }
+  },
+
+  /**
+   * Supprime définitivement la sélection courante (simulée).
+   * @returns {Promise<{ success: boolean, error?: string }>}
+   */
+  deleteSelected: async () => {
+    const ids = useNotificationsStore.getState().selectedIds;
+    if (ids.length === 0) return { success: true };
+    set({ isSaving: true, error: null });
+
+    try {
+      const state = useNotificationsStore.getState();
+      const titles = state.notifications
+        .filter((item) => ids.includes(item.id))
+        .map((item) => item.title);
+      const selectedUnread = state.notifications.filter(
+        (item) => ids.includes(item.id) && item.status === 'unread',
+      ).length;
+
+      const result = await notificationService.deleteMany(ids);
+      set({
+        notifications: state.notifications.filter((item) => !ids.includes(item.id)),
+        selectedNotification:
+          state.selectedNotification && ids.includes(state.selectedNotification.id)
+            ? null
+            : state.selectedNotification,
+        unreadCount: Math.max(0, state.unreadCount - selectedUnread),
+        selectedIds: [],
+        isSaving: false,
+      });
+      emitNotificationAuditLog({ action: 'DELETE', ids, titles });
+      return { success: true, count: result.count ?? ids.length };
+    } catch (error) {
+      const message = toErrorMessage(error, 'Impossible de supprimer la sélection.');
+      set({ isSaving: false, error: message });
+      return { success: false, error: message };
+    }
+  },
+
+  /* ------------------------------------------------------------------------
+     Préférences de notification (source unique : Settings)
+     ------------------------------------------------------------------------ */
+
+  /**
+   * Charge les préférences de notification (délégué aux Settings).
+   * @returns {Promise<{ success: boolean, error?: string }>}
+   */
+  fetchPreferences: async () => {
+    set({ error: null });
+
+    try {
+      const preferences = await notificationService.getPreferences();
+      set({ preferences });
+      return { success: true, data: preferences };
+    } catch (error) {
+      const message = toErrorMessage(error, 'Impossible de charger les préférences.');
+      set({ error: message });
+      return { success: false, error: message };
+    }
+  },
+
+  /**
+   * Met à jour les préférences de notification (délégué aux Settings).
+   * @param {object} values
+   * @returns {Promise<{ success: boolean, error?: string }>}
+   */
+  updatePreferences: async (values) => {
+    set({ isSaving: true, error: null });
+
+    try {
+      const previous = useNotificationsStore.getState().preferences;
+      const preferences = await notificationService.updatePreferences(values);
+      set({ preferences, isSaving: false });
+      emitNotificationPreferencesAuditLog({ oldValues: previous, newValues: preferences });
+      return { success: true, data: preferences };
+    } catch (error) {
+      const message = toErrorMessage(error, 'Impossible de mettre à jour les préférences.');
+      set({ isSaving: false, error: message });
+      return { success: false, error: message };
+    }
+  },
 
   /** Réinitialise la recherche et les filtres. */
   resetFilters: () =>

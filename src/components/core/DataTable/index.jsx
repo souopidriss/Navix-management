@@ -9,7 +9,8 @@
  * Props :
  *   columns       : tableau de descripteurs
  *                   [{ key, label, align?, sortable?, sortValue?,
- *                      render?, className?, headerClassName?, width?, srOnly? }]
+ *                      render?, renderHeader?, className?, headerClassName?,
+ *                      width?, srOnly? }]
  *   rows          : données à afficher
  *   rowKey        : clé (string) ou fonction (row) => string   (défaut : 'id')
  *   sort          : { by, direction } — contrôlé (optionnel)
@@ -112,7 +113,9 @@ const DataTable = ({
                     className={headerClasses}
                     style={column.width ? { minWidth: column.width } : undefined}
                   >
-                    {column.sortable && onSortChange ? (
+                    {column.renderHeader ? (
+                      column.renderHeader()
+                    ) : column.sortable && onSortChange ? (
                       <button
                         type="button"
                         className={`navix-datatable__sort ${isSorted ? 'is-active' : ''}`}

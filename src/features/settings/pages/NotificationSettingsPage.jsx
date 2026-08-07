@@ -12,9 +12,16 @@ const ALERTS = [
   { key: 'maintenance', label: 'Maintenance', hint: 'Rappels et alertes d’entretien' },
   { key: 'fuel', label: 'Carburant', hint: 'Consommations et prix' },
   { key: 'documents', label: 'Documents', hint: 'Expiration et dépôt de fichiers' },
+  { key: 'vehicles', label: 'Véhicules', hint: 'Statut et disponibilité de la flotte' },
+  { key: 'trips', label: 'Trajets', hint: 'Démarrage, arrivée et incidents' },
+  { key: 'assignments', label: 'Affectations', hint: 'Changements d’affectation' },
+  { key: 'drivers', label: 'Chauffeurs', hint: 'Activité et documents des chauffeurs' },
   { key: 'billing', label: 'Facturation', hint: 'Factures et paiements' },
   { key: 'subscription', label: 'Abonnement', hint: 'Plan, renouvellement et limites' },
+  { key: 'users', label: 'Utilisateurs', hint: 'Création, suspension et rôles' },
+  { key: 'security', label: 'Sécurité', hint: 'Connexions et activités suspectes' },
   { key: 'audit', label: 'Journal d’audit', hint: 'Actions sensibles de l’équipe' },
+  { key: 'reports', label: 'Rapports', hint: 'Génération et export de rapports' },
 ];
 
 const NotificationSettingsPage = () => {
@@ -56,8 +63,20 @@ const NotificationSettingsPage = () => {
                 />
                 <FieldSwitch
                   label="Notifications dans l’application"
-                  value={values.system}
-                  onChange={(value) => setField('system', value)}
+                  value={values.inApp}
+                  onChange={(value) => setField('inApp', value)}
+                  disabled={!values.enabled}
+                />
+                <FieldSwitch
+                  label="Notifications push"
+                  value={values.push}
+                  onChange={(value) => setField('push', value)}
+                  disabled={!values.enabled}
+                />
+                <FieldSwitch
+                  label="Notifications SMS"
+                  value={values.sms}
+                  onChange={(value) => setField('sms', value)}
                   disabled={!values.enabled}
                 />
               </div>

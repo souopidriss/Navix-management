@@ -19,8 +19,18 @@
  *   archive(id)           → archive une notification
  *   dismiss(id)           → ignore une notification (supprimée des vues par défaut)
  *   remove(id)            → suppression définitive (simulée)
+ *   markManyAsRead(ids)   → marque une sélection comme lue
+ *   markManyAsUnread(ids) → marque une sélection comme non lue
+ *   archiveMany(ids)      → archive une sélection
+ *   deleteMany(ids)       → suppression définitive d'une sélection
  *   getAlertRules()       → règles d'alerte actives
  *   getStatistics()       → indicateurs dérivés de la liste
+ *   getPreferences(ctx)   → préférences de notification (Settings)
+ *   updatePreferences(values, ctx) → met à jour les préférences (Settings)
+ *
+ * Multi-tenant : les notifications sont bornées à l'entreprise courante
+ * (`getNotificationCompanyScopeId`) — sauf super_admin qui voit tout. Une
+ * entreprise ne voit jamais les notifications d'une autre entreprise.
  *
  * Exemple d'utilisation :
  *   import { notificationService } from '../services';
@@ -31,10 +41,40 @@ import { apiClient } from '@/services/client';
 import { apiConfig } from '@/services/config';
 import { mockResponse } from '@/services/utils';
 import { ApiError } from '@/services/errors';
-import { MOCK_NOTIFICATIONS, MOCK_NOTIFICATIONS_BY_ID } from '../mocks';
+import { useAuthStore } from '@/features/auth';
+import { settingsService } from '@/features/settings/services';
+import { MOCK_NOTIFICATIONS } from '../mocks';
 import { ALERT_RULES, countUrgentNotifications } from '../constants';
 
 let notificationsCache = null;
+
+/* --------------------------------------------------------------------------
+   Portée multi-tenant
+   -------------------------------------------------------------------------- */
+
+/** Entreprise du contexte courant (simulation tenant). */
+export const getNotificationCompanyScopeId = () => {
+  const { user, company } = useAuthStore.getState();
+  if (!user) return '';
+  if (user.role === 'super_admin') return '';
+  return company?.id ?? '';
+};
+
+/** Liste des notifications visibles par l'utilisateur courant. */
+const scopedList = () => {
+  const scope = getNotificationCompanyScopeId();
+  const list = getNotificationsCache();
+  return scope ? list.filter((notification) => notification.companyId === scope) : list;
+};
+
+/** Carte id → notification restreinte à la portée courante. */
+const scopedById = (id) => {
+  const scope = getNotificationCompanyScopeId();
+  const notification = getNotificationsCache().find((item) => item.id === id);
+  if (!notification) return null;
+  if (scope && notification.companyId !== scope) return null;
+  return notification;
+};
 
 /**
  * Cache mémoire de session. Uniquement accessible au module (partagé avec
@@ -57,8 +97,6 @@ export const resetNotificationsCache = () => {
   return getNotificationsCache();
 };
 
-const findNotification = (id) => getNotificationsCache().find((item) => item.id === id);
-
 const now = () => new Date().toISOString();
 
 const entityNotFound = (message = 'Notification introuvable.') =>
@@ -72,7 +110,7 @@ export const notificationService = {
    */
   async getAll() {
     if (apiConfig.mock) {
-      const list = [...getNotificationsCache()].sort((a, b) =>
+      const list = scopedList().sort((a, b) =>
         b.createdAt.localeCompare(a.createdAt),
       );
       return mockResponse(list.map((item) => ({ ...item })));
@@ -89,7 +127,7 @@ export const notificationService = {
    */
   async getById(id) {
     if (apiConfig.mock) {
-      const notification = findNotification(id);
+      const notification = scopedById(id);
       if (!notification) return entityNotFound();
       return mockResponse({ ...notification });
     }
@@ -104,7 +142,7 @@ export const notificationService = {
    */
   async getUnread() {
     if (apiConfig.mock) {
-      const list = getNotificationsCache()
+      const list = scopedList()
         .filter((notification) => notification.status === 'unread')
         .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
       return mockResponse(list.map((item) => ({ ...item })));
@@ -120,7 +158,7 @@ export const notificationService = {
    */
   async getUnreadCount() {
     if (apiConfig.mock) {
-      const count = getNotificationsCache().filter(
+      const count = scopedList().filter(
         (notification) => notification.status === 'unread',
       ).length;
       return mockResponse({ count });
@@ -137,7 +175,7 @@ export const notificationService = {
    */
   async markAsRead(id) {
     if (apiConfig.mock) {
-      const notification = findNotification(id);
+      const notification = scopedById(id);
       if (!notification) return entityNotFound();
       if (notification.status !== 'read') {
         notification.status = 'read';
@@ -159,7 +197,7 @@ export const notificationService = {
    */
   async markAsUnread(id) {
     if (apiConfig.mock) {
-      const notification = findNotification(id);
+      const notification = scopedById(id);
       if (!notification) return entityNotFound();
       notification.status = 'unread';
       notification.isRead = false;
@@ -179,7 +217,7 @@ export const notificationService = {
   async markAllAsRead() {
     if (apiConfig.mock) {
       const stamp = now();
-      const list = getNotificationsCache();
+      const list = scopedList();
       list.forEach((notification) => {
         if (notification.status === 'unread') {
           notification.status = 'read';
@@ -202,7 +240,7 @@ export const notificationService = {
    */
   async archive(id) {
     if (apiConfig.mock) {
-      const notification = findNotification(id);
+      const notification = scopedById(id);
       if (!notification) return entityNotFound();
       notification.status = 'archived';
       notification.isRead = true;
@@ -223,7 +261,7 @@ export const notificationService = {
    */
   async dismiss(id) {
     if (apiConfig.mock) {
-      const notification = findNotification(id);
+      const notification = scopedById(id);
       if (!notification) return entityNotFound();
       notification.status = 'dismissed';
       notification.isRead = true;
@@ -243,7 +281,7 @@ export const notificationService = {
    */
   async remove(id) {
     if (apiConfig.mock) {
-      const notification = findNotification(id);
+      const notification = scopedById(id);
       if (!notification) return entityNotFound();
       const list = getNotificationsCache();
       list.splice(list.indexOf(notification), 1);
@@ -273,7 +311,7 @@ export const notificationService = {
    */
   async getStatistics() {
     if (apiConfig.mock) {
-      const list = getNotificationsCache();
+      const list = scopedList();
       const unread = list.filter((item) => item.status === 'unread');
       const stats = {
         total: list.length,
@@ -295,6 +333,121 @@ export const notificationService = {
     }
 
     const { data } = await apiClient.get('/notifications/statistics');
+    return data;
+  },
+
+  /* ------------------------------------------------------------------------
+     Actions groupées (bulk) — sélection multiple
+     ------------------------------------------------------------------------ */
+
+  /**
+   * Marque une sélection de notifications comme lues.
+   * @param {string[]} ids
+   * @returns {Promise<{ count: number }>}
+   */
+  async markManyAsRead(ids) {
+    const list = getNotificationsCache();
+    const stamp = now();
+    const targets = list.filter((item) => ids.includes(item.id) && item.status !== 'read');
+    targets.forEach((notification) => {
+      notification.status = 'read';
+      notification.isRead = true;
+      notification.readAt = notification.readAt ?? stamp;
+      notification.updatedAt = stamp;
+    });
+    return mockResponse({ count: targets.length });
+  },
+
+  /**
+   * Marque une sélection de notifications comme non lues.
+   * @param {string[]} ids
+   * @returns {Promise<{ count: number }>}
+   */
+  async markManyAsUnread(ids) {
+    const list = getNotificationsCache();
+    const stamp = now();
+    const targets = list.filter((item) => ids.includes(item.id) && item.status === 'read');
+    targets.forEach((notification) => {
+      notification.status = 'unread';
+      notification.isRead = false;
+      notification.readAt = null;
+      notification.updatedAt = stamp;
+    });
+    return mockResponse({ count: targets.length });
+  },
+
+  /**
+   * Archive une sélection de notifications.
+   * @param {string[]} ids
+   * @returns {Promise<{ count: number }>}
+   */
+  async archiveMany(ids) {
+    const list = getNotificationsCache();
+    const stamp = now();
+    const targets = list.filter((item) => ids.includes(item.id) && item.status !== 'archived');
+    targets.forEach((notification) => {
+      notification.status = 'archived';
+      notification.isRead = true;
+      notification.readAt = notification.readAt ?? stamp;
+      notification.updatedAt = stamp;
+    });
+    return mockResponse({ count: targets.length });
+  },
+
+  /**
+   * Suppression définitive d'une sélection (simulée).
+   * @param {string[]} ids
+   * @returns {Promise<{ success: boolean, count: number }>}
+   */
+  async deleteMany(ids) {
+    const list = getNotificationsCache();
+    const before = list.length;
+    for (let i = list.length - 1; i >= 0; i -= 1) {
+      if (ids.includes(list[i].id)) list.splice(i, 1);
+    }
+    return mockResponse({ success: true, count: before - list.length });
+  },
+
+  /* ------------------------------------------------------------------------
+     Préférences de notification (source unique : Settings)
+     ------------------------------------------------------------------------ */
+
+  /**
+   * Portée de lecture des préférences (entreprise + utilisateur courants).
+   */
+  getPreferenceScope() {
+    const { user, company } = useAuthStore.getState();
+    return {
+      companyScopeId: !user || user.role === 'super_admin' ? '' : company?.id ?? '',
+      userId: user?.id ?? 'usr_001',
+    };
+  },
+
+  /**
+   * Préférences de notification (délégué à la section `notifications` des
+   * Settings — pas de duplication de la source de vérité).
+   * @returns {Promise<object>}
+   */
+  async getPreferences() {
+    if (apiConfig.mock) {
+      return mockResponse(settingsService.getNotificationSettings(this.getPreferenceScope()));
+    }
+    const { data } = await apiClient.get(API_ENDPOINTS.SETTINGS.NOTIFICATIONS);
+    return data;
+  },
+
+  /**
+   * Met à jour les préférences de notification (délégué aux Settings).
+   * @param {object} values — préférences validées par le schéma
+   * @returns {Promise<object>}
+   */
+  async updatePreferences(values) {
+    if (apiConfig.mock) {
+      return mockResponse(
+        settingsService.updateNotificationSettings(values, this.getPreferenceScope()),
+      );
+    }
+    const { data } = await apiClient.patch(API_ENDPOINTS.SETTINGS.NOTIFICATIONS, values);
     return data;
   },
 };

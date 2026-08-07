@@ -15,6 +15,7 @@ import {
   getNotificationCategory,
   getNotificationKind,
   SEVERITY_ORDER,
+  resolveDatePreset,
 } from '../constants';
 import { useNotificationsStore } from '../store';
 
@@ -149,8 +150,14 @@ export const useNotificationListData = (companyById = {}) => {
   const pageSize = useNotificationsStore((state) => state.pagination.pageSize);
 
   return useMemo(() => {
+    const preset = resolveDatePreset(filters.period);
+    const effectiveFilters = {
+      ...filters,
+      dateFrom: filters.dateFrom || preset.from,
+      dateTo: filters.dateTo || preset.to,
+    };
     const filtered = sortNotifications(
-      filterNotifications(notifications, { search, filters, companyById }),
+      filterNotifications(notifications, { search, filters: effectiveFilters, companyById }),
       { ...sort, companyById },
     );
     return paginate(filtered, { page, pageSize });

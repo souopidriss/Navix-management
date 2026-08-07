@@ -1,0 +1,40 @@
+/* Navix Notifications — NotificationBulkActions (barre d'actions groupées) */
+
+.navix-bulk-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--navix-space-2);
+  margin-bottom: var(--navix-space-3);
+  padding: var(--navix-space-2) var(--navix-space-3);
+  border: 1px solid var(--navix-primary);
+  border-radius: var(--navix-radius-md);
+  background-color: var(--navix-primary-muted);
+}
+
+.navix-bulk-actions__label {
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--navix-primary);
+}
+
+.navix-bulk-actions__buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--navix-space-2);
+}
+
+.navix-bulk-actions__clear {
+  padding: var(--navix-space-1) var(--navix-space-2);
+  border: none;
+  background: none;
+  color: var(--navix-text-muted);
+  font-size: var(--navix-font-size-caption);
+  text-decoration: underline;
+}
+
+.navix-bulk-actions__clear:hover {
+  color: var(--navix-text-primary);
+}

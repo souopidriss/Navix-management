@@ -26,6 +26,7 @@ import {
   NotificationTable,
   NotificationCard,
   NotificationEmptyState,
+  NotificationBulkActions,
 } from '../components';
 import { NOTIFICATION_ICON, SEVERITY_ORDER } from '../constants';
 
@@ -50,6 +51,14 @@ const NotificationsPage = () => {
   const setPage = useNotificationsStore((state) => state.setPage);
   const setPageSize = useNotificationsStore((state) => state.setPageSize);
   const clearError = useNotificationsStore((state) => state.clearError);
+  const selectedIds = useNotificationsStore((state) => state.selectedIds);
+  const toggleSelect = useNotificationsStore((state) => state.toggleSelect);
+  const toggleSelectAll = useNotificationsStore((state) => state.toggleSelectAll);
+  const clearSelection = useNotificationsStore((state) => state.clearSelection);
+  const markSelectedAsRead = useNotificationsStore((state) => state.markSelectedAsRead);
+  const markSelectedAsUnread = useNotificationsStore((state) => state.markSelectedAsUnread);
+  const archiveSelected = useNotificationsStore((state) => state.archiveSelected);
+  const deleteSelected = useNotificationsStore((state) => state.deleteSelected);
 
   const companies = useCompaniesStore((state) => state.companies);
   const fetchCompanies = useCompaniesStore((state) => state.fetchCompanies);
@@ -58,6 +67,7 @@ const NotificationsPage = () => {
   const { isGenerating, generateAlerts } = useAlerts();
 
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
 
   const isCompact = useMediaQuery('(max-width: 991.98px)');
 
@@ -97,6 +107,7 @@ const NotificationsPage = () => {
       filters.severity ||
       filters.resourceType ||
       filters.companyId ||
+      filters.period ||
       filters.dateFrom ||
       filters.dateTo ||
       filters.showUnread,
@@ -119,6 +130,16 @@ const NotificationsPage = () => {
     if (!deleteTarget) return;
     const ok = await actions.remove(deleteTarget.id);
     if (ok) setDeleteTarget(null);
+  };
+
+  const handleBulkDelete = async () => {
+    const result = await deleteSelected();
+    if (result.success) {
+      toast.success(`${result.count} notification${result.count > 1 ? 's' : ''} supprimée${result.count > 1 ? 's' : ''}.`);
+      setBulkDeleteOpen(false);
+    } else {
+      toast.error(result.error || 'Impossible de supprimer la sélection.');
+    }
   };
 
   const activeCountLabel = `${totalItems} notification${totalItems > 1 ? 's' : ''}`;
@@ -183,6 +204,15 @@ const NotificationsPage = () => {
       ) : (
         <>
           <div className="navix-notif-list__count text-muted mb-2">{activeCountLabel}</div>
+          <NotificationBulkActions
+            selectedCount={selectedIds.length}
+            onMarkAsRead={markSelectedAsRead}
+            onMarkAsUnread={markSelectedAsUnread}
+            onArchive={archiveSelected}
+            onDelete={() => setBulkDeleteOpen(true)}
+            onClear={clearSelection}
+            isSaving={isSaving}
+          />
           {isCompact ? (
             <div className="row g-3">
               {items.map((notification) => (
@@ -201,6 +231,10 @@ const NotificationsPage = () => {
               companyById={companyById}
               sort={sort}
               onSortChange={(by, direction) => setSort(by, direction)}
+              selectable
+              selectedIds={selectedIds}
+              onToggleSelect={toggleSelect}
+              onToggleSelectAll={toggleSelectAll}
               onView={(notification) => navigate(notificationDetailPath(notification.id))}
               onMarkAsRead={actions.markAsRead}
               onMarkAsUnread={actions.markAsUnread}
@@ -229,6 +263,20 @@ const NotificationsPage = () => {
         loading={isSaving || isActionSaving}
         error={error}
         onConfirm={handleDelete}
+      />
+
+      <DeleteModal
+        open={bulkDeleteOpen}
+        onClose={() => setBulkDeleteOpen(false)}
+        entityName={
+          selectedIds.length > 0
+            ? `${selectedIds.length} notification${selectedIds.length > 1 ? 's' : ''}`
+            : undefined
+        }
+        title="Supprimer la sélection"
+        loading={isSaving || isActionSaving}
+        error={error}
+        onConfirm={handleBulkDelete}
       />
     </PageContainer>
   );

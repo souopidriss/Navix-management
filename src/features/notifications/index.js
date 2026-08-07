@@ -4,7 +4,13 @@
  * via `@/features/notifications/components`.
  */
 export { useNotificationsStore } from './store';
-export { notificationService, alertService, notificationRealtimeService } from './services';
+export {
+  notificationService,
+  alertService,
+  notificationRealtimeService,
+  emitNotificationAuditLog,
+  emitNotificationPreferencesAuditLog,
+} from './services';
 export {
   filterNotifications,
   sortNotifications,
@@ -12,11 +18,23 @@ export {
   useUnreadNotifications,
   useNotificationActions,
   useAlerts,
+  useNotifications,
+  useNotificationCenter,
+  useNotificationFilters,
+  useNotificationPreferences,
 } from './hooks';
 export {
   notificationFiltersSchema,
   notificationFilterDefaultValues,
   sanitizeNotificationFilters,
+  notificationSchema,
+  sanitizeNotification,
+  notificationPreferenceSchema,
+  notificationPreferenceDefaultValues,
+  sanitizeNotificationPreferences,
+  toNotificationPreferenceView,
+  NOTIFICATION_CHANNEL_KEYS,
+  NOTIFICATION_PREFERENCE_TYPE_KEYS,
 } from './schemas';
 export {
   NOTIFICATION_TYPES,
@@ -38,6 +56,8 @@ export {
   NOTIFICATION_SORT_OPTIONS,
   SORT_DIRECTIONS,
   SEVERITY_ORDER,
+  NOTIFICATION_GROUPS,
+  NOTIFICATION_DATE_PRESETS,
   getNotificationType,
   getNotificationCategory,
   getNotificationSeverity,
@@ -49,4 +69,6 @@ export {
   formatNotificationDateTime,
   formatNotificationRelative,
   countUrgentNotifications,
+  resolveDatePreset,
+  groupNotificationsByDate,
 } from './constants';

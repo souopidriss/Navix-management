@@ -64,6 +64,10 @@ export const PERMISSIONS = {
 
   /* Système */
   NOTIFICATIONS_READ: 'notifications.read',
+  NOTIFICATIONS_VIEW: 'notifications.view',
+  NOTIFICATIONS_MANAGE: 'notifications.manage',
+  NOTIFICATIONS_DELETE: 'notifications.delete',
+  NOTIFICATIONS_PREFERENCES: 'notifications.preferences',
   SETTINGS_MANAGE: 'settings.manage',
   SETTINGS_VIEW: 'settings.view',
   SETTINGS_UPDATE: 'settings.update',

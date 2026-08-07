@@ -29,6 +29,7 @@ import {
   RESOURCE_TYPES,
   NOTIFICATION_SORT_OPTIONS,
   SORT_DIRECTIONS,
+  NOTIFICATION_DATE_PRESETS,
 } from '../constants';
 import './NotificationFilters.css';
 
@@ -62,6 +63,13 @@ const NotificationFilters = ({
   <Card className="navix-notif-filters mb-3">
     <FilterBar
       fields={[
+        {
+          key: 'period',
+          type: 'select',
+          label: 'Période',
+          options: NOTIFICATION_DATE_PRESETS,
+          allLabel: 'Toutes les dates',
+        },
         {
           key: 'companyId',
           type: 'select',

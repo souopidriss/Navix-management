@@ -46,7 +46,9 @@ export const NOTIFICATION_TYPES = {
   document: { label: 'Document', variant: 'warning', icon: 'bi-folder2-open' },
   billing: { label: 'Facturation', variant: 'success', icon: 'bi-receipt' },
   subscription: { label: 'Abonnement', variant: 'primary', icon: 'bi-credit-card' },
+  user: { label: 'Utilisateur', variant: 'info', icon: 'bi-people' },
   security: { label: 'Sécurité', variant: 'danger', icon: 'bi-shield-lock' },
+  audit: { label: 'Audit', variant: 'secondary', icon: 'bi-journal-check' },
   report: { label: 'Rapport', variant: 'secondary', icon: 'bi-file-earmark-bar-graph' },
 };
 
@@ -125,6 +127,13 @@ export const NOTIFICATION_KINDS = {
     category: 'danger',
     severity: 'high',
     icon: 'bi-alarm',
+  },
+  maintenance_critical: {
+    label: 'Maintenance critique',
+    type: 'maintenance',
+    category: 'danger',
+    severity: 'critical',
+    icon: 'bi-exclamation-octagon',
   },
   vehicle_immobilized: {
     label: 'Véhicule immobilisé',
@@ -231,6 +240,20 @@ export const NOTIFICATION_KINDS = {
     severity: 'high',
     icon: 'bi-arrow-up-circle',
   },
+  plan_limit_soon: {
+    label: 'Limite du plan bientôt atteinte',
+    type: 'subscription',
+    category: 'warning',
+    severity: 'high',
+    icon: 'bi-hourglass-top',
+  },
+  subscription_expired: {
+    label: 'Abonnement expiré',
+    type: 'subscription',
+    category: 'danger',
+    severity: 'critical',
+    icon: 'bi-x-circle',
+  },
   company_created: {
     label: 'Nouvelle entreprise créée',
     type: 'system',
@@ -240,10 +263,24 @@ export const NOTIFICATION_KINDS = {
   },
   user_created: {
     label: 'Utilisateur créé',
-    type: 'system',
+    type: 'user',
     category: 'success',
     severity: 'low',
     icon: 'bi-person-plus',
+  },
+  user_suspended: {
+    label: 'Utilisateur suspendu',
+    type: 'user',
+    category: 'danger',
+    severity: 'high',
+    icon: 'bi-person-slash',
+  },
+  role_changed: {
+    label: 'Rôle modifié',
+    type: 'user',
+    category: 'info',
+    severity: 'medium',
+    icon: 'bi-person-gear',
   },
   maintenance_in_progress: {
     label: 'Entretien en cours',
@@ -266,12 +303,54 @@ export const NOTIFICATION_KINDS = {
     severity: 'high',
     icon: 'bi-file-x',
   },
+  document_missing: {
+    label: 'Document manquant',
+    type: 'document',
+    category: 'warning',
+    severity: 'medium',
+    icon: 'bi-file-earmark-minus',
+  },
+  insurance_expired: {
+    label: 'Assurance expirée',
+    type: 'document',
+    category: 'danger',
+    severity: 'high',
+    icon: 'bi-shield-x',
+  },
+  fuel_price_high: {
+    label: 'Prix du carburant élevé',
+    type: 'fuel',
+    category: 'warning',
+    severity: 'medium',
+    icon: 'bi-cash-coin',
+  },
+  vehicle_available: {
+    label: 'Véhicule disponible',
+    type: 'vehicle',
+    category: 'success',
+    severity: 'low',
+    icon: 'bi-check-circle',
+  },
   security_login: {
     label: 'Connexion détectée',
     type: 'security',
     category: 'warning',
     severity: 'high',
     icon: 'bi-shield-exclamation',
+  },
+  unusual_activity: {
+    label: 'Activité inhabituelle',
+    type: 'security',
+    category: 'danger',
+    severity: 'critical',
+    icon: 'bi-shield-fill-exclamation',
+  },
+  admin_action: {
+    label: 'Action administrative',
+    type: 'audit',
+    category: 'info',
+    severity: 'low',
+    icon: 'bi-journal-text',
   },
   report_generated: {
     label: 'Rapport généré',
@@ -551,3 +630,93 @@ export const countUrgentNotifications = (notifications = []) =>
       notification.status === 'unread' &&
       ['high', 'critical'].includes(notification.severity),
   ).length;
+
+/* --------------------------------------------------------------------------
+   Regroupement par période et presets de filtre de date
+   -------------------------------------------------------------------------- */
+
+export const NOTIFICATION_GROUPS = {
+  today: "Aujourd'hui",
+  yesterday: 'Hier',
+  thisWeek: 'Cette semaine',
+  older: 'Plus anciennes',
+};
+
+/** Presets de filtre de date (recherche rapide). */
+export const NOTIFICATION_DATE_PRESETS = [
+  { value: '', label: 'Toutes les dates' },
+  { value: 'today', label: "Aujourd'hui" },
+  { value: 'yesterday', label: 'Hier' },
+  { value: 'last7', label: '7 derniers jours' },
+  { value: 'last30', label: '30 derniers jours' },
+];
+
+/**
+ * Résout un preset de période en bornes de date (AAAA-MM-JJ).
+ * @param {string} preset — '' | 'today' | 'yesterday' | 'last7' | 'last30'
+ * @returns {{ from: string, to: string }}
+ */
+export const resolveDatePreset = (preset) => {
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const toDay = (date) => date.toISOString().slice(0, 10);
+
+  switch (preset) {
+    case 'today':
+      return { from: toDay(startOfToday), to: toDay(startOfToday) };
+    case 'yesterday': {
+      const yesterday = new Date(startOfToday);
+      yesterday.setDate(yesterday.getDate() - 1);
+      return { from: toDay(yesterday), to: toDay(yesterday) };
+    }
+    case 'last7': {
+      const from = new Date(startOfToday);
+      from.setDate(from.getDate() - 6);
+      return { from: toDay(from), to: '' };
+    }
+    case 'last30': {
+      const from = new Date(startOfToday);
+      from.setDate(from.getDate() - 29);
+      return { from: toDay(from), to: '' };
+    }
+    default:
+      return { from: '', to: '' };
+  }
+};
+
+/**
+ * Regroupe des notifications par période : Aujourd'hui, Hier, Cette semaine,
+ * Plus anciennes (les groupes vides sont omis).
+ * @param {Array<object>} notifications
+ * @returns {Array<{ key: string, label: string, items: Array<object> }>}
+ */
+export const groupNotificationsByDate = (notifications = []) => {
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const startOfYesterday = startOfToday.getTime() - 86_400_000;
+  const startOfWeek = startOfToday.getTime() - ((now.getDay() + 6) % 7) * 86_400_000;
+
+  const groups = { today: [], yesterday: [], thisWeek: [], older: [] };
+
+  notifications.forEach((notification) => {
+    const ts = new Date(notification.createdAt).getTime();
+    if (Number.isNaN(ts)) {
+      groups.older.push(notification);
+    } else if (ts >= startOfToday.getTime()) {
+      groups.today.push(notification);
+    } else if (ts >= startOfYesterday) {
+      groups.yesterday.push(notification);
+    } else if (ts >= startOfWeek) {
+      groups.thisWeek.push(notification);
+    } else {
+      groups.older.push(notification);
+    }
+  });
+
+  return [
+    { key: 'today', label: NOTIFICATION_GROUPS.today, items: groups.today },
+    { key: 'yesterday', label: NOTIFICATION_GROUPS.yesterday, items: groups.yesterday },
+    { key: 'thisWeek', label: NOTIFICATION_GROUPS.thisWeek, items: groups.thisWeek },
+    { key: 'older', label: NOTIFICATION_GROUPS.older, items: groups.older },
+  ].filter((group) => group.items.length > 0);
+};

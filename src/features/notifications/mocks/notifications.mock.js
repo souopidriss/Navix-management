@@ -1,7 +1,7 @@
 /**
  * Navix Notifications — Données simulées (mode mock)
  * --------------------------------------------------------------------------
- * 32 notifications fictives au format métier complet : id (ULID), companyId,
+ * 42 notifications fictives au format métier complet : id (ULID), companyId,
  * userId, kind (scénario), type, category, severity, title, message, status,
  * isRead, readAt, resourceType, resourceId, createdAt, expiresAt, metadata.
  *
@@ -41,6 +41,149 @@ const normalize = (notification) => {
 };
 
 const RAW_NOTIFICATIONS = [
+  {
+    id: '01JNE1F2G3H4J5K6L7M8N9P0Q1R2',
+    companyId: '01J8A2B3C4D5E6F7G8H9J0K1L2', // Navix Trans
+    userId: DEMO_USER_ID,
+    kind: 'user_suspended',
+    title: 'Utilisateur suspendu',
+    message:
+      'Le compte de Kader Traoré (Chauffeur) a été suspendu pour non-respect des consignes de sécurité.',
+    status: 'unread',
+    resourceType: null,
+    resourceId: null,
+    createdAt: '2026-08-07T09:20:00.000Z',
+    metadata: { userRole: 'driver', reason: 'non_respect_consignes' },
+  },
+  {
+    id: '01JNE2G3H4J5K6L7M8N9P0Q1R2S3',
+    companyId: '01J8J2K3L4M5N6P7Q8R9S0T1U2', // Douala Cars
+    userId: DEMO_USER_ID,
+    kind: 'maintenance_critical',
+    title: 'Maintenance critique requise',
+    message:
+      'Le moteur du BYD K6 QR-3345-AB présente une anomalie critique. Le véhicule doit être immobilisé jusqu’à l’expertise.',
+    status: 'unread',
+    resourceType: 'vehicle',
+    resourceId: '01J9J2K3L4M5N6P7Q8R9S0T1U3',
+    createdAt: '2026-08-07T08:05:00.000Z',
+    metadata: { anomaly: 'surchauffe_moteur' },
+  },
+  {
+    id: '01JNE3H4J5K6L7M8N9P0Q1R2S3T4',
+    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Libreville Moves
+    userId: DEMO_USER_ID,
+    kind: 'unusual_activity',
+    title: 'Activité inhabituelle détectée',
+    message:
+      'Plusieurs tentatives de connexion échouées ont été relevées sur le compte Libreville Moves depuis une IP inconnue.',
+    status: 'unread',
+    resourceType: null,
+    resourceId: null,
+    createdAt: '2026-08-06T22:45:00.000Z',
+    metadata: { attempts: 5, ip: '196.12.44.7' },
+  },
+  {
+    id: '01JNE4J5K6L7M8N9P0Q1R2S3T4U5',
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    userId: DEMO_USER_ID,
+    kind: 'subscription_expired',
+    title: 'Abonnement Starter expiré',
+    message:
+      'L’abonnement Starter de Bamakotrans est arrivé à échéance. Renouvelez pour conserver l’accès aux véhicules.',
+    status: 'unread',
+    resourceType: 'subscription',
+    resourceId: '01JS5E6F7G8H9J0K1L2M3N4P5Q6',
+    createdAt: '2026-08-06T18:10:00.000Z',
+  },
+  {
+    id: '01JNE5K6L7M8N9P0Q1R2S3T4U5V6',
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
+    userId: DEMO_USER_ID,
+    kind: 'role_changed',
+    title: 'Rôle modifié',
+    message:
+      'Le rôle de Fatou Diallo est passé de « Gestionnaire de flotte » à « Administrateur » sur SenTrans.',
+    status: 'unread',
+    resourceType: null,
+    resourceId: null,
+    createdAt: '2026-08-06T15:30:00.000Z',
+    metadata: { previousRole: 'fleet_manager', newRole: 'company_admin' },
+  },
+  {
+    id: '01JNE6L7M8N9P0Q1R2S3T4U5V6W7',
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
+    userId: DEMO_USER_ID,
+    kind: 'admin_action',
+    title: 'Action administrative',
+    message:
+      'Une exportation du journal d’audit (juillet 2026) a été réalisée par Awa Kouamé.',
+    status: 'read',
+    readAt: '2026-08-06T11:00:00.000Z',
+    resourceType: null,
+    resourceId: null,
+    createdAt: '2026-08-06T10:55:00.000Z',
+    metadata: { action: 'audit.export', period: '2026-07' },
+  },
+  {
+    id: '01JNE7M8N9P0Q1R2S3T4U5V6W7X8',
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    userId: DEMO_USER_ID,
+    kind: 'fuel_price_high',
+    title: 'Prix du carburant élevé',
+    message:
+      'Le prix moyen du carburant (612 FCFA/L) dépasse de 8 % la moyenne régionale. Ajustez les prévisions de coûts.',
+    status: 'read',
+    readAt: '2026-08-06T09:00:00.000Z',
+    resourceType: null,
+    resourceId: null,
+    createdAt: '2026-08-06T07:40:00.000Z',
+    metadata: { price: 612, deviationPercent: 8, currency: 'XAF' },
+  },
+  {
+    id: '01JNE8N9P0Q1R2S3T4U5V6W7X8Y9',
+    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Bénin Express
+    userId: DEMO_USER_ID,
+    kind: 'vehicle_available',
+    title: 'Véhicule disponible',
+    message:
+      'Le Peugeot 3008 MN-5602-WX est de nouveau disponible après remise en état complète.',
+    status: 'read',
+    readAt: '2026-08-05T17:30:00.000Z',
+    resourceType: 'vehicle',
+    resourceId: '01J9G2H3J4K5L6M7N8P9Q0R1S3',
+    createdAt: '2026-08-05T16:15:00.000Z',
+  },
+  {
+    id: '01JNE9P0Q1R2S3T4U5V6W7X8Y9Z0',
+    companyId: '01J8C2D3E4F5G6H7J8K9L0M1N2', // LogiSud
+    userId: DEMO_USER_ID,
+    kind: 'document_missing',
+    title: 'Document manquant',
+    message:
+      'Le certificat d’assurance du Renault Master EF-2040-OP est manquant dans le dossier véhicule.',
+    status: 'read',
+    readAt: '2026-08-05T14:00:00.000Z',
+    resourceType: 'vehicle',
+    resourceId: '01J9C2D3E4F5G6H7J8K9L0M1N3',
+    createdAt: '2026-08-05T13:20:00.000Z',
+    metadata: { documentType: 'insurance_certificate' },
+  },
+  {
+    id: '01JNA0Q1R2S3T4U5V6W7X8Y9Z0A1B2',
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
+    userId: DEMO_USER_ID,
+    kind: 'plan_limit_soon',
+    title: 'Limite du plan bientôt atteinte',
+    message:
+      'LoméTrans utilise 4 véhicules sur 5 autorisés par le plan Starter (80 %). Pensez à passer au plan supérieur.',
+    status: 'read',
+    readAt: '2026-08-05T10:00:00.000Z',
+    resourceType: 'subscription',
+    resourceId: '01JS8H9J0K1L2M3N4P5Q6R7S8T9',
+    createdAt: '2026-08-05T09:30:00.000Z',
+    metadata: { metric: 'vehicles', current: 4, limit: 5, usagePercent: 80 },
+  },
   {
     id: '01JNA1B2C3D4E5F6G7H8J9K0L1M2',
     companyId: '01J8A2B3C4D5E6F7G8H9J0K1L2', // Navix Trans

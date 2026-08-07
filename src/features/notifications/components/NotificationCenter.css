@@ -1,0 +1,101 @@
+/* Navix Notifications — NotificationCenter (centre réutilisable) */
+
+.navix-notif-center {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.navix-notif-center__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-3);
+  border-bottom: 1px solid var(--navix-border-color-subtle);
+}
+
+.navix-notif-center__title {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.navix-notif-center__header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+}
+
+.navix-notif-center__mark-all {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--navix-primary);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-medium);
+}
+
+.navix-notif-center__mark-all:hover {
+  color: var(--navix-primary-hover);
+  text-decoration: underline;
+}
+
+.navix-notif-center__realtime {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-1);
+  padding: 0.125rem var(--navix-space-2);
+  border: 1px solid var(--navix-border-color-subtle);
+  border-radius: var(--navix-radius-full);
+  background-color: transparent;
+  color: var(--navix-text-muted);
+  font-size: 0.6875rem;
+  transition:
+    border-color var(--navix-transition-fast) var(--navix-ease-out),
+    color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-notif-center__realtime:hover {
+  border-color: var(--navix-primary);
+  color: var(--navix-primary);
+}
+
+.navix-notif-center__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--navix-radius-full);
+  background-color: var(--navix-text-disabled);
+}
+
+.navix-notif-center__dot.is-online {
+  background-color: var(--navix-success);
+}
+
+.navix-notif-center__body {
+  max-height: 24rem;
+  overflow-y: auto;
+  padding: var(--navix-space-2);
+}
+
+.navix-notif-center__footer {
+  padding: var(--navix-space-2) var(--navix-space-3);
+  border-top: 1px solid var(--navix-border-color-subtle);
+}
+
+.navix-notif-center__all {
+  width: 100%;
+  padding: var(--navix-space-2);
+  border: none;
+  border-radius: var(--navix-radius-md);
+  background-color: transparent;
+  color: var(--navix-primary);
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-medium);
+  transition: background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-notif-center__all:hover {
+  background-color: var(--navix-primary-muted);
+}
