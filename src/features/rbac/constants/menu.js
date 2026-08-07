@@ -151,6 +151,9 @@ export const ROUTE_META = {
   [ROUTES.AUDIT_LOGS_DETAIL]: {
     requiredPermissions: [PERMISSIONS.AUDIT_VIEW],
   },
+  [ROUTES.AUDIT_USER_ACTIVITY]: {
+    requiredPermissions: [PERMISSIONS.AUDIT_VIEW],
+  },
   [ROUTES.USERS]: {
     requiredPermissions: [PERMISSIONS.USERS_VIEW],
   },

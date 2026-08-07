@@ -13,6 +13,10 @@ export { default as AuditFilters } from './AuditFilters';
 export { default as AuditChanges } from './AuditChanges';
 export { default as AuditValueDiff } from './AuditValueDiff';
 export { default as AuditLogDetails } from './AuditLogDetails';
+export { default as AuditTimeline } from './AuditTimeline';
+export { default as AuditMetadataViewer } from './AuditMetadataViewer';
+export { default as AuditGroupedList } from './AuditGroupedList';
+export { default as AuditResourceActivity } from './AuditResourceActivity';
 export {
   default as ExportAuditButton,
   ExportAuditCsvButton,

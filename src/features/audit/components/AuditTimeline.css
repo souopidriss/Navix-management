@@ -1,0 +1,36 @@
+.navix-audit-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.navix-audit-timeline__day {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.navix-audit-timeline__day-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.navix-audit-timeline__day-head > i {
+  color: var(--navix-primary, var(--bs-primary));
+}
+
+.navix-audit-timeline__day-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.navix-audit-timeline__day-count {
+  font-size: 0.75rem;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+  background: var(--bs-secondary-bg, rgba(0, 0, 0, 0.05));
+  border-radius: 999px;
+  padding: 0.125rem 0.5rem;
+}

@@ -28,7 +28,15 @@ import { mockResponse } from '@/services/utils';
 import { ApiError } from '@/services/errors';
 import { MOCK_AUDIT_LOGS } from '../mocks';
 import { sanitizeAuditFilters } from '../schemas';
-import { SEVERITY_ORDER } from '../constants';
+import {
+  SEVERITY_ORDER,
+  formatAuditDate,
+  getUser,
+  getAuditAction,
+  getAuditActionType,
+  getAuditResource,
+  getAuditSeverity,
+} from '../constants';
 
 /**
  * Compare deux chaînes de date ISO (ordre chronologique).
@@ -283,6 +291,62 @@ export const auditService = {
     );
     return data;
   },
+
+  /**
+   * Activité d'un utilisateur (les plus récentes d'abord).
+   * @param {string} userId
+   * @param {string} [companyScopeId]
+   * @returns {Promise<Array<object>>}
+   */
+  async getUserActivity(userId, companyScopeId = '') {
+    if (apiConfig.mock) {
+      return mockResponse(getUserAuditLogs(userId, companyScopeId));
+    }
+    const { data } = await apiClient.get(API_ENDPOINTS.AUDIT.LIST, { params: { userId } });
+    return data;
+  },
+
+  /**
+   * Activité liée à une ressource (type + identifiant).
+   * @param {{ resourceType: string, resourceId: string }} resource
+   * @param {string} [companyScopeId]
+   * @returns {Promise<Array<object>>}
+   */
+  async getResourceActivity(resource, companyScopeId = '') {
+    if (apiConfig.mock) {
+      return mockResponse(getResourceAuditLogs(resource, companyScopeId));
+    }
+    const { data } = await apiClient.get(API_ENDPOINTS.AUDIT.LIST, {
+      params: { resourceType: resource.resourceType, resourceId: resource.resourceId },
+    });
+    return data;
+  },
+
+  /**
+   * Entrées critiques du journal.
+   * @param {string} [companyScopeId]
+   * @returns {Promise<Array<object>>}
+   */
+  async getCriticalLogs(companyScopeId = '') {
+    if (apiConfig.mock) {
+      return mockResponse(getCriticalAuditLogs(companyScopeId));
+    }
+    const { data } = await apiClient.get(API_ENDPOINTS.AUDIT.LIST, { params: { severity: 'critical' } });
+    return data;
+  },
+
+  /**
+   * Entrées échouées du journal.
+   * @param {string} [companyScopeId]
+   * @returns {Promise<Array<object>>}
+   */
+  async getFailedLogs(companyScopeId = '') {
+    if (apiConfig.mock) {
+      return mockResponse(getFailedAuditLogs(companyScopeId));
+    }
+    const { data } = await apiClient.get(API_ENDPOINTS.AUDIT.LIST, { params: { status: 'failed' } });
+    return data;
+  },
 };
 
 /**
@@ -291,3 +355,103 @@ export const auditService = {
  */
 export const getAllAuditLogsSorted = () =>
   [...MOCK_AUDIT_LOGS].sort(byCreatedAt).map((item) => ({ ...item }));
+
+/* --------------------------------------------------------------------------
+   Activité (utilisateur / ressource) et regroupement — helpers purs
+   -------------------------------------------------------------------------- */
+
+const scoped = (logs, companyScopeId) =>
+  logs.filter((log) => !companyScopeId || log.companyId === companyScopeId);
+
+/** Entrées d'un utilisateur (les plus récentes d'abord), portée tenant simulée. */
+export const getUserAuditLogs = (userId, companyScopeId = '') =>
+  scoped(
+    MOCK_AUDIT_LOGS.filter((log) => log.userId === userId),
+    companyScopeId,
+  )
+    .sort(byCreatedAt)
+    .map((item) => ({ ...item }));
+
+/** Entrées liées à une ressource (type + identifiant), portée tenant simulée. */
+export const getResourceAuditLogs = ({ resourceType, resourceId }, companyScopeId = '') =>
+  scoped(
+    MOCK_AUDIT_LOGS.filter(
+      (log) => log.resourceType === resourceType && log.resourceId === resourceId,
+    ),
+    companyScopeId,
+  )
+    .sort(byCreatedAt)
+    .map((item) => ({ ...item }));
+
+/** Entrées critiques, portée tenant simulée. */
+export const getCriticalAuditLogs = (companyScopeId = '') =>
+  scoped(MOCK_AUDIT_LOGS.filter((log) => log.severity === 'critical'), companyScopeId)
+    .sort(byCreatedAt)
+    .map((item) => ({ ...item }));
+
+/** Entrées échouées, portée tenant simulée. */
+export const getFailedAuditLogs = (companyScopeId = '') =>
+  scoped(MOCK_AUDIT_LOGS.filter((log) => log.status === 'failed'), companyScopeId)
+    .sort(byCreatedAt)
+    .map((item) => ({ ...item }));
+
+/** Libellé lisible d'une clé de groupe pour un critère donné. */
+export const getAuditGroupLabel = (groupBy, key) => {
+  switch (groupBy) {
+    case 'date':
+      return formatAuditDate(key);
+    case 'user':
+      return getUser(key).name;
+    case 'module':
+      return getAuditActionType(key).label;
+    case 'action':
+      return getAuditAction(key).label;
+    case 'resource':
+      return getAuditResource(key).label;
+    case 'severity':
+      return getAuditSeverity(key).label;
+    default:
+      return key;
+  }
+};
+
+/**
+ * Regroupe des entrées d'audit selon un critère.
+ * @param {Array<object>} logs — entrées déjà filtrées/triées
+ * @param {string} groupBy — 'date' | 'user' | 'module' | 'action' | 'resource' | 'severity'
+ * @returns {Array<{ key, label, count, items }>} — groupes triés (plus récents / sévérité / alphabet)
+ */
+export const groupAuditLogs = (logs, groupBy) => {
+  const groups = new Map();
+
+  logs.forEach((log) => {
+    let key;
+    if (groupBy === 'date') key = log.createdAt.slice(0, 10);
+    else if (groupBy === 'user') key = log.userId;
+    else if (groupBy === 'module') key = log.actionType;
+    else if (groupBy === 'action') key = log.action;
+    else if (groupBy === 'resource') key = log.resourceType;
+    else if (groupBy === 'severity') key = log.severity;
+    else key = 'autre';
+
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(log);
+  });
+
+  const compareKeys = (aKey, bKey) => {
+    if (groupBy === 'date') return bKey.localeCompare(aKey);
+    if (groupBy === 'severity') return SEVERITY_ORDER.indexOf(aKey) - SEVERITY_ORDER.indexOf(bKey);
+    return getAuditGroupLabel(groupBy, aKey)
+      .toLowerCase()
+      .localeCompare(getAuditGroupLabel(groupBy, bKey).toLowerCase());
+  };
+
+  return [...groups.entries()]
+    .sort(([aKey], [bKey]) => compareKeys(aKey, bKey))
+    .map(([key, items]) => ({
+      key,
+      label: getAuditGroupLabel(groupBy, key),
+      count: items.length,
+      items,
+    }));
+};

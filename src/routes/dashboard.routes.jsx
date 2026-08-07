@@ -68,6 +68,7 @@ const NotificationsPage = lazy(() => import('@/features/notifications/pages/Noti
 const NotificationDetailsPage = lazy(() => import('@/features/notifications/pages/NotificationDetailsPage'));
 const AuditLogsPage = lazy(() => import('@/features/audit/pages/AuditLogsPage'));
 const AuditLogDetailsPage = lazy(() => import('@/features/audit/pages/AuditLogDetailsPage'));
+const UserActivityPage = lazy(() => import('@/features/audit/pages/UserActivityPage'));
 const UsersPage = lazy(() => import('@/features/users/pages/UsersPage'));
 const UserDetailsPage = lazy(() => import('@/features/users/pages/UserDetailsPage'));
 const CreateUserPage = lazy(() => import('@/features/users/pages/CreateUserPage'));
@@ -170,6 +171,7 @@ export const dashboardRoutes = (
     <Route path={ROUTES.NOTIFICATIONS_DETAIL} element={<NotificationDetailsPage />} />
     <Route path={ROUTES.AUDIT_LOGS} element={<AuditLogsPage />} />
     <Route path={ROUTES.AUDIT_LOGS_DETAIL} element={<AuditLogDetailsPage />} />
+    <Route path={ROUTES.AUDIT_USER_ACTIVITY} element={<UserActivityPage />} />
     <Route path={ROUTES.USERS} element={<UsersPage />} />
     <Route path={ROUTES.USERS_CREATE} element={<CreateUserPage />} />
     <Route path={ROUTES.USERS_DETAIL} element={<UserDetailsPage />} />

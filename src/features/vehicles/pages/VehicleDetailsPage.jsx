@@ -14,6 +14,8 @@ import { Alert, Badge, Button, Card, Spinner } from '@/components/ui';
 import { PageContainer, PageHeader } from '@/components/layout';
 import { ROUTES, vehicleEditPath } from '@/routes/route.constants';
 import { useCompaniesStore } from '@/features/companies';
+import { AuditResourceActivity } from '@/features/audit/components';
+import { useAuditPermissions } from '@/features/audit/hooks';
 import { useVehiclesStore } from '../store';
 import {
   VehicleImage,
@@ -92,6 +94,8 @@ const VehicleDetailsPage = () => {
 
   const companies = useCompaniesStore((state) => state.companies);
   const fetchCompanies = useCompaniesStore((state) => state.fetchCompanies);
+
+  const { canView: canViewAudit } = useAuditPermissions();
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -268,6 +272,15 @@ const VehicleDetailsPage = () => {
                   </InfoRow>
                 </dl>
               </Card>
+
+              {canViewAudit && (
+                <AuditResourceActivity
+                  resourceType="vehicle"
+                  resourceId={vehicle.id}
+                  title="Activité récente (journal)"
+                  className="mt-3"
+                />
+              )}
             </div>
           </div>
 

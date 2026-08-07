@@ -33,6 +33,7 @@ import {
   CostBreakdownChart,
   FinancialOverview,
   DashboardAlerts,
+  DashboardAuditActivity,
   RecentActivityList,
   TopVehicles,
   TopDrivers,
@@ -204,7 +205,7 @@ const DashboardPage = () => {
               </Card>
             </div>
             <div className="col-lg-7">
-              <DashboardAlerts alerts={alerts} />
+              <DashboardAuditActivity />
             </div>
           </div>
 

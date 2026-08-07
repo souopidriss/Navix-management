@@ -60,6 +60,8 @@ const initialState = {
     by: 'createdAt',
     direction: 'desc',
   },
+  view: 'list',
+  groupBy: 'date',
   pagination: {
     page: 1,
     pageSize: DEFAULT_PAGE_SIZE,
@@ -190,6 +192,12 @@ const useAuditStore = create((set) => ({
   /** Applique le tri (réinitialise la page courante). */
   setSort: (by, direction) =>
     set((state) => ({ sort: { by, direction }, pagination: { ...state.pagination, page: 1 } })),
+
+  /** Change la vue courante (liste, regroupée, chronologie). */
+  setView: (view) => set({ view }),
+
+  /** Change le critère de regroupement de la vue regroupée. */
+  setGroupBy: (groupBy) => set({ groupBy }),
 
   /** Change de page. */
   setPage: (page) => set((state) => ({ pagination: { ...state.pagination, page } })),

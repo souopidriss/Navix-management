@@ -7,15 +7,21 @@
  * liée lorsque celle-ci existe. Rien n'est modifiable — le journal est
  * immuable.
  *
+ * Données sensibles (adresse IP, User-Agent, e-mail, métadonnées,
+ * modifications) : masquées sauf pour les profils disposant de la
+ * permission `audit.viewSensitive`.
+ *
  * Props :
- *   log     : entrée du journal
- *   onOpenResource : (log) => void — lien vers la ressource liée
+ *   log              : entrée du journal
+ *   onOpenResource   : (log) => void — lien vers la ressource liée
+ *   canViewSensitive : booléen — accès aux données sensibles
  */
 import { Button, Card } from '@/components/ui';
 import {
   formatAuditDateTime,
-  formatAuditValue,
   getUser,
+  getUserEmail,
+  parseUserAgent,
   getAuditAction,
   getAuditActionType,
   getAuditResource,
@@ -27,7 +33,11 @@ import AuditResourceBadge from './AuditResourceBadge';
 import AuditStatusBadge from './AuditStatusBadge';
 import AuditSeverityBadge from './AuditSeverityBadge';
 import AuditChanges from './AuditChanges';
+import AuditMetadataViewer from './AuditMetadataViewer';
 import './AuditLogDetails.css';
+
+const MASK = '••••••••';
+const UA_LABEL = 'Navigateur / Appareil';
 
 const Field = ({ label, children }) => (
   <div className="navix-audit-details__field">
@@ -43,10 +53,12 @@ const DetailsCard = ({ title, children }) => (
   </Card>
 );
 
-const AuditLogDetails = ({ log, onOpenResource }) => {
+const AuditLogDetails = ({ log, onOpenResource, canViewSensitive = false }) => {
   const resourceMeta = getAuditResource(log.resourceType);
   const resourcePath = getAuditResourcePath(log.resourceType, log.resourceId);
   const hasResourceLink = resourcePath !== '/';
+  const userAgent = parseUserAgent(log.userAgent);
+  const email = getUserEmail(log.userId);
 
   return (
     <div className="navix-audit-details">
@@ -97,6 +109,9 @@ const AuditLogDetails = ({ log, onOpenResource }) => {
             <Field label="Identifiant utilisateur">
               <code className="navix-audit-details__code">{log.userId}</code>
             </Field>
+            <Field label="E-mail">
+              {canViewSensitive ? email || '—' : <span aria-label="Adresse e-mail masquée">{MASK}</span>}
+            </Field>
             <Field label="Entreprise">{log.companyName ?? '—'}</Field>
             <Field label="Agence">{log.agencyName ?? '—'}</Field>
           </DetailsCard>
@@ -105,10 +120,23 @@ const AuditLogDetails = ({ log, onOpenResource }) => {
         <div className="col-12 col-xl-6">
           <DetailsCard title="Contexte réseau">
             <Field label="Adresse IP">
-              <code className="navix-audit-details__code">{log.ipAddress ?? '—'}</code>
+              {canViewSensitive ? (
+                <code className="navix-audit-details__code">{log.ipAddress ?? '—'}</code>
+              ) : (
+                <span aria-label="Adresse IP masquée">{MASK}</span>
+              )}
             </Field>
-            <Field label="Navigateur / Appareil">
-              <span className="navix-audit-details__ua">{log.userAgent ?? '—'}</span>
+            <Field label={UA_LABEL}>
+              {canViewSensitive ? (
+                <>
+                  <span className="navix-audit-details__ua">
+                    {userAgent.browser} · {userAgent.os} · {userAgent.device}
+                  </span>
+                  <code className="navix-audit-details__ua-raw">{log.userAgent ?? '—'}</code>
+                </>
+              ) : (
+                <span aria-label="User-Agent masqué">{MASK}</span>
+              )}
             </Field>
           </DetailsCard>
         </div>
@@ -122,20 +150,24 @@ const AuditLogDetails = ({ log, onOpenResource }) => {
               <AuditSeverityBadge severity={log.severity} />
             </Field>
             <Field label="Métadonnées">
-              {log.metadata && Object.keys(log.metadata).length > 0 ? (
-                <pre className="navix-audit-details__json">
-                  {formatAuditValue(log.metadata)}
-                </pre>
-              ) : (
-                '—'
-              )}
+              <AuditMetadataViewer metadata={log.metadata} sensitive={!canViewSensitive} />
             </Field>
           </DetailsCard>
         </div>
       </div>
 
       <Card className="navix-audit-details__card" padding="lg">
-        <AuditChanges oldValues={log.oldValues} newValues={log.newValues} />
+        {canViewSensitive ? (
+          <AuditChanges oldValues={log.oldValues} newValues={log.newValues} />
+        ) : (
+          <div className="navix-audit-details__restricted">
+            <h2 className="navix-audit-details__title">Modifications</h2>
+            <p className="navix-audit-details__restricted-text text-muted mb-0">
+              Les valeurs avant / après sont réservées aux profils disposant de la permission
+              <code className="navix-audit-details__code ms-1">audit.viewSensitive</code>.
+            </p>
+          </div>
+        )}
       </Card>
     </div>
   );

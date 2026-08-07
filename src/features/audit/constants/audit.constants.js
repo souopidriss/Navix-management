@@ -61,6 +61,11 @@ export const AUDIT_ACTIONS = {
   UNSUBSCRIBE: { label: 'Résiliation', variant: 'secondary', icon: 'bi-credit-card' },
   UPGRADE: { label: 'Passage au plan supérieur', variant: 'primary', icon: 'bi-arrow-up-circle' },
   DOWNGRADE: { label: 'Passage au plan inférieur', variant: 'warning', icon: 'bi-arrow-down-circle' },
+  SUSPEND: { label: 'Suspension', variant: 'danger', icon: 'bi-slash-circle' },
+  PASSWORD_RESET: { label: 'Réinitialisation du mot de passe', variant: 'warning', icon: 'bi-key' },
+  ROLE_CHANGED: { label: 'Changement de rôle', variant: 'danger', icon: 'bi-person-gear' },
+  PERMISSION_CHANGED: { label: 'Changement de permission', variant: 'danger', icon: 'bi-shield-lock' },
+  SETTINGS_CHANGED: { label: 'Modification des paramètres', variant: 'warning', icon: 'bi-gear' },
 };
 
 export const AUDIT_ACTION_VALUES = Object.keys(AUDIT_ACTIONS);
@@ -212,6 +217,86 @@ export const AUDIT_USER_OPTIONS = AUDIT_USERS.map((user) => ({
   value: user.id,
   label: user.name,
 }));
+
+/** Adresses e-mail simulées des utilisateurs du journal (jamais affichées sans `audit.viewSensitive`). */
+const AUDIT_USER_EMAILS = {
+  usr_001: 'awa.kouame@navix.com',
+  usr_002: 'ibrahim.traore@trans-express.ci',
+  usr_003: 'mariam.kone@logisud.ci',
+  usr_004: 'ousmane.diallo@sentrans.sn',
+  usr_005: 'seydou.coulibaly@bamakotrans.ml',
+  usr_006: 'fatou.sawadogo@ouagalogistics.bf',
+  usr_007: 'koffi.ahouansou@beninexpress.bj',
+  usr_008: 'abla.mensah@lometrans.tg',
+  usr_009: 'estelle.ngono@doualacars.cm',
+  usr_010: 'charles.mba@librevillemoves.ga',
+  usr_011: 'yao.nguessan@navix.com',
+  usr_012: 'jean.kouassi@navix.com',
+  usr_013: 'moussa.kone@trans-express.ci',
+  usr_014: 'rasmata.ouedraogo@ouagalogistics.bf',
+  usr_015: 'aicha.diallo@sentrans.sn',
+};
+
+/** Adresse e-mail d'un utilisateur (vide si inconnu). */
+export const getUserEmail = (value) => AUDIT_USER_EMAILS[value] ?? '';
+
+/**
+ * Extrait navigateur, OS et appareil d'un User-Agent.
+ * Simplifié à des fins de démonstration — le parsing fiable est serveur.
+ * @param {string} [userAgent]
+ * @returns {{ browser: string, os: string, device: string }}
+ */
+export const parseUserAgent = (userAgent = '') => {
+  const ua = userAgent.toLowerCase();
+
+  let browser = 'Inconnu';
+  if (ua.includes('curl')) browser = 'curl';
+  else if (ua.includes('edg')) browser = 'Edge';
+  else if (ua.includes('chrome')) browser = 'Chrome';
+  else if (ua.includes('firefox')) browser = 'Firefox';
+  else if (ua.includes('safari')) browser = 'Safari';
+
+  let os = 'Inconnu';
+  if (ua.includes('windows')) os = 'Windows';
+  else if (ua.includes('iphone') || ua.includes('ios')) os = 'iOS';
+  else if (ua.includes('ipad')) os = 'iPadOS';
+  else if (ua.includes('mac os')) os = 'macOS';
+  else if (ua.includes('android')) os = 'Android';
+  else if (ua.includes('linux')) os = 'Linux';
+
+  const device = ua.includes('ipad') || ua.includes('tablet')
+    ? 'Tablette'
+    : ua.includes('mobile') || ua.includes('iphone') || ua.includes('android')
+      ? 'Mobile'
+      : 'Desktop';
+
+  return { browser, os, device };
+};
+
+/* --------------------------------------------------------------------------
+   Vues et regroupement
+   -------------------------------------------------------------------------- */
+
+/** Vues disponibles du journal (liste, regroupée, chronologie). */
+export const AUDIT_VIEWS = [
+  { value: 'list', label: 'Liste', icon: 'bi-list-ul' },
+  { value: 'grouped', label: 'Regroupé', icon: 'bi-diagram-3' },
+  { value: 'timeline', label: 'Chronologie', icon: 'bi-clock-history' },
+];
+
+export const AUDIT_VIEW_VALUES = AUDIT_VIEWS.map((view) => view.value);
+
+/** Critères de regroupement des entrées. */
+export const AUDIT_GROUPING_OPTIONS = [
+  { value: 'date', label: 'Date' },
+  { value: 'user', label: 'Utilisateur' },
+  { value: 'module', label: 'Module' },
+  { value: 'action', label: 'Action' },
+  { value: 'resource', label: 'Ressource' },
+  { value: 'severity', label: 'Sévérité' },
+];
+
+export const AUDIT_GROUPING_VALUES = AUDIT_GROUPING_OPTIONS.map((option) => option.value);
 
 /* --------------------------------------------------------------------------
    Navigation vers la ressource liée

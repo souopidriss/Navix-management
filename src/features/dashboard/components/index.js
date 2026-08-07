@@ -11,6 +11,7 @@ export { default as MaintenanceTrendChart } from './MaintenanceTrendChart';
 export { default as CostBreakdownChart } from './CostBreakdownChart';
 export { default as FinancialOverview } from './FinancialOverview';
 export { default as DashboardAlerts } from './DashboardAlerts';
+export { default as DashboardAuditActivity } from './DashboardAuditActivity';
 export { default as RecentActivityList } from './RecentActivityList';
 export { default as TopVehicles } from './TopVehicles';
 export { default as TopDrivers } from './TopDrivers';

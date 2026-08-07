@@ -10,21 +10,36 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Button, Alert } from '@/components/ui';
-import { PageContainer, PageHeader, Pagination, LoadingState, SearchBar } from '@/components/core';
+import {
+  PageContainer,
+  PageHeader,
+  Pagination,
+  LoadingState,
+  SearchBar,
+  Toolbar,
+} from '@/components/core';
 import { ROUTES, auditLogDetailPath } from '@/routes/route.constants';
 import { useMediaQuery } from '@/hooks';
 import { useCompaniesStore } from '@/features/companies';
 import { useAgenciesStore } from '@/features/agencies';
 import { useAuditStore } from '../store';
-import { useAuditLogs, useAuditActions, useAuditStatistics } from '../hooks';
+import {
+  useAuditLogs,
+  useAuditActions,
+  useAuditStatistics,
+  useAuditPermissions,
+  useAuditGroupedLogs,
+} from '../hooks';
 import {
   AuditOverview,
   AuditFilters,
   AuditLogTable,
   AuditLogCard,
+  AuditGroupedList,
+  AuditTimeline,
   ExportAuditButton,
 } from '../components';
-import { AUDIT_ICON, getAuditResourcePath } from '../constants';
+import { AUDIT_ICON, AUDIT_VIEWS, AUDIT_GROUPING_OPTIONS, getAuditResourcePath } from '../constants';
 import './AuditLogsPage.css';
 
 const AuditLogsPage = () => {
@@ -37,6 +52,8 @@ const AuditLogsPage = () => {
   const filters = useAuditStore((state) => state.filters);
   const sort = useAuditStore((state) => state.sort);
   const pageSize = useAuditStore((state) => state.pagination.pageSize);
+  const view = useAuditStore((state) => state.view);
+  const groupBy = useAuditStore((state) => state.groupBy);
   const fetchLogs = useAuditStore((state) => state.fetchLogs);
   const setSearch = useAuditStore((state) => state.setSearch);
   const setFilter = useAuditStore((state) => state.setFilter);
@@ -44,6 +61,8 @@ const AuditLogsPage = () => {
   const setSort = useAuditStore((state) => state.setSort);
   const setPage = useAuditStore((state) => state.setPage);
   const setPageSize = useAuditStore((state) => state.setPageSize);
+  const setView = useAuditStore((state) => state.setView);
+  const setGroupBy = useAuditStore((state) => state.setGroupBy);
   const clearError = useAuditStore((state) => state.clearError);
 
   const companies = useCompaniesStore((state) => state.companies);
@@ -52,8 +71,10 @@ const AuditLogsPage = () => {
   const fetchAgencies = useAgenciesStore((state) => state.fetchAgencies);
 
   const { actions } = useAuditActions();
+  const { canExport } = useAuditPermissions();
   const { cards, alerts, isLoading: statsLoading } = useAuditStatistics();
   const { items, totalItems, totalPages, page } = useAuditLogs();
+  const { groups, totalItems: groupedTotal, logs: allFilteredLogs } = useAuditGroupedLogs(groupBy);
 
   const isCompact = useMediaQuery('(max-width: 991.98px)');
 
@@ -88,6 +109,9 @@ const AuditLogsPage = () => {
   };
 
   const activeCountLabel = `${totalItems} action${totalItems > 1 ? 's' : ''}`;
+  const viewCountLabel = `${view === 'grouped' ? groupedTotal : totalItems} action${
+    (view === 'grouped' ? groupedTotal : totalItems) > 1 ? 's' : ''
+  }`;
 
   return (
     <PageContainer>
@@ -105,11 +129,13 @@ const AuditLogsPage = () => {
         ]}
         actions={
           <div className="d-flex gap-2">
-            <ExportAuditButton
-              isLoading={isLoading}
-              isGenerating={isGenerating}
-              onExport={handleExport}
-            />
+            {canExport && (
+              <ExportAuditButton
+                isLoading={isLoading}
+                isGenerating={isGenerating}
+                onExport={handleExport}
+              />
+            )}
             <Button variant="outline" size="sm" icon="bi-arrow-clockwise" loading={isLoading} onClick={actions.refresh}>
               Rafraîchir
             </Button>
@@ -138,8 +164,63 @@ const AuditLogsPage = () => {
         hasActiveFilters={hasActiveFilters}
       />
 
+      <Toolbar align="between" className="navix-audit-toolbar mb-2">
+        <div className="d-flex align-items-center gap-2 flex-wrap">
+          <div className="btn-group btn-group-sm" role="group" aria-label="Mode d'affichage du journal">
+            {AUDIT_VIEWS.map((option) => (
+              <Button
+                key={option.value}
+                variant={view === option.value ? 'primary' : 'outline'}
+                size="sm"
+                icon={option.icon}
+                aria-pressed={view === option.value}
+                onClick={() => setView(option.value)}
+              >
+                {option.label}
+              </Button>
+            ))}
+          </div>
+          {view === 'grouped' && (
+            <label className="navix-audit-toolbar__grouping">
+              <span className="visually-hidden">Regrouper par</span>
+              <i className="bi bi-diagram-3 me-1" aria-hidden="true" />
+              <select
+                className="form-select form-select-sm navix-audit-toolbar__select"
+                value={groupBy}
+                onChange={(event) => setGroupBy(event.target.value)}
+                aria-label="Regrouper par"
+              >
+                {AUDIT_GROUPING_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
+        </div>
+        {!isLoading && <span className="text-muted">{viewCountLabel}</span>}
+      </Toolbar>
+
       {isLoading && items.length === 0 ? (
         <LoadingState variant="table" rows={6} cols={7} label="Chargement du journal des actions…" />
+      ) : (view === 'grouped' || view === 'timeline') && groupedTotal === 0 ? (
+        <div className="navix-audit-empty">
+          {hasActiveFilters ? (
+            <>
+              <p className="text-muted mb-0">Aucune action ne correspond aux critères.</p>
+              <Button variant="ghost" size="sm" icon="bi-arrow-counterclockwise" onClick={resetFilters} className="mt-2">
+                Réinitialiser les filtres
+              </Button>
+            </>
+          ) : (
+            <p className="text-muted mb-0">Aucune action enregistrée pour le moment.</p>
+          )}
+        </div>
+      ) : view === 'grouped' ? (
+        <AuditGroupedList groups={groups} onView={(log) => navigate(auditLogDetailPath(log.id))} />
+      ) : view === 'timeline' ? (
+        <AuditTimeline logs={allFilteredLogs} />
       ) : items.length === 0 ? (
         <div className="navix-audit-empty">
           {hasActiveFilters ? (

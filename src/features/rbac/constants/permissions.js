@@ -88,6 +88,7 @@ export const PERMISSIONS = {
   AUDIT_EXPORT: 'audit.export',
   AUDIT_VIEW_SENSITIVE: 'audit.viewSensitive',
   AUDIT_VIEW_ALL_COMPANIES: 'audit.viewAllCompanies',
+  AUDIT_DELETE: 'audit.delete',
 
   /* Utilisateurs, rôles et permissions */
   USERS_VIEW: 'users.view',

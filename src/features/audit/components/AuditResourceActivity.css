@@ -1,0 +1,68 @@
+.navix-audit-resource__empty {
+  padding: 0.25rem 0;
+}
+
+.navix-audit-resource__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.navix-audit-resource__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid var(--bs-border-color);
+  cursor: pointer;
+  border-radius: 0.375rem;
+}
+
+.navix-audit-resource__item:hover,
+.navix-audit-resource__item:focus-visible {
+  background: var(--bs-secondary-bg, rgba(0, 0, 0, 0.04));
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.navix-audit-resource__item:last-child {
+  border-bottom: none;
+}
+
+.navix-audit-resource__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--bs-secondary-bg, rgba(0, 0, 0, 0.05));
+  color: var(--navix-primary, var(--bs-primary));
+}
+
+.navix-audit-resource__body {
+  min-width: 0;
+}
+
+.navix-audit-resource__action {
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.navix-audit-resource__meta {
+  font-size: 0.75rem;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+}
+
+.navix-audit-resource__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.navix-audit-resource__total {
+  font-size: 0.75rem;
+}

@@ -14,6 +14,8 @@ import { Alert, Badge, Button, Card, Spinner } from '@/components/ui';
 import { PageContainer, PageHeader } from '@/components/layout';
 import { ROUTES, driverEditPath } from '@/routes/route.constants';
 import { useCompaniesStore } from '@/features/companies';
+import { AuditResourceActivity } from '@/features/audit/components';
+import { useAuditPermissions } from '@/features/audit/hooks';
 import { useDriversStore } from '../store';
 import { DriverAvatar, DriverStatusBadge, DriverLicenseBadge, DeleteDriverModal } from '../components';
 import {
@@ -86,6 +88,8 @@ const DriverDetailsPage = () => {
 
   const companies = useCompaniesStore((state) => state.companies);
   const fetchCompanies = useCompaniesStore((state) => state.fetchCompanies);
+
+  const { canView: canViewAudit } = useAuditPermissions();
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -354,6 +358,15 @@ const DriverDetailsPage = () => {
                   </InfoRow>
                 </dl>
               </Card>
+
+              {canViewAudit && (
+                <AuditResourceActivity
+                  resourceType="driver"
+                  resourceId={driver.id}
+                  title="Activité récente (journal)"
+                  className="mt-3"
+                />
+              )}
             </div>
           </div>
 

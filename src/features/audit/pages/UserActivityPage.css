@@ -1,0 +1,74 @@
+/* Navix Audit — UserActivityPage */
+
+.navix-audit-user__profile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-3, 1rem);
+}
+
+.navix-audit-user__identity {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navix-audit-user__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--navix-primary-muted, var(--bs-primary-bg-subtle));
+  color: var(--navix-primary, var(--bs-primary));
+  font-size: 1.5rem;
+}
+
+.navix-audit-user__name {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.navix-audit-user__role {
+  font-size: 0.875rem;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+}
+
+.navix-audit-user__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: var(--navix-space-2, 0.5rem);
+  margin: 0;
+}
+
+.navix-audit-user__facts dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+}
+
+.navix-audit-user__facts dd {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.navix-audit-user__code {
+  font-size: 0.75rem;
+  word-break: break-all;
+}
+
+.navix-audit-user__stats {
+  margin-top: var(--navix-space-3, 1rem);
+}
+
+.navix-audit-user__activity {
+  margin-top: var(--navix-space-3, 1rem);
+}
+
+.navix-audit-user__section-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: var(--navix-space-3, 1rem);
+}

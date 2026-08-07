@@ -12,3 +12,15 @@
   padding: var(--navix-space-lg) 0;
   text-align: center;
 }
+
+.navix-audit-toolbar__grouping {
+  display: inline-flex;
+  align-items: center;
+  color: var(--navix-text-muted, var(--bs-secondary-color));
+  font-size: 0.875rem;
+}
+
+.navix-audit-toolbar__select {
+  width: auto;
+  min-width: 10rem;
+}

@@ -7,4 +7,10 @@ export {
   resolveAuditDateRange,
   applyAuditFilters,
   sortAuditLogs,
+  getUserAuditLogs,
+  getResourceAuditLogs,
+  getCriticalAuditLogs,
+  getFailedAuditLogs,
+  getAuditGroupLabel,
+  groupAuditLogs,
 } from './auditService';

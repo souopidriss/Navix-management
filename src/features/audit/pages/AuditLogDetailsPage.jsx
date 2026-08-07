@@ -14,7 +14,7 @@ import { Alert, Button } from '@/components/ui';
 import { PageContainer, PageHeader, LoadingState } from '@/components/core';
 import { ROUTES } from '@/routes/route.constants';
 import { useAuditStore } from '../store';
-import { useAuditActions } from '../hooks';
+import { useAuditActions, useAuditPermissions } from '../hooks';
 import { AuditLogDetails } from '../components';
 import { AUDIT_ICON, getAuditResourcePath } from '../constants';
 
@@ -29,6 +29,7 @@ const AuditLogDetailsPage = () => {
   const clearError = useAuditStore((state) => state.clearError);
 
   const { actions } = useAuditActions();
+  const { canViewSensitive } = useAuditPermissions();
 
   useEffect(() => {
     if (id) fetchLog(id);
@@ -92,7 +93,7 @@ const AuditLogDetailsPage = () => {
         </Alert>
       )}
 
-      <AuditLogDetails log={log} onOpenResource={handleOpenResource} />
+      <AuditLogDetails log={log} onOpenResource={handleOpenResource} canViewSensitive={canViewSensitive} />
     </PageContainer>
   );
 };
