@@ -15,7 +15,7 @@
  */
 import { create } from 'zustand';
 import { useAuthStore } from '@/features/auth';
-import { settingsService } from '../services';
+import { settingsService } from '../services/settingsService';
 import { SETTINGS_SECTION_VALUES } from '../constants';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;

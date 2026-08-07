@@ -15,7 +15,7 @@ import { PageContainer, PageHeader, LoadingState, DeleteModal } from '@/componen
 import { ROUTES } from '@/routes/route.constants';
 import { useCompaniesStore } from '@/features/companies';
 import { useNotificationsStore } from '../store';
-import { useNotificationActions } from '../hooks';
+import { useNotificationActions } from '../hooks/useNotificationActions';
 import {
   NotificationTypeBadge,
   NotificationCategoryBadge,

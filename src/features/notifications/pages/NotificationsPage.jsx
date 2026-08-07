@@ -17,7 +17,8 @@ import { ROUTES, notificationDetailPath } from '@/routes/route.constants';
 import { useMediaQuery } from '@/hooks';
 import { useCompaniesStore } from '@/features/companies';
 import { useNotificationsStore } from '../store';
-import { useNotificationListData, useNotificationActions, useAlerts } from '../hooks';
+import { useNotificationListData, useAlerts } from '../hooks';
+import { useNotificationActions } from '../hooks/useNotificationActions';
 import {
   NotificationStats,
   AlertBanner,
