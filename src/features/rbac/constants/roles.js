@@ -77,6 +77,16 @@ const NOTIFICATIONS_FULL = [
   PERMISSIONS.NOTIFICATIONS_PREFERENCES,
 ];
 
+/* Rapports & analytics — lecture seule / écriture (export + création) */
+const REPORTS_READ = [PERMISSIONS.REPORTS_VIEW];
+const REPORTS_WRITE = [
+  PERMISSIONS.REPORTS_VIEW,
+  PERMISSIONS.REPORTS_EXPORT,
+  PERMISSIONS.REPORTS_CREATE,
+];
+const REPORTS_FINANCIAL = [PERMISSIONS.REPORTS_VIEW_FINANCIAL];
+const REPORTS_SENSITIVE = [PERMISSIONS.REPORTS_VIEW_SENSITIVE];
+
 /**
  * Descripteurs de rôles. `permissions: [WILDCARD]` se résout en
  * `ALL_PERMISSIONS` via getPermissionsForRole (utils/access.js).
@@ -134,6 +144,9 @@ export const ROLE_DEFINITIONS = [
       PERMISSIONS.ROLES_DELETE,
       PERMISSIONS.ROLES_MANAGE,
       PERMISSIONS.PERMISSIONS_VIEW,
+      ...REPORTS_WRITE,
+      ...REPORTS_FINANCIAL,
+      ...REPORTS_SENSITIVE,
     ],
   },
   {
@@ -178,6 +191,9 @@ export const ROLE_DEFINITIONS = [
       PERMISSIONS.ROLES_DELETE,
       PERMISSIONS.ROLES_MANAGE,
       PERMISSIONS.PERMISSIONS_VIEW,
+      ...REPORTS_WRITE,
+      ...REPORTS_FINANCIAL,
+      ...REPORTS_SENSITIVE,
     ],
   },
   {
@@ -196,6 +212,7 @@ export const ROLE_DEFINITIONS = [
       ...MAINTENANCE_OPERATIONS,
       ...FILES_OPERATIONS,
       ...NOTIFICATIONS_FULL,
+      ...REPORTS_WRITE,
     ],
   },
   {
@@ -213,6 +230,7 @@ export const ROLE_DEFINITIONS = [
       PERMISSIONS.TRIPS_CREATE,
       PERMISSIONS.TRIPS_UPDATE,
       ...NOTIFICATIONS_FULL,
+      ...REPORTS_READ,
     ],
   },
   {
@@ -225,6 +243,7 @@ export const ROLE_DEFINITIONS = [
       PERMISSIONS.TRIPS_READ,
       PERMISSIONS.FUEL_READ,
       ...NOTIFICATIONS_FULL,
+      ...REPORTS_READ,
     ],
   },
   {
@@ -236,6 +255,7 @@ export const ROLE_DEFINITIONS = [
       PERMISSIONS.VEHICLES_READ,
       ...MAINTENANCE_OPERATIONS,
       ...NOTIFICATIONS_FULL,
+      ...REPORTS_READ,
     ],
   },
   {
@@ -250,6 +270,8 @@ export const ROLE_DEFINITIONS = [
       PERMISSIONS.FUEL_READ,
       PERMISSIONS.BILLING_MANAGE,
       ...NOTIFICATIONS_FULL,
+      ...REPORTS_WRITE,
+      ...REPORTS_FINANCIAL,
     ],
   },
   {
@@ -266,6 +288,7 @@ export const ROLE_DEFINITIONS = [
       PERMISSIONS.MAINTENANCE_READ,
       PERMISSIONS.FILES_READ,
       ...NOTIFICATIONS_FULL,
+      ...REPORTS_READ,
     ],
   },
 ];

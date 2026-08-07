@@ -10,7 +10,7 @@ import { PageContainer, PageHeader, StatusBadge, LoadingState } from '@/componen
 import { Card } from '@/components/ui';
 import { useRbacStore } from '@/features/rbac';
 import { ROUTES } from '@/routes/route.constants';
-import { ReportCategoryCard, TopItems } from '../components';
+import { ReportCategoryCard, TopItems, ReportsOverview } from '../components';
 import { useSavedReports } from '../hooks';
 import { filterReportTypesByPermission, getReportType, getReportStatus, formatReportDate } from '../constants';
 import '../components/ReportComponents.css';
@@ -51,6 +51,8 @@ const ReportsPage = () => {
         breadcrumbs={breadcrumbs}
         icon="bi-file-earmark-bar-graph"
       />
+
+      <ReportsOverview />
 
       <h6 className="text-uppercase small text-secondary mb-3">Catégories de rapports</h6>
       <div className="navix-report-hub mb-4">

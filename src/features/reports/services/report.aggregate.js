@@ -205,6 +205,71 @@ export const countBy = (items, keyOf) =>
   }, {});
 
 /* --------------------------------------------------------------------------
+   Helpers d'agrégation génériques (réutilisés par les dashboards)
+   -------------------------------------------------------------------------- */
+
+/** Valeur minimale d'un champ numérique sur une liste (null si vide). */
+export const min = (items, pick) => {
+  if (!items.length) return null;
+  return Math.min(...items.map((item) => Number(pick(item)) || 0));
+};
+
+/** Valeur maximale d'un champ numérique sur une liste (null si vide). */
+export const max = (items, pick) => {
+  if (!items.length) return null;
+  return Math.max(...items.map((item) => Number(pick(item)) || 0));
+};
+
+/** Pourcentage d'une partie par rapport à un total (null si total nul). */
+export const percentage = (part, total) => {
+  const p = Number(part);
+  const t = Number(total);
+  if (!Number.isFinite(p) || !Number.isFinite(t) || t === 0) return null;
+  return (p / t) * 100;
+};
+
+/** Ratio d'une partie par rapport à un total (null si total nul). */
+export const ratio = (part, total) => {
+  const p = Number(part);
+  const t = Number(total);
+  if (!Number.isFinite(p) || !Number.isFinite(t) || t === 0) return null;
+  return p / t;
+};
+
+/** Différence absolue entre deux valeurs (null si l'une n'est pas finie). */
+export const difference = (a, b) => {
+  const x = Number(a);
+  const y = Number(b);
+  if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
+  return x - y;
+};
+
+/** Regroupe une liste par clé ({ key: items[] }). */
+export const groupBy = (items, keyOf) =>
+  items.reduce((acc, item) => {
+    const key = keyOf(item) ?? 'autre';
+    acc[key] = acc[key] ?? [];
+    acc[key].push(item);
+    return acc;
+  }, {});
+
+/**
+ * Agrége une valeur numérique par groupe.
+ * @param {Array} items
+ * @param {Function} keyOf — extrait la clé de groupe
+ * @param {Function} valueOf — extrait la valeur numérique
+ * @param {boolean} [asAverage] — moyenne au lieu de somme
+ * @returns {object} — { [group]: number }
+ */
+export const aggregateByGroup = (items, keyOf, valueOf, { asAverage = false } = {}) =>
+  Object.fromEntries(
+    Object.entries(groupBy(items, keyOf)).map(([key, groupItems]) => [
+      key,
+      asAverage ? average(groupItems, valueOf) : sum(groupItems, valueOf),
+    ]),
+  );
+
+/* --------------------------------------------------------------------------
    Formatage des indicateurs
    -------------------------------------------------------------------------- */
 
@@ -1129,6 +1194,144 @@ export const buildCustomReport = (config = {}, ctx = {}) => {
     }),
     rows: base.rows,
     summary: { ...base.summary, source },
+  };
+};
+
+/* --------------------------------------------------------------------------
+   Aperçu analytique (dashboard cross-domaines)
+   -------------------------------------------------------------------------- */
+
+const statOf = (report, key) => report?.statistics?.find((stat) => stat.key === key) ?? null;
+
+const vehicleGroupOf = (vehicleId) => MOCK_VEHICLES.find((v) => v.id === vehicleId)?.group ?? 'autre';
+
+/**
+ * Aperçu analytique consolidé : réutilise les agrégats par catégorie pour les
+ * cartes de pilotage et compose les indicateurs transverses (coût par km,
+ * taux d'utilisation, répartition des coûts par groupe) avec les helpers
+ * génériques. Aucune duplication de logique métier.
+ *
+ * @param {object} ctx — { companyScopeId, filters }
+ * @param {object} range — borne courante { from, to }
+ * @param {object} previousRange — borne précédente { from, to }
+ * @returns {object} — contrat de rapport (statistics, series, breakdown, top)
+ */
+export const aggregateOverviewReport = (ctx, range, previousRange) => {
+  const fleet = aggregateFleetReport(ctx, range, previousRange);
+  const trips = aggregateTripReport(ctx, range, previousRange);
+  const fuel = aggregateFuelReport(ctx, range, previousRange);
+  const maintenance = aggregateMaintenanceReport(ctx, range, previousRange);
+  const financial = aggregateFinancialReport(ctx, range, previousRange);
+
+  const vehicles = scoped(MOCK_VEHICLES, ctx);
+  const fuelRecords = scoped(MOCK_FUEL_RECORDS, ctx);
+  const maintenanceRecords = scoped(MOCK_MAINTENANCE_RECORDS, ctx);
+  const tripRecords = scoped(MOCK_TRIPS, ctx);
+  const maintenanceDateOf = (m) => m.completedAt || m.scheduledDate || m.createdAt;
+  const tripDateOf = (t) => t.departureDate || t.createdAt;
+
+  const currentFuel = inPeriod(fuelRecords, range, (f) => f.createdAt);
+  const previousFuel = inPeriod(fuelRecords, previousRange, (f) => f.createdAt);
+  const currentMaintenance = inPeriod(maintenanceRecords, range, maintenanceDateOf);
+  const previousMaintenance = inPeriod(maintenanceRecords, previousRange, maintenanceDateOf);
+  const currentTrips = inPeriod(tripRecords, range, tripDateOf);
+  const previousTrips = inPeriod(tripRecords, previousRange, tripDateOf);
+
+  /* Coût d'exploitation par kilomètre (carburant + entretien / distance). */
+  const currentCosts = sum(currentFuel, (f) => f.totalCost) + sum(currentMaintenance, (m) => m.actualCost || m.estimatedCost);
+  const previousCosts = sum(previousFuel, (f) => f.totalCost) + sum(previousMaintenance, (m) => m.actualCost || m.estimatedCost);
+  const currentDistance = sum(currentTrips, (t) => t.actualDistance || t.plannedDistance);
+  const previousDistance = sum(previousTrips, (t) => t.actualDistance || t.plannedDistance);
+  const costPerKm = currentDistance > 0 ? currentCosts / currentDistance : 0;
+  const previousCostPerKm = previousDistance > 0 ? previousCosts / previousDistance : null;
+
+  /* Taux d'utilisation de la flotte (véhicules en mission / parc). */
+  const vehiclesInPeriod = inPeriod(vehicles, range, (v) => v.createdAt);
+  const previousVehiclesInPeriod = inPeriod(vehicles, previousRange, (v) => v.createdAt);
+  const inUseCount = countBy(vehiclesInPeriod, (v) => v.status).in_use ?? 0;
+  const previousInUseCount = countBy(previousVehiclesInPeriod, (v) => v.status).in_use ?? 0;
+  const utilization = percentage(inUseCount, vehiclesInPeriod.length);
+  const previousUtilization = percentage(previousInUseCount, previousVehiclesInPeriod.length);
+
+  /* Répartition des coûts d'exploitation par groupe de véhicules. */
+  const costEntries = [
+    ...currentFuel.map((f) => ({ group: vehicleGroupOf(f.vehicleId), cost: f.totalCost })),
+    ...currentMaintenance.map((m) => ({ group: vehicleGroupOf(m.vehicleId), cost: m.actualCost || m.estimatedCost })),
+  ];
+  const costsByGroup = aggregateByGroup(costEntries, (entry) => entry.group, (entry) => entry.cost);
+
+  /* Top 5 véhicules par coût d'exploitation. */
+  const costByVehicle = new Map();
+  currentFuel.forEach((f) => costByVehicle.set(f.vehicleId, (costByVehicle.get(f.vehicleId) ?? 0) + f.totalCost));
+  currentMaintenance.forEach((m) => costByVehicle.set(m.vehicleId, (costByVehicle.get(m.vehicleId) ?? 0) + (m.actualCost || m.estimatedCost)));
+  const top = [...costByVehicle.entries()]
+    .map(([vehicleId, cost]) => {
+      const vehicle = MOCK_VEHICLES.find((v) => v.id === vehicleId);
+      return {
+        key: vehicleId,
+        label: vehicle ? `${vehicle.brand} ${vehicle.model} (${vehicle.registrationNumber})` : vehicleId,
+        value: cost,
+        sublabel: 'coûts d’exploitation',
+      };
+    })
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 5);
+
+  const fuelSeries = buildMonthlySeries(currentFuel, range, (f) => f.createdAt, (f) => f.totalCost);
+  const maintenanceSeries = buildMonthlySeries(
+    currentMaintenance,
+    range,
+    maintenanceDateOf,
+    (m) => m.actualCost || m.estimatedCost,
+  );
+
+  return {
+    reportType: 'overview',
+    period: { ...range },
+    statistics: [
+      statOf(fleet, 'total'),
+      statOf(fleet, 'available'),
+      statOf(fleet, 'inUse'),
+      statOf(fleet, 'availabilityRate'),
+      statOf(trips, 'total'),
+      statOf(trips, 'distance'),
+      statOf(fuel, 'totalCost'),
+      statOf(maintenance, 'actualCost'),
+      toStat({
+        key: 'costPerKm',
+        label: 'Coût d’exploitation / km',
+        raw: costPerKm,
+        previous: previousCostPerKm,
+        format: 'money',
+        icon: 'bi-cash-stack',
+        variant: 'warning',
+        invert: true,
+      }),
+      toStat({
+        key: 'utilization',
+        label: 'Taux d’utilisation',
+        raw: utilization ?? 0,
+        previous: previousUtilization,
+        format: 'percent',
+        icon: 'bi-graph-up-arrow',
+        variant: 'info',
+      }),
+      statOf(fuel, 'avgConsumption'),
+      statOf(financial, 'totalInvoiced'),
+      statOf(financial, 'totalPaid'),
+      statOf(financial, 'collectionRate'),
+    ].filter(Boolean),
+    series: {
+      labels: fuelSeries.labels,
+      datasets: [
+        { key: 'fuel', label: 'Carburant', values: fuelSeries.values, variant: 'warning' },
+        { key: 'maintenance', label: 'Entretien', values: maintenanceSeries.values, variant: 'danger' },
+      ],
+    },
+    breakdown: toBreakdown(costsByGroup, vehicleGroupLabel, vehicleGroupVariant),
+    top,
+    rows: [],
+    summary: { count: vehiclesInPeriod.length, distance: currentDistance, costs: currentCosts },
   };
 };
 

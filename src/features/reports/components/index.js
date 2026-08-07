@@ -11,6 +11,7 @@ export { default as VariationBadge } from './VariationBadge';
 export { default as ReportDataTable } from './ReportDataTable';
 export { default as ReportCategoryCard } from './ReportCategoryCard';
 export { default as TopItems } from './TopItems';
+export { default as ReportsOverview } from './ReportsOverview';
 
 export {
   BarChart,
