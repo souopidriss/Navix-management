@@ -65,6 +65,18 @@ export const PERMISSIONS = {
   /* Système */
   NOTIFICATIONS_READ: 'notifications.read',
   SETTINGS_MANAGE: 'settings.manage',
+  SETTINGS_VIEW: 'settings.view',
+  SETTINGS_UPDATE: 'settings.update',
+  SETTINGS_COMPANY: 'settings.company',
+  SETTINGS_FLEET: 'settings.fleet',
+  SETTINGS_MAINTENANCE: 'settings.maintenance',
+  SETTINGS_FUEL: 'settings.fuel',
+  SETTINGS_DOCUMENTS: 'settings.documents',
+  SETTINGS_NOTIFICATIONS: 'settings.notifications',
+  SETTINGS_BILLING: 'settings.billing',
+  SETTINGS_SAAS: 'settings.saas',
+  SETTINGS_SECURITY: 'settings.security',
+  SETTINGS_SYSTEM: 'settings.system',
   USERS_MANAGE: 'users.manage',
 
   /* Journal des actions (audit) */

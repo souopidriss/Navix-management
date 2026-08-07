@@ -215,6 +215,48 @@ export const ROUTE_META = {
     requiredPermissions: [PERMISSIONS.REPORTS_CREATE],
   },
   [ROUTES.SETTINGS]: {
-    requiredPermissions: [PERMISSIONS.SETTINGS_MANAGE],
+    requiredPermissions: [PERMISSIONS.SETTINGS_VIEW],
+  },
+  [ROUTES.SETTINGS_GENERAL]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_UPDATE],
+  },
+  [ROUTES.SETTINGS_COMPANY]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_COMPANY],
+  },
+  [ROUTES.SETTINGS_FLEET]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_FLEET],
+  },
+  [ROUTES.SETTINGS_MAINTENANCE]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_MAINTENANCE],
+  },
+  [ROUTES.SETTINGS_FUEL]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_FUEL],
+  },
+  [ROUTES.SETTINGS_DOCUMENTS]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_DOCUMENTS],
+  },
+  [ROUTES.SETTINGS_NOTIFICATIONS]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_NOTIFICATIONS],
+  },
+  [ROUTES.SETTINGS_USER]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_UPDATE],
+  },
+  [ROUTES.SETTINGS_APPEARANCE]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_UPDATE],
+  },
+  [ROUTES.SETTINGS_REGIONAL]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_UPDATE],
+  },
+  [ROUTES.SETTINGS_BILLING]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_BILLING],
+  },
+  [ROUTES.SETTINGS_SAAS]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_SAAS],
+  },
+  [ROUTES.SETTINGS_SECURITY]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_SECURITY],
+  },
+  [ROUTES.SETTINGS_SYSTEM]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_SYSTEM],
   },
 };

@@ -116,6 +116,7 @@ export const AUDIT_RESOURCES = {
   permission: { label: 'Permission', icon: 'bi-shield-lock' },
   notification: { label: 'Notification', icon: 'bi-bell' },
   report: { label: 'Rapport', icon: 'bi-file-earmark-bar-graph' },
+  settings: { label: 'Paramètres', icon: 'bi-gear' },
 };
 
 export const AUDIT_RESOURCE_VALUES = Object.keys(AUDIT_RESOURCES);

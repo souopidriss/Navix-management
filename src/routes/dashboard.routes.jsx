@@ -89,6 +89,24 @@ const SubscriptionReportPage = lazy(() => import('@/features/reports/pages/Subsc
 const AuditReportPage = lazy(() => import('@/features/reports/pages/AuditReportPage'));
 const CompanyReportPage = lazy(() => import('@/features/reports/pages/CompanyReportPage'));
 const CustomReportPage = lazy(() => import('@/features/reports/pages/CustomReportPage'));
+const SettingsPage = lazy(() => import('@/features/settings/pages/SettingsPage'));
+const SettingsLanding = lazy(() =>
+  import('@/features/settings/pages/SettingsPage').then((module) => ({ default: module.SettingsLanding })),
+);
+const GeneralSettingsPage = lazy(() => import('@/features/settings/pages/GeneralSettingsPage'));
+const CompanySettingsPage = lazy(() => import('@/features/settings/pages/CompanySettingsPage'));
+const FleetSettingsPage = lazy(() => import('@/features/settings/pages/FleetSettingsPage'));
+const MaintenanceSettingsPage = lazy(() => import('@/features/settings/pages/MaintenanceSettingsPage'));
+const FuelSettingsPage = lazy(() => import('@/features/settings/pages/FuelSettingsPage'));
+const DocumentSettingsPage = lazy(() => import('@/features/settings/pages/DocumentSettingsPage'));
+const NotificationSettingsPage = lazy(() => import('@/features/settings/pages/NotificationSettingsPage'));
+const UserSettingsPage = lazy(() => import('@/features/settings/pages/UserSettingsPage'));
+const AppearanceSettingsPage = lazy(() => import('@/features/settings/pages/AppearanceSettingsPage'));
+const RegionalSettingsPage = lazy(() => import('@/features/settings/pages/RegionalSettingsPage'));
+const SettingsBillingPage = lazy(() => import('@/features/settings/pages/BillingSettingsPage'));
+const SaasSettingsPage = lazy(() => import('@/features/settings/pages/SaasSettingsPage'));
+const SecuritySettingsPage = lazy(() => import('@/features/settings/pages/SecuritySettingsPage'));
+const SystemSettingsPage = lazy(() => import('@/features/settings/pages/SystemSettingsPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -173,7 +191,23 @@ export const dashboardRoutes = (
     <Route path={ROUTES.REPORTS_AUDIT} element={<AuditReportPage />} />
     <Route path={ROUTES.REPORTS_COMPANIES} element={<CompanyReportPage />} />
     <Route path={ROUTES.REPORTS_CUSTOM} element={<CustomReportPage />} />
-    <Route path={ROUTES.SETTINGS} element={<PlaceholderPage title="Paramètres" icon="bi-gear" />} />
+    <Route path={ROUTES.SETTINGS} element={<SettingsPage />}>
+      <Route index element={<SettingsLanding />} />
+      <Route path={ROUTES.SETTINGS_GENERAL} element={<GeneralSettingsPage />} />
+      <Route path={ROUTES.SETTINGS_COMPANY} element={<CompanySettingsPage />} />
+      <Route path={ROUTES.SETTINGS_REGIONAL} element={<RegionalSettingsPage />} />
+      <Route path={ROUTES.SETTINGS_APPEARANCE} element={<AppearanceSettingsPage />} />
+      <Route path={ROUTES.SETTINGS_FLEET} element={<FleetSettingsPage />} />
+      <Route path={ROUTES.SETTINGS_MAINTENANCE} element={<MaintenanceSettingsPage />} />
+      <Route path={ROUTES.SETTINGS_FUEL} element={<FuelSettingsPage />} />
+      <Route path={ROUTES.SETTINGS_DOCUMENTS} element={<DocumentSettingsPage />} />
+      <Route path={ROUTES.SETTINGS_NOTIFICATIONS} element={<NotificationSettingsPage />} />
+      <Route path={ROUTES.SETTINGS_USER} element={<UserSettingsPage />} />
+      <Route path={ROUTES.SETTINGS_BILLING} element={<SettingsBillingPage />} />
+      <Route path={ROUTES.SETTINGS_SAAS} element={<SaasSettingsPage />} />
+      <Route path={ROUTES.SETTINGS_SECURITY} element={<SecuritySettingsPage />} />
+      <Route path={ROUTES.SETTINGS_SYSTEM} element={<SystemSettingsPage />} />
+    </Route>
     <Route path={ROUTES.PROFILE} element={<PlaceholderPage title="Profil" icon="bi-person" />} />
   </Route>
 );
