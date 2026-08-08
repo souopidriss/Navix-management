@@ -8,9 +8,9 @@
  *        (list | grid), isLoading, isUploading, isSaving, error.
  *
  * Actions : fetchDocuments, fetchDocument, fetchStatistics, fetchFileTypes,
- *           createDocument, updateDocument, deleteDocument, uploadDocuments,
- *           createFileType, updateFileType, deleteFileType, setSearch,
- *           setFilter, resetFilters, setSort, setPage, setPageSize,
+ *           createDocument, updateDocument, deleteDocument, downloadDocument,
+ *           uploadDocuments, createFileType, updateFileType, deleteFileType,
+ *           setSearch, setFilter, resetFilters, setSort, setPage, setPageSize,
  *           setViewMode, clearError, reset.
  *
  * Non persisté : les données proviennent du service mocké (mémoire de
@@ -20,9 +20,18 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
-import { documentService } from '../services';
+import { useAuthStore } from '@/features/auth';
+import { documentService, emitFileAuditLog } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
+
+/** Entreprise du contexte courant (simulation tenant). */
+export const getFileCompanyScopeId = () => {
+  const { user, company } = useAuthStore.getState();
+  if (!user) return '';
+  if (user.role === 'super_admin') return '';
+  return company?.id ?? '';
+};
 
 const initialState = {
   documents: [],
@@ -66,7 +75,7 @@ const useDocumentsStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const documents = await documentService.getAll();
+      const documents = await documentService.getAll({ companyScopeId: getFileCompanyScopeId() });
       set({ documents, isLoading: false });
       return { success: true };
     } catch (error) {
@@ -103,7 +112,7 @@ const useDocumentsStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const statistics = await documentService.statistics();
+      const statistics = await documentService.statistics(getFileCompanyScopeId());
       set({ statistics, isLoading: false });
       return { success: true };
     } catch (error) {
@@ -145,6 +154,7 @@ const useDocumentsStore = create((set) => ({
         documents: [document, ...state.documents],
         isSaving: false,
       }));
+      emitFileAuditLog({ action: 'CREATE', ids: document.id, titles: document.name });
       return { success: true, data: document };
     } catch (error) {
       const message = toErrorMessage(error, 'Impossible de créer le document.');
@@ -169,6 +179,7 @@ const useDocumentsStore = create((set) => ({
         selectedDocument: state.selectedDocument?.id === id ? document : state.selectedDocument,
         isSaving: false,
       }));
+      emitFileAuditLog({ action: 'UPDATE', ids: id, titles: document.name });
       return { success: true, data: document };
     } catch (error) {
       const message = toErrorMessage(error, 'Impossible de mettre à jour le document.');
@@ -186,15 +197,38 @@ const useDocumentsStore = create((set) => ({
     set({ isSaving: true, error: null });
 
     try {
+      const current = useDocumentsStore.getState();
+      const target = current.documents.find((item) => item.id === id);
       await documentService.delete(id);
       set((state) => ({
         documents: state.documents.filter((item) => item.id !== id),
         selectedDocument: state.selectedDocument?.id === id ? null : state.selectedDocument,
         isSaving: false,
       }));
+      emitFileAuditLog({ action: 'DELETE', ids: id, titles: target?.name });
       return { success: true };
     } catch (error) {
       const message = toErrorMessage(error, 'Impossible de supprimer le document.');
+      set({ isSaving: false, error: message });
+      return { success: false, error: message };
+    }
+  },
+
+  /**
+   * Téléchargement simulé d'un document (aucun octet transféré).
+   * @param {string} id
+   * @returns {Promise<{ success: boolean, error?: string, data?: object }>}
+   */
+  downloadDocument: async (id) => {
+    set({ isSaving: true, error: null });
+
+    try {
+      const document = await documentService.download(id);
+      set({ isSaving: false });
+      emitFileAuditLog({ action: 'DOWNLOAD', ids: id, titles: document.name });
+      return { success: true, data: document };
+    } catch (error) {
+      const message = toErrorMessage(error, 'Impossible de télécharger le document.');
       set({ isSaving: false, error: message });
       return { success: false, error: message };
     }
@@ -228,6 +262,11 @@ const useDocumentsStore = create((set) => ({
         isUploading: false,
         uploadProgress: { index: -1, percent: 0 },
       }));
+      emitFileAuditLog({
+        action: 'UPLOAD',
+        ids: created.map((doc) => doc.id),
+        titles: created.map((doc) => doc.name),
+      });
       return { success: true, data: created };
     } catch (error) {
       const message = toErrorMessage(error, 'Impossible de téléverser les fichiers.');
@@ -250,6 +289,7 @@ const useDocumentsStore = create((set) => ({
         fileTypes: [...state.fileTypes, fileType],
         isSaving: false,
       }));
+      emitFileAuditLog({ action: 'FILE_TYPE_CREATE', ids: fileType.id, titles: fileType.title });
       return { success: true, data: fileType };
     } catch (error) {
       const message = toErrorMessage(error, 'Impossible de créer le type de fichier.');
@@ -273,6 +313,7 @@ const useDocumentsStore = create((set) => ({
         fileTypes: state.fileTypes.map((item) => (item.id === id ? fileType : item)),
         isSaving: false,
       }));
+      emitFileAuditLog({ action: 'FILE_TYPE_UPDATE', ids: id, titles: fileType.title });
       return { success: true, data: fileType };
     } catch (error) {
       const message = toErrorMessage(error, 'Impossible de mettre à jour le type de fichier.');
@@ -290,11 +331,14 @@ const useDocumentsStore = create((set) => ({
     set({ isSaving: true, error: null });
 
     try {
+      const current = useDocumentsStore.getState();
+      const target = current.fileTypes.find((item) => item.id === id);
       await documentService.deleteFileType(id);
       set((state) => ({
         fileTypes: state.fileTypes.filter((item) => item.id !== id),
         isSaving: false,
       }));
+      emitFileAuditLog({ action: 'FILE_TYPE_DELETE', ids: id, titles: target?.title });
       return { success: true };
     } catch (error) {
       const message = toErrorMessage(error, 'Impossible de supprimer le type de fichier.');

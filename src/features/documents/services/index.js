@@ -6,3 +6,4 @@ export {
   getDocumentDirectory,
   getTodayKey,
 } from './documentService';
+export { emitFileAuditLog } from './fileAuditService';

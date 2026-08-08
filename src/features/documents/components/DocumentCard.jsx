@@ -15,6 +15,8 @@
  *   onPreview      : (document: object) => void
  *   onEdit         : (id: string) => void
  *   onDelete       : (document: object) => void
+ *   canEdit        : booléen — affiche le bouton « Modifier »
+ *   canDelete      : booléen — affiche le bouton « Supprimer »
  */
 import { Button } from '@/components/ui';
 import DocumentTypeBadge from './DocumentTypeBadge';
@@ -37,6 +39,8 @@ const DocumentCard = ({
   onPreview,
   onEdit,
   onDelete,
+  canEdit = true,
+  canDelete = true,
 }) => {
   const typeMeta = getDocumentType(String(fileType?.title ?? '').toLowerCase());
   const fileTypeLabel = fileType?.title || document.extension || 'DOCUMENT';
@@ -119,22 +123,26 @@ const DocumentCard = ({
           title="Voir le détail"
           aria-label={`Voir le détail de ${document.name}`}
         />
-        <Button
-          variant="ghost"
-          size="sm"
-          icon="bi-pencil"
-          onClick={() => onEdit(document.id)}
-          title="Modifier"
-          aria-label={`Modifier ${document.name}`}
-        />
-        <Button
-          variant="ghost"
-          size="sm"
-          icon="bi-trash3"
-          onClick={() => onDelete(document)}
-          title="Supprimer"
-          aria-label={`Supprimer ${document.name}`}
-        />
+        {canEdit && (
+          <Button
+            variant="ghost"
+            size="sm"
+            icon="bi-pencil"
+            onClick={() => onEdit(document.id)}
+            title="Modifier"
+            aria-label={`Modifier ${document.name}`}
+          />
+        )}
+        {canDelete && (
+          <Button
+            variant="ghost"
+            size="sm"
+            icon="bi-trash3"
+            onClick={() => onDelete(document)}
+            title="Supprimer"
+            aria-label={`Supprimer ${document.name}`}
+          />
+        )}
       </div>
     </article>
   );

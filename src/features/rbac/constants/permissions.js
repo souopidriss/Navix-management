@@ -53,6 +53,10 @@ export const PERMISSIONS = {
   /* Documents */
   FILES_READ: 'files.read',
   FILES_CREATE: 'files.create',
+  FILES_UPDATE: 'files.update',
+  FILES_DELETE: 'files.delete',
+  FILES_DOWNLOAD: 'files.download',
+  FILES_MANAGE: 'files.manage',
 
   /* Entreprises & agences */
   COMPANIES_MANAGE: 'companies.manage',

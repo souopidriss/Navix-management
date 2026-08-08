@@ -19,7 +19,7 @@ import { useDriversStore } from '@/features/drivers';
 import { useMaintenanceStore } from '@/features/maintenance';
 import { useTripsStore } from '@/features/trips';
 import { useFuelStore } from '@/features/fuel';
-import { documentService } from '../services';
+import { useCan, PERMISSIONS } from '@/features/rbac';
 import { useDocumentsStore } from '../store';
 import {
   DocumentTypeBadge,
@@ -53,7 +53,13 @@ const DocumentDetailsPage = () => {
   const fetchDocument = useDocumentsStore((state) => state.fetchDocument);
   const fetchFileTypes = useDocumentsStore((state) => state.fetchFileTypes);
   const deleteDocument = useDocumentsStore((state) => state.deleteDocument);
+  const downloadDocument = useDocumentsStore((state) => state.downloadDocument);
   const clearError = useDocumentsStore((state) => state.clearError);
+
+  const can = useCan();
+  const canEdit = can(PERMISSIONS.FILES_UPDATE);
+  const canDelete = can(PERMISSIONS.FILES_DELETE);
+  const canDownload = can(PERMISSIONS.FILES_DOWNLOAD);
 
   const companies = useCompaniesStore((state) => state.companies);
   const fetchCompanies = useCompaniesStore((state) => state.fetchCompanies);
@@ -148,13 +154,13 @@ const DocumentDetailsPage = () => {
 
   const handleDownload = async (doc) => {
     setDownloading(true);
-    try {
-      await documentService.download(doc.id);
+    const result = await downloadDocument(doc.id);
+    setDownloading(false);
+
+    if (result.success) {
       toast.success(`Téléchargement simulé de « ${doc.name} ».`);
-    } catch (downloadError) {
-      toast.error(downloadError?.message || 'Échec du téléchargement.');
-    } finally {
-      setDownloading(false);
+    } else {
+      toast.error(result.error || 'Échec du téléchargement.');
     }
   };
 
@@ -200,15 +206,21 @@ const DocumentDetailsPage = () => {
               <Button variant="outline" icon="bi-eye" onClick={() => setPreviewOpen(true)}>
                 Aperçu
               </Button>
-              <Button variant="outline" icon="bi-download" onClick={() => handleDownload(document)} loading={downloading}>
-                Télécharger
-              </Button>
-              <Button variant="outline" icon="bi-pencil" onClick={() => navigate(documentEditPath(document.id))}>
-                Modifier
-              </Button>
-              <Button variant="danger" icon="bi-trash3" onClick={() => setDeleteOpen(true)}>
-                Supprimer
-              </Button>
+              {canDownload && (
+                <Button variant="outline" icon="bi-download" onClick={() => handleDownload(document)} loading={downloading}>
+                  Télécharger
+                </Button>
+              )}
+              {canEdit && (
+                <Button variant="outline" icon="bi-pencil" onClick={() => navigate(documentEditPath(document.id))}>
+                  Modifier
+                </Button>
+              )}
+              {canDelete && (
+                <Button variant="danger" icon="bi-trash3" onClick={() => setDeleteOpen(true)}>
+                  Supprimer
+                </Button>
+              )}
             </div>
           ) : undefined
         }
@@ -290,8 +302,8 @@ const DocumentDetailsPage = () => {
         fileType={fileType}
         companyName={document ? companyById[document.companyId]?.name : '—'}
         resourceLabel={document ? resourceLabel(document) : ''}
-        onDownload={handleDownload}
-        downloading={downloading}
+        onDownload={canDownload ? handleDownload : undefined}
+        downloading={canDownload ? downloading : false}
         onClose={() => setPreviewOpen(false)}
         open={previewOpen}
       />

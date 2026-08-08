@@ -174,15 +174,20 @@ const buildFileRecord = (file, payload, fileType, timestamp = new Date().toISOSt
 export const documentService = {
   /**
    * Liste de tous les documents (copie — les mutations ultérieures du cache
-   * n'affectent pas les consommateurs).
+   * n'affectent pas les consommateurs). Bornée à l'entreprise courante via
+   * `companyScopeId` (multi-tenant simulé — vide pour super_admin).
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async getAll() {
+  async getAll({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
-      return mockResponse([...getDocumentCache()]);
+      const records = companyScopeId
+        ? getDocumentCache().filter((document) => document.companyId === companyScopeId)
+        : getDocumentCache();
+      return mockResponse([...records]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.DOCUMENTS.LIST);
+    const { data } = await apiClient.get(API_ENDPOINTS.DOCUMENTS.LIST, { params: { companyScopeId } });
     return data;
   },
 
@@ -518,11 +523,15 @@ export const documentService = {
    * total de fichiers, taille stockée, ajouts du mois / de l'année,
    * répartitions par type de fichier, par visibilité, par catégorie et
    * taille stockée par type, ainsi que les compteurs par ressource.
+   * Bornée à l'entreprise courante via `companyScopeId` (vide : toutes).
+   * @param {string} [companyScopeId]
    * @returns {Promise<object>}
    */
-  async statistics() {
+  async statistics(companyScopeId = '') {
     if (apiConfig.mock) {
-      const records = getDocumentCache();
+      const records = companyScopeId
+        ? getDocumentCache().filter((document) => document.companyId === companyScopeId)
+        : getDocumentCache();
       const now = new Date();
       const currentMonth = monthKey(now.toISOString());
       const currentYear = now.getFullYear();
@@ -582,7 +591,7 @@ export const documentService = {
       });
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.DOCUMENTS.STATS);
+    const { data } = await apiClient.get(API_ENDPOINTS.DOCUMENTS.STATS, { params: { companyScopeId } });
     return data;
   },
 };

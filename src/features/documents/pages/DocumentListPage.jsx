@@ -21,13 +21,13 @@ import {
 } from '@/components/core';
 import { ROUTES, documentDetailPath, documentEditPath } from '@/routes/route.constants';
 import { useMediaQuery } from '@/hooks';
+import { useCan, PERMISSIONS } from '@/features/rbac';
 import { useCompaniesStore } from '@/features/companies';
 import { useVehiclesStore } from '@/features/vehicles';
 import { useDriversStore } from '@/features/drivers';
 import { useMaintenanceStore } from '@/features/maintenance';
 import { useTripsStore } from '@/features/trips';
 import { useFuelStore } from '@/features/fuel';
-import { documentService } from '../services';
 import { useDocumentsStore } from '../store';
 import { useDocumentListData } from '../hooks';
 import { DOCUMENT_ICON } from '../constants';
@@ -64,7 +64,15 @@ const DocumentListPage = () => {
   const setPageSize = useDocumentsStore((state) => state.setPageSize);
   const setViewMode = useDocumentsStore((state) => state.setViewMode);
   const deleteDocument = useDocumentsStore((state) => state.deleteDocument);
+  const downloadDocument = useDocumentsStore((state) => state.downloadDocument);
   const clearError = useDocumentsStore((state) => state.clearError);
+
+  const can = useCan();
+  const canUpload = can(PERMISSIONS.FILES_CREATE);
+  const canManageTypes = can(PERMISSIONS.FILES_MANAGE);
+  const canEdit = can(PERMISSIONS.FILES_UPDATE);
+  const canDelete = can(PERMISSIONS.FILES_DELETE);
+  const canDownload = can(PERMISSIONS.FILES_DOWNLOAD);
 
   const companies = useCompaniesStore((state) => state.companies);
   const fetchCompanies = useCompaniesStore((state) => state.fetchCompanies);
@@ -200,13 +208,13 @@ const DocumentListPage = () => {
 
   const handleDownload = async (document) => {
     setDownloading(true);
-    try {
-      await documentService.download(document.id);
+    const result = await downloadDocument(document.id);
+    setDownloading(false);
+
+    if (result.success) {
       toast.success(`Téléchargement simulé de « ${document.name} ».`);
-    } catch (downloadError) {
-      toast.error(downloadError?.message || 'Échec du téléchargement.');
-    } finally {
-      setDownloading(false);
+    } else {
+      toast.error(result.error || 'Échec du téléchargement.');
     }
   };
 
@@ -232,12 +240,16 @@ const DocumentListPage = () => {
           aria-label="Vue grille"
         />
       </div>
-      <Button variant="outline" icon="bi-file-earmark-binary" onClick={() => navigate(ROUTES.FILE_TYPES)}>
-        Types de fichiers
-      </Button>
-      <Button variant="primary" icon="bi-cloud-arrow-up" onClick={() => navigate(ROUTES.FILES_CREATE)}>
-        Téléverser
-      </Button>
+      {canManageTypes && (
+        <Button variant="outline" icon="bi-file-earmark-binary" onClick={() => navigate(ROUTES.FILE_TYPES)}>
+          Types de fichiers
+        </Button>
+      )}
+      {canUpload && (
+        <Button variant="primary" icon="bi-cloud-arrow-up" onClick={() => navigate(ROUTES.FILES_CREATE)}>
+          Téléverser
+        </Button>
+      )}
     </div>
   );
 
@@ -308,6 +320,8 @@ const DocumentListPage = () => {
                     onPreview={setPreviewTarget}
                     onEdit={(id) => navigate(documentEditPath(id))}
                     onDelete={setDeleteTarget}
+                    canEdit={canEdit}
+                    canDelete={canDelete}
                   />
                 </div>
               ))}
@@ -324,6 +338,8 @@ const DocumentListPage = () => {
               onPreview={setPreviewTarget}
               onEdit={(id) => navigate(documentEditPath(id))}
               onDelete={setDeleteTarget}
+              canEdit={canEdit}
+              canDelete={canDelete}
             />
           )}
 
@@ -344,9 +360,9 @@ const DocumentListPage = () => {
         fileType={previewTarget ? fileTypesById[previewTarget.fileTypeId] : null}
         companyName={previewTarget ? companyById[previewTarget.companyId]?.name : '—'}
         resourceLabel={previewTarget ? resourceLabel(previewTarget) : ''}
-        onDownload={handleDownload}
+        onDownload={canDownload ? handleDownload : undefined}
         onClose={() => setPreviewTarget(null)}
-        downloading={downloading}
+        downloading={canDownload ? downloading : false}
       />
 
       <DeleteDocumentModal

@@ -71,9 +71,11 @@ const DocumentPreview = ({
           <Button variant="secondary" onClick={onClose}>
             Fermer
           </Button>
-          <Button variant="primary" icon="bi-download" onClick={() => onDownload(document)} loading={downloading}>
-            Télécharger
-          </Button>
+          {onDownload && (
+            <Button variant="primary" icon="bi-download" onClick={() => onDownload(document)} loading={downloading}>
+              Télécharger
+            </Button>
+          )}
         </div>
       }
     >

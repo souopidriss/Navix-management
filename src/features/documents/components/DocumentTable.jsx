@@ -17,6 +17,8 @@
  *   onPreview     : (document: object) => void
  *   onEdit        : (id: string) => void
  *   onDelete      : (document: object) => void
+ *   canEdit       : booléen — affiche l'action « Modifier »
+ *   canDelete     : booléen — affiche l'action « Supprimer »
  */
 import { DataTable } from '@/components/core';
 import DocumentTypeBadge from './DocumentTypeBadge';
@@ -41,6 +43,8 @@ const DocumentTable = ({
   onPreview,
   onEdit,
   onDelete,
+  canEdit = true,
+  canDelete = true,
 }) => {
   const columns = [
     {
@@ -146,20 +150,28 @@ const DocumentTable = ({
           icon: 'bi-box-arrow-up-right',
           onClick: (document) => onView(document.id),
         },
-        {
-          key: 'edit',
-          label: (document) => `Modifier ${document.name}`,
-          title: 'Modifier',
-          icon: 'bi-pencil',
-          onClick: (document) => onEdit(document.id),
-        },
-        {
-          key: 'delete',
-          label: (document) => `Supprimer ${document.name}`,
-          title: 'Supprimer',
-          icon: 'bi-trash3',
-          onClick: (document) => onDelete(document),
-        },
+        ...(canEdit
+          ? [
+              {
+                key: 'edit',
+                label: (document) => `Modifier ${document.name}`,
+                title: 'Modifier',
+                icon: 'bi-pencil',
+                onClick: (document) => onEdit(document.id),
+              },
+            ]
+          : []),
+        ...(canDelete
+          ? [
+              {
+                key: 'delete',
+                label: (document) => `Supprimer ${document.name}`,
+                title: 'Supprimer',
+                icon: 'bi-trash3',
+                onClick: (document) => onDelete(document),
+              },
+            ]
+          : []),
       ]}
     />
   );
