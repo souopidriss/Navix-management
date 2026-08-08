@@ -19,7 +19,7 @@
 import { buildDefaultSettings, DEFAULT_COMPANY_ID, DEFAULT_USER_ID } from '../mocks';
 import { ApiError } from '@/services/errors';
 import { SETTINGS_SCHEMAS, SETTINGS_DEFAULT_VALUES } from '../schemas';
-import { getSettingsSection, SENSITIVE_SETTINGS_SECTIONS } from '../constants';
+import { getSettingsSection, SENSITIVE_SETTINGS_SECTIONS, USER_SCOPE_SECTIONS } from '../constants';
 import { emitSettingsNotification, emitSettingsAuditLog } from './settingsIntegrationService';
 
 /** Cache mémoire par portée (entreprise + utilisateur). */
@@ -162,6 +162,26 @@ export const resetAllSettings = (ctx = {}) => {
   return getSettings(ctx);
 };
 
+/**
+ * Réinitialise UNIQUEMENT les préférences utilisateur (user, apparence,
+ * régional, tableaux, notifications). Les paramètres d'entreprise et de la
+ * plateforme (general, company, fleet, maintenance, fuel, documents, billing,
+ * saas, security, system) sont conservés.
+ * @returns {object} — bundle complet mis à jour (sections utilisateur par défaut).
+ */
+export const resetUserPreferences = (ctx = {}) => {
+  const bundle = applyScopeDefaults(getBundle(ctx), ctx);
+  const defaults = buildDefaultSettings({
+    companyId: ctx.companyScopeId || DEFAULT_COMPANY_ID,
+    userId: ctx.userId || DEFAULT_USER_ID,
+  });
+  USER_SCOPE_SECTIONS.forEach((key) => {
+    bundle[key] = clone(SETTINGS_DEFAULT_VALUES[key] ?? defaults[key]);
+  });
+  bundle.meta = { ...bundle.meta, updatedAt: new Date().toISOString() };
+  return getSettings(ctx);
+};
+
 /* --------------------------------------------------------------------------
    Facades nommées (contrat du sprint)
    -------------------------------------------------------------------------- */
@@ -176,6 +196,7 @@ const SECTION_GETTERS = {
   notifications: 'getNotificationSettings',
   user: 'getUserSettings',
   appearance: 'getAppearanceSettings',
+  tables: 'getTablesSettings',
   regional: 'getRegionalSettings',
   billing: 'getBillingSettings',
   saas: 'getSaasSettings',
@@ -193,6 +214,7 @@ const SECTION_UPDATERS = {
   notifications: 'updateNotificationSettings',
   user: 'updateUserSettings',
   appearance: 'updateAppearanceSettings',
+  tables: 'updateTablesSettings',
   regional: 'updateRegionalSettings',
 };
 
@@ -207,6 +229,7 @@ export const settingsService = {
   getNotificationSettings: (ctx) => getSectionSettings('notifications', ctx),
   getUserSettings: (ctx) => getSectionSettings('user', ctx),
   getAppearanceSettings: (ctx) => getSectionSettings('appearance', ctx),
+  getTablesSettings: (ctx) => getSectionSettings('tables', ctx),
   getRegionalSettings: (ctx) => getSectionSettings('regional', ctx),
   getBillingSettings: (ctx) => getSectionSettings('billing', ctx),
   getSaasSettings: (ctx) => getSectionSettings('saas', ctx),
@@ -223,12 +246,14 @@ export const settingsService = {
   updateNotificationSettings: (values, ctx) => updateSectionSettings('notifications', values, ctx),
   updateUserSettings: (values, ctx) => updateSectionSettings('user', values, ctx),
   updateAppearanceSettings: (values, ctx) => updateSectionSettings('appearance', values, ctx),
+  updateTablesSettings: (values, ctx) => updateSectionSettings('tables', values, ctx),
   updateRegionalSettings: (values, ctx) => updateSectionSettings('regional', values, ctx),
 
   getSectionSettings,
   updateSectionSettings,
   resetSectionSettings,
   resetAllSettings,
+  resetUserPreferences,
 };
 
 export const SETTINGS_SECTION_GETTERS = SECTION_GETTERS;

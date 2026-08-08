@@ -7,7 +7,7 @@ import { Card } from '@/components/ui';
 import { useUserSettings } from '../hooks';
 import { userSettingsSchema } from '../schemas';
 import { SettingsForm, SettingsSectionInfo, FieldInput, FieldSelect } from '../components';
-import { LANGUAGES, TIMEZONES, DATE_FORMATS, TIME_FORMATS } from '../constants';
+import { LANGUAGES, TIMEZONES, DATE_FORMATS, TIME_FORMATS, CURRENCY_DISPLAYS, LANDING_PAGES } from '../constants';
 
 const UserSettingsPage = () => {
   const { data, meta, loading, isSaving, error, clearError, fetch, update } = useUserSettings();
@@ -118,6 +118,25 @@ const UserSettingsPage = () => {
                     onChange={(value) => setField('timeFormat', value)}
                     options={TIME_FORMATS}
                     error={errors.timeFormat}
+                  />
+                </div>
+                <div className="col-12 col-md-6">
+                  <FieldSelect
+                    label="Affichage de la devise"
+                    value={values.currencyDisplay}
+                    onChange={(value) => setField('currencyDisplay', value)}
+                    options={CURRENCY_DISPLAYS}
+                    error={errors.currencyDisplay}
+                  />
+                </div>
+                <div className="col-12 col-md-6">
+                  <FieldSelect
+                    label="Page d’accueil par défaut"
+                    value={values.landingPage}
+                    onChange={(value) => setField('landingPage', value)}
+                    options={LANDING_PAGES}
+                    error={errors.landingPage}
+                    hint="Page affichée après connexion (navigation existante inchangée)."
                   />
                 </div>
               </div>

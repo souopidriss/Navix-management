@@ -10,6 +10,7 @@ export {
   useNotificationSettings,
   useUserSettings,
   useAppearanceSettings,
+  useTablesSettings,
   useRegionalSettings,
   useBillingSettings,
   useSaasSettings,

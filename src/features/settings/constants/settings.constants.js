@@ -82,6 +82,16 @@ export const SETTINGS_SECTIONS = [
     sensitive: false,
   },
   {
+    key: 'tables',
+    label: 'Tableaux',
+    description: 'Densité, colonnes et pagination des listes',
+    icon: 'bi-table',
+    route: ROUTES.SETTINGS_TABLES,
+    permission: PERMISSIONS.SETTINGS_UPDATE,
+    group: SETTINGS_GROUP_GENERAL,
+    sensitive: false,
+  },
+  {
     key: 'fleet',
     label: 'Flotte',
     description: 'Unités et seuils d’alerte kilométrage',
@@ -300,6 +310,63 @@ export const SIDEBAR_MODES = [
   { value: 'expanded', label: 'Sidebar étendue', description: 'Navigation complète' },
   { value: 'compact', label: 'Sidebar compacte', description: 'Icônes uniquement' },
 ];
+
+export const CURRENCY_DISPLAYS = [
+  { value: 'symbol', label: 'Symbole (ex. 1 250 FCFA)' },
+  { value: 'code', label: 'Code (ex. 1 250 XAF)' },
+  { value: 'full', label: 'Libellé (ex. 1 250 Franc CFA)' },
+];
+
+/** Pages d'accueil autorisées (parcours existant, gardes inchangées). */
+export const LANDING_PAGES = [
+  { value: ROUTES.DASHBOARD, label: 'Tableau de bord' },
+  { value: ROUTES.VEHICLES, label: 'Véhicules' },
+  { value: ROUTES.DRIVERS, label: 'Chauffeurs' },
+  { value: ROUTES.TRIPS, label: 'Trajets' },
+  { value: ROUTES.FUEL, label: 'Carburant' },
+  { value: ROUTES.ENTRETIENS, label: 'Entretiens' },
+  { value: ROUTES.FILES, label: 'Documents' },
+  { value: ROUTES.REPORTS, label: 'Rapports' },
+  { value: ROUTES.SETTINGS, label: 'Paramètres' },
+];
+
+export const ITEMS_PER_PAGE_OPTIONS = [10, 20, 50, 100];
+
+export const DOCUMENT_VIEWS = [
+  { value: 'list', label: 'Liste', description: 'Tableau avec colonnes' },
+  { value: 'grid', label: 'Grille', description: 'Cartes en grille' },
+];
+
+export const DOCUMENT_SORTS = [
+  { value: 'recent', label: 'Plus récents' },
+  { value: 'name', label: 'Nom (A → Z)' },
+  { value: 'type', label: 'Type' },
+  { value: 'size', label: 'Taille' },
+];
+
+export const TABLE_SORTS = [
+  { value: 'createdAt', label: 'Date de création' },
+  { value: 'name', label: 'Nom' },
+  { value: 'status', label: 'Statut' },
+  { value: 'updatedAt', label: 'Dernière mise à jour' },
+];
+
+export const SORT_DIRECTIONS = [
+  { value: 'asc', label: 'Croissant (A → Z)' },
+  { value: 'desc', label: 'Décroissant (Z → A)' },
+];
+
+/** Colonnes génériques communes aux listes (configuration générique des tableaux). */
+export const TABLE_COLUMNS = [
+  { value: 'identity', label: 'Identité (nom, référence)' },
+  { value: 'status', label: 'Statut' },
+  { value: 'dates', label: 'Dates' },
+  { value: 'amounts', label: 'Montants' },
+  { value: 'actions', label: 'Actions' },
+];
+
+/** Sections relevant des préférences utilisateur (reset sans toucher l'entreprise). */
+export const USER_SCOPE_SECTIONS = ['user', 'appearance', 'regional', 'tables', 'notifications'];
 
 export { CURRENCIES, CURRENCY_VALUES, TAX_RATES, TAX_RATE_VALUES };
 export { DOCUMENT_TYPES, DOCUMENT_TYPE_VALUES };

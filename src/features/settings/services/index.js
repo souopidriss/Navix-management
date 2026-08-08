@@ -6,6 +6,7 @@ export {
   updateSectionSettings,
   resetSectionSettings,
   resetAllSettings,
+  resetUserPreferences,
   SETTINGS_SECTION_GETTERS,
   SETTINGS_SECTION_UPDATERS,
 } from './settingsService';

@@ -28,6 +28,14 @@ import {
   SIDEBAR_MODES,
   LANGUAGES,
   TIMEZONES,
+  CURRENCY_DISPLAYS,
+  LANDING_PAGES,
+  ITEMS_PER_PAGE_OPTIONS,
+  DOCUMENT_VIEWS,
+  DOCUMENT_SORTS,
+  TABLE_SORTS,
+  TABLE_COLUMNS,
+  SORT_DIRECTIONS,
 } from '../constants';
 import { THEME_MODES } from '@/config';
 
@@ -50,6 +58,13 @@ const decimalSeparatorValues = DECIMAL_SEPARATORS.map((option) => option.value);
 const thousandSeparatorValues = THOUSAND_SEPARATORS.map((option) => option.value);
 const densityValues = UI_DENSITIES.map((option) => option.value);
 const sidebarModeValues = SIDEBAR_MODES.map((option) => option.value);
+const currencyDisplayValues = CURRENCY_DISPLAYS.map((option) => option.value);
+const landingPageValues = LANDING_PAGES.map((option) => option.value);
+const documentViewValues = DOCUMENT_VIEWS.map((option) => option.value);
+const documentSortValues = DOCUMENT_SORTS.map((option) => option.value);
+const tableSortValues = TABLE_SORTS.map((option) => option.value);
+const tableColumnValues = TABLE_COLUMNS.map((option) => option.value);
+const sortDirectionValues = SORT_DIRECTIONS.map((option) => option.value);
 const themeModeValues = Object.values(THEME_MODES);
 
 const enumOf = (values, message = 'Valeur invalide.') =>
@@ -229,6 +244,15 @@ export const documentSettingsSchema = z.object({
   allowDelete: z.boolean(),
   maxFileSizeMb: positive('Taille maximale invalide.'),
   allowedMimeTypes: z.array(z.string()).min(1, 'Au moins un type MIME est requis.'),
+  defaultView: enumOf(documentViewValues, 'Vue par défaut invalide.'),
+  defaultSort: enumOf(documentSortValues, 'Tri par défaut invalide.'),
+  itemsPerPage: z.coerce
+    .number()
+    .int()
+    .refine((value) => ITEMS_PER_PAGE_OPTIONS.includes(Number(value)), 'Nombre d’éléments invalide.'),
+  previewEnabled: z.boolean(),
+  autoPreviewImages: z.boolean(),
+  confirmBeforeDelete: z.boolean(),
 });
 
 export const documentSettingsDefaultValues = {
@@ -238,6 +262,12 @@ export const documentSettingsDefaultValues = {
   allowDelete: false,
   maxFileSizeMb: 20,
   allowedMimeTypes: ['application/pdf'],
+  defaultView: 'list',
+  defaultSort: 'recent',
+  itemsPerPage: 10,
+  previewEnabled: true,
+  autoPreviewImages: true,
+  confirmBeforeDelete: true,
 };
 
 export const toDocumentFormValues = (data = {}) => ({ ...documentSettingsDefaultValues, ...data });
@@ -310,6 +340,8 @@ export const userSettingsSchema = z.object({
   timezone: enumOf(timezoneValues, 'Fuseau horaire invalide.'),
   dateFormat: enumOf(dateFormatValues, 'Format de date invalide.'),
   timeFormat: enumOf(timeFormatValues, 'Format d’heure invalide.'),
+  currencyDisplay: enumOf(currencyDisplayValues, 'Affichage de la devise invalide.'),
+  landingPage: enumOf(landingPageValues, 'Page d’accueil invalide.'),
 });
 
 export const userSettingsDefaultValues = {
@@ -322,6 +354,8 @@ export const userSettingsDefaultValues = {
   timezone: 'Africa/Abidjan',
   dateFormat: 'DD/MM/YYYY',
   timeFormat: 'HH:mm',
+  currencyDisplay: 'symbol',
+  landingPage: LANDING_PAGES[0]?.value ?? '/dashboard',
 };
 
 export const toUserFormValues = (data = {}) => ({ ...userSettingsDefaultValues, ...data });
@@ -347,6 +381,36 @@ export const appearanceSettingsDefaultValues = {
 
 export const toAppearanceFormValues = (data = {}) => ({ ...appearanceSettingsDefaultValues, ...data });
 export const toAppearancePayload = (values) => ({ ...values });
+
+/* --------------------------------------------------------------------------
+   Tableaux (préférences génériques des listes)
+   -------------------------------------------------------------------------- */
+
+export const tablesSettingsSchema = z.object({
+  rowsPerPage: z.coerce
+    .number()
+    .int()
+    .refine((value) => ITEMS_PER_PAGE_OPTIONS.includes(Number(value)), 'Nombre de lignes invalide.'),
+  density: enumOf(densityValues, 'Densité invalide.'),
+  defaultSortBy: enumOf(tableSortValues, 'Tri par défaut invalide.'),
+  defaultSortDirection: enumOf(sortDirectionValues, 'Sens de tri invalide.'),
+  stickyHeader: z.boolean(),
+  visibleColumns: z
+    .array(enumOf(tableColumnValues, 'Colonne inconnue.'))
+    .min(1, 'Au moins une colonne doit rester visible.'),
+});
+
+export const tablesSettingsDefaultValues = {
+  rowsPerPage: 10,
+  density: 'normal',
+  defaultSortBy: 'createdAt',
+  defaultSortDirection: 'desc',
+  stickyHeader: true,
+  visibleColumns: ['identity', 'status', 'dates', 'amounts', 'actions'],
+};
+
+export const toTablesFormValues = (data = {}) => ({ ...tablesSettingsDefaultValues, ...data });
+export const toTablesPayload = (values) => ({ ...values });
 
 /* --------------------------------------------------------------------------
    Régional
@@ -554,6 +618,7 @@ export const SETTINGS_SCHEMAS = {
   notifications: notificationSettingsSchema,
   user: userSettingsSchema,
   appearance: appearanceSettingsSchema,
+  tables: tablesSettingsSchema,
   regional: regionalSettingsSchema,
   billing: billingSettingsSchema,
   saas: saasSettingsSchema,
@@ -571,6 +636,7 @@ export const SETTINGS_DEFAULT_VALUES = {
   notifications: notificationSettingsDefaultValues,
   user: userSettingsDefaultValues,
   appearance: appearanceSettingsDefaultValues,
+  tables: tablesSettingsDefaultValues,
   regional: regionalSettingsDefaultValues,
   billing: billingSettingsDefaultValues,
   saas: saasSettingsDefaultValues,

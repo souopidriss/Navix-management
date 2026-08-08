@@ -18,8 +18,10 @@ import './settings.css';
 const SettingsSidebar = () => {
   const permissions = useRbacStore((state) => state.permissions);
   const resetAllSettings = useSettingsStore((state) => state.resetAllSettings);
+  const resetUserPreferences = useSettingsStore((state) => state.resetUserPreferences);
   const savingSection = useSettingsStore((state) => state.savingSection);
   const [confirmResetAll, setConfirmResetAll] = useState(false);
+  const [confirmResetPrefs, setConfirmResetPrefs] = useState(false);
 
   const sections = useMemo(
     () => SETTINGS_SECTIONS.filter((section) => hasPermission(permissions, section.permission)),
@@ -42,6 +44,16 @@ const SettingsSidebar = () => {
       toast.success('Tous les paramètres ont été réinitialisés.');
     } else {
       toast.error(result?.error || 'Impossible de réinitialiser les paramètres.');
+    }
+  };
+
+  const handleResetPrefs = async () => {
+    const result = await resetUserPreferences();
+    setConfirmResetPrefs(false);
+    if (result?.success) {
+      toast.success('Vos préférences ont été réinitialisées.');
+    } else {
+      toast.error(result?.error || 'Impossible de réinitialiser vos préférences.');
     }
   };
 
@@ -73,6 +85,20 @@ const SettingsSidebar = () => {
           <Button
             variant="outline"
             size="sm"
+            icon="bi-person-gear"
+            fullWidth
+            loading={savingSection === 'user-preferences'}
+            disabled={savingSection !== null && savingSection !== 'user-preferences'}
+            onClick={() => setConfirmResetPrefs(true)}
+          >
+            Réinitialiser mes préférences
+          </Button>
+          <p className="settings-sidebar__footer-note">
+            Rétablit uniquement vos préférences (thème, langue, formats, tableaux, notifications).
+          </p>
+          <Button
+            variant="outline"
+            size="sm"
             icon="bi-arrow-counterclockwise"
             fullWidth
             loading={savingSection === 'all'}
@@ -86,6 +112,18 @@ const SettingsSidebar = () => {
           </p>
         </div>
       </nav>
+
+      <ConfirmDialog
+        open={confirmResetPrefs}
+        onClose={() => setConfirmResetPrefs(false)}
+        title="Réinitialiser vos préférences"
+        message="Vos préférences personnelles (thème, langue, formats, tableaux, notifications) repasseront à leurs valeurs par défaut. Les paramètres de l’entreprise et de la plateforme ne sont pas modifiés."
+        confirmLabel="Réinitialiser mes préférences"
+        confirmVariant="danger"
+        icon="bi-person-gear"
+        loading={savingSection === 'user-preferences'}
+        onConfirm={handleResetPrefs}
+      />
 
       <ConfirmDialog
         open={confirmResetAll}

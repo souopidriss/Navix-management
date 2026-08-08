@@ -6,6 +6,7 @@ export { default as GeneralSettingsPage } from './GeneralSettingsPage';
 export { default as CompanySettingsPage } from './CompanySettingsPage';
 export { default as RegionalSettingsPage } from './RegionalSettingsPage';
 export { default as AppearanceSettingsPage } from './AppearanceSettingsPage';
+export { default as TablesSettingsPage } from './TablesSettingsPage';
 export { default as FleetSettingsPage } from './FleetSettingsPage';
 export { default as MaintenanceSettingsPage } from './MaintenanceSettingsPage';
 export { default as FuelSettingsPage } from './FuelSettingsPage';

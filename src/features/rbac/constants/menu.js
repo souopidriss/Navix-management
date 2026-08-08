@@ -247,6 +247,9 @@ export const ROUTE_META = {
   [ROUTES.SETTINGS_APPEARANCE]: {
     requiredPermissions: [PERMISSIONS.SETTINGS_UPDATE],
   },
+  [ROUTES.SETTINGS_TABLES]: {
+    requiredPermissions: [PERMISSIONS.SETTINGS_UPDATE],
+  },
   [ROUTES.SETTINGS_REGIONAL]: {
     requiredPermissions: [PERMISSIONS.SETTINGS_UPDATE],
   },

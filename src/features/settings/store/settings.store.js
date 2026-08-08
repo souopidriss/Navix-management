@@ -5,7 +5,7 @@
  * meta (portée + horodatage), loading, savingSection, error.
  *
  * Actions : fetchSettings (bundle complet), fetchSection, updateSection,
- * resetSection, resetAllSettings, clearError, reset.
+ * resetSection, resetAllSettings, resetUserPreferences, clearError, reset.
  *
  * Multi-tenant simulé : `getSettingsCompanyScopeId` borne les paramètres
  * d'entreprise / SaaS au `companyId` courant (sauf super_admin), et
@@ -16,7 +16,7 @@
 import { create } from 'zustand';
 import { useAuthStore } from '@/features/auth';
 import { settingsService } from '../services/settingsService';
-import { SETTINGS_SECTION_VALUES } from '../constants';
+import { SETTINGS_SECTION_VALUES, USER_SCOPE_SECTIONS } from '../constants';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
 
@@ -153,6 +153,29 @@ const useSettingsStore = create((set) => ({
       return { success: true };
     } catch (error) {
       const message = toErrorMessage(error, 'Impossible de réinitialiser les paramètres.');
+      set({ savingSection: null, error: message });
+      return { success: false, error: message };
+    }
+  },
+
+  /**
+   * Réinitialise toutes les préférences utilisateur (user, apparence,
+   * régional, tableaux, notifications) aux valeurs par défaut, sans toucher
+   * aux paramètres d'entreprise / plateforme.
+   * @returns {Promise<{ success: boolean, error?: string }>}
+   */
+  resetUserPreferences: async () => {
+    set({ savingSection: 'user-preferences', error: null });
+    try {
+      const bundle = await settingsService.resetUserPreferences(getScope());
+      const sections = {};
+      USER_SCOPE_SECTIONS.forEach((key) => {
+        sections[key] = bundle[key] ?? null;
+      });
+      set({ ...sections, meta: bundle.meta ?? null, savingSection: null });
+      return { success: true };
+    } catch (error) {
+      const message = toErrorMessage(error, 'Impossible de réinitialiser vos préférences.');
       set({ savingSection: null, error: message });
       return { success: false, error: message };
     }

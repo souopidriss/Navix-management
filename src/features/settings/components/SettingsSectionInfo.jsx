@@ -14,7 +14,7 @@ const SCOPE_LABELS = {
 };
 
 const getScope = (sectionKey) => {
-  if (['user', 'appearance'].includes(sectionKey)) return 'user';
+  if (['user', 'appearance', 'tables'].includes(sectionKey)) return 'user';
   if (['saas', 'system'].includes(sectionKey)) return 'platform';
   return 'company';
 };

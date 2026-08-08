@@ -14,7 +14,7 @@ export const useSettings = () => {
 
   const data = {};
   Object.keys(state).forEach((key) => {
-    if (['general', 'company', 'fleet', 'maintenance', 'fuel', 'documents', 'notifications', 'user', 'appearance', 'regional', 'billing', 'saas', 'security', 'system'].includes(key)) {
+    if (['general', 'company', 'fleet', 'maintenance', 'fuel', 'documents', 'notifications', 'user', 'appearance', 'tables', 'regional', 'billing', 'saas', 'security', 'system'].includes(key)) {
       data[key] = state[key];
     }
   });
@@ -30,6 +30,7 @@ export const useSettings = () => {
     updateSection: state.updateSection,
     resetSection: state.resetSection,
     resetAllSettings: state.resetAllSettings,
+    resetUserPreferences: state.resetUserPreferences,
     clearError: state.clearError,
     reset: state.reset,
   };
@@ -77,6 +78,7 @@ export const useDocumentSettings = makeSectionHook('documents');
 export const useNotificationSettings = makeSectionHook('notifications');
 export const useUserSettings = makeSectionHook('user');
 export const useAppearanceSettings = makeSectionHook('appearance');
+export const useTablesSettings = makeSectionHook('tables');
 export const useRegionalSettings = makeSectionHook('regional');
 export const useBillingSettings = makeSectionHook('billing');
 export const useSaasSettings = makeSectionHook('saas');

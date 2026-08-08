@@ -103,6 +103,7 @@ const DocumentSettingsPage = lazy(() => import('@/features/settings/pages/Docume
 const NotificationSettingsPage = lazy(() => import('@/features/settings/pages/NotificationSettingsPage'));
 const UserSettingsPage = lazy(() => import('@/features/settings/pages/UserSettingsPage'));
 const AppearanceSettingsPage = lazy(() => import('@/features/settings/pages/AppearanceSettingsPage'));
+const TablesSettingsPage = lazy(() => import('@/features/settings/pages/TablesSettingsPage'));
 const RegionalSettingsPage = lazy(() => import('@/features/settings/pages/RegionalSettingsPage'));
 const SettingsBillingPage = lazy(() => import('@/features/settings/pages/BillingSettingsPage'));
 const SaasSettingsPage = lazy(() => import('@/features/settings/pages/SaasSettingsPage'));
@@ -199,6 +200,7 @@ export const dashboardRoutes = (
       <Route path={ROUTES.SETTINGS_COMPANY} element={<CompanySettingsPage />} />
       <Route path={ROUTES.SETTINGS_REGIONAL} element={<RegionalSettingsPage />} />
       <Route path={ROUTES.SETTINGS_APPEARANCE} element={<AppearanceSettingsPage />} />
+      <Route path={ROUTES.SETTINGS_TABLES} element={<TablesSettingsPage />} />
       <Route path={ROUTES.SETTINGS_FLEET} element={<FleetSettingsPage />} />
       <Route path={ROUTES.SETTINGS_MAINTENANCE} element={<MaintenanceSettingsPage />} />
       <Route path={ROUTES.SETTINGS_FUEL} element={<FuelSettingsPage />} />

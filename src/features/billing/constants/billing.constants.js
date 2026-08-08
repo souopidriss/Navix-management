@@ -71,6 +71,7 @@ export const getPaymentMethod = (value) =>
 export const CURRENCIES = {
   EUR: { label: 'Euro', symbol: '€', code: 'EUR' },
   USD: { label: 'Dollar américain', symbol: '$', code: 'USD' },
+  GBP: { label: 'Livre sterling', symbol: '£', code: 'GBP' },
   XAF: { label: 'Franc CFA (XAF)', symbol: 'FCFA', code: 'XAF' },
 };
 

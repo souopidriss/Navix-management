@@ -4,6 +4,7 @@
  * Langue, fuseau horaire et formats régionaux par défaut de l'entreprise.
  */
 import { Card } from '@/components/ui';
+import { formatDate, formatTime, formatCurrency, formatNumber } from '@/utils/format';
 import { useRegionalSettings } from '../hooks';
 import { regionalSettingsSchema } from '../schemas';
 import { SettingsForm, SettingsSectionInfo, FieldSelect } from '../components';
@@ -12,6 +13,7 @@ import {
   COUNTRIES,
   TIMEZONES,
   CURRENCY_OPTIONS,
+  CURRENCIES,
   DATE_FORMATS,
   TIME_FORMATS,
   FIRST_DAYS_OF_WEEK,
@@ -22,6 +24,23 @@ import {
 
 const RegionalSettingsPage = () => {
   const { data, meta, loading, isSaving, error, clearError, fetch, update } = useRegionalSettings();
+
+  const preview = (values) => {
+    const now = new Date();
+    return [
+      { label: 'Date', value: formatDate(now, values.dateFormat) },
+      { label: 'Heure', value: formatTime(now, values.timeFormat) },
+      { label: 'Nombre', value: formatNumber(1234567.89, { locale: values.numberFormat }) },
+      {
+        label: 'Montant',
+        value: formatCurrency(1250, values.currency, {
+          display: 'code',
+          locale: values.numberFormat,
+          meta: CURRENCIES[values.currency],
+        }),
+      },
+    ];
+  };
 
   return (
     <SettingsForm
@@ -144,7 +163,20 @@ const RegionalSettingsPage = () => {
           </div>
 
           <div className="col-lg-4">
-            <SettingsSectionInfo section="regional" updatedAt={meta?.updatedAt} />
+            <Card title="Aperçu du formatage">
+              <dl className="mb-0">
+                {preview(values).map((row) => (
+                  <div className="d-flex justify-content-between align-items-center py-1" key={row.label}>
+                    <dt className="mb-0 text-secondary small">{row.label}</dt>
+                    <dd className="mb-0">{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Card>
+
+            <div className="mt-3">
+              <SettingsSectionInfo section="regional" updatedAt={meta?.updatedAt} />
+            </div>
           </div>
         </div>
       )}
