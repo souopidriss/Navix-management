@@ -1,0 +1,21 @@
+/**
+ * Navix Partners — PartnerForm styles.
+ */
+.navix-partner-form__section {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--navix-text-primary);
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--navix-border-color);
+}
+
+.navix-partner-form__section:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.navix-partner-form__section i {
+  color: var(--navix-primary);
+}

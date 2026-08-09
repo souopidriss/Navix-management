@@ -69,6 +69,7 @@ export const PERMISSION_MODULES = {
   trips: { label: 'Trajets', icon: 'bi-signpost-split' },
   fuel: { label: 'Carburant', icon: 'bi-fuel-pump' },
   maintenance: { label: 'Entretiens', icon: 'bi-wrench-adjustable' },
+  partners: { label: 'Partenaires', icon: 'bi-handshake' },
   documents: { label: 'Documents', icon: 'bi-folder2-open' },
   subscriptions: { label: 'Abonnements', icon: 'bi-credit-card' },
   billing: { label: 'Facturation', icon: 'bi-receipt' },

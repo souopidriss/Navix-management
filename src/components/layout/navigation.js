@@ -21,6 +21,7 @@ export const SIDEBAR_SECTIONS = [
       { to: ROUTES.TRIPS, label: 'Trajets', icon: 'bi-signpost-split' },
       { to: ROUTES.FUEL, label: 'Carburant', icon: 'bi-fuel-pump' },
       { to: ROUTES.ENTRETIENS, label: 'Entretiens', icon: 'bi-wrench-adjustable' },
+      { to: ROUTES.PARTNERS, label: 'Partenaires', icon: 'bi-handshake' },
       { to: ROUTES.FILES, label: 'Documents', icon: 'bi-folder2-open' },
     ],
   },

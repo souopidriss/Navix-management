@@ -108,6 +108,18 @@ export const ROUTE_META = {
   [ROUTES.ENTRETIENS]: {
     requiredPermissions: [PERMISSIONS.MAINTENANCE_READ],
   },
+  [ROUTES.PARTNERS]: {
+    requiredPermissions: [PERMISSIONS.PARTNERS_READ],
+  },
+  [ROUTES.PARTNERS_CREATE]: {
+    requiredPermissions: [PERMISSIONS.PARTNERS_CREATE],
+  },
+  [ROUTES.PARTNERS_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.PARTNERS_READ],
+  },
+  [ROUTES.PARTNERS_EDIT]: {
+    requiredPermissions: [PERMISSIONS.PARTNERS_UPDATE],
+  },
   [ROUTES.FILES]: {
     requiredPermissions: [PERMISSIONS.FILES_READ],
   },

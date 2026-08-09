@@ -1,0 +1,36 @@
+/**
+ * Navix Partners — PartnerDetailsPage styles.
+ */
+.navix-partner-detail__icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--navix-border-radius);
+  background: var(--navix-surface-soft);
+  color: var(--navix-primary);
+}
+
+.navix-partner-detail__label {
+  color: var(--navix-text-muted);
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-normal);
+  text-transform: none;
+}
+
+.navix-partner-detail__value {
+  color: var(--navix-text-primary);
+  font-weight: var(--navix-font-weight-medium);
+  overflow-wrap: break-word;
+}
+
+.navix-partner-detail__link {
+  color: var(--navix-primary);
+  text-decoration: none;
+}
+
+.navix-partner-detail__link:hover {
+  text-decoration: underline;
+}

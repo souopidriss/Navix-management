@@ -59,6 +59,10 @@ export const ROUTES = {
   MAINTENANCE_EDIT: '/dashboard/maintenance/:id/edit',
   MAINTENANCE_CALENDAR: '/dashboard/maintenance/calendar',
   MAINTENANCE_STATISTICS: '/dashboard/maintenance/statistics',
+  PARTNERS: '/dashboard/partners',
+  PARTNERS_CREATE: '/dashboard/partners/new',
+  PARTNERS_DETAIL: '/dashboard/partners/:id',
+  PARTNERS_EDIT: '/dashboard/partners/:id/edit',
   FILES: '/dashboard/files',
   FILES_CREATE: '/dashboard/files/new',
   FILES_DETAIL: '/dashboard/files/:id',
@@ -176,6 +180,12 @@ export const maintenanceDetailPath = (id) => `${ROUTES.ENTRETIENS}/${id}`;
 /** Construit le chemin d'édition d'un entretien. */
 export const maintenanceEditPath = (id) => `${ROUTES.ENTRETIENS}/${id}/edit`;
 
+/** Construit le chemin de détail d'un partenaire. */
+export const partnerDetailPath = (id) => `${ROUTES.PARTNERS}/${id}`;
+
+/** Construit le chemin d'édition d'un partenaire. */
+export const partnerEditPath = (id) => `${ROUTES.PARTNERS}/${id}/edit`;
+
 /** Construit le chemin de détail d'un document. */
 export const documentDetailPath = (id) => `${ROUTES.FILES}/${id}`;
 
@@ -255,6 +265,10 @@ export const PRIVATE_ROUTES = [
   ROUTES.MAINTENANCE_EDIT,
   ROUTES.MAINTENANCE_CALENDAR,
   ROUTES.MAINTENANCE_STATISTICS,
+  ROUTES.PARTNERS,
+  ROUTES.PARTNERS_CREATE,
+  ROUTES.PARTNERS_DETAIL,
+  ROUTES.PARTNERS_EDIT,
   ROUTES.FILES,
   ROUTES.FILES_CREATE,
   ROUTES.FILES_DETAIL,

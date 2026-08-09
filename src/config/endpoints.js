@@ -60,6 +60,11 @@ export const API_ENDPOINTS = {
     CALENDAR: '/maintenance/calendar',
     HISTORY: '/maintenance/history',
   },
+  PARTNERS: {
+    LIST: '/partners',
+    DETAIL: (id) => `/partners/${id}`,
+    STATS: '/partners/stats',
+  },
   DOCUMENTS: {
     LIST: '/documents',
     DETAIL: (id) => `/documents/${id}`,

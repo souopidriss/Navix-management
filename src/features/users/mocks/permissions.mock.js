@@ -1,7 +1,7 @@
 /**
  * Navix Users — Permissions simulées (mode mock)
  * --------------------------------------------------------------------------
- * 68 permissions fictives au format `module.action` (source unique de vérité
+ * 65 permissions fictives au format `module.action` (source unique de vérité
  * du module : voir PERMISSION_MODULES / PERMISSION_ACTIONS dans ../constants).
  * Chaque permission : id, code, name, description, module, action, isSensitive,
  * createdAt, updatedAt.
@@ -59,6 +59,11 @@ const DEFS = [
   { module: 'maintenance', action: 'create' },
   { module: 'maintenance', action: 'update' },
   { module: 'maintenance', action: 'delete' },
+  { module: 'partners', action: 'view' },
+  { module: 'partners', action: 'create' },
+  { module: 'partners', action: 'update' },
+  { module: 'partners', action: 'delete' },
+  { module: 'partners', action: 'manage' },
   { module: 'documents', action: 'view' },
   { module: 'documents', action: 'upload' },
   { module: 'documents', action: 'download' },

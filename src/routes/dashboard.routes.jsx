@@ -43,6 +43,10 @@ const MaintenanceCreatePage = lazy(() => import('@/features/maintenance/pages/Ma
 const MaintenanceEditPage = lazy(() => import('@/features/maintenance/pages/MaintenanceEditPage'));
 const MaintenanceCalendarPage = lazy(() => import('@/features/maintenance/pages/MaintenanceCalendarPage'));
 const MaintenanceStatisticsPage = lazy(() => import('@/features/maintenance/pages/MaintenanceStatisticsPage'));
+const PartnerListPage = lazy(() => import('@/features/partners/pages/PartnerListPage'));
+const PartnerDetailsPage = lazy(() => import('@/features/partners/pages/PartnerDetailsPage'));
+const PartnerCreatePage = lazy(() => import('@/features/partners/pages/PartnerCreatePage'));
+const PartnerEditPage = lazy(() => import('@/features/partners/pages/PartnerEditPage'));
 const DocumentListPage = lazy(() => import('@/features/documents/pages/DocumentListPage'));
 const DocumentDetailsPage = lazy(() => import('@/features/documents/pages/DocumentDetailsPage'));
 const DocumentCreatePage = lazy(() => import('@/features/documents/pages/DocumentCreatePage'));
@@ -151,6 +155,10 @@ export const dashboardRoutes = (
     <Route path={ROUTES.MAINTENANCE_CREATE} element={<MaintenanceCreatePage />} />
     <Route path={ROUTES.MAINTENANCE_DETAIL} element={<MaintenanceDetailsPage />} />
     <Route path={ROUTES.MAINTENANCE_EDIT} element={<MaintenanceEditPage />} />
+    <Route path={ROUTES.PARTNERS} element={<PartnerListPage />} />
+    <Route path={ROUTES.PARTNERS_CREATE} element={<PartnerCreatePage />} />
+    <Route path={ROUTES.PARTNERS_DETAIL} element={<PartnerDetailsPage />} />
+    <Route path={ROUTES.PARTNERS_EDIT} element={<PartnerEditPage />} />
     <Route path={ROUTES.FILES} element={<DocumentListPage />} />
     <Route path={ROUTES.FILES_CREATE} element={<DocumentCreatePage />} />
     <Route path={ROUTES.FILES_DETAIL} element={<DocumentDetailsPage />} />

@@ -50,6 +50,13 @@ export const PERMISSIONS = {
   MAINTENANCE_READ: 'maintenance.read',
   MAINTENANCE_CREATE: 'maintenance.create',
 
+  /* Partenaires */
+  PARTNERS_READ: 'partners.read',
+  PARTNERS_CREATE: 'partners.create',
+  PARTNERS_UPDATE: 'partners.update',
+  PARTNERS_DELETE: 'partners.delete',
+  PARTNERS_MANAGE: 'partners.manage',
+
   /* Documents */
   FILES_READ: 'files.read',
   FILES_CREATE: 'files.create',
