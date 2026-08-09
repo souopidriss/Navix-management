@@ -13,11 +13,17 @@
  *
  * Méthodes :
  *   getReport(type, query)   → rapport calculé + comparaison de période
- *   getReports(filters)      → rapports enregistrés (listables, filtrables)
- *   getSavedReport(id)       → détail d'un rapport enregistré
- *   saveReport(payload)      → crée/mise à jour un rapport enregistré
- *   deleteReport(id)         → supprime un rapport enregistré
- *   exportReport(query)      → export simulé (architecture uniquement)
+ *   getFleetReport / getVehicleReport / getDriverReport / getAssignmentReport /
+ *   getTripReport / getFuelReport / getMaintenanceReport / getDocumentReport /
+ *   getFinancialReport / getSubscriptionReport / getAuditReport / getCompanyReport
+ *                           → raccourcis typés par catégorie de rapport
+ *   getDashboardMetrics()   → aperçu analytique du dashboard (overview)
+ *   getCustomReport(config) → rapport personnalisé (source + indicateurs)
+ *   getReports(filters)     → rapports enregistrés (listables, filtrables)
+ *   getSavedReport(id)      → détail d'un rapport enregistré
+ *   saveReport(payload)     → crée/mise à jour un rapport enregistré
+ *   deleteReport(id)        → supprime un rapport enregistré
+ *   exportReport(query)     → export simulé (architecture uniquement)
  */
 import { API_ENDPOINTS } from '@/config';
 import { apiClient } from '@/services/client';
@@ -25,13 +31,14 @@ import { apiConfig } from '@/services/config';
 import { mockResponse } from '@/services/utils';
 import { ApiError } from '@/services/errors';
 import { MOCK_SAVED_REPORTS } from '../mocks';
-import { sanitizeReportFilters, sanitizeReportConfiguration } from '../schemas';
+import { sanitizeReportFilters, sanitizeReportConfiguration, sanitizeReport, getReportSchema, dashboardMetricsSchema } from '../schemas';
 import { getReportType, getReportPeriod } from '../constants';
 import { MOCK_VEHICLES } from '@/features/vehicles/mocks';
 import { MOCK_DRIVERS } from '@/features/drivers/mocks';
 import { MOCK_AGENCIES } from '@/features/agencies/mocks';
 import {
   AGGREGATE_FUNCTIONS,
+  aggregateOverviewReport,
   buildCustomReport,
   resolveReportDateRange,
   buildPreviousRange,
@@ -71,7 +78,8 @@ export const reportService = {
       const filters = ctx.filters;
       const range = resolveReportDateRange(filters.period, filters.dateFrom, filters.dateTo);
       const previousRange = buildPreviousRange(range);
-      const report = aggregate(ctx, range, previousRange);
+      const rawReport = aggregate(ctx, range, previousRange);
+      const report = sanitizeReport(rawReport, getReportSchema(reportType));
 
       const meta = getReportType(reportType);
       return mockResponse({
@@ -94,6 +102,93 @@ export const reportService = {
     const { data } = await apiClient.get(API_ENDPOINTS.REPORTS[reportType.toUpperCase()] ?? API_ENDPOINTS.REPORTS.FLEET, {
       params: query,
     });
+    return data;
+  },
+
+  /* --------------------------------------------------------------------------
+     Méthodes métier nommées (rapports réellement présents dans le module)
+     -------------------------------------------------------------------------- */
+
+  async getFleetReport(query = {}) {
+    return this.getReport('fleet', query);
+  },
+
+  async getVehicleReport(query = {}) {
+    return this.getReport('vehicles', query);
+  },
+
+  async getDriverReport(query = {}) {
+    return this.getReport('drivers', query);
+  },
+
+  async getAssignmentReport(query = {}) {
+    return this.getReport('assignments', query);
+  },
+
+  async getTripReport(query = {}) {
+    return this.getReport('trips', query);
+  },
+
+  async getFuelReport(query = {}) {
+    return this.getReport('fuel', query);
+  },
+
+  async getMaintenanceReport(query = {}) {
+    return this.getReport('maintenance', query);
+  },
+
+  async getDocumentReport(query = {}) {
+    return this.getReport('documents', query);
+  },
+
+  async getFinancialReport(query = {}) {
+    return this.getReport('financial', query);
+  },
+
+  async getSubscriptionReport(query = {}) {
+    return this.getReport('subscriptions', query);
+  },
+
+  async getAuditReport(query = {}) {
+    return this.getReport('audit', query);
+  },
+
+  async getCompanyReport(query = {}) {
+    return this.getReport('companies', query);
+  },
+
+  /**
+   * Indicateurs de pilotage du dashboard (aperçu cross-domaines).
+   * @param {object} [query] — { companyScopeId, filters }
+   * @returns {Promise<object>}
+   */
+  async getDashboardMetrics(query = {}) {
+    if (apiConfig.mock) {
+      const ctx = buildContext(query);
+      const filters = ctx.filters;
+      const range = resolveReportDateRange(filters.period, filters.dateFrom, filters.dateTo);
+      const previousRange = buildPreviousRange(range);
+      const rawReport = aggregateOverviewReport(ctx, range, previousRange);
+      const report = sanitizeReport(rawReport, dashboardMetricsSchema);
+
+      return mockResponse({
+        ...report,
+        meta: {
+          id: 'overview',
+          label: 'Aperçu analytique',
+          description: 'Indicateurs de pilotage consolidés de la flotte.',
+          icon: 'bi-speedometer2',
+          variant: 'info',
+        },
+        periodLabel: filters.period ? getReportPeriodLabel(filters.period) : 'Personnalisée',
+        comparison: {
+          current: range,
+          previous: previousRange,
+        },
+      });
+    }
+
+    const { data } = await apiClient.get(API_ENDPOINTS.REPORTS.STATISTICS, { params: query });
     return data;
   },
 

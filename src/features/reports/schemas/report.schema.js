@@ -169,3 +169,314 @@ export const sanitizeReportPagination = (values = {}) => {
   const parsed = reportPaginationSchema.safeParse(values);
   return parsed.success ? parsed.data : { page: 1, pageSize: PAGE_SIZE_OPTIONS[1] };
 };
+
+/* --------------------------------------------------------------------------
+   Contrat de rapport (validation des réponses — compatibilité API Express)
+   -------------------------------------------------------------------------- */
+
+export const reportStatisticSchema = z.object({
+  key: z.string(),
+  label: z.string(),
+  value: z.union([z.string(), z.number()]),
+  raw: z.number().nullable().optional(),
+  format: z
+    .enum(['money', 'number', 'percent', 'distance', 'duration', 'date', 'datetime'])
+    .optional(),
+  icon: z.string().optional(),
+  variant: z.string().optional(),
+  variation: z.number().nullable().optional(),
+  trend: z.enum(['up', 'down', 'neutral']).optional(),
+});
+
+export const reportSeriesDatasetSchema = z.object({
+  key: z.string(),
+  label: z.string().optional(),
+  values: z.array(z.number()).default([]),
+  variant: z.string().optional(),
+});
+
+export const reportSeriesSchema = z.object({
+  labels: z.array(z.string()).default([]),
+  datasets: z.array(reportSeriesDatasetSchema).default([]),
+});
+
+export const reportBreakdownSchema = z.object({
+  labels: z.array(z.string()).default([]),
+  values: z.array(z.number()).default([]),
+  variants: z.array(z.string()).default([]),
+});
+
+export const reportTopItemSchema = z.object({
+  key: z.string(),
+  label: z.string(),
+  value: z.number(),
+  sublabel: z.string().optional(),
+});
+
+export const reportRowSchema = z.record(z.unknown());
+
+export const reportBaseSchema = z.object({
+  reportType: z.string(),
+  period: dateRangeSchema,
+  statistics: z.array(reportStatisticSchema).default([]),
+  series: reportSeriesSchema,
+  breakdown: reportBreakdownSchema,
+  top: z.array(reportTopItemSchema).default([]),
+  rows: z.array(reportRowSchema).default([]),
+  summary: z.record(z.unknown()).default({}),
+  meta: z.record(z.unknown()).optional(),
+  periodLabel: z.string().optional(),
+  comparison: z
+    .object({
+      current: dateRangeSchema,
+      previous: dateRangeSchema,
+    })
+    .optional(),
+});
+
+/* --------------------------------------------------------------------------
+   Lignes typées par rapport
+   -------------------------------------------------------------------------- */
+
+export const fleetReportRowSchema = z.object({
+  id: z.string(),
+  registrationNumber: z.string(),
+  vehicle: z.string(),
+  group: z.string(),
+  groupLabel: z.string(),
+  status: z.string(),
+  statusLabel: z.string(),
+  mileage: z.number(),
+  fuelType: z.string(),
+  agency: z.string().optional(),
+  companyName: z.string(),
+});
+
+export const vehicleReportRowSchema = z.object({
+  id: z.string(),
+  registrationNumber: z.string(),
+  vehicle: z.string(),
+  group: z.string(),
+  groupLabel: z.string(),
+  status: z.string(),
+  statusLabel: z.string(),
+  mileage: z.number(),
+  fuelCost: z.number(),
+  maintenanceCost: z.number(),
+  tripCount: z.number(),
+  tripDistance: z.number(),
+  companyName: z.string(),
+});
+
+export const driverReportRowSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  status: z.string(),
+  licenseCategory: z.string().optional(),
+  availability: z.string().optional(),
+  companyName: z.string(),
+  tripCount: z.number(),
+  distance: z.number(),
+  duration: z.number(),
+  fuelRecords: z.number(),
+  fuelCost: z.number(),
+});
+
+export const assignmentReportRowSchema = z.object({
+  id: z.string(),
+  assignmentNumber: z.string(),
+  assignmentType: z.string(),
+  status: z.string(),
+  startDate: z.string(),
+  expectedEndDate: z.string(),
+  endDate: z.string().optional(),
+  vehicle: z.string(),
+  driver: z.string(),
+  companyName: z.string(),
+  startMileage: z.number().optional(),
+  endMileage: z.number().optional(),
+});
+
+export const tripReportRowSchema = z.object({
+  id: z.string(),
+  tripNumber: z.string(),
+  tripType: z.string(),
+  purpose: z.string().optional(),
+  status: z.string(),
+  departureDate: z.string(),
+  departure: z.string().optional(),
+  arrival: z.string().optional(),
+  distance: z.number(),
+  duration: z.number(),
+  vehicle: z.string(),
+  driver: z.string(),
+  companyName: z.string(),
+});
+
+export const fuelReportRowSchema = z.object({
+  id: z.string(),
+  fuelNumber: z.string(),
+  vehicle: z.string(),
+  driver: z.string(),
+  fuelType: z.string(),
+  status: z.string(),
+  quantity: z.number(),
+  unitPrice: z.number(),
+  totalCost: z.number(),
+  consumptionAverage: z.number(),
+  station: z.string().optional(),
+  city: z.string().optional(),
+  createdAt: z.string(),
+  companyName: z.string(),
+});
+
+export const maintenanceReportRowSchema = z.object({
+  id: z.string(),
+  maintenanceNumber: z.string(),
+  maintenanceType: z.string(),
+  priority: z.string(),
+  status: z.string(),
+  scheduledDate: z.string(),
+  completedAt: z.string().optional(),
+  estimatedCost: z.number(),
+  actualCost: z.number(),
+  workshop: z.string().optional(),
+  vehicle: z.string(),
+  companyName: z.string(),
+});
+
+export const documentReportRowSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  category: z.string(),
+  extension: z.string().optional(),
+  size: z.number().optional(),
+  visibility: z.string().optional(),
+  associationType: z.string().optional(),
+  uploadedBy: z.string().optional(),
+  createdAt: z.string(),
+  vehicle: z.string(),
+  companyName: z.string(),
+});
+
+export const companyReportRowSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  code: z.string().optional(),
+  country: z.string().optional(),
+  city: z.string().optional(),
+  status: z.string(),
+  subscriptionPlan: z.string().optional(),
+  subscriptionStatus: z.string().optional(),
+  vehicleCount: z.number().optional(),
+  driverCount: z.number().optional(),
+  agencyCount: z.number().optional(),
+  ownerName: z.string().optional(),
+  planLabel: z.string().optional(),
+  createdAt: z.string().optional(),
+});
+
+/* --------------------------------------------------------------------------
+   Schémas par type de rapport (rapports réellement présents dans le module)
+   -------------------------------------------------------------------------- */
+
+export const fleetReportSchema = reportBaseSchema.extend({
+  reportType: z.literal('fleet'),
+  rows: z.array(fleetReportRowSchema).default([]),
+  summary: z.object({ count: z.number() }).default({}),
+});
+
+export const vehicleReportSchema = reportBaseSchema.extend({
+  reportType: z.literal('vehicles'),
+  rows: z.array(vehicleReportRowSchema).default([]),
+  summary: z.object({ count: z.number(), tripCount: z.number() }).default({}),
+});
+
+export const driverReportSchema = reportBaseSchema.extend({
+  reportType: z.literal('drivers'),
+  rows: z.array(driverReportRowSchema).default([]),
+  summary: z.object({ count: z.number(), tripCount: z.number() }).default({}),
+});
+
+export const assignmentReportSchema = reportBaseSchema.extend({
+  reportType: z.literal('assignments'),
+  rows: z.array(assignmentReportRowSchema).default([]),
+  summary: z.object({ count: z.number() }).default({}),
+});
+
+export const tripReportSchema = reportBaseSchema.extend({
+  reportType: z.literal('trips'),
+  rows: z.array(tripReportRowSchema).default([]),
+  summary: z.object({ count: z.number() }).default({}),
+});
+
+export const fuelReportSchema = reportBaseSchema.extend({
+  reportType: z.literal('fuel'),
+  rows: z.array(fuelReportRowSchema).default([]),
+  summary: z.object({ count: z.number(), totalCost: z.number() }).default({}),
+});
+
+export const maintenanceReportSchema = reportBaseSchema.extend({
+  reportType: z.literal('maintenance'),
+  rows: z.array(maintenanceReportRowSchema).default([]),
+  summary: z.object({ count: z.number(), actualCost: z.number() }).default({}),
+});
+
+export const documentReportSchema = reportBaseSchema.extend({
+  reportType: z.literal('documents'),
+  rows: z.array(documentReportRowSchema).default([]),
+  summary: z.object({ count: z.number() }).default({}),
+});
+
+export const financialReportSchema = reportBaseSchema.extend({
+  reportType: z.literal('financial'),
+});
+
+export const subscriptionReportSchema = reportBaseSchema.extend({
+  reportType: z.literal('subscriptions'),
+});
+
+export const auditReportSchema = reportBaseSchema.extend({
+  reportType: z.literal('audit'),
+});
+
+export const companyReportSchema = reportBaseSchema.extend({
+  reportType: z.literal('companies'),
+  rows: z.array(companyReportRowSchema).default([]),
+  summary: z.object({ count: z.number(), totalVehicles: z.number() }).default({}),
+});
+
+export const customReportResultSchema = reportBaseSchema.extend({
+  reportType: z.literal('custom'),
+});
+
+export const dashboardMetricsSchema = reportBaseSchema.extend({
+  reportType: z.literal('overview'),
+  statusBreakdown: reportBreakdownSchema.optional(),
+});
+
+/** Catalogue des schémas par catégorie de rapport (reportType → schéma). */
+export const REPORT_SCHEMAS = {
+  fleet: fleetReportSchema,
+  vehicles: vehicleReportSchema,
+  drivers: driverReportSchema,
+  assignments: assignmentReportSchema,
+  trips: tripReportSchema,
+  fuel: fuelReportSchema,
+  maintenance: maintenanceReportSchema,
+  documents: documentReportSchema,
+  financial: financialReportSchema,
+  subscriptions: subscriptionReportSchema,
+  audit: auditReportSchema,
+  companies: companyReportSchema,
+  custom: customReportResultSchema,
+  overview: dashboardMetricsSchema,
+};
+
+export const getReportSchema = (reportType) => REPORT_SCHEMAS[reportType] ?? null;
+
+/** Valide une réponse de rapport avec son schéma typé (repli sûr sur la donnée brute). */
+export const sanitizeReport = (report = {}, schema = reportBaseSchema) => {
+  const parsed = (schema || reportBaseSchema).safeParse(report);
+  return parsed.success ? parsed.data : report;
+};

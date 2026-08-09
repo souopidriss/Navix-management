@@ -88,6 +88,18 @@ export const resolveReportDateRange = (period = '', dateFrom = '', dateTo = '') 
       const start = new Date(now.getTime() - 29 * 86400000);
       return { from: iso(startOfDay(start)), to: iso(now) };
     }
+    case 'last90': {
+      const start = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
+      return { from: iso(startOfDay(start)), to: iso(now) };
+    }
+    case 'last180': {
+      const start = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
+      return { from: iso(startOfDay(start)), to: iso(now) };
+    }
+    case 'last365': {
+      const start = new Date(now.getFullYear(), now.getMonth() - 12, now.getDate());
+      return { from: iso(startOfDay(start)), to: iso(now) };
+    }
     case 'thisWeek': {
       const day = now.getDay() || 7; // lundi = 1
       const start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - day + 1);
@@ -380,6 +392,7 @@ export const toBreakdown = (counter, labelOf, variantOf) => {
 const vehicleGroupLabel = (key) => VEHICLE_GROUPS[key]?.label ?? key;
 const vehicleGroupVariant = (key) => VEHICLE_GROUPS[key]?.variant ?? 'secondary';
 const vehicleStatusLabel = (key) => VEHICLE_STATUSES[key]?.label ?? key;
+const vehicleStatusVariant = (key) => VEHICLE_STATUSES[key]?.variant ?? 'secondary';
 
 /** Libellé par défaut (met en majuscule la première lettre). */
 const capitalize = (value) => (value ? String(value).charAt(0).toUpperCase() + String(value).slice(1) : value);
@@ -715,7 +728,7 @@ export const aggregateFuelReport = (ctx, range, previousRange) => {
     };
   });
 
-  const fuelSeries = buildMonthlySeries(records, range, (f) => f.createdAt, (f) => f.totalCost);
+  const fuelSeries = buildMonthlySeries(records, range, (f) => f.createdAt, (f) => f.quantity);
 
   return {
     reportType: 'fuel',
@@ -726,7 +739,7 @@ export const aggregateFuelReport = (ctx, range, previousRange) => {
       toStat({ key: 'avgConsumption', label: 'Consommation moyenne', raw: avgConsumption, previous: prevRecords.filter((f) => f.status === 'validated').length ? average(prevRecords.filter((f) => f.status === 'validated'), (f) => f.consumptionAverage) : null, format: 'number', icon: 'bi-speedometer2', variant: 'info', invert: true }),
       toStat({ key: 'anomalies', label: 'Anomalies', raw: anomalies.length, previous: prevRecords.filter((f) => f.status === 'cancelled' || /anormal|incoh|douteux/i.test(f.notes || '')).length, format: 'number', icon: 'bi-exclamation-triangle', variant: 'danger' }),
     ],
-    series: { labels: fuelSeries.labels, datasets: [{ key: 'totalCost', label: 'Dépenses', values: fuelSeries.values, variant: 'warning' }] },
+    series: { labels: fuelSeries.labels, datasets: [{ key: 'totalQuantity', label: 'Consommation (L)', values: fuelSeries.values, variant: 'warning' }] },
     breakdown: toBreakdown(fuelTypes, capitalize),
     top: rows.slice(0, 5).map((row) => ({
       key: row.id,
@@ -1335,6 +1348,21 @@ export const aggregateOverviewReport = (ctx, range, previousRange) => {
   const utilization = percentage(inUseCount, vehiclesInPeriod.length);
   const previousUtilization = percentage(previousInUseCount, previousVehiclesInPeriod.length);
 
+  /* Véhicules en maintenance (statut courant). */
+  const maintenanceVehicles = countBy(vehiclesInPeriod, (v) => v.status).maintenance ?? 0;
+  const previousMaintenanceVehicles = countBy(previousVehiclesInPeriod, (v) => v.status).maintenance ?? 0;
+
+  /* Chauffeurs de la période. */
+  const driversInPeriod = inPeriod(scoped(MOCK_DRIVERS, ctx), range, (d) => d.createdAt);
+  const previousDriversInPeriod = inPeriod(scoped(MOCK_DRIVERS, ctx), previousRange, (d) => d.createdAt);
+
+  /* Répartition des véhicules par statut (donut du dashboard). */
+  const statusBreakdown = toBreakdown(
+    countBy(vehiclesInPeriod, (v) => v.status),
+    vehicleStatusLabel,
+    vehicleStatusVariant,
+  );
+
   /* Répartition des coûts d'exploitation par groupe de véhicules. */
   const costEntries = [
     ...currentFuel.map((f) => ({ group: vehicleGroupOf(f.vehicleId), cost: f.totalCost })),
@@ -1377,8 +1405,28 @@ export const aggregateOverviewReport = (ctx, range, previousRange) => {
       statOf(fleet, 'availabilityRate'),
       statOf(trips, 'total'),
       statOf(trips, 'distance'),
+      toStat({
+        key: 'maintenanceVehicles',
+        label: 'Véhicules en maintenance',
+        raw: maintenanceVehicles,
+        previous: previousMaintenanceVehicles,
+        format: 'number',
+        icon: 'bi-wrench-adjustable',
+        variant: 'warning',
+      }),
+      toStat({
+        key: 'drivers',
+        label: 'Chauffeurs',
+        raw: driversInPeriod.length,
+        previous: previousDriversInPeriod.length,
+        format: 'number',
+        icon: 'bi-person-badge',
+        variant: 'info',
+      }),
       statOf(fuel, 'totalCost'),
+      statOf(fuel, 'totalQuantity'),
       statOf(maintenance, 'actualCost'),
+      statOf(maintenance, 'estimatedCost'),
       toStat({
         key: 'costPerKm',
         label: 'Coût d’exploitation / km',
@@ -1411,6 +1459,7 @@ export const aggregateOverviewReport = (ctx, range, previousRange) => {
       ],
     },
     breakdown: toBreakdown(costsByGroup, vehicleGroupLabel, vehicleGroupVariant),
+    statusBreakdown,
     top,
     rows: [],
     summary: { count: vehiclesInPeriod.length, distance: currentDistance, costs: currentCosts },

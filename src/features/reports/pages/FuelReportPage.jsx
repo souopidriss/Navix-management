@@ -27,7 +27,7 @@ const FuelReportPage = () => {
       reportType="fuel"
       columns={columns}
       statusOptions={FUEL_STATUS_OPTIONS}
-      seriesTitle="Dépenses mensuelles"
+      seriesTitle="Consommation mensuelle (L)"
       breakdownTitle="Types de carburant"
       exportFilename="rapport-carburant"
     />

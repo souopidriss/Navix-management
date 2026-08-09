@@ -67,10 +67,12 @@ const ReportsOverview = () => {
 
   const series = overview.series || { labels: [], datasets: [] };
   const breakdown = overview.breakdown || { labels: [], values: [], variants: [] };
+  const statusBreakdown = overview.statusBreakdown || { labels: [], values: [], variants: [] };
   const top = overview.top || [];
 
   const hasSeries = series.labels.length > 0 && series.datasets.some((dataset) => dataset.values.some((v) => Number(v) > 0));
   const hasBreakdown = breakdown.labels.length > 0;
+  const hasStatusBreakdown = statusBreakdown.labels.length > 0;
 
   return (
     <section className="mb-5" aria-label="Aperçu analytique">
@@ -85,23 +87,32 @@ const ReportsOverview = () => {
 
       <StatsCards stats={metrics} columns={4} />
 
-      {(hasSeries || hasBreakdown) && (
+      {(hasSeries || hasBreakdown || hasStatusBreakdown) && (
         <div className="row g-3 mt-1">
           {hasSeries && (
-            <div className={hasBreakdown ? 'col-12 col-xl-7' : 'col-12'}>
+            <div className="col-12 col-xl-7">
               <Card title="Coûts d’exploitation mensuels" subtitle={preferences.currency}>
                 <AreaChart data={series} />
               </Card>
             </div>
           )}
-          {hasBreakdown && (
-            <div className={hasSeries ? 'col-12 col-xl-5' : 'col-12 col-xl-7'}>
-              <Card title="Coûts par groupe de véhicules" subtitle={preferences.currency}>
-                <DonutChart
-                  data={breakdown}
-                  formatValue={(value) => formatReportMoney(value, preferences.currency)}
-                />
-              </Card>
+          {(hasBreakdown || hasStatusBreakdown) && (
+            <div className="col-12 col-xl-5">
+              <div className="d-grid gap-3">
+                {hasBreakdown && (
+                  <Card title="Coûts par groupe de véhicules" subtitle={preferences.currency}>
+                    <DonutChart
+                      data={breakdown}
+                      formatValue={(value) => formatReportMoney(value, preferences.currency)}
+                    />
+                  </Card>
+                )}
+                {hasStatusBreakdown && (
+                  <Card title="Statut de la flotte">
+                    <DonutChart data={statusBreakdown} />
+                  </Card>
+                )}
+              </div>
             </div>
           )}
         </div>

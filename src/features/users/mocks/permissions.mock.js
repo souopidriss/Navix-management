@@ -22,6 +22,7 @@ const SENSITIVE = new Set([
   'roles.manage',
   'permissions.view',
   'reports.export',
+  'reports.manage',
 ]);
 
 const DEFS = [
@@ -84,6 +85,7 @@ const DEFS = [
   { module: 'permissions', action: 'view' },
   { module: 'reports', action: 'view' },
   { module: 'reports', action: 'export' },
+  { module: 'reports', action: 'manage' },
 ];
 
 const labelOf = (module, action) => {

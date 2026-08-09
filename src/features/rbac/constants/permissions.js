@@ -113,6 +113,7 @@ export const PERMISSIONS = {
   REPORTS_CREATE: 'reports.create',
   REPORTS_UPDATE: 'reports.update',
   REPORTS_DELETE: 'reports.delete',
+  REPORTS_MANAGE: 'reports.manage',
   REPORTS_VIEW_FINANCIAL: 'reports.viewFinancial',
   REPORTS_VIEW_SENSITIVE: 'reports.viewSensitive',
 };
