@@ -654,6 +654,8 @@ export const aggregateTripReport = (ctx, range, previousRange) => {
     };
   });
 
+  const tripsSeries = buildMonthlySeries(trips, range, (t) => t.departureDate || t.createdAt, (t) => t.actualDistance || t.plannedDistance);
+
   return {
     reportType: 'trips',
     period: { ...range },
@@ -663,7 +665,7 @@ export const aggregateTripReport = (ctx, range, previousRange) => {
       toStat({ key: 'onTimeRate', label: 'Taux de complétion', raw: onTimeRate, previous: prevTrips.length ? (prevTrips.filter((t) => t.status === 'completed').length / prevTrips.length) * 100 : null, format: 'percent', icon: 'bi-check-circle', variant: 'success' }),
       toStat({ key: 'avgDistance', label: 'Distance moyenne', raw: trips.length ? totalDistance / trips.length : 0, previous: prevTrips.length ? sum(prevTrips, (t) => t.actualDistance || t.plannedDistance) / prevTrips.length : null, format: 'distance', icon: 'bi-arrow-left-right', variant: 'warning' }),
     ],
-    series: buildMonthlySeries(trips, range, (t) => t.departureDate || t.createdAt, (t) => t.actualDistance || t.plannedDistance),
+    series: { labels: tripsSeries.labels, datasets: [{ key: 'distance', label: 'Distance', values: tripsSeries.values, variant: 'info' }] },
     breakdown: toBreakdown(types, capitalize),
     top: rows.slice(0, 5).map((row) => ({
       key: row.id,
@@ -713,6 +715,8 @@ export const aggregateFuelReport = (ctx, range, previousRange) => {
     };
   });
 
+  const fuelSeries = buildMonthlySeries(records, range, (f) => f.createdAt, (f) => f.totalCost);
+
   return {
     reportType: 'fuel',
     period: { ...range },
@@ -722,7 +726,7 @@ export const aggregateFuelReport = (ctx, range, previousRange) => {
       toStat({ key: 'avgConsumption', label: 'Consommation moyenne', raw: avgConsumption, previous: prevRecords.filter((f) => f.status === 'validated').length ? average(prevRecords.filter((f) => f.status === 'validated'), (f) => f.consumptionAverage) : null, format: 'number', icon: 'bi-speedometer2', variant: 'info', invert: true }),
       toStat({ key: 'anomalies', label: 'Anomalies', raw: anomalies.length, previous: prevRecords.filter((f) => f.status === 'cancelled' || /anormal|incoh|douteux/i.test(f.notes || '')).length, format: 'number', icon: 'bi-exclamation-triangle', variant: 'danger' }),
     ],
-    series: buildMonthlySeries(records, range, (f) => f.createdAt, (f) => f.totalCost),
+    series: { labels: fuelSeries.labels, datasets: [{ key: 'totalCost', label: 'Dépenses', values: fuelSeries.values, variant: 'warning' }] },
     breakdown: toBreakdown(fuelTypes, capitalize),
     top: rows.slice(0, 5).map((row) => ({
       key: row.id,
@@ -772,6 +776,8 @@ export const aggregateMaintenanceReport = (ctx, range, previousRange) => {
     };
   });
 
+  const maintenanceSeries = buildMonthlySeries(current, range, dateOf, (m) => m.actualCost || m.estimatedCost);
+
   return {
     reportType: 'maintenance',
     period: { ...range },
@@ -781,7 +787,7 @@ export const aggregateMaintenanceReport = (ctx, range, previousRange) => {
       toStat({ key: 'estimatedCost', label: 'Coût estimé', raw: estimatedCost, previous: sum(previous, (m) => m.estimatedCost || 0), format: 'money', icon: 'bi-receipt', variant: 'warning' }),
       toStat({ key: 'onTimeRate', label: 'Taux d’achèvement', raw: onTimeRate, previous: null, format: 'percent', icon: 'bi-check2-circle', variant: 'success' }),
     ],
-    series: buildMonthlySeries(current, range, dateOf, (m) => m.actualCost || m.estimatedCost),
+    series: { labels: maintenanceSeries.labels, datasets: [{ key: 'actualCost', label: 'Coût réel', values: maintenanceSeries.values, variant: 'danger' }] },
     breakdown: toBreakdown(types, capitalize),
     top: Object.entries(counts)
       .map(([key, value]) => ({ key, label: capitalize(key), value, sublabel: `${Math.round((value / Math.max(current.length, 1)) * 100)} %` }))
@@ -820,6 +826,8 @@ export const aggregateDocumentReport = (ctx, range, previousRange) => {
     };
   });
 
+  const documentsSeries = buildMonthlySeries(documents, range, (d) => d.createdAt, (d) => d.size || 0);
+
   return {
     reportType: 'documents',
     period: { ...range },
@@ -829,7 +837,7 @@ export const aggregateDocumentReport = (ctx, range, previousRange) => {
       toStat({ key: 'public', label: 'Publics', raw: visibility.public ?? 0, previous: countBy(prevDocuments, (d) => d.visibility || 'private').public ?? 0, format: 'number', icon: 'bi-eye', variant: 'success' }),
       toStat({ key: 'private', label: 'Privés', raw: visibility.private ?? 0, previous: countBy(prevDocuments, (d) => d.visibility || 'private').private ?? 0, format: 'number', icon: 'bi-lock', variant: 'warning' }),
     ],
-    series: buildMonthlySeries(documents, range, (d) => d.createdAt, (d) => d.size || 0),
+    series: { labels: documentsSeries.labels, datasets: [{ key: 'size', label: 'Stockage', values: documentsSeries.values, variant: 'info' }] },
     breakdown: toBreakdown(categories, capitalize),
     top: rows.slice(0, 5).map((row) => ({
       key: row.id,
@@ -903,6 +911,64 @@ export const aggregateFinancialReport = (ctx, range, previousRange) => {
     })),
     rows,
     summary: { count: invoices.length, totalInvoiced, totalPaid },
+  };
+};
+
+/* --------------------------------------------------------------------------
+   Rapport Paiements (payments — source de rapport personnalisé)
+   -------------------------------------------------------------------------- */
+
+export const aggregatePaymentReport = (ctx, range, previousRange) => {
+  const payments = inPeriod(scoped(MOCK_PAYMENTS, ctx), range, (p) => p.paymentDate || p.createdAt);
+  const prevPayments = inPeriod(scoped(MOCK_PAYMENTS, ctx), previousRange, (p) => p.paymentDate || p.createdAt);
+
+  const successful = payments.filter((p) => p.status === 'successful');
+  const totalPaid = sum(successful, (p) => p.amount || 0);
+  const prevSuccessful = prevPayments.filter((p) => p.status === 'successful');
+  const average = payments.length ? totalPaid / payments.length : 0;
+  const prevAverage = prevPayments.length ? sum(prevSuccessful, (p) => p.amount || 0) / prevPayments.length : null;
+  const methods = countBy(payments, (p) => p.method);
+  const statuses = countBy(payments, (p) => p.status);
+
+  const rows = [...payments]
+    .sort((a, b) => (b.paymentDate || b.createdAt || '').localeCompare(a.paymentDate || a.createdAt || ''))
+    .map((payment) => {
+      const company = MOCK_COMPANIES.find((c) => c.id === payment.companyId);
+      return {
+        id: payment.id,
+        number: payment.number,
+        status: payment.status,
+        method: payment.method,
+        amount: payment.amount,
+        currency: payment.currency,
+        paymentDate: payment.paymentDate || payment.createdAt,
+        invoiceNumber: payment.invoiceId || '',
+        companyName: company?.name ?? payment.companyId,
+      };
+    });
+
+  return {
+    reportType: 'payments',
+    period: { ...range },
+    statistics: [
+      toStat({ key: 'totalPaid', label: 'Total encaissé', raw: totalPaid, previous: sum(prevSuccessful, (p) => p.amount || 0), format: 'money', icon: 'bi-cash-coin', variant: 'success' }),
+      toStat({ key: 'count', label: 'Paiements', raw: payments.length, previous: prevPayments.length, format: 'number', icon: 'bi-credit-card', variant: 'primary' }),
+      toStat({ key: 'average', label: 'Paiement moyen', raw: average, previous: prevAverage, format: 'money', icon: 'bi-graph-up-arrow', variant: 'info' }),
+      toStat({ key: 'failed', label: 'Échoués', raw: statuses.failed ?? 0, previous: countBy(prevPayments, (p) => p.status).failed ?? 0, format: 'number', icon: 'bi-x-octagon', variant: 'danger' }),
+    ],
+    series: {
+      labels: [],
+      datasets: [],
+    },
+    breakdown: toBreakdown(methods, capitalize),
+    top: rows.slice(0, 5).map((row) => ({
+      key: row.id,
+      label: row.number,
+      value: row.amount,
+      sublabel: row.method,
+    })),
+    rows,
+    summary: { count: payments.length, totalPaid },
   };
 };
 
@@ -997,6 +1063,8 @@ export const aggregateAuditReport = (ctx, range, previousRange) => {
     createdAt: log.createdAt,
   }));
 
+  const auditSeries = buildMonthlySeries(logs, range, (l) => l.createdAt, () => 1);
+
   return {
     reportType: 'audit',
     period: { ...range },
@@ -1006,7 +1074,7 @@ export const aggregateAuditReport = (ctx, range, previousRange) => {
       toStat({ key: 'failed', label: 'Échoués', raw: statuses.failed ?? 0, previous: countBy(prevLogs, (l) => l.status).failed ?? 0, format: 'number', icon: 'bi-x-octagon', variant: 'danger' }),
       toStat({ key: 'critical', label: 'Critiques', raw: severities.critical ?? 0, previous: countBy(prevLogs, (l) => l.severity).critical ?? 0, format: 'number', icon: 'bi-exclamation-octagon', variant: 'danger' }),
     ],
-    series: buildMonthlySeries(logs, range, (l) => l.createdAt, () => 1),
+    series: { labels: auditSeries.labels, datasets: [{ key: 'events', label: 'Événements', values: auditSeries.values, variant: 'primary' }] },
     breakdown: toBreakdown(types, capitalize),
     top: rows.slice(0, 5).map((row) => ({
       key: row.id,
@@ -1099,6 +1167,8 @@ const AGGREGATE_BY_SOURCE = {
   maintenance: aggregateMaintenanceReport,
   documents: aggregateDocumentReport,
   financial: aggregateFinancialReport,
+  invoices: aggregateFinancialReport,
+  payments: aggregatePaymentReport,
   subscriptions: aggregateSubscriptionReport,
   audit: aggregateAuditReport,
   companies: aggregateCompanyReport,
@@ -1149,6 +1219,18 @@ export const CUSTOM_INDICATORS_BY_SOURCE = {
     { key: 'totalInvoiced', label: 'Facturé', format: 'money' },
     { key: 'totalPaid', label: 'Encaissé', format: 'money' },
     { key: 'outstanding', label: 'En attente', format: 'money' },
+  ],
+  invoices: [
+    { key: 'totalInvoiced', label: 'Facturé', format: 'money' },
+    { key: 'totalPaid', label: 'Encaissé', format: 'money' },
+    { key: 'outstanding', label: 'En attente', format: 'money' },
+    { key: 'collectionRate', label: 'Taux de recouvrement', format: 'percent' },
+  ],
+  payments: [
+    { key: 'totalPaid', label: 'Total encaissé', format: 'money' },
+    { key: 'count', label: 'Paiements', format: 'number' },
+    { key: 'average', label: 'Paiement moyen', format: 'money' },
+    { key: 'failed', label: 'Échoués', format: 'number' },
   ],
   subscriptions: [
     { key: 'total', label: 'Abonnements', format: 'number' },
@@ -1352,6 +1434,18 @@ export const AGGREGATE_FUNCTIONS = {
   subscriptions: aggregateSubscriptionReport,
   audit: aggregateAuditReport,
   companies: aggregateCompanyReport,
+  custom: (ctx) =>
+    buildCustomReport(
+      {
+        source: ctx?.filters?.source || 'fleet',
+        indicators: ctx?.filters?.indicators || [],
+        period: ctx?.filters?.period || 'thisMonth',
+        dateFrom: ctx?.filters?.dateFrom || '',
+        dateTo: ctx?.filters?.dateTo || '',
+        filters: ctx?.filters || {},
+      },
+      { companyScopeId: ctx?.companyScopeId || '' },
+    ),
 };
 
 /** Labels d'entreprises (pour filtres et tableaux). */
