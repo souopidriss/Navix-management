@@ -134,30 +134,6 @@ const TripHistoryPage = () => {
               </option>
             ))}
           </select>
-          <select
-            id="history-sort-by"
-            className="form-select w-auto"
-            value={sort.by}
-            onChange={(event) => {
-              setSort((current) => ({ ...current, by: event.target.value }));
-              setPage(1);
-            }}
-            aria-label="Trier par"
-          >
-            <option value="arrivalDate">Tri : Date d’arrivée</option>
-            <option value="departureDate">Tri : Date de départ</option>
-            <option value="duration">Tri : Durée</option>
-          </select>
-          <select
-            id="history-sort-direction"
-            className="form-select w-auto"
-            value={sort.direction}
-            onChange={(event) => setSort((current) => ({ ...current, direction: event.target.value }))}
-            aria-label="Sens du tri"
-          >
-            <option value="desc">Ordre : Décroissant</option>
-            <option value="asc">Ordre : Croissant</option>
-          </select>
         </div>
 
         {hasActiveFilters && (
@@ -182,6 +158,11 @@ const TripHistoryPage = () => {
                 companyById={companyById}
                 driverById={driverById}
                 vehicleById={vehicleById}
+                sort={sort}
+                onSortChange={(by, direction) => {
+                  setSort({ by, direction });
+                  setPage(1);
+                }}
                 onView={(tripId) => navigate(tripDetailPath(tripId))}
               />
             </div>

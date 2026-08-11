@@ -147,9 +147,7 @@ const VehicleListPage = () => {
         companies={companies}
         brands={brands}
         years={years}
-        sort={sort}
         onChange={setFilter}
-        onSortChange={(by, direction) => setSort(by, direction)}
         onReset={resetFilters}
         hasActiveFilters={hasActiveFilters}
       />
@@ -183,6 +181,8 @@ const VehicleListPage = () => {
             <VehicleTable
               vehicles={items}
               companyById={companyById}
+              sort={sort}
+              onSortChange={(by, direction) => setSort(by, direction)}
               onView={(id) => navigate(vehicleDetailPath(id))}
               onEdit={(id) => navigate(vehicleEditPath(id))}
               onDelete={setDeleteTarget}

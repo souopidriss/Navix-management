@@ -203,9 +203,7 @@ const AssignmentListPage = () => {
         filters={filters}
         companies={companies}
         agencies={agencies}
-        sort={sort}
         onChange={handleFilterChange}
-        onSortChange={(by, direction) => setSort(by, direction)}
         onReset={resetFilters}
         hasActiveFilters={hasActiveFilters}
       />
@@ -247,6 +245,8 @@ const AssignmentListPage = () => {
               companyById={companyById}
               driverById={driverById}
               vehicleById={vehicleById}
+              sort={sort}
+              onSortChange={(by, direction) => setSort(by, direction)}
               onView={(id) => navigate(assignmentDetailPath(id))}
               onEdit={(id) => navigate(assignmentEditPath(id))}
               onFinish={setFinishTarget}

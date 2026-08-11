@@ -1,9 +1,10 @@
 /**
  * Navix Companies — DeleteCompanyModal
  * --------------------------------------------------------------------------
- * Modale de confirmation de suppression d'une entreprise. Contrôlée en React
- * (pas d'API Bootstrap) : arrière-plan cliquable, fermeture par Échap,
- * focus initial sur le bouton d'annulation et verrouillage du scroll.
+ * Modale de confirmation de suppression d'une entreprise. Construite sur le
+ * DeleteModal générique de la bibliothèque core (backdrop, Échap, scroll
+ * lock, focus initial gérés par ConfirmDialog). Le message rappelle la
+ * suppression des données associées.
  *
  * Props :
  *   company   : entreprise à supprimer (null = modale fermée)
@@ -13,72 +14,23 @@
  *   onConfirm : () => void — confirme la suppression
  *   onClose   : () => void — ferme la modale
  */
-import { useEffect } from 'react';
-import { Alert, Button } from '@/components/ui';
-import './DeleteCompanyModal.css';
+import { DeleteModal } from '@/components/core';
 
-const DeleteCompanyModal = ({ company, open, loading, error, onConfirm, onClose }) => {
-
-  useEffect(() => {
-    if (!open) return undefined;
-
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') onClose();
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    document.body.classList.add('navix-modal-open');
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.classList.remove('navix-modal-open');
-    };
-  }, [open, onClose]);
-
-  if (!open || !company) return null;
-
-  return (
-    <div className="navix-modal" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}>
-      <div className="navix-modal__backdrop" aria-hidden="true" />
-      <div
-        className="navix-modal__dialog"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="delete-company-title"
-        aria-describedby="delete-company-description"
-      >
-        <div className="modal-content">
-          <div className="modal-header">
-            <h2 className="modal-title h5" id="delete-company-title">
-              Supprimer l’entreprise
-            </h2>
-            <Button variant="ghost" size="sm" icon="bi-x-lg" onClick={onClose} aria-label="Fermer la fenêtre" />
-          </div>
-
-          <div className="modal-body">
-            {error && (
-              <Alert variant="danger" className="mb-3">
-                {error}
-              </Alert>
-            )}
-            <p id="delete-company-description" className="mb-0">
-              Voulez-vous vraiment supprimer <strong>{company.name}</strong>&nbsp;? Cette action est
-              irréversible et supprimera également les données associées.
-            </p>
-          </div>
-
-          <div className="modal-footer">
-            <Button variant="secondary" onClick={onClose} disabled={loading} autoFocus>
-              Annuler
-            </Button>
-            <Button variant="danger" icon="bi-trash3" onClick={onConfirm} loading={loading}>
-              Supprimer
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+const DeleteCompanyModal = ({ company, open, loading, error, onConfirm, onClose }) => (
+  <DeleteModal
+    open={open}
+    onClose={onClose}
+    title="Supprimer l’entreprise"
+    entityName={company?.name}
+    message={
+      company
+        ? `Voulez-vous vraiment supprimer ${company.name} ? Cette action est irréversible et supprimera également les données associées.`
+        : undefined
+    }
+    loading={loading}
+    error={error}
+    onConfirm={onConfirm}
+  />
+);
 
 export default DeleteCompanyModal;

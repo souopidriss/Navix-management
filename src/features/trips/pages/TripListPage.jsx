@@ -191,9 +191,7 @@ const TripListPage = () => {
         companies={companies}
         drivers={drivers}
         vehicles={vehicles}
-        sort={sort}
         onChange={handleFilterChange}
-        onSortChange={(by, direction) => setSort(by, direction)}
         onReset={resetFilters}
         hasActiveFilters={hasActiveFilters}
       />
@@ -235,6 +233,8 @@ const TripListPage = () => {
               companyById={companyById}
               driverById={driverById}
               vehicleById={vehicleById}
+              sort={sort}
+              onSortChange={(by, direction) => setSort(by, direction)}
               onView={(id) => navigate(tripDetailPath(id))}
               onEdit={(id) => navigate(tripEditPath(id))}
               onFinish={setFinishTarget}

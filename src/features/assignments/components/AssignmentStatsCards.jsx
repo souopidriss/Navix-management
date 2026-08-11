@@ -2,13 +2,13 @@
  * Navix Assignments — AssignmentStatsCards
  * --------------------------------------------------------------------------
  * Cartes de statistiques du module Affectations : total, actives, prévues et
- * en retard. Les valeurs sont dérivées de la liste chargée.
+ * en retard. Les valeurs sont dérivées de la liste chargée puis rendues via
+ * le StatsCards générique de la bibliothèque core.
  *
  * Props :
  *   assignments : liste des affectations (source des compteurs)
  */
-import { Card } from '@/components/ui';
-import './AssignmentStatsCards.css';
+import { StatsCards } from '@/components/core';
 
 const buildStats = (assignments = []) => {
   const lateCount = assignments.filter(
@@ -50,22 +50,6 @@ const buildStats = (assignments = []) => {
   ];
 };
 
-const AssignmentStatsCards = ({ assignments = [] }) => (
-  <div className="row g-3 navix-assignment-stats">
-    {buildStats(assignments).map((stat) => (
-      <div key={stat.key} className="col-6 col-lg-3">
-        <Card className="navix-assignment-stat">
-          <span className={`navix-assignment-stat__icon navix-assignment-stat__icon--${stat.variant}`} aria-hidden="true">
-            <i className={`bi ${stat.icon}`} />
-          </span>
-          <span className="navix-assignment-stat__body">
-            <span className="navix-assignment-stat__value">{stat.value}</span>
-            <span className="navix-assignment-stat__label">{stat.label}</span>
-          </span>
-        </Card>
-      </div>
-    ))}
-  </div>
-);
+const AssignmentStatsCards = ({ assignments = [] }) => <StatsCards stats={buildStats(assignments)} />;
 
 export default AssignmentStatsCards;

@@ -2,13 +2,13 @@
  * Navix Companies — CompanyStatsCards
  * --------------------------------------------------------------------------
  * Cartes de statistiques du module Entreprises : total, actives, en attente
- * et abonnements actifs. Les valeurs sont dérivées de la liste chargée.
+ * et abonnements actifs. Les valeurs sont dérivées de la liste chargée puis
+ * rendues via le StatsCards générique de la bibliothèque core.
  *
  * Props :
  *   companies : liste des entreprises (source des compteurs)
  */
-import { Card } from '@/components/ui';
-import './CompanyStatsCards.css';
+import { StatsCards } from '@/components/core';
 
 const buildStats = (companies = []) => [
   {
@@ -41,22 +41,6 @@ const buildStats = (companies = []) => [
   },
 ];
 
-const CompanyStatsCards = ({ companies = [] }) => (
-  <div className="row g-3 navix-company-stats">
-    {buildStats(companies).map((stat) => (
-      <div key={stat.key} className="col-6 col-lg-3">
-        <Card className="navix-company-stat">
-          <span className={`navix-company-stat__icon navix-company-stat__icon--${stat.variant}`} aria-hidden="true">
-            <i className={`bi ${stat.icon}`} />
-          </span>
-          <span className="navix-company-stat__body">
-            <span className="navix-company-stat__value">{stat.value}</span>
-            <span className="navix-company-stat__label">{stat.label}</span>
-          </span>
-        </Card>
-      </div>
-    ))}
-  </div>
-);
+const CompanyStatsCards = ({ companies = [] }) => <StatsCards stats={buildStats(companies)} />;
 
 export default CompanyStatsCards;

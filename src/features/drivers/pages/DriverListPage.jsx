@@ -146,9 +146,7 @@ const DriverListPage = () => {
         filters={filters}
         companies={companies}
         agencies={agencies}
-        sort={sort}
         onChange={handleFilterChange}
-        onSortChange={(by, direction) => setSort(by, direction)}
         onReset={resetFilters}
         hasActiveFilters={hasActiveFilters}
       />
@@ -184,6 +182,8 @@ const DriverListPage = () => {
               drivers={items}
               companyById={companyById}
               agencyById={agencyById}
+              sort={sort}
+              onSortChange={(by, direction) => setSort(by, direction)}
               onView={(id) => navigate(driverDetailPath(id))}
               onEdit={(id) => navigate(driverEditPath(id))}
               onDelete={setDeleteTarget}

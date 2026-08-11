@@ -2,7 +2,8 @@
  * Navix Vehicles — EmptyVehicleState
  * --------------------------------------------------------------------------
  * État vide de la liste (aucun véhicule ou aucun résultat) : icône, message,
- * bouton de réinitialisation des filtres et/ou de création.
+ * bouton de réinitialisation des filtres et/ou de création. Construit sur
+ * l'EmptyState générique de la bibliothèque core.
  *
  * Props :
  *   onReset  : () => void — réinitialise recherche et filtres
@@ -11,6 +12,7 @@
  *   message  : message personnalisé
  */
 import { Button } from '@/components/ui';
+import { EmptyState } from '@/components/core';
 
 const EmptyVehicleState = ({
   onReset,
@@ -18,11 +20,11 @@ const EmptyVehicleState = ({
   title = 'Aucun véhicule trouvé',
   message = 'Aucun véhicule ne correspond à vos critères. Modifiez votre recherche ou vos filtres.',
 }) => (
-  <div className="card">
-    <div className="card-body text-center py-5">
-      <i className="bi bi-truck display-4 text-secondary" aria-hidden="true" />
-      <h2 className="h5 mt-3 mb-1">{title}</h2>
-      <p className="text-secondary mx-auto mb-4 navix-vehicle-empty__message">{message}</p>
+  <EmptyState
+    icon="bi-truck"
+    title={title}
+    description={message}
+    action={
       <div className="d-flex justify-content-center gap-2 flex-wrap">
         {onReset && (
           <Button variant="outline" icon="bi-arrow-counterclockwise" onClick={onReset}>
@@ -35,8 +37,8 @@ const EmptyVehicleState = ({
           </Button>
         )}
       </div>
-    </div>
-  </div>
+    }
+  />
 );
 
 export default EmptyVehicleState;

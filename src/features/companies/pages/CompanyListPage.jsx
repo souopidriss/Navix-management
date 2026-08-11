@@ -122,9 +122,7 @@ const CompanyListPage = () => {
       <CompanyFilter
         filters={filters}
         cities={cities}
-        sort={sort}
         onChange={setFilter}
-        onSortChange={(by, direction) => setSort(by, direction)}
         onReset={resetFilters}
         hasActiveFilters={hasActiveFilters}
       />
@@ -156,6 +154,8 @@ const CompanyListPage = () => {
           ) : (
             <CompanyTable
               companies={items}
+              sort={sort}
+              onSortChange={(by, direction) => setSort(by, direction)}
               onView={(id) => navigate(companyDetailPath(id))}
               onEdit={(id) => navigate(companyEditPath(id))}
               onDelete={setDeleteTarget}

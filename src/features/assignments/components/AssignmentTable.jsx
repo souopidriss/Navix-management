@@ -1,21 +1,25 @@
 /**
  * Navix Assignments — AssignmentTable
  * --------------------------------------------------------------------------
- * Tableau des affectations (affichage desktop) : numéro, chauffeur, véhicule,
- * entreprise, type, début, fin prévue, statut et actions (voir, modifier,
- * terminer, supprimer).
+ * Tableau des affectations (affichage desktop) construit sur le DataTable
+ * générique de la bibliothèque core : numéro, chauffeur, véhicule, entreprise,
+ * type, début, fin prévue, statut et actions (voir, modifier, terminer,
+ * supprimer). Tri par en-tête géré par le store.
  *
  * Props :
- *   assignments : liste des affectations à afficher (filtrée/triée/paginée)
- *   companyById : carte { id → { name } } des entreprises
- *   driverById  : carte { id → { fullName } } des chauffeurs
- *   vehicleById : carte { id → { registrationNumber, brand, model } } des véhicules
- *   onView      : (id: string) => void
- *   onEdit      : (id: string) => void
- *   onFinish    : (assignment: object) => void
- *   onDelete    : (assignment: object) => void
+ *   assignments  : liste des affectations à afficher (filtrée/triée/paginée)
+ *   companyById  : carte { id → { name } } des entreprises
+ *   driverById   : carte { id → { fullName } } des chauffeurs
+ *   vehicleById  : carte { id → { registrationNumber, brand, model } } des véhicules
+ *   sort         : { by, direction } — tri contrôlé
+ *   onSortChange : (by, direction) => void
+ *   onView       : (id: string) => void
+ *   onEdit       : (id: string) => void
+ *   onFinish     : (assignment: object) => void — optionnel (cache l'action)
+ *   onDelete     : (assignment: object) => void — optionnel (cache l'action)
  */
-import { Badge, Button } from '@/components/ui';
+import { Badge } from '@/components/ui';
+import { DataTable } from '@/components/core';
 import AssignmentStatusBadge from './AssignmentStatusBadge';
 import { getAssignmentType, formatAssignmentDate } from '../constants';
 import './AssignmentTable.css';
@@ -25,116 +29,139 @@ const AssignmentTable = ({
   companyById = {},
   driverById = {},
   vehicleById = {},
+  sort,
+  onSortChange,
   onView,
   onEdit,
   onFinish,
   onDelete,
-}) => (
-  <div className="table-responsive">
-    <table className="table table-hover align-middle mb-0 navix-assignment-table">
-      <thead>
-        <tr>
-          <th scope="col">N°</th>
-          <th scope="col">Chauffeur</th>
-          <th scope="col">Véhicule</th>
-          <th scope="col">Entreprise</th>
-          <th scope="col">Type</th>
-          <th scope="col">Début</th>
-          <th scope="col">Fin prévue</th>
-          <th scope="col">Statut</th>
-          <th scope="col" className="text-end">
-            <span className="visually-hidden">Actions</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {assignments.map((assignment) => {
-          const type = getAssignmentType(assignment.assignmentType);
-          const vehicle = vehicleById[assignment.vehicleId] ?? {};
-          const vehicleLabel = vehicle.registrationNumber || `${vehicle.brand ?? ''} ${vehicle.model ?? ''}`.trim();
+}) => {
+  const columns = [
+    {
+      key: 'assignmentNumber',
+      label: 'N°',
+      className: 'navix-assignment-table__number',
+      render: (assignment) => (
+        <button
+          type="button"
+          className="navix-assignment-table__link"
+          onClick={() => onView(assignment.id)}
+          title={`Voir ${assignment.assignmentNumber}`}
+        >
+          {assignment.assignmentNumber}
+        </button>
+      ),
+    },
+    {
+      key: 'driver',
+      label: 'Chauffeur',
+      sortable: true,
+      className: 'navix-assignment-table__driver',
+      render: (assignment) => driverById[assignment.driverId]?.fullName ?? '—',
+    },
+    {
+      key: 'vehicle',
+      label: 'Véhicule',
+      sortable: true,
+      className: 'navix-assignment-table__vehicle',
+      render: (assignment) => {
+        const vehicle = vehicleById[assignment.vehicleId] ?? {};
+        const vehicleLabel =
+          vehicle.registrationNumber || `${vehicle.brand ?? ''} ${vehicle.model ?? ''}`.trim();
+        return (
+          <>
+            {vehicleLabel || '—'}
+            {vehicle.brand && vehicle.model && (
+              <span className="navix-assignment-table__vehicle-sub">
+                {vehicle.brand} {vehicle.model}
+              </span>
+            )}
+          </>
+        );
+      },
+    },
+    {
+      key: 'company',
+      label: 'Entreprise',
+      sortable: true,
+      className: 'navix-assignment-table__company',
+      render: (assignment) => companyById[assignment.companyId]?.name ?? '—',
+    },
+    {
+      key: 'assignmentType',
+      label: 'Type',
+      render: (assignment) => {
+        const type = getAssignmentType(assignment.assignmentType);
+        return (
+          <Badge variant={type.variant} soft>
+            {type.label}
+          </Badge>
+        );
+      },
+    },
+    {
+      key: 'startDate',
+      label: 'Début',
+      sortable: true,
+      className: 'navix-assignment-table__date',
+      render: (assignment) => formatAssignmentDate(assignment.startDate),
+    },
+    {
+      key: 'endDate',
+      label: 'Fin prévue',
+      sortable: true,
+      className: 'navix-assignment-table__date',
+      render: (assignment) => formatAssignmentDate(assignment.expectedEndDate),
+    },
+    {
+      key: 'status',
+      label: 'Statut',
+      render: (assignment) => <AssignmentStatusBadge status={assignment.status} />,
+    },
+  ];
 
-          return (
-            <tr key={assignment.id}>
-              <td className="navix-assignment-table__number">
-                <button
-                  type="button"
-                  className="navix-assignment-table__link"
-                  onClick={() => onView(assignment.id)}
-                  title={`Voir ${assignment.assignmentNumber}`}
-                >
-                  {assignment.assignmentNumber}
-                </button>
-              </td>
-              <td className="navix-assignment-table__driver">
-                {driverById[assignment.driverId]?.fullName ?? '—'}
-              </td>
-              <td className="navix-assignment-table__vehicle">
-                {vehicleLabel || '—'}
-                {vehicle.brand && vehicle.model && (
-                  <span className="navix-assignment-table__vehicle-sub">
-                    {vehicle.brand} {vehicle.model}
-                  </span>
-                )}
-              </td>
-              <td className="navix-assignment-table__company">
-                {companyById[assignment.companyId]?.name ?? '—'}
-              </td>
-              <td>
-                <Badge variant={type.variant} soft>
-                  {type.label}
-                </Badge>
-              </td>
-              <td className="navix-assignment-table__date">{formatAssignmentDate(assignment.startDate)}</td>
-              <td className="navix-assignment-table__date">
-                {formatAssignmentDate(assignment.expectedEndDate)}
-              </td>
-              <td>
-                <AssignmentStatusBadge status={assignment.status} />
-              </td>
-              <td>
-                <div className="d-flex justify-content-end gap-1">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon="bi-eye"
-                    onClick={() => onView(assignment.id)}
-                    title="Voir le détail"
-                    aria-label={`Voir le détail de ${assignment.assignmentNumber}`}
-                  />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon="bi-pencil"
-                    onClick={() => onEdit(assignment.id)}
-                    title="Modifier"
-                    aria-label={`Modifier ${assignment.assignmentNumber}`}
-                  />
-                  {onFinish && assignment.status === 'active' && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      icon="bi-check2-circle"
-                      onClick={() => onFinish(assignment)}
-                      title="Terminer l’affectation"
-                      aria-label={`Terminer ${assignment.assignmentNumber}`}
-                    />
-                  )}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon="bi-trash3"
-                    onClick={() => onDelete(assignment)}
-                    title="Supprimer"
-                    aria-label={`Supprimer ${assignment.assignmentNumber}`}
-                  />
-                </div>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  </div>
-);
+  return (
+    <DataTable
+      className="navix-assignment-table"
+      columns={columns}
+      rows={assignments}
+      sort={sort}
+      onSortChange={onSortChange}
+      ariaLabel="Liste des affectations"
+      actions={[
+        {
+          key: 'view',
+          label: (assignment) => `Voir le détail de ${assignment.assignmentNumber}`,
+          title: 'Voir le détail',
+          icon: 'bi-eye',
+          onClick: (assignment) => onView(assignment.id),
+        },
+        {
+          key: 'edit',
+          label: (assignment) => `Modifier ${assignment.assignmentNumber}`,
+          title: 'Modifier',
+          icon: 'bi-pencil',
+          onClick: (assignment) => onEdit(assignment.id),
+        },
+        {
+          key: 'finish',
+          label: (assignment) => `Terminer ${assignment.assignmentNumber}`,
+          title: 'Terminer l’affectation',
+          icon: 'bi-check2-circle',
+          show: (assignment) => Boolean(onFinish) && assignment.status === 'active',
+          onClick: (assignment) => onFinish(assignment),
+        },
+        {
+          key: 'delete',
+          label: (assignment) => `Supprimer ${assignment.assignmentNumber}`,
+          title: 'Supprimer',
+          icon: 'bi-trash3',
+          show: () => Boolean(onDelete),
+          onClick: (assignment) => onDelete(assignment),
+        },
+      ]}
+    />
+  );
+};
 
 export default AssignmentTable;

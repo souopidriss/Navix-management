@@ -2,13 +2,13 @@
  * Navix Vehicles — VehicleStatsCards
  * --------------------------------------------------------------------------
  * Cartes de statistiques du module Véhicules : parc total, disponibles,
- * en mission et en maintenance. Les valeurs sont dérivées de la liste chargée.
+ * en mission et en maintenance. Les valeurs sont dérivées de la liste chargée
+ * puis rendues via le StatsCards générique de la bibliothèque core.
  *
  * Props :
  *   vehicles : liste des véhicules (source des compteurs)
  */
-import { Card } from '@/components/ui';
-import './VehicleStatsCards.css';
+import { StatsCards } from '@/components/core';
 
 const buildStats = (vehicles = []) => [
   {
@@ -41,22 +41,6 @@ const buildStats = (vehicles = []) => [
   },
 ];
 
-const VehicleStatsCards = ({ vehicles = [] }) => (
-  <div className="row g-3 navix-vehicle-stats">
-    {buildStats(vehicles).map((stat) => (
-      <div key={stat.key} className="col-6 col-lg-3">
-        <Card className="navix-vehicle-stat">
-          <span className={`navix-vehicle-stat__icon navix-vehicle-stat__icon--${stat.variant}`} aria-hidden="true">
-            <i className={`bi ${stat.icon}`} />
-          </span>
-          <span className="navix-vehicle-stat__body">
-            <span className="navix-vehicle-stat__value">{stat.value}</span>
-            <span className="navix-vehicle-stat__label">{stat.label}</span>
-          </span>
-        </Card>
-      </div>
-    ))}
-  </div>
-);
+const VehicleStatsCards = ({ vehicles = [] }) => <StatsCards stats={buildStats(vehicles)} />;
 
 export default VehicleStatsCards;

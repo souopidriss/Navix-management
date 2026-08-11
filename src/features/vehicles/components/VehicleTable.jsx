@@ -1,119 +1,144 @@
 /**
  * Navix Vehicles — VehicleTable
  * --------------------------------------------------------------------------
- * Tableau des véhicules (affichage desktop) : photo, immatriculation,
- * marque, modèle, groupe, entreprise, kilométrage, statut, expiration de
- * l'assurance et actions.
+ * Tableau des véhicules (affichage desktop) construit sur le DataTable
+ * générique de la bibliothèque core : photo, immatriculation, marque, modèle,
+ * groupe, entreprise, kilométrage, statut, expiration de l'assurance et
+ * actions. Tri par en-tête (Marque, Kilométrage) géré par le store.
  *
  * Props :
  *   vehicles    : liste des véhicules à afficher (filtrée/triée/paginée)
  *   companyById : carte { id → { name } } des entreprises
+ *   sort        : { by, direction } — tri contrôlé
+ *   onSortChange : (by, direction) => void
  *   onView      : (id: string) => void
  *   onEdit      : (id: string) => void
  *   onDelete    : (vehicle: object) => void
  */
-import { Button } from '@/components/ui';
+import { DataTable } from '@/components/core';
 import VehicleImage from './VehicleImage';
 import VehicleStatusBadge from './VehicleStatusBadge';
 import VehicleGroupBadge from './VehicleGroupBadge';
 import { formatMileage, formatVehicleDate, getExpiryStatus } from '../constants';
 import './VehicleTable.css';
 
-const VehicleTable = ({ vehicles = [], companyById = {}, onView, onEdit, onDelete }) => (
-  <div className="table-responsive">
-    <table className="table table-hover align-middle mb-0 navix-vehicle-table">
-      <thead>
-        <tr>
-          <th scope="col" className="navix-vehicle-table__photo">
-            <span className="visually-hidden">Photo</span>
-          </th>
-          <th scope="col">Immatriculation</th>
-          <th scope="col">Marque</th>
-          <th scope="col">Modèle</th>
-          <th scope="col">Groupe</th>
-          <th scope="col">Entreprise</th>
-          <th scope="col" className="text-end">Kilométrage</th>
-          <th scope="col">Statut</th>
-          <th scope="col">Expiration assurance</th>
-          <th scope="col" className="text-end">
-            <span className="visually-hidden">Actions</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {vehicles.map((vehicle) => {
-          const expiry = getExpiryStatus(vehicle.insuranceExpiry);
-          const companyName = companyById[vehicle.companyId]?.name ?? '—';
+const VehicleTable = ({ vehicles = [], companyById = {}, sort, onSortChange, onView, onEdit, onDelete }) => {
+  const columns = [
+    {
+      key: 'photo',
+      label: 'Photo',
+      srOnly: true,
+      width: '3.25rem',
+      className: 'navix-vehicle-table__photo',
+      render: (vehicle) => (
+        <VehicleImage src={vehicle.photo} name={`${vehicle.brand} ${vehicle.model}`} size="sm" />
+      ),
+    },
+    {
+      key: 'registrationNumber',
+      label: 'Immatriculation',
+      render: (vehicle) => (
+        <button
+          type="button"
+          className="navix-vehicle-table__reg"
+          onClick={() => onView(vehicle.id)}
+          title={`Voir ${vehicle.registrationNumber}`}
+        >
+          {vehicle.registrationNumber}
+        </button>
+      ),
+    },
+    {
+      key: 'brand',
+      label: 'Marque',
+      sortable: true,
+      render: (vehicle) => vehicle.brand,
+    },
+    {
+      key: 'model',
+      label: 'Modèle',
+      render: (vehicle) => vehicle.model,
+    },
+    {
+      key: 'group',
+      label: 'Groupe',
+      render: (vehicle) => <VehicleGroupBadge group={vehicle.group} />,
+    },
+    {
+      key: 'company',
+      label: 'Entreprise',
+      className: 'navix-vehicle-table__company',
+      render: (vehicle) => companyById[vehicle.companyId]?.name ?? '—',
+    },
+    {
+      key: 'mileage',
+      label: 'Kilométrage',
+      align: 'end',
+      sortable: true,
+      render: (vehicle) => <span className="tabular-nums">{formatMileage(vehicle.mileage)}</span>,
+    },
+    {
+      key: 'status',
+      label: 'Statut',
+      render: (vehicle) => <VehicleStatusBadge status={vehicle.status} />,
+    },
+    {
+      key: 'insuranceExpiry',
+      label: 'Expiration assurance',
+      className: 'navix-vehicle-table__expiry',
+      render: (vehicle) => {
+        const expiry = getExpiryStatus(vehicle.insuranceExpiry);
+        return (
+          <>
+            <span
+              className={`navix-vehicle-table__expiry-date navix-vehicle-table__expiry-date--${expiry.variant}`}
+            >
+              {formatVehicleDate(vehicle.insuranceExpiry)}
+            </span>
+            {expiry.variant !== 'success' && expiry.variant !== 'secondary' && (
+              <span className={`navix-vehicle-table__expiry-tag navix-vehicle-table__expiry-tag--${expiry.variant}`}>
+                {expiry.label}
+              </span>
+            )}
+          </>
+        );
+      },
+    },
+  ];
 
-          return (
-            <tr key={vehicle.id}>
-              <td className="navix-vehicle-table__photo">
-                <VehicleImage src={vehicle.photo} name={`${vehicle.brand} ${vehicle.model}`} size="sm" />
-              </td>
-              <td>
-                <button
-                  type="button"
-                  className="navix-vehicle-table__reg"
-                  onClick={() => onView(vehicle.id)}
-                  title={`Voir ${vehicle.registrationNumber}`}
-                >
-                  {vehicle.registrationNumber}
-                </button>
-              </td>
-              <td>{vehicle.brand}</td>
-              <td>{vehicle.model}</td>
-              <td>
-                <VehicleGroupBadge group={vehicle.group} />
-              </td>
-              <td className="navix-vehicle-table__company">{companyName}</td>
-              <td className="text-end tabular-nums">{formatMileage(vehicle.mileage)}</td>
-              <td>
-                <VehicleStatusBadge status={vehicle.status} />
-              </td>
-              <td className="navix-vehicle-table__expiry">
-                <span className={`navix-vehicle-table__expiry-date navix-vehicle-table__expiry-date--${expiry.variant}`}>
-                  {formatVehicleDate(vehicle.insuranceExpiry)}
-                </span>
-                {expiry.variant !== 'success' && expiry.variant !== 'secondary' && (
-                  <span className={`navix-vehicle-table__expiry-tag navix-vehicle-table__expiry-tag--${expiry.variant}`}>
-                    {expiry.label}
-                  </span>
-                )}
-              </td>
-              <td>
-                <div className="d-flex justify-content-end gap-1">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon="bi-eye"
-                    onClick={() => onView(vehicle.id)}
-                    title="Voir le détail"
-                    aria-label={`Voir le détail de ${vehicle.registrationNumber}`}
-                  />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon="bi-pencil"
-                    onClick={() => onEdit(vehicle.id)}
-                    title="Modifier"
-                    aria-label={`Modifier ${vehicle.registrationNumber}`}
-                  />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    icon="bi-trash3"
-                    onClick={() => onDelete(vehicle)}
-                    title="Supprimer"
-                    aria-label={`Supprimer ${vehicle.registrationNumber}`}
-                  />
-                </div>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  </div>
-);
+  return (
+    <DataTable
+      className="navix-vehicle-table"
+      columns={columns}
+      rows={vehicles}
+      sort={sort}
+      onSortChange={onSortChange}
+      ariaLabel="Liste des véhicules"
+      actions={[
+        {
+          key: 'view',
+          label: (vehicle) => `Voir le détail de ${vehicle.registrationNumber}`,
+          title: 'Voir le détail',
+          icon: 'bi-eye',
+          onClick: (vehicle) => onView(vehicle.id),
+        },
+        {
+          key: 'edit',
+          label: (vehicle) => `Modifier ${vehicle.registrationNumber}`,
+          title: 'Modifier',
+          icon: 'bi-pencil',
+          onClick: (vehicle) => onEdit(vehicle.id),
+        },
+        {
+          key: 'delete',
+          label: (vehicle) => `Supprimer ${vehicle.registrationNumber}`,
+          title: 'Supprimer',
+          icon: 'bi-trash3',
+          onClick: (vehicle) => onDelete(vehicle),
+        },
+      ]}
+    />
+  );
+};
 
 export default VehicleTable;
