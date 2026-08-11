@@ -129,6 +129,15 @@ export const PUBLIC_ROUTES = [ROUTES.HOME, ROUTES.MAINTENANCE];
 
 export const AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD, ROUTES.RESET_PASSWORD];
 
+/**
+ * Route d'atterrissage post-connexion.
+ * Retourne la page de destination valide pour l'utilisateur courant, sinon le
+ * Dashboard. Point d'extension : une landing page dédiée (ou une landing par
+ * rôle) pourra être branchée ici sans toucher aux guards.
+ * @returns {string}
+ */
+export const resolveLandingRoute = () => ROUTES.DASHBOARD;
+
 /** Construit le chemin de détail d'une entreprise. */
 export const companyDetailPath = (id) => `${ROUTES.COMPANIES}/${id}`;
 

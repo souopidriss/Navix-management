@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { App } from '@/app';
 import ThemeProvider from '@/providers/ThemeProvider';
 import useThemeStore from '@/store/theme.store';
+import { useAuthStore } from '@/features/auth';
 import { APP_NAME } from '@/config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -15,6 +16,9 @@ document.title = APP_NAME;
 
 useThemeStore.getState().initializeTheme();
 document.documentElement.setAttribute('data-bs-theme', useThemeStore.getState().resolvedTheme);
+
+/* Restauration de session locale (aucun appel backend) + synchro RBAC. */
+useAuthStore.getState().restoreSession();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

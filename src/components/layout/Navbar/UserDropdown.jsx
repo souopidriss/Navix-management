@@ -8,9 +8,9 @@ const UserDropdown = () => {
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
 
-  const handleLogout = () => {
-    logout();
-    navigate(ROUTES.LOGIN);
+  const handleLogout = async () => {
+    await logout();
+    navigate(ROUTES.LOGIN, { replace: true });
   };
 
   return (

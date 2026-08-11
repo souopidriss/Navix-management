@@ -5,10 +5,10 @@
  * « mot de passe oublié ». Validation exclusive Zod, états loading / error
  * pilotés par le store auth (simulation — aucun appel backend).
  */
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { Alert, Button } from '@/components/ui';
-import { ROUTES } from '@/routes/route.constants';
+import { PRIVATE_ROUTES, ROUTES, resolveLandingRoute } from '@/routes/route.constants';
 import { useAuthStore } from '../store';
 import { useZodForm } from '../hooks';
 import { loginSchema, loginDefaultValues } from '../schemas';
@@ -18,6 +18,7 @@ import RememberMe from './RememberMe';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const login = useAuthStore((state) => state.login);
   const clearError = useAuthStore((state) => state.clearError);
   const isLoading = useAuthStore((state) => state.isLoading);
@@ -31,7 +32,11 @@ const LoginForm = () => {
       if (!result.success) return;
 
       toast.success('Connexion réussie. Bienvenue !');
-      navigate(ROUTES.DASHBOARD);
+
+      const fromPath = location.state?.from?.pathname;
+      const target =
+        fromPath && PRIVATE_ROUTES.includes(fromPath) ? fromPath : resolveLandingRoute();
+      navigate(target, { replace: true });
     },
   });
 
