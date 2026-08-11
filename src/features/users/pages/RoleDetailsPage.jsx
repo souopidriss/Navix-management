@@ -20,6 +20,7 @@ import {
   DeleteModal,
 } from '@/components/core';
 import { ROUTES } from '@/routes/route.constants';
+import { useCan, PERMISSIONS } from '@/features/rbac';
 import { useRoleStore } from '../store';
 import { useRoleActions, useRoleForm, usePermissionListData } from '../hooks';
 import { RoleDetails, RolePermissionEditor, RoleForm } from '../components';
@@ -31,6 +32,7 @@ const WILDCARD = '*';
 const RoleDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const can = useCan();
 
   const selectedRole = useRoleStore((state) => state.selectedRole);
   const isLoading = useRoleStore((state) => state.isLoading);
@@ -135,47 +137,50 @@ const RoleDetailsPage = () => {
             <Button variant="outline" size="sm" icon="bi-arrow-left" onClick={() => navigate(ROUTES.ROLES)}>
               Retour
             </Button>
-            <Button variant="outline" size="sm" icon="bi-pencil" onClick={openEdit} disabled={role.isSystem}>
-              Modifier
-            </Button>
-            {role.isActive ? (
-              <Button
-                variant="outline"
-                size="sm"
-                icon="bi-toggle-off"
-                onClick={() =>
-                  setDialog({
-                    title: 'Désactiver le rôle',
-                    message: `Désactiver le rôle « ${role.name} » ? Les utilisateurs rattachés perdront ses permissions.`,
-                    confirmLabel: 'Désactiver',
-                    variant: 'warning',
-                    icon: 'bi-toggle-off',
-                    action: () => actions.deactivateRole(role.id),
-                  })
-                }
-              >
-                Désactiver
-              </Button>
-            ) : (
-              <Button
-                variant="outline"
-                size="sm"
-                icon="bi-toggle-on"
-                onClick={() =>
-                  setDialog({
-                    title: 'Activer le rôle',
-                    message: `Activer le rôle « ${role.name} » ?`,
-                    confirmLabel: 'Activer',
-                    variant: 'success',
-                    icon: 'bi-toggle-on',
-                    action: () => actions.activateRole(role.id),
-                  })
-                }
-              >
-                Activer
+            {can(PERMISSIONS.ROLES_UPDATE) && (
+              <Button variant="outline" size="sm" icon="bi-pencil" onClick={openEdit} disabled={role.isSystem}>
+                Modifier
               </Button>
             )}
-            {!role.isSystem && (
+            {can(PERMISSIONS.ROLES_UPDATE) &&
+              (role.isActive ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  icon="bi-toggle-off"
+                  onClick={() =>
+                    setDialog({
+                      title: 'Désactiver le rôle',
+                      message: `Désactiver le rôle « ${role.name} » ? Les utilisateurs rattachés perdront ses permissions.`,
+                      confirmLabel: 'Désactiver',
+                      variant: 'warning',
+                      icon: 'bi-toggle-off',
+                      action: () => actions.deactivateRole(role.id),
+                    })
+                  }
+                >
+                  Désactiver
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  icon="bi-toggle-on"
+                  onClick={() =>
+                    setDialog({
+                      title: 'Activer le rôle',
+                      message: `Activer le rôle « ${role.name} » ?`,
+                      confirmLabel: 'Activer',
+                      variant: 'success',
+                      icon: 'bi-toggle-on',
+                      action: () => actions.activateRole(role.id),
+                    })
+                  }
+                >
+                  Activer
+                </Button>
+              ))}
+            {can(PERMISSIONS.ROLES_DELETE) && !role.isSystem && (
               <Button variant="outline" size="sm" icon="bi-trash3" className="text-danger" onClick={() => setDeleteOpen(true)}>
                 Supprimer
               </Button>
@@ -202,7 +207,8 @@ const RoleDetailsPage = () => {
           }
           icon="bi-key"
           actions={
-            !isSuperAdmin && (
+            !isSuperAdmin &&
+            can(PERMISSIONS.ROLES_MANAGE) && (
               <Button variant="primary" size="sm" icon="bi-save" loading={isSaving} onClick={handleSavePermissions}>
                 Enregistrer les permissions
               </Button>
@@ -214,7 +220,7 @@ const RoleDetailsPage = () => {
             groups={groups}
             selected={selected}
             onChange={setSelected}
-            readOnly={isSuperAdmin}
+            readOnly={isSuperAdmin || !can(PERMISSIONS.ROLES_MANAGE)}
           />
         </Card>
       </div>

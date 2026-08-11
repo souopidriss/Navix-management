@@ -1,97 +1,50 @@
 /**
  * Navix Users — Permissions simulées (mode mock)
  * --------------------------------------------------------------------------
- * 65 permissions fictives au format `module.action` (source unique de vérité
- * du module : voir PERMISSION_MODULES / PERMISSION_ACTIONS dans ../constants).
- * Chaque permission : id, code, name, description, module, action, isSensitive,
- * createdAt, updatedAt.
+ * Catalogue des permissions au format `module.action` (lecture seule). La
+ * source unique de vérité est le catalogue RBAC officiel
+ * (`src/features/rbac/constants/permissions.js`) : chaque permission du
+ * catalogue applicatif est reflétée ici sous forme métier (id, name,
+ * description, module, action, isSensitive) pour les vues (matrice, éditeur
+ * de rôle) et les stores. Aucune permission supplémentaire n'est définie à
+ * la main : ce module dérive le mock du catalogue officiel.
  *
  * `isSensitive` signale les permissions sensibles (financier, administration,
  * export, audit) pour un éventuel sur-compteur d'affichage. Aucune requête
  * HTTP — consommé par permissionService (mode mock).
  */
+import { PERMISSIONS, ALL_PERMISSIONS } from '@/features/rbac';
 import { PERMISSION_MODULES, PERMISSION_ACTIONS } from '../constants';
 
 const SENSITIVE = new Set([
-  'billing.manage',
-  'billing.refund',
-  'subscriptions.manage',
-  'audit.export',
-  'users.delete',
-  'users.update',
-  'roles.manage',
-  'permissions.view',
-  'reports.export',
-  'reports.manage',
+  PERMISSIONS.BILLING_MANAGE,
+  PERMISSIONS.SUBSCRIPTIONS_MANAGE,
+  PERMISSIONS.AUDIT_EXPORT,
+  PERMISSIONS.AUDIT_DELETE,
+  PERMISSIONS.AUDIT_VIEW_SENSITIVE,
+  PERMISSIONS.AUDIT_VIEW_ALL_COMPANIES,
+  PERMISSIONS.USERS_MANAGE,
+  PERMISSIONS.USERS_ASSIGN,
+  PERMISSIONS.USERS_DELETE,
+  PERMISSIONS.USERS_UPDATE,
+  PERMISSIONS.ROLES_MANAGE,
+  PERMISSIONS.ROLES_DELETE,
+  PERMISSIONS.PERMISSIONS_VIEW,
+  PERMISSIONS.REPORTS_EXPORT,
+  PERMISSIONS.REPORTS_MANAGE,
+  PERMISSIONS.REPORTS_VIEW_FINANCIAL,
+  PERMISSIONS.REPORTS_VIEW_SENSITIVE,
+  PERMISSIONS.SETTINGS_MANAGE,
+  PERMISSIONS.SETTINGS_BILLING,
+  PERMISSIONS.SETTINGS_SAAS,
+  PERMISSIONS.SETTINGS_SECURITY,
+  PERMISSIONS.SETTINGS_SYSTEM,
 ]);
 
-const DEFS = [
-  { module: 'dashboard', action: 'view' },
-  { module: 'companies', action: 'view' },
-  { module: 'companies', action: 'create' },
-  { module: 'companies', action: 'update' },
-  { module: 'companies', action: 'delete' },
-  { module: 'agencies', action: 'view' },
-  { module: 'agencies', action: 'create' },
-  { module: 'agencies', action: 'update' },
-  { module: 'agencies', action: 'delete' },
-  { module: 'vehicles', action: 'view' },
-  { module: 'vehicles', action: 'create' },
-  { module: 'vehicles', action: 'update' },
-  { module: 'vehicles', action: 'delete' },
-  { module: 'drivers', action: 'view' },
-  { module: 'drivers', action: 'create' },
-  { module: 'drivers', action: 'update' },
-  { module: 'drivers', action: 'delete' },
-  { module: 'assignments', action: 'view' },
-  { module: 'assignments', action: 'create' },
-  { module: 'assignments', action: 'update' },
-  { module: 'assignments', action: 'delete' },
-  { module: 'trips', action: 'view' },
-  { module: 'trips', action: 'create' },
-  { module: 'trips', action: 'update' },
-  { module: 'trips', action: 'delete' },
-  { module: 'fuel', action: 'view' },
-  { module: 'fuel', action: 'create' },
-  { module: 'fuel', action: 'update' },
-  { module: 'fuel', action: 'delete' },
-  { module: 'maintenance', action: 'view' },
-  { module: 'maintenance', action: 'create' },
-  { module: 'maintenance', action: 'update' },
-  { module: 'maintenance', action: 'delete' },
-  { module: 'partners', action: 'view' },
-  { module: 'partners', action: 'create' },
-  { module: 'partners', action: 'update' },
-  { module: 'partners', action: 'delete' },
-  { module: 'partners', action: 'manage' },
-  { module: 'documents', action: 'view' },
-  { module: 'documents', action: 'upload' },
-  { module: 'documents', action: 'download' },
-  { module: 'documents', action: 'delete' },
-  { module: 'subscriptions', action: 'view' },
-  { module: 'subscriptions', action: 'manage' },
-  { module: 'billing', action: 'view' },
-  { module: 'billing', action: 'manage' },
-  { module: 'billing', action: 'approve' },
-  { module: 'billing', action: 'refund' },
-  { module: 'notifications', action: 'view' },
-  { module: 'audit', action: 'view' },
-  { module: 'audit', action: 'export' },
-  { module: 'users', action: 'view' },
-  { module: 'users', action: 'create' },
-  { module: 'users', action: 'update' },
-  { module: 'users', action: 'delete' },
-  { module: 'users', action: 'assign' },
-  { module: 'roles', action: 'view' },
-  { module: 'roles', action: 'create' },
-  { module: 'roles', action: 'update' },
-  { module: 'roles', action: 'delete' },
-  { module: 'roles', action: 'manage' },
-  { module: 'permissions', action: 'view' },
-  { module: 'reports', action: 'view' },
-  { module: 'reports', action: 'export' },
-  { module: 'reports', action: 'manage' },
-];
+const splitCode = (code) => {
+  const [module, action] = code.split('.');
+  return { module, action: action ?? module };
+};
 
 const labelOf = (module, action) => {
   const moduleLabel = PERMISSION_MODULES[module]?.label ?? module;
@@ -102,8 +55,8 @@ const labelOf = (module, action) => {
 const descriptionOf = (module, action) =>
   `Autorise l'action « ${PERMISSION_ACTIONS[action]?.label ?? action} » dans le module ${PERMISSION_MODULES[module]?.label ?? module}.`;
 
-export const MOCK_PERMISSIONS = DEFS.map(({ module, action }) => {
-  const code = `${module}.${action}`;
+export const MOCK_PERMISSIONS = ALL_PERMISSIONS.map((code) => {
+  const { module, action } = splitCode(code);
   return {
     id: `perm_${module}_${action}`,
     code,

@@ -23,6 +23,7 @@ import {
   DeleteModal,
 } from '@/components/core';
 import { ROUTES, userDetailPath, userEditPath } from '@/routes/route.constants';
+import { useCan, PERMISSIONS } from '@/features/rbac';
 import { useUserStore } from '../store';
 import { useUserListData, useUserActions, useTenantScope } from '../hooks';
 import { UsersTable } from '../components';
@@ -40,6 +41,7 @@ const toLabelOptions = (values, meta) =>
 
 const UsersPage = () => {
   const navigate = useNavigate();
+  const can = useCan();
 
   const error = useUserStore((state) => state.error);
   const search = useUserStore((state) => state.search);
@@ -221,14 +223,16 @@ const UsersPage = () => {
             <Button variant="outline" size="sm" icon="bi-arrow-clockwise" loading={isLoading} onClick={actions.refresh}>
               Rafraîchir
             </Button>
-            <Button
-              variant="primary"
-              size="sm"
-              icon="bi-person-plus"
-              onClick={() => navigate(ROUTES.USERS_CREATE)}
-            >
-              Créer un utilisateur
-            </Button>
+            {can(PERMISSIONS.USERS_CREATE) && (
+              <Button
+                variant="primary"
+                size="sm"
+                icon="bi-person-plus"
+                onClick={() => navigate(ROUTES.USERS_CREATE)}
+              >
+                Créer un utilisateur
+              </Button>
+            )}
           </div>
         }
       />

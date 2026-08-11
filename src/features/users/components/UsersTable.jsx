@@ -13,47 +13,58 @@
  *   onView       : (user: object) => void
  */
 import { Avatar, DataTable, ActionDropdown } from '@/components/core';
+import { useCan, PERMISSIONS } from '@/features/rbac';
 import { formatUserDate, formatUserDateTime } from '../constants';
 import UserStatusBadge from './UserStatusBadge';
 import RoleBadges from './RoleBadges';
 import './UsersTable.css';
 
-const buildItems = (user, onAction) => {
+const buildItems = (user, onAction, can) => {
   const items = [
     { key: 'view', label: 'Voir le détail', icon: 'bi-eye', onClick: () => onAction('view', user) },
-    { key: 'edit', label: 'Modifier', icon: 'bi-pencil', onClick: () => onAction('edit', user) },
+    ...(can(PERMISSIONS.USERS_UPDATE)
+      ? [{ key: 'edit', label: 'Modifier', icon: 'bi-pencil', onClick: () => onAction('edit', user) }]
+      : []),
     { key: 'sep1', separator: true },
   ];
 
-  if (user.status === 'active') {
-    items.push({ key: 'deactivate', label: 'Désactiver', icon: 'bi-person-slash', onClick: () => onAction('deactivate', user) });
-    items.push({ key: 'suspend', label: 'Suspendre', icon: 'bi-person-x', onClick: () => onAction('suspend', user) });
-  }
-  if (user.status === 'inactive' || user.status === 'suspended') {
-    items.push({ key: 'reactivate', label: 'Réactiver', icon: 'bi-person-check', onClick: () => onAction('reactivate', user) });
-  }
-  if (user.status === 'pending') {
-    items.push({ key: 'invite', label: 'Envoyer l’invitation', icon: 'bi-envelope', onClick: () => onAction('invite', user) });
-  }
-  if (user.status === 'invited') {
-    items.push({ key: 'invite', label: 'Relancer l’invitation', icon: 'bi-envelope', onClick: () => onAction('invite', user) });
+  if (can(PERMISSIONS.USERS_UPDATE)) {
+    if (user.status === 'active') {
+      items.push({ key: 'deactivate', label: 'Désactiver', icon: 'bi-person-slash', onClick: () => onAction('deactivate', user) });
+      items.push({ key: 'suspend', label: 'Suspendre', icon: 'bi-person-x', onClick: () => onAction('suspend', user) });
+    }
+    if (user.status === 'inactive' || user.status === 'suspended') {
+      items.push({ key: 'reactivate', label: 'Réactiver', icon: 'bi-person-check', onClick: () => onAction('reactivate', user) });
+    }
+    if (user.status === 'pending') {
+      items.push({ key: 'invite', label: 'Envoyer l’invitation', icon: 'bi-envelope', onClick: () => onAction('invite', user) });
+    }
+    if (user.status === 'invited') {
+      items.push({ key: 'invite', label: 'Relancer l’invitation', icon: 'bi-envelope', onClick: () => onAction('invite', user) });
+    }
   }
 
-  items.push({ key: 'sep2', separator: true });
-  items.push({ key: 'resetPassword', label: 'Réinitialiser le mot de passe', icon: 'bi-key', onClick: () => onAction('resetPassword', user) });
-  items.push({
-    key: 'delete',
-    label: 'Supprimer',
-    icon: 'bi-trash3',
-    danger: true,
-    disabled: user.id === 'usr_001',
-    onClick: () => onAction('delete', user),
-  });
+  if (can(PERMISSIONS.USERS_UPDATE)) {
+    items.push({ key: 'sep2', separator: true });
+    items.push({ key: 'resetPassword', label: 'Réinitialiser le mot de passe', icon: 'bi-key', onClick: () => onAction('resetPassword', user) });
+  }
+
+  if (can(PERMISSIONS.USERS_DELETE)) {
+    items.push({
+      key: 'delete',
+      label: 'Supprimer',
+      icon: 'bi-trash3',
+      danger: true,
+      disabled: user.id === 'usr_001',
+      onClick: () => onAction('delete', user),
+    });
+  }
 
   return items;
 };
 
 const UsersTable = ({ users = [], sort, onSortChange, onAction, onView }) => {
+  const can = useCan();
   const columns = [
     {
       key: 'fullName',
@@ -125,7 +136,7 @@ const UsersTable = ({ users = [], sort, onSortChange, onAction, onView }) => {
         <ActionDropdown
           align="end"
           triggerLabel={`Actions pour ${user.fullName}`}
-          items={buildItems(user, onAction)}
+          items={buildItems(user, onAction, can)}
         />
       ),
     },

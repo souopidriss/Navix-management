@@ -14,45 +14,57 @@
  *   onView       : (role: object) => void
  */
 import { DataTable, ActionDropdown } from '@/components/core';
+import { useCan, PERMISSIONS } from '@/features/rbac';
 import RoleTypeBadge from './RoleTypeBadge';
 import RoleStatusBadge from './RoleStatusBadge';
 import './RolesTable.css';
 
-const buildItems = (role, onAction) => {
+const buildItems = (role, onAction, can) => {
   const items = [
     { key: 'view', label: 'Voir le détail', icon: 'bi-eye', onClick: () => onAction('view', role) },
-    { key: 'permissions', label: 'Gérer les permissions', icon: 'bi-key', onClick: () => onAction('permissions', role) },
-    { key: 'sep1', separator: true },
+    ...(can(PERMISSIONS.ROLES_MANAGE)
+      ? [{ key: 'permissions', label: 'Gérer les permissions', icon: 'bi-key', onClick: () => onAction('permissions', role) }]
+      : []),
   ];
-
-  if (role.isActive) {
-    items.push({
-      key: 'deactivate',
-      label: 'Désactiver',
-      icon: 'bi-toggle-off',
-      disabled: role.isSystem,
-      title: role.isSystem ? 'Un rôle système ne peut pas être désactivé.' : undefined,
-      onClick: () => onAction('deactivate', role),
-    });
-  } else {
-    items.push({ key: 'activate', label: 'Activer', icon: 'bi-toggle-on', onClick: () => onAction('activate', role) });
+  if (can(PERMISSIONS.ROLES_UPDATE) || can(PERMISSIONS.ROLES_DELETE)) {
+    items.push({ key: 'sep1', separator: true });
   }
 
-  items.push({ key: 'sep2', separator: true });
-  items.push({
-    key: 'delete',
-    label: 'Supprimer',
-    icon: 'bi-trash3',
-    danger: true,
-    disabled: role.isSystem,
-    title: role.isSystem ? 'Un rôle système ne peut pas être supprimé.' : undefined,
-    onClick: () => onAction('delete', role),
-  });
+  if (can(PERMISSIONS.ROLES_UPDATE)) {
+    if (role.isActive) {
+      items.push({
+        key: 'deactivate',
+        label: 'Désactiver',
+        icon: 'bi-toggle-off',
+        disabled: role.isSystem,
+        title: role.isSystem ? 'Un rôle système ne peut pas être désactivé.' : undefined,
+        onClick: () => onAction('deactivate', role),
+      });
+    } else {
+      items.push({ key: 'activate', label: 'Activer', icon: 'bi-toggle-on', onClick: () => onAction('activate', role) });
+    }
+  }
+
+  if (can(PERMISSIONS.ROLES_UPDATE) && can(PERMISSIONS.ROLES_DELETE)) {
+    items.push({ key: 'sep2', separator: true });
+  }
+  if (can(PERMISSIONS.ROLES_DELETE)) {
+    items.push({
+      key: 'delete',
+      label: 'Supprimer',
+      icon: 'bi-trash3',
+      danger: true,
+      disabled: role.isSystem,
+      title: role.isSystem ? 'Un rôle système ne peut pas être supprimé.' : undefined,
+      onClick: () => onAction('delete', role),
+    });
+  }
 
   return items;
 };
 
 const RolesTable = ({ roles = [], sort, onSortChange, onAction, onView }) => {
+  const can = useCan();
   const columns = [
     {
       key: 'name',
@@ -94,7 +106,7 @@ const RolesTable = ({ roles = [], sort, onSortChange, onAction, onView }) => {
       width: '7rem',
       render: (role) => (
         <span>
-          {role.code === '*' ? 'Toutes' : `${role.permissions?.length ?? 0}`}
+          {role.permissions?.includes('*') ? 'Toutes' : `${role.permissions?.length ?? 0}`}
         </span>
       ),
     },
@@ -114,7 +126,7 @@ const RolesTable = ({ roles = [], sort, onSortChange, onAction, onView }) => {
         <ActionDropdown
           align="end"
           triggerLabel={`Actions pour ${role.name}`}
-          items={buildItems(role, onAction)}
+          items={buildItems(role, onAction, can)}
         />
       ),
     },

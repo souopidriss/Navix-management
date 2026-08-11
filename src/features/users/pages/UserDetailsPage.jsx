@@ -12,6 +12,7 @@ import { Helmet } from 'react-helmet-async';
 import { Alert, Button } from '@/components/ui';
 import { PageContainer, PageHeader, LoadingState, ConfirmDialog, DeleteModal } from '@/components/core';
 import { ROUTES, userEditPath } from '@/routes/route.constants';
+import { useCan, PERMISSIONS } from '@/features/rbac';
 import { useUserStore } from '../store';
 import { useUserActions, useTenantScope } from '../hooks';
 import { UserDetails } from '../components';
@@ -20,6 +21,7 @@ import { USERS_ICON } from '../constants';
 const UserDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const can = useCan();
 
   const selectedUser = useUserStore((state) => state.selectedUser);
   const isLoading = useUserStore((state) => state.isLoading);
@@ -72,50 +74,52 @@ const UserDetailsPage = () => {
     );
   }
 
-  const statusActions = [
-    { key: 'deactivate', label: 'Désactiver', show: enriched.status === 'active' },
-    { key: 'suspend', label: 'Suspendre', show: enriched.status === 'active' },
-    { key: 'reactivate', label: 'Réactiver', show: enriched.status === 'inactive' || enriched.status === 'suspended' },
-    { key: 'invite', label: 'Inviter', show: enriched.status === 'pending' || enriched.status === 'invited' },
-  ]
-    .filter((item) => item.show)
-    .map((item) => ({
-      ...item,
-      dialog: {
-        deactivate: {
-          title: 'Désactiver le compte',
-          message: `Désactiver le compte de ${enriched.fullName} ?`,
-          confirmLabel: 'Désactiver',
-          variant: 'warning',
-          icon: 'bi-person-slash',
-          action: () => actions.deactivateUser(enriched.id),
-        },
-        suspend: {
-          title: 'Suspendre le compte',
-          message: `Suspendre le compte de ${enriched.fullName} ?`,
-          confirmLabel: 'Suspendre',
-          variant: 'warning',
-          icon: 'bi-person-x',
-          action: () => actions.suspendUser(enriched.id),
-        },
-        reactivate: {
-          title: 'Réactiver le compte',
-          message: `Réactiver le compte de ${enriched.fullName} ?`,
-          confirmLabel: 'Réactiver',
-          variant: 'success',
-          icon: 'bi-person-check',
-          action: () => actions.reactivateUser(enriched.id),
-        },
-        invite: {
-          title: 'Inviter l’utilisateur',
-          message: `Envoyer une invitation à ${enriched.fullName} ? (simulation — aucun email réel)`,
-          confirmLabel: 'Inviter',
-          variant: 'primary',
-          icon: 'bi-envelope',
-          action: () => actions.inviteUser(enriched.id),
-        },
-      }[item.key],
-    }));
+  const statusActions = can(PERMISSIONS.USERS_UPDATE)
+    ? ([
+        { key: 'deactivate', label: 'Désactiver', show: enriched.status === 'active' },
+        { key: 'suspend', label: 'Suspendre', show: enriched.status === 'active' },
+        { key: 'reactivate', label: 'Réactiver', show: enriched.status === 'inactive' || enriched.status === 'suspended' },
+        { key: 'invite', label: 'Inviter', show: enriched.status === 'pending' || enriched.status === 'invited' },
+      ]
+        .filter((item) => item.show)
+        .map((item) => ({
+          ...item,
+          dialog: {
+            deactivate: {
+              title: 'Désactiver le compte',
+              message: `Désactiver le compte de ${enriched.fullName} ?`,
+              confirmLabel: 'Désactiver',
+              variant: 'warning',
+              icon: 'bi-person-slash',
+              action: () => actions.deactivateUser(enriched.id),
+            },
+            suspend: {
+              title: 'Suspendre le compte',
+              message: `Suspendre le compte de ${enriched.fullName} ?`,
+              confirmLabel: 'Suspendre',
+              variant: 'warning',
+              icon: 'bi-person-x',
+              action: () => actions.suspendUser(enriched.id),
+            },
+            reactivate: {
+              title: 'Réactiver le compte',
+              message: `Réactiver le compte de ${enriched.fullName} ?`,
+              confirmLabel: 'Réactiver',
+              variant: 'success',
+              icon: 'bi-person-check',
+              action: () => actions.reactivateUser(enriched.id),
+            },
+            invite: {
+              title: 'Inviter l’utilisateur',
+              message: `Envoyer une invitation à ${enriched.fullName} ? (simulation — aucun email réel)`,
+              confirmLabel: 'Inviter',
+              variant: 'primary',
+              icon: 'bi-envelope',
+              action: () => actions.inviteUser(enriched.id),
+            },
+          }[item.key],
+        })))
+    : [];
 
   return (
     <PageContainer>
@@ -148,14 +152,16 @@ const UserDetailsPage = () => {
                 {item.label}
               </Button>
             ))}
-            <Button
-              variant="primary"
-              size="sm"
-              icon="bi-pencil"
-              onClick={() => navigate(userEditPath(enriched.id))}
-            >
-              Modifier
-            </Button>
+            {can(PERMISSIONS.USERS_UPDATE) && (
+              <Button
+                variant="primary"
+                size="sm"
+                icon="bi-pencil"
+                onClick={() => navigate(userEditPath(enriched.id))}
+              >
+                Modifier
+              </Button>
+            )}
           </div>
         }
       />
@@ -169,25 +175,27 @@ const UserDetailsPage = () => {
       <UserDetails user={enriched} />
 
       <div className="mt-3 d-flex justify-content-end">
-        <Button
-          variant="outline"
-          size="sm"
-          icon="bi-key"
-          className="me-2 text-danger"
-          onClick={() =>
-            setDialog({
-              title: 'Réinitialiser le mot de passe',
-              message: `Déclencher la réinitialisation du mot de passe de ${enriched.fullName} ? (simulation — aucun email réel)`,
-              confirmLabel: 'Réinitialiser',
-              variant: 'warning',
-              icon: 'bi-key',
-              action: () => actions.resetPassword(enriched.id),
-            })
-          }
-        >
-          Réinitialiser le mot de passe
-        </Button>
-        {enriched.id !== 'usr_001' && (
+        {can(PERMISSIONS.USERS_UPDATE) && (
+          <Button
+            variant="outline"
+            size="sm"
+            icon="bi-key"
+            className="me-2 text-danger"
+            onClick={() =>
+              setDialog({
+                title: 'Réinitialiser le mot de passe',
+                message: `Déclencher la réinitialisation du mot de passe de ${enriched.fullName} ? (simulation — aucun email réel)`,
+                confirmLabel: 'Réinitialiser',
+                variant: 'warning',
+                icon: 'bi-key',
+                action: () => actions.resetPassword(enriched.id),
+              })
+            }
+          >
+            Réinitialiser le mot de passe
+          </Button>
+        )}
+        {can(PERMISSIONS.USERS_DELETE) && enriched.id !== 'usr_001' && (
           <Button variant="outline" size="sm" icon="bi-trash3" className="text-danger" onClick={() => setDeleteOpen(true)}>
             Supprimer
           </Button>

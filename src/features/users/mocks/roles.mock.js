@@ -5,13 +5,22 @@
  * globaux), name, code, description, isSystem, isActive, permissions (codes
  * `module.action`), createdAt, updatedAt.
  *
- * Les 8 rôles système (SUPER_ADMIN … VIEWER) sont globaux et non supprimables.
+ * Les permissions des rôles système consomment la matrice officielle du
+ * catalogue RBAC (`src/features/rbac/constants/roles.js` → ROLE_DEFINITIONS) :
+ * modifier un rôle officiel là-bas suffit à faire évoluer ces rôles ici.
+ * Les codes non présents dans le catalogue RBAC (`fleet_operator`,
+ * `maintenance_manager`) sont mappés explicitement vers leurs équivalents
+ * officiels (voir SYSTEM_ROLE_CODE_MAP) afin de rester cohérents avec la
+ * source unique de vérité, sans casser les rôles déjà référencés par les
+ * utilisateurs mockés (roleIds).
+ *
  * Le super admin possède le joker `*` — résolu en toutes les permissions par
  * les helpers (utils/access.js). Des rôles personnalisés par entreprise
  * complètent le jeu pour illustrer la création / modification de rôles.
  *
  * Aucune requête HTTP — consommé par roleService (mode mock).
  */
+import { ROLES, ROLE_DEFINITIONS } from '@/features/rbac';
 
 const ALL = '*';
 
@@ -19,21 +28,42 @@ const CRUD = ['view', 'create', 'update', 'delete'];
 
 const perms = (module, actions) => actions.map((action) => `${module}.${action}`);
 
-const VIEW = ['view'];
-
 /* --------------------------------------------------------------------------
-   Définitions des rôles système
+   Correspondance des codes de rôle du module avec les codes officiels RBAC.
+   `fleet_operator` et `maintenance_manager` sont des codes métier du module
+   (conservés pour la compatibilité des mocks) explicitement mappés vers les
+   rôles officiels `dispatcher` et `mechanic`.
    -------------------------------------------------------------------------- */
 
+export const SYSTEM_ROLE_CODE_MAP = {
+  super_admin: ROLES.SUPER_ADMIN,
+  company_owner: ROLES.COMPANY_OWNER,
+  company_admin: ROLES.COMPANY_ADMIN,
+  fleet_manager: ROLES.FLEET_MANAGER,
+  fleet_operator: ROLES.DISPATCHER,
+  driver: ROLES.DRIVER,
+  accountant: ROLES.ACCOUNTANT,
+  maintenance_manager: ROLES.MECHANIC,
+  viewer: ROLES.VIEWER,
+};
+
+/** Permissions officielles d'un code de rôle système (mapping RBAC). */
+const systemPermissions = (code) => {
+  const officialKey = SYSTEM_ROLE_CODE_MAP[code];
+  const definition = ROLE_DEFINITIONS.find((item) => item.key === officialKey);
+  return definition ? [...definition.permissions] : [];
+};
+
 export const SYSTEM_ROLE_CODES = [
-  'super_admin',
-  'company_admin',
-  'fleet_manager',
+  ROLES.SUPER_ADMIN,
+  ROLES.COMPANY_OWNER,
+  ROLES.COMPANY_ADMIN,
+  ROLES.FLEET_MANAGER,
   'fleet_operator',
-  'driver',
-  'accountant',
+  ROLES.DRIVER,
+  ROLES.ACCOUNTANT,
   'maintenance_manager',
-  'viewer',
+  ROLES.VIEWER,
 ];
 
 export const MOCK_ROLES = [
@@ -50,6 +80,18 @@ export const MOCK_ROLES = [
     updatedAt: '2026-01-10T08:00:00.000Z',
   },
   {
+    id: 'role_company_owner',
+    companyId: '',
+    name: "Propriétaire d'entreprise",
+    code: 'company_owner',
+    description: "Dirige son entreprise : flotte, équipes, facturation et abonnements.",
+    isSystem: true,
+    isActive: true,
+    permissions: systemPermissions('company_owner'),
+    createdAt: '2025-10-01T08:00:00.000Z',
+    updatedAt: '2026-01-10T08:00:00.000Z',
+  },
+  {
     id: 'role_company_admin',
     companyId: '',
     name: 'Administrateur',
@@ -57,26 +99,7 @@ export const MOCK_ROLES = [
     description: 'Administration complète de son entreprise : flotte, équipes, finance et abonnement.',
     isSystem: true,
     isActive: true,
-    permissions: [
-      ...perms('dashboard', VIEW),
-      ...perms('companies', ['view', 'update']),
-      ...perms('agencies', CRUD),
-      ...perms('vehicles', CRUD),
-      ...perms('drivers', CRUD),
-      ...perms('assignments', CRUD),
-      ...perms('trips', CRUD),
-      ...perms('fuel', CRUD),
-      ...perms('maintenance', CRUD),
-      ...perms('documents', ['view', 'upload', 'download', 'delete']),
-      ...perms('subscriptions', ['view', 'manage']),
-      ...perms('billing', ['view', 'manage']),
-      ...perms('notifications', VIEW),
-      ...perms('audit', ['view', 'export']),
-      ...perms('users', ['view', 'create', 'update', 'assign']),
-      ...perms('roles', ['view']),
-      ...perms('permissions', VIEW),
-      ...perms('reports', ['view', 'export']),
-    ],
+    permissions: systemPermissions('company_admin'),
     createdAt: '2025-10-01T08:00:00.000Z',
     updatedAt: '2026-02-02T10:00:00.000Z',
   },
@@ -88,18 +111,7 @@ export const MOCK_ROLES = [
     description: 'Gestion opérationnelle de la flotte : véhicules, chauffeurs, affectations, trajets, carburant et entretiens.',
     isSystem: true,
     isActive: true,
-    permissions: [
-      ...perms('dashboard', VIEW),
-      ...perms('vehicles', CRUD),
-      ...perms('drivers', CRUD),
-      ...perms('assignments', CRUD),
-      ...perms('trips', CRUD),
-      ...perms('fuel', CRUD),
-      ...perms('maintenance', CRUD),
-      ...perms('documents', ['view', 'upload', 'download']),
-      ...perms('notifications', VIEW),
-      ...perms('reports', VIEW),
-    ],
+    permissions: systemPermissions('fleet_manager'),
     createdAt: '2025-10-01T08:00:00.000Z',
     updatedAt: '2026-02-05T11:00:00.000Z',
   },
@@ -111,17 +123,7 @@ export const MOCK_ROLES = [
     description: 'Opérations quotidiennes : affectations, trajets, pleins de carburant et entretiens courants.',
     isSystem: true,
     isActive: true,
-    permissions: [
-      ...perms('dashboard', VIEW),
-      ...perms('vehicles', ['view', 'update']),
-      ...perms('drivers', VIEW),
-      ...perms('assignments', ['view', 'create', 'update']),
-      ...perms('trips', ['view', 'create', 'update']),
-      ...perms('fuel', ['view', 'create']),
-      ...perms('maintenance', ['view', 'create']),
-      ...perms('documents', ['view', 'upload']),
-      ...perms('notifications', VIEW),
-    ],
+    permissions: systemPermissions('fleet_operator'),
     createdAt: '2025-10-01T08:00:00.000Z',
     updatedAt: '2026-02-05T11:30:00.000Z',
   },
@@ -133,13 +135,7 @@ export const MOCK_ROLES = [
     description: 'Accès limité aux informations nécessaires au chauffeur : véhicule, trajets, carburant.',
     isSystem: true,
     isActive: true,
-    permissions: [
-      ...perms('dashboard', VIEW),
-      ...perms('vehicles', VIEW),
-      ...perms('trips', VIEW),
-      ...perms('fuel', VIEW),
-      ...perms('notifications', VIEW),
-    ],
+    permissions: systemPermissions('driver'),
     createdAt: '2025-10-01T08:00:00.000Z',
     updatedAt: '2026-02-05T12:00:00.000Z',
   },
@@ -151,18 +147,7 @@ export const MOCK_ROLES = [
     description: 'Accès aux données financières, facturation et rapports.',
     isSystem: true,
     isActive: true,
-    permissions: [
-      ...perms('dashboard', VIEW),
-      ...perms('vehicles', VIEW),
-      ...perms('drivers', VIEW),
-      ...perms('trips', VIEW),
-      ...perms('fuel', VIEW),
-      ...perms('documents', ['view', 'download']),
-      ...perms('subscriptions', VIEW),
-      ...perms('billing', ['view', 'manage', 'approve', 'refund']),
-      ...perms('reports', ['view', 'export']),
-      ...perms('notifications', VIEW),
-    ],
+    permissions: systemPermissions('accountant'),
     createdAt: '2025-10-01T08:00:00.000Z',
     updatedAt: '2026-02-06T09:00:00.000Z',
   },
@@ -174,14 +159,7 @@ export const MOCK_ROLES = [
     description: 'Gestion des entretiens, maintenance et pièces de la flotte.',
     isSystem: true,
     isActive: true,
-    permissions: [
-      ...perms('dashboard', VIEW),
-      ...perms('vehicles', VIEW),
-      ...perms('maintenance', CRUD),
-      ...perms('documents', ['view', 'upload']),
-      ...perms('notifications', VIEW),
-      ...perms('reports', VIEW),
-    ],
+    permissions: systemPermissions('maintenance_manager'),
     createdAt: '2025-10-01T08:00:00.000Z',
     updatedAt: '2026-02-06T10:00:00.000Z',
   },
@@ -190,26 +168,10 @@ export const MOCK_ROLES = [
     companyId: '',
     name: 'Lecteur',
     code: 'viewer',
-    description: 'Consultation uniquement de l’ensemble de la plateforme.',
+    description: 'Consultation de la flotte en lecture seule.',
     isSystem: true,
     isActive: true,
-    permissions: [
-      ...perms('dashboard', VIEW),
-      ...perms('companies', VIEW),
-      ...perms('agencies', VIEW),
-      ...perms('vehicles', VIEW),
-      ...perms('drivers', VIEW),
-      ...perms('assignments', VIEW),
-      ...perms('trips', VIEW),
-      ...perms('fuel', VIEW),
-      ...perms('maintenance', VIEW),
-      ...perms('documents', VIEW),
-      ...perms('subscriptions', VIEW),
-      ...perms('billing', VIEW),
-      ...perms('notifications', VIEW),
-      ...perms('audit', VIEW),
-      ...perms('reports', VIEW),
-    ],
+    permissions: systemPermissions('viewer'),
     createdAt: '2025-10-01T08:00:00.000Z',
     updatedAt: '2026-02-06T11:00:00.000Z',
   },
@@ -225,14 +187,14 @@ export const MOCK_ROLES = [
     isSystem: false,
     isActive: true,
     permissions: [
-      ...perms('dashboard', VIEW),
+      ...perms('dashboard', ['read']),
       ...perms('vehicles', ['view', 'update']),
-      ...perms('drivers', VIEW),
+      ...perms('drivers', ['view']),
       ...perms('assignments', ['view', 'create', 'update']),
       ...perms('trips', ['view', 'create', 'update']),
-      ...perms('fuel', VIEW),
-      ...perms('documents', VIEW),
-      ...perms('notifications', VIEW),
+      ...perms('fuel', ['view']),
+      ...perms('files', ['read']),
+      ...perms('notifications', ['view']),
     ],
     createdAt: '2026-01-20T08:00:00.000Z',
     updatedAt: '2026-03-01T09:00:00.000Z',
@@ -246,11 +208,11 @@ export const MOCK_ROLES = [
     isSystem: false,
     isActive: true,
     permissions: [
-      ...perms('dashboard', VIEW),
+      ...perms('dashboard', ['read']),
       ...perms('users', ['view', 'create', 'update', 'assign']),
-      ...perms('roles', VIEW),
-      ...perms('notifications', VIEW),
-      ...perms('reports', VIEW),
+      ...perms('roles', ['view']),
+      ...perms('notifications', ['view']),
+      ...perms('reports', ['view']),
     ],
     createdAt: '2026-02-10T08:00:00.000Z',
     updatedAt: '2026-03-02T09:00:00.000Z',
@@ -264,12 +226,12 @@ export const MOCK_ROLES = [
     isSystem: false,
     isActive: true,
     permissions: [
-      ...perms('dashboard', VIEW),
+      ...perms('dashboard', ['read']),
       ...perms('vehicles', CRUD),
       ...perms('drivers', CRUD),
       ...perms('trips', ['view', 'create', 'update']),
       ...perms('fuel', ['view', 'create']),
-      ...perms('notifications', VIEW),
+      ...perms('notifications', ['view']),
     ],
     createdAt: '2026-02-15T08:00:00.000Z',
     updatedAt: '2026-03-05T09:00:00.000Z',

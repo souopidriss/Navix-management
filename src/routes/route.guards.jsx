@@ -1,6 +1,6 @@
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { matchPath, Navigate, Outlet, useLocation } from 'react-router-dom';
+import { can, hasAnyRole, ROUTE_META, useRbacStore } from '@/features/rbac';
 import { useAuthStore } from '@/features/auth';
-import { can, hasAnyRole, useRbacStore } from '@/features/rbac';
 import { resolveLandingRoute, ROUTES } from './route.constants';
 
 /**
@@ -59,4 +59,35 @@ export const PermissionGuard = ({ permission, mode = 'all', children }) => {
   }
 
   return children ?? <Outlet />;
+};
+
+/**
+ * RouteRbacGuard — garde générique de toutes les routes privées.
+ * --------------------------------------------------------------------------
+ * Applique la méta RBAC de la route courante (ROUTE_META) : les entrées
+ * `requiredRole` / `requiredPermissions` (voir `mode`) sont vérifiées contre
+ * le contexte RBAC de session, exactement comme la sidebar (même source de
+ * vérité). La correspondance route → méta utilise les motifs de routes
+ * (`matchPath`) afin de couvrir les routes paramétrées (`/dashboard/…/:id`).
+ *
+ * Redirige vers UNAUTHORIZED (`/403`) si l'accès est refusé — la distinction
+ * avec l'absence d'authentification est assurée par ProtectedRoute (→ LOGIN).
+ */
+export const RouteRbacGuard = () => {
+  const location = useLocation();
+  const role = useRbacStore((state) => state.currentRole);
+  const permissions = useRbacStore((state) => state.permissions);
+
+  const metaKey = Object.keys(ROUTE_META).find((pattern) => matchPath(pattern, location.pathname));
+  const meta = metaKey ? ROUTE_META[metaKey] : {};
+
+  const hasRole = !meta.requiredRole || hasAnyRole(role, meta.requiredRole);
+  const hasPermissions =
+    !meta.requiredPermissions || can(permissions, meta.requiredPermissions, { mode: meta.mode });
+
+  if (!hasRole || !hasPermissions) {
+    return <Navigate to={ROUTES.UNAUTHORIZED} replace />;
+  }
+
+  return <Outlet />;
 };

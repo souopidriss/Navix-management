@@ -22,6 +22,7 @@ import {
   DeleteModal,
 } from '@/components/core';
 import { ROUTES, roleDetailPath } from '@/routes/route.constants';
+import { useCan, PERMISSIONS } from '@/features/rbac';
 import { useRoleStore } from '../store';
 import { useRoleListData, useRoleActions, useRoleForm, useTenantScope } from '../hooks';
 import { RolesTable, RoleForm } from '../components';
@@ -41,6 +42,7 @@ const toLabelOptions = (values, meta) =>
 
 const RolesPage = () => {
   const navigate = useNavigate();
+  const can = useCan();
 
   const roles = useRoleStore((state) => state.roles);
   const isSaving = useRoleStore((state) => state.isSaving);
@@ -185,9 +187,11 @@ const RolesPage = () => {
             <Button variant="outline" size="sm" icon="bi-arrow-clockwise" loading={isLoading} onClick={actions.refresh}>
               Rafraîchir
             </Button>
-            <Button variant="primary" size="sm" icon="bi-plus-lg" onClick={openCreate}>
-              Créer un rôle
-            </Button>
+            {can(PERMISSIONS.ROLES_CREATE) && (
+              <Button variant="primary" size="sm" icon="bi-plus-lg" onClick={openCreate}>
+                Créer un rôle
+              </Button>
+            )}
           </div>
         }
       />

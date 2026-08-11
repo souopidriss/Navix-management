@@ -17,6 +17,9 @@ import { PERMISSIONS } from './permissions';
 import { ROLES } from './roles';
 
 export const ROUTE_META = {
+  [ROUTES.DASHBOARD]: {
+    requiredPermissions: [PERMISSIONS.DASHBOARD_READ],
+  },
   [ROUTES.COMPANIES]: {
     requiredPermissions: [PERMISSIONS.COMPANIES_MANAGE],
     requiredRole: [ROLES.SUPER_ADMIN, ROLES.COMPANY_OWNER],
@@ -34,6 +37,18 @@ export const ROUTE_META = {
     requiredRole: [ROLES.SUPER_ADMIN, ROLES.COMPANY_OWNER],
   },
   [ROUTES.AGENCIES]: {
+    requiredPermissions: [PERMISSIONS.AGENCIES_MANAGE],
+  },
+  [ROUTES.AGENCIES_CREATE]: {
+    requiredPermissions: [PERMISSIONS.AGENCIES_MANAGE],
+  },
+  [ROUTES.AGENCIES_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.AGENCIES_MANAGE],
+  },
+  [ROUTES.AGENCIES_EDIT]: {
+    requiredPermissions: [PERMISSIONS.AGENCIES_MANAGE],
+  },
+  [ROUTES.AGENCIES_STATISTICS]: {
     requiredPermissions: [PERMISSIONS.AGENCIES_MANAGE],
   },
   [ROUTES.VEHICLES]: {
@@ -108,6 +123,21 @@ export const ROUTE_META = {
   [ROUTES.ENTRETIENS]: {
     requiredPermissions: [PERMISSIONS.MAINTENANCE_READ],
   },
+  [ROUTES.MAINTENANCE_CREATE]: {
+    requiredPermissions: [PERMISSIONS.MAINTENANCE_CREATE],
+  },
+  [ROUTES.MAINTENANCE_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.MAINTENANCE_READ],
+  },
+  [ROUTES.MAINTENANCE_EDIT]: {
+    requiredPermissions: [PERMISSIONS.MAINTENANCE_UPDATE],
+  },
+  [ROUTES.MAINTENANCE_CALENDAR]: {
+    requiredPermissions: [PERMISSIONS.MAINTENANCE_READ],
+  },
+  [ROUTES.MAINTENANCE_STATISTICS]: {
+    requiredPermissions: [PERMISSIONS.MAINTENANCE_READ],
+  },
   [ROUTES.PARTNERS]: {
     requiredPermissions: [PERMISSIONS.PARTNERS_READ],
   },
@@ -121,6 +151,18 @@ export const ROUTE_META = {
     requiredPermissions: [PERMISSIONS.PARTNERS_UPDATE],
   },
   [ROUTES.FILES]: {
+    requiredPermissions: [PERMISSIONS.FILES_READ],
+  },
+  [ROUTES.FILES_CREATE]: {
+    requiredPermissions: [PERMISSIONS.FILES_CREATE],
+  },
+  [ROUTES.FILES_DETAIL]: {
+    requiredPermissions: [PERMISSIONS.FILES_READ],
+  },
+  [ROUTES.FILES_EDIT]: {
+    requiredPermissions: [PERMISSIONS.FILES_UPDATE],
+  },
+  [ROUTES.FILE_TYPES]: {
     requiredPermissions: [PERMISSIONS.FILES_READ],
   },
   [ROUTES.INVOICES]: {
@@ -148,6 +190,18 @@ export const ROUTE_META = {
     requiredPermissions: [PERMISSIONS.BILLING_MANAGE],
   },
   [ROUTES.SUBSCRIPTIONS]: {
+    requiredPermissions: [PERMISSIONS.SUBSCRIPTIONS_MANAGE],
+    requiredRole: [ROLES.SUPER_ADMIN, ROLES.COMPANY_OWNER],
+  },
+  [ROUTES.SUBSCRIPTIONS_PLANS]: {
+    requiredPermissions: [PERMISSIONS.SUBSCRIPTIONS_MANAGE],
+    requiredRole: [ROLES.SUPER_ADMIN, ROLES.COMPANY_OWNER],
+  },
+  [ROUTES.SUBSCRIPTIONS_USAGE]: {
+    requiredPermissions: [PERMISSIONS.SUBSCRIPTIONS_MANAGE],
+    requiredRole: [ROLES.SUPER_ADMIN, ROLES.COMPANY_OWNER],
+  },
+  [ROUTES.SUBSCRIPTIONS_DETAIL]: {
     requiredPermissions: [PERMISSIONS.SUBSCRIPTIONS_MANAGE],
     requiredRole: [ROLES.SUPER_ADMIN, ROLES.COMPANY_OWNER],
   },

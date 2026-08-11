@@ -70,7 +70,7 @@ export const PERMISSION_MODULES = {
   fuel: { label: 'Carburant', icon: 'bi-fuel-pump' },
   maintenance: { label: 'Entretiens', icon: 'bi-wrench-adjustable' },
   partners: { label: 'Partenaires', icon: 'bi-handshake' },
-  documents: { label: 'Documents', icon: 'bi-folder2-open' },
+  files: { label: 'Documents', icon: 'bi-folder2-open' },
   subscriptions: { label: 'Abonnements', icon: 'bi-credit-card' },
   billing: { label: 'Facturation', icon: 'bi-receipt' },
   notifications: { label: 'Notifications', icon: 'bi-bell' },
@@ -79,6 +79,7 @@ export const PERMISSION_MODULES = {
   roles: { label: 'Rôles', icon: 'bi-shield-lock' },
   permissions: { label: 'Permissions', icon: 'bi-key' },
   reports: { label: 'Rapports', icon: 'bi-file-earmark-bar-graph' },
+  settings: { label: 'Paramètres', icon: 'bi-gear' },
 };
 
 export const PERMISSION_MODULE_VALUES = Object.keys(PERMISSION_MODULES);
@@ -88,6 +89,7 @@ export const getPermissionModule = (value) =>
 
 export const PERMISSION_ACTIONS = {
   view: { label: 'Consulter', icon: 'bi-eye' },
+  read: { label: 'Consulter', icon: 'bi-eye' },
   create: { label: 'Créer', icon: 'bi-plus-circle' },
   update: { label: 'Modifier', icon: 'bi-pencil-square' },
   delete: { label: 'Supprimer', icon: 'bi-trash3' },
@@ -99,6 +101,9 @@ export const PERMISSION_ACTIONS = {
   assign: { label: 'Affecter', icon: 'bi-person-plus' },
   approve: { label: 'Valider', icon: 'bi-check2-circle' },
   refund: { label: 'Rembourser', icon: 'bi-cash' },
+  preferences: { label: 'Préférences', icon: 'bi-sliders' },
+  viewFinancial: { label: 'Données financières', icon: 'bi-cash-stack' },
+  viewSensitive: { label: 'Données sensibles', icon: 'bi-shield-exclamation' },
 };
 
 export const PERMISSION_ACTION_VALUES = Object.keys(PERMISSION_ACTIONS);

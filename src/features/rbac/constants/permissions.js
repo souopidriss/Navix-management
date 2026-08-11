@@ -49,6 +49,8 @@ export const PERMISSIONS = {
   /* Entretiens / maintenance */
   MAINTENANCE_READ: 'maintenance.read',
   MAINTENANCE_CREATE: 'maintenance.create',
+  MAINTENANCE_UPDATE: 'maintenance.update',
+  MAINTENANCE_DELETE: 'maintenance.delete',
 
   /* Partenaires */
   PARTNERS_READ: 'partners.read',
