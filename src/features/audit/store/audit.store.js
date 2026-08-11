@@ -1,7 +1,8 @@
 /**
  * Navix Audit — Store du module Journal des actions (Zustand)
  * --------------------------------------------------------------------------
- * État : logs (liste source de l'entreprise courante), selectedLog, stats,
+ * État : logs (liste source de l'entreprise courante), logsLoaded (vrai dès
+ * que le journal a été chargé une fois, même vide), selectedLog, stats,
  * search, filters (companyId, agencyId, userId, action, actionType,
  * resourceType, status, severity, period, dateFrom, dateTo), sort
  * (by, direction), pagination (page, pageSize), isLoading, isGenerating,
@@ -40,6 +41,7 @@ export const getAuditCompanyScopeId = () => {
 
 const initialState = {
   logs: [],
+  logsLoaded: false,
   selectedLog: null,
   stats: null,
   search: '',
@@ -92,11 +94,11 @@ const useAuditStore = create((set) => ({
         }),
         auditService.getStatistics(companyScopeId),
       ]);
-      set({ logs: result?.items ?? [], stats, isLoading: false });
+      set({ logs: result?.items ?? [], stats, isLoading: false, logsLoaded: true });
       return { success: true };
     } catch (error) {
       const message = toErrorMessage(error, 'Impossible de charger le journal des actions.');
-      set({ isLoading: false, error: message });
+      set({ isLoading: false, error: message, logsLoaded: true });
       return { success: false, error: message };
     }
   },
