@@ -24,7 +24,7 @@ import { ROLES, ROLE_DEFINITIONS } from '@/features/rbac';
 
 const ALL = '*';
 
-const CRUD = ['view', 'create', 'update', 'delete'];
+const CRUD = ['read', 'create', 'update', 'delete'];
 
 const perms = (module, actions) => actions.map((action) => `${module}.${action}`);
 
@@ -188,11 +188,11 @@ export const MOCK_ROLES = [
     isActive: true,
     permissions: [
       ...perms('dashboard', ['read']),
-      ...perms('vehicles', ['view', 'update']),
-      ...perms('drivers', ['view']),
-      ...perms('assignments', ['view', 'create', 'update']),
-      ...perms('trips', ['view', 'create', 'update']),
-      ...perms('fuel', ['view']),
+      ...perms('vehicles', ['read', 'update']),
+      ...perms('drivers', ['read']),
+      ...perms('assignments', ['read', 'create', 'update']),
+      ...perms('trips', ['read', 'create', 'update']),
+      ...perms('fuel', ['read']),
       ...perms('files', ['read']),
       ...perms('notifications', ['view']),
     ],
@@ -229,8 +229,8 @@ export const MOCK_ROLES = [
       ...perms('dashboard', ['read']),
       ...perms('vehicles', CRUD),
       ...perms('drivers', CRUD),
-      ...perms('trips', ['view', 'create', 'update']),
-      ...perms('fuel', ['view', 'create']),
+      ...perms('trips', ['read', 'create', 'update']),
+      ...perms('fuel', ['read', 'create']),
       ...perms('notifications', ['view']),
     ],
     createdAt: '2026-02-15T08:00:00.000Z',

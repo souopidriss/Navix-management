@@ -104,6 +104,7 @@ export const PERMISSION_ACTIONS = {
   preferences: { label: 'Préférences', icon: 'bi-sliders' },
   viewFinancial: { label: 'Données financières', icon: 'bi-cash-stack' },
   viewSensitive: { label: 'Données sensibles', icon: 'bi-shield-exclamation' },
+  viewAllCompanies: { label: 'Toutes les entreprises', icon: 'bi-buildings' },
 };
 
 export const PERMISSION_ACTION_VALUES = Object.keys(PERMISSION_ACTIONS);
