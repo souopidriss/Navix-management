@@ -9,7 +9,6 @@ import { ROUTES } from './route.constants';
  * Ajouter une future page : créer le fichier dans src/pages/ puis l'importer ici en lazy.
  */
 const DashboardPage = lazy(() => import('@/features/dashboard/pages/DashboardPage'));
-const PlaceholderPage = lazy(() => import('@/pages/PlaceholderPage'));
 const CompanyListPage = lazy(() => import('@/features/companies/pages/CompanyListPage'));
 const CompanyDetailsPage = lazy(() => import('@/features/companies/pages/CompanyDetailsPage'));
 const CompanyCreatePage = lazy(() => import('@/features/companies/pages/CompanyCreatePage'));
@@ -113,6 +112,7 @@ const SettingsBillingPage = lazy(() => import('@/features/settings/pages/Billing
 const SaasSettingsPage = lazy(() => import('@/features/settings/pages/SaasSettingsPage'));
 const SecuritySettingsPage = lazy(() => import('@/features/settings/pages/SecuritySettingsPage'));
 const SystemSettingsPage = lazy(() => import('@/features/settings/pages/SystemSettingsPage'));
+const ProfilePage = lazy(() => import('@/features/profile/pages/ProfilePage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -220,6 +220,6 @@ export const dashboardRoutes = (
       <Route path={ROUTES.SETTINGS_SECURITY} element={<SecuritySettingsPage />} />
       <Route path={ROUTES.SETTINGS_SYSTEM} element={<SystemSettingsPage />} />
     </Route>
-    <Route path={ROUTES.PROFILE} element={<PlaceholderPage title="Profil" icon="bi-person" />} />
+    <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
   </Route>
 );

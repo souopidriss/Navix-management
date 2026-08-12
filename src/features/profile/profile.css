@@ -1,0 +1,161 @@
+/* ==========================================================================
+   Navix Profile — styles de l'espace profil
+   --------------------------------------------------------------------------
+   Bandeau d'identité, rangées informatives et disposition du profil courant.
+   Utilise exclusivement les tokens du Design System (variables.css).
+   ========================================================================== */
+
+/* Bandeau d'identité ------------------------------------------------------ */
+
+.navix-profile-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--navix-space-6);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--navix-space-6);
+  border: 1px solid var(--navix-border-color);
+  border-radius: var(--navix-radius-xl);
+  background: var(--navix-card);
+  box-shadow: var(--navix-shadow-sm);
+}
+
+.navix-profile-header__main {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-5);
+  min-width: 0;
+}
+
+.navix-profile-header__avatar {
+  flex-shrink: 0;
+}
+
+.navix-profile-header__identity {
+  min-width: 0;
+}
+
+.navix-profile-header__name {
+  margin: 0;
+  font-size: var(--navix-font-size-h3);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--navix-text-primary);
+}
+
+.navix-profile-header__email {
+  margin: var(--navix-space-1) 0 var(--navix-space-3);
+  color: var(--navix-text-muted);
+  font-size: var(--navix-font-size-base);
+  word-break: break-word;
+}
+
+.navix-profile-header__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-3);
+  min-width: 14rem;
+}
+
+.navix-profile-header__item {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+}
+
+.navix-profile-header__item > i {
+  font-size: var(--navix-font-size-h4);
+  color: var(--navix-text-muted);
+}
+
+.navix-profile-header__item > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.navix-profile-header__item-label {
+  font-size: var(--navix-font-size-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--navix-letter-spacing-caption);
+  color: var(--navix-text-muted);
+}
+
+.navix-profile-header__item-value {
+  font-weight: var(--navix-font-weight-medium);
+  color: var(--navix-text-primary);
+}
+
+/* Rangées d'information (lecture seule) ------------------------------------ */
+
+.navix-profile-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.navix-profile-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--navix-space-3);
+  padding: var(--navix-space-3) 0;
+  border-bottom: 1px solid var(--navix-border-color-subtle);
+}
+
+.navix-profile-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.navix-profile-row__icon {
+  margin-top: var(--navix-space-1);
+  color: var(--navix-text-muted);
+}
+
+.navix-profile-row__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.navix-profile-row__label {
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-muted);
+}
+
+.navix-profile-row__value {
+  font-size: var(--navix-font-size-base);
+  color: var(--navix-text-secondary);
+  word-break: break-word;
+}
+
+.navix-profile-row__value--strong {
+  color: var(--navix-text-primary);
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+/* Sécurité ------------------------------------------------------------------ */
+
+.navix-profile-password__text {
+  margin: 0 0 var(--navix-space-4);
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-muted);
+}
+
+/* Colonne latérale ----------------------------------------------------------- */
+
+.navix-profile-side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-4);
+}
+
+/* Responsive ------------------------------------------------------------------ */
+
+@media (max-width: 767.98px) {
+  .navix-profile-header {
+    align-items: flex-start;
+  }
+
+  .navix-profile-header__meta {
+    min-width: 0;
+    width: 100%;
+  }
+}

@@ -211,6 +211,36 @@ const useAuthStore = create(
         }
       },
 
+      /**
+       * Mise à jour du profil courant — met à jour user (simulé).
+       * Le rôle, l'entreprise et le tenant sont gérés ailleurs : ce profil
+       * ne modifie que les champs identité (prénom, nom, téléphone, poste,
+       * avatar). `name` (nom complet) est recalé sur la valeur du service.
+       * @param {object} payload
+       * @returns {Promise<{ success: boolean, error?: string }>}
+       */
+      updateProfile: async (payload) => {
+        set({ isLoading: true, error: null });
+
+        try {
+          const { user } = await authService.updateProfile(payload);
+
+          if (user?.role && user.role !== get().currentRole) {
+            useRbacStore.getState().setCurrentRole(user.role);
+            useRbacStore.getState().setCompanyRole(user.companyRole ?? user.role);
+            useRbacStore.getState().setTenantRole(user.tenantRole ?? user.role);
+            set({ currentRole: user.role });
+          }
+
+          set({ user, isLoading: false, error: null });
+          return { success: true };
+        } catch (error) {
+          const message = toErrorMessage(error, 'Impossible de mettre à jour votre profil.');
+          set({ isLoading: false, error: message });
+          return { success: false, error: message };
+        }
+      },
+
       /** Efface l'erreur courante (ex. fermeture d'une alerte). */
       clearError: () => set({ error: null }),
     }),

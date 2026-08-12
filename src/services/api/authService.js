@@ -22,12 +22,19 @@ import { mockResponse } from '../utils';
 
 const MOCK_CREDENTIALS = { email: 'demo@navix.app', password: 'Password123!' };
 
-const MOCK_USER = {
+let MOCK_USER = {
   id: 'usr_demo',
+  firstName: 'Awa',
+  lastName: 'Kouamé',
   name: 'Awa Kouamé',
   email: 'demo@navix.app',
+  phone: '+225 07 07 07 07 07',
+  jobTitle: 'Super Administratrice',
   role: 'super_admin',
+  status: 'active',
   avatar: null,
+  createdAt: '2024-01-15T09:00:00.000Z',
+  updatedAt: '2024-01-15T09:00:00.000Z',
 };
 
 const MOCK_COMPANY = {
@@ -181,6 +188,45 @@ export const authService = {
     }
 
     const { data } = await apiClient.get(API_ENDPOINTS.AUTH.ME);
+    return data;
+  },
+
+  /**
+   * Mise à jour du profil courant — simulée.
+   * Recalcule le nom complet depuis les champs prénom / nom.
+   * @param {{ firstName: string, lastName: string, phone?: string, jobTitle?: string, avatar?: string|null }} payload
+   * @returns {Promise<{ user: object }>}
+   */
+  async updateProfile(payload) {
+    if (apiConfig.mock) {
+      await mockResponse(null, { latency: 600 });
+
+      if (!payload || !payload.firstName || !payload.lastName) {
+        throw new ApiError({
+          status: 400,
+          code: 'AUTH_INVALID_PROFILE',
+          message: 'Le prénom et le nom sont requis.',
+        });
+      }
+
+      const firstName = payload.firstName.trim();
+      const lastName = payload.lastName.trim();
+
+      MOCK_USER = {
+        ...MOCK_USER,
+        firstName,
+        lastName,
+        name: `${firstName} ${lastName}`,
+        phone: payload.phone?.trim() || '',
+        jobTitle: payload.jobTitle?.trim() || '',
+        avatar: payload.avatar ?? MOCK_USER.avatar,
+        updatedAt: new Date().toISOString(),
+      };
+
+      return { user: MOCK_USER };
+    }
+
+    const { data } = await apiClient.patch(API_ENDPOINTS.AUTH.ME, payload);
     return data;
   },
 };
