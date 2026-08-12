@@ -34,6 +34,17 @@ export const GuestRoute = () => {
 };
 
 /**
+ * HomeRedirect — garde de la racine publique.
+ * Redirige vers le tableau de bord si une session existe, sinon vers la
+ * page de connexion (évite le passage par /dashboard pour les visiteurs).
+ */
+export const HomeRedirect = () => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  return <Navigate to={isAuthenticated ? ROUTES.DASHBOARD : ROUTES.LOGIN} replace />;
+};
+
+/**
  * RoleGuard — garde de routes basée sur les rôles.
  * Redirige vers UNAUTHORIZED si le rôle courant ne figure pas dans `roles`.
  */

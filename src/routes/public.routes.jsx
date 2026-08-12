@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { Navigate, Route } from 'react-router-dom';
 import PublicLayout from '@/layouts/PublicLayout';
 import { ROUTES } from './route.constants';
+import { HomeRedirect } from './route.guards';
 
 /**
  * Routes publiques.
@@ -13,7 +14,7 @@ const MaintenancePage = lazy(() => import('@/pages/MaintenancePage'));
 export const publicRoutes = (
   <>
     <Route path={ROUTES.HOME} element={<PublicLayout />}>
-      <Route index element={<Navigate to={ROUTES.DASHBOARD} replace />} />
+      <Route index element={<HomeRedirect />} />
     </Route>
     <Route path={ROUTES.MAINTENANCE} element={<MaintenancePage />} />
   </>

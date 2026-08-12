@@ -17,14 +17,19 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { STORAGE_KEYS } from '@/config';
-import { MOCK_RBAC } from '../constants/mock';
 import { getPermissionsForRole } from '../utils/access';
 
+/**
+ * État initial : aucun privilège sans session authentifiée.
+ * Le rôle courant est fourni par la synchronisation avec auth.store
+ * (login, restoreSession, me) ; tant qu'aucun utilisateur n'est connecté,
+ * le RBAC ne dispose ni rôle ni permission.
+ */
 const initialRbac = {
-  currentRole: MOCK_RBAC.defaultRole,
-  companyRole: MOCK_RBAC.defaultRole,
-  tenantRole: MOCK_RBAC.defaultRole,
-  permissions: getPermissionsForRole(MOCK_RBAC.defaultRole),
+  currentRole: null,
+  companyRole: null,
+  tenantRole: null,
+  permissions: [],
   isLoading: false,
   error: null,
 };
@@ -57,7 +62,7 @@ const useRbacStore = create(
        */
       setPermissions: (permissions) => set({ permissions }),
 
-      /** Réinitialise le store à ses valeurs initiales (mock). */
+      /** Réinitialise le store à ses valeurs initiales (aucun rôle). */
       reset: () => set({ ...initialRbac }),
 
       /** Efface l'erreur courante. */
