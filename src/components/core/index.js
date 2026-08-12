@@ -32,6 +32,4 @@ export { default as Timeline } from './Timeline';
 
 export { default as FileUploader } from './FileUploader';
 export { default as ImagePreview } from './ImagePreview';
-export { default as QRCode } from './QRCode';
 export { default as ExportButton } from './ExportButton';
-export { default as ImportButton } from './ImportButton';
