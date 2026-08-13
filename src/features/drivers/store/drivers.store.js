@@ -15,6 +15,7 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { driverService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
@@ -55,7 +56,7 @@ const useDriversStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const drivers = await driverService.getAll();
+      const drivers = await driverService.getAll({ companyScopeId: getTenantScopeCompanyId() });
       set({ drivers, isLoading: false });
       return { success: true };
     } catch (error) {

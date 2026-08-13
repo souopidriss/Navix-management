@@ -93,33 +93,40 @@ const computeAverageSpeed = (distance, duration) => {
 
 export const tripService = {
   /**
-   * Liste de tous les trajets (copie — les mutations ultérieures du cache
-   * n'affectent pas les consommateurs).
+   * Liste des trajets (copie — les mutations ultérieures du cache
+   * n'affectent pas les consommateurs). Bornée à l'entreprise courante via
+   * `companyScopeId` (multi-tenant simulé — vide pour super_admin).
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async getAll() {
+  async getAll({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
-      return mockResponse([...getTripsCache()]);
+      const trips = companyScopeId
+        ? getTripsCache().filter((trip) => trip.companyId === companyScopeId)
+        : getTripsCache();
+      return mockResponse([...trips]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.TRIPS.LIST);
+    const { data } = await apiClient.get(API_ENDPOINTS.TRIPS.LIST, { params: { companyScopeId } });
     return data;
   },
 
   /**
    * Trajets passés (terminés ou annulés), triés de la plus récente
-   * à la plus ancienne.
+   * à la plus ancienne. Bornés à l'entreprise courante via `companyScopeId`.
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async history() {
+  async history({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
       const past = getTripsCache()
+        .filter((trip) => !companyScopeId || trip.companyId === companyScopeId)
         .filter((trip) => trip.status === 'completed' || trip.status === 'cancelled')
         .sort((a, b) => String(b.arrivalDate || b.updatedAt).localeCompare(String(a.arrivalDate || a.updatedAt)));
       return mockResponse([...past]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.TRIPS.HISTORY);
+    const { data } = await apiClient.get(API_ENDPOINTS.TRIPS.HISTORY, { params: { companyScopeId } });
     return data;
   },
 

@@ -64,16 +64,21 @@ const buildPartnerRecord = (payload) => {
 
 export const partnerService = {
   /**
-   * Liste de tous les partenaires (copie — les mutations ultérieures du cache
-   * n'affectent pas les consommateurs).
+   * Liste des partenaires (copie — les mutations ultérieures du cache
+   * n'affectent pas les consommateurs). Bornée à l'entreprise courante via
+   * `companyScopeId` (multi-tenant simulé — vide pour super_admin).
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async getAll() {
+  async getAll({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
-      return mockResponse([...getPartnersCache()]);
+      const partners = companyScopeId
+        ? getPartnersCache().filter((partner) => partner.companyId === companyScopeId)
+        : getPartnersCache();
+      return mockResponse([...partners]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.PARTNERS.LIST);
+    const { data } = await apiClient.get(API_ENDPOINTS.PARTNERS.LIST, { params: { companyScopeId } });
     return data;
   },
 

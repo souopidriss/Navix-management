@@ -18,17 +18,13 @@ import { create } from 'zustand';
 import { DEFAULT_REPORT_PERIOD } from '../constants';
 import { reportFilterDefaultValues } from '../schemas';
 import { useAuthStore } from '@/features/auth';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { reportService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
 
-/** Entreprise du contexte courant (simulation tenant). */
-export const getReportsCompanyScopeId = () => {
-  const { user, company } = useAuthStore.getState();
-  if (!user) return '';
-  if (user.role === 'super_admin') return '';
-  return company?.id ?? '';
-};
+/** Entreprise du contexte courant (simulation tenant) — source canonique. */
+export const getReportsCompanyScopeId = () => getTenantScopeCompanyId();
 
 const initialState = {
   reportType: 'fleet',

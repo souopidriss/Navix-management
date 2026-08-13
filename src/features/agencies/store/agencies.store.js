@@ -18,6 +18,7 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { agencyService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
@@ -62,7 +63,7 @@ const useAgenciesStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const agencies = await agencyService.getAll();
+      const agencies = await agencyService.getAll({ companyScopeId: getTenantScopeCompanyId() });
       set({ agencies, isLoading: false });
       return { success: true };
     } catch (error) {

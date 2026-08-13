@@ -23,6 +23,7 @@ import { useDashboardData } from '../hooks';
 import { NotificationCenter } from '@/features/notifications/components';
 import { useNotificationsStore } from '@/features/notifications';
 import { useCompaniesStore } from '@/features/companies';
+import { getTenantScope } from '@/utils/tenantScope';
 import {
   DashboardFilters,
   FleetOverviewCard,
@@ -55,6 +56,15 @@ const DashboardPage = () => {
     fetchNotifications();
     fetchCompanies();
   }, [fetchNotifications, fetchCompanies]);
+
+  /* Multi-tenant : hors super_admin, le filtre entreprise est verrouillé sur
+     l'entreprise courante (les données sont de toute façon bornées au store). */
+  useEffect(() => {
+    const { isSuperAdmin, companyId } = getTenantScope();
+    if (!isSuperAdmin && companyId) {
+      setFilter('companyId', companyId);
+    }
+  }, [setFilter]);
 
   const {
     filters,

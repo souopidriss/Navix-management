@@ -42,6 +42,7 @@ import { apiConfig } from '@/services/config';
 import { mockResponse } from '@/services/utils';
 import { ApiError } from '@/services/errors';
 import { useAuthStore } from '@/features/auth';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { settingsService } from '@/features/settings/services';
 import { MOCK_NOTIFICATIONS } from '../mocks';
 import { ALERT_RULES, countUrgentNotifications } from '../constants';
@@ -52,13 +53,8 @@ let notificationsCache = null;
    Portée multi-tenant
    -------------------------------------------------------------------------- */
 
-/** Entreprise du contexte courant (simulation tenant). */
-export const getNotificationCompanyScopeId = () => {
-  const { user, company } = useAuthStore.getState();
-  if (!user) return '';
-  if (user.role === 'super_admin') return '';
-  return company?.id ?? '';
-};
+/** Entreprise du contexte courant (simulation tenant) — source canonique. */
+export const getNotificationCompanyScopeId = () => getTenantScopeCompanyId();
 
 /** Liste des notifications visibles par l'utilisateur courant. */
 const scopedList = () => {
@@ -416,9 +412,9 @@ export const notificationService = {
    * Portée de lecture des préférences (entreprise + utilisateur courants).
    */
   getPreferenceScope() {
-    const { user, company } = useAuthStore.getState();
+    const { user } = useAuthStore.getState();
     return {
-      companyScopeId: !user || user.role === 'super_admin' ? '' : company?.id ?? '',
+      companyScopeId: getTenantScopeCompanyId(),
       userId: user?.id ?? 'usr_001',
     };
   },

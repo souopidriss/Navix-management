@@ -15,6 +15,7 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { vehicleService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
@@ -56,7 +57,7 @@ const useVehiclesStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const vehicles = await vehicleService.getAll();
+      const vehicles = await vehicleService.getAll({ companyScopeId: getTenantScopeCompanyId() });
       set({ vehicles, isLoading: false });
       return { success: true };
     } catch (error) {

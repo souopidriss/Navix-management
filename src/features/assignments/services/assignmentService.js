@@ -87,33 +87,40 @@ const findConflictError = (payload, excludedId = null) => {
 
 export const assignmentService = {
   /**
-   * Liste de toutes les affectations (copie — les mutations ultérieures du
-   * cache n'affectent pas les consommateurs).
+   * Liste des affectations (copie — les mutations ultérieures du cache
+   * n'affectent pas les consommateurs). Bornée à l'entreprise courante via
+   * `companyScopeId` (multi-tenant simulé — vide pour super_admin).
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async getAll() {
+  async getAll({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
-      return mockResponse([...getAssignmentsCache()]);
+      const assignments = companyScopeId
+        ? getAssignmentsCache().filter((assignment) => assignment.companyId === companyScopeId)
+        : getAssignmentsCache();
+      return mockResponse([...assignments]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.ASSIGNMENTS.LIST);
+    const { data } = await apiClient.get(API_ENDPOINTS.ASSIGNMENTS.LIST, { params: { companyScopeId } });
     return data;
   },
 
   /**
    * Affectations passées (terminées ou annulées), triées de la plus récente
-   * à la plus ancienne.
+   * à la plus ancienne. Bornées à l'entreprise courante via `companyScopeId`.
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async history() {
+  async history({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
       const past = getAssignmentsCache()
+        .filter((assignment) => !companyScopeId || assignment.companyId === companyScopeId)
         .filter((assignment) => assignment.status === 'completed' || assignment.status === 'cancelled')
         .sort((a, b) => String(b.endDate || b.updatedAt).localeCompare(String(a.endDate || a.updatedAt)));
       return mockResponse([...past]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.ASSIGNMENTS.HISTORY);
+    const { data } = await apiClient.get(API_ENDPOINTS.ASSIGNMENTS.HISTORY, { params: { companyScopeId } });
     return data;
   },
 

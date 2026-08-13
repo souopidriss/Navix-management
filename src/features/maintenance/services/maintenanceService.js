@@ -136,16 +136,21 @@ const buildMaintenanceRecord = (payload) => {
 
 export const maintenanceService = {
   /**
-   * Liste de tous les entretiens (copie — les mutations ultérieures du cache
-   * n'affectent pas les consommateurs).
+   * Liste des entretiens (copie — les mutations ultérieures du cache
+   * n'affectent pas les consommateurs). Bornée à l'entreprise courante via
+   * `companyScopeId` (multi-tenant simulé — vide pour super_admin).
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async getAll() {
+  async getAll({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
-      return mockResponse([...getMaintenanceCache()]);
+      const records = companyScopeId
+        ? getMaintenanceCache().filter((record) => record.companyId === companyScopeId)
+        : getMaintenanceCache();
+      return mockResponse([...records]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.MAINTENANCE.LIST);
+    const { data } = await apiClient.get(API_ENDPOINTS.MAINTENANCE.LIST, { params: { companyScopeId } });
     return data;
   },
 
@@ -252,12 +257,16 @@ export const maintenanceService = {
    * volume par statut, alertes (retard, proche, urgence), véhicules
    * immobilisés, coût cumulé (mois / année), coût moyen, distribution par
    * type, priorité, statut, évolution mensuelle (6 mois), ateliers et
-   * véhicules les plus concernés.
+   * véhicules les plus concernés. Bornée à l'entreprise courante via
+   * `companyScopeId` (vide : toutes).
+   * @param {string} [companyScopeId]
    * @returns {Promise<object>}
    */
-  async statistics() {
+  async statistics(companyScopeId = '') {
     if (apiConfig.mock) {
-      const records = getMaintenanceCache();
+      const records = companyScopeId
+        ? getMaintenanceCache().filter((record) => record.companyId === companyScopeId)
+        : getMaintenanceCache();
       const now = new Date();
       const currentMonth = monthKey(now.toISOString());
       const currentYear = now.getFullYear();
@@ -371,7 +380,7 @@ export const maintenanceService = {
       });
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.MAINTENANCE.STATS);
+    const { data } = await apiClient.get(API_ENDPOINTS.MAINTENANCE.STATS, { params: { companyScopeId } });
     return data;
   },
 

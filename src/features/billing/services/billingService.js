@@ -104,16 +104,21 @@ const findInvoice = (id) => getInvoicesCache().find((invoice) => invoice.id === 
 
 export const billingService = {
   /**
-   * Liste de toutes les factures (copie — les mutations ultérieures du cache
-   * n'affectent pas les consommateurs).
+   * Liste des factures (copie — les mutations ultérieures du cache
+   * n'affectent pas les consommateurs). Bornée à l'entreprise courante via
+   * `companyScopeId` (multi-tenant simulé — vide pour super_admin).
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async getInvoices() {
+  async getInvoices({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
-      return mockResponse([...getInvoicesCache()]);
+      const invoices = companyScopeId
+        ? getInvoicesCache().filter((invoice) => invoice.companyId === companyScopeId)
+        : getInvoicesCache();
+      return mockResponse([...invoices]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.BILLING.INVOICES);
+    const { data } = await apiClient.get(API_ENDPOINTS.BILLING.INVOICES, { params: { companyScopeId } });
     return data;
   },
 
@@ -304,15 +309,20 @@ export const billingService = {
   },
 
   /**
-   * Liste de tous les paiements (copie).
+   * Liste des paiements (copie). Bornée à l'entreprise courante via
+   * `companyScopeId` (multi-tenant simulé — vide pour super_admin).
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async getPayments() {
+  async getPayments({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
-      return mockResponse([...getPaymentsCache()]);
+      const payments = companyScopeId
+        ? getPaymentsCache().filter((payment) => payment.companyId === companyScopeId)
+        : getPaymentsCache();
+      return mockResponse([...payments]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.BILLING.PAYMENTS);
+    const { data } = await apiClient.get(API_ENDPOINTS.BILLING.PAYMENTS, { params: { companyScopeId } });
     return data;
   },
 
@@ -474,26 +484,35 @@ export const billingService = {
   },
 
   /**
-   * Journal de facturation (trié du plus récent au plus ancien).
+   * Journal de facturation (trié du plus récent au plus ancien). Borné à
+   * l'entreprise courante via `companyScopeId` (vide : toutes).
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async getBillingHistory() {
+  async getBillingHistory({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
-      const history = [...MOCK_BILLING_HISTORY].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+      const history = MOCK_BILLING_HISTORY.filter(
+        (entry) => !companyScopeId || entry.companyId === companyScopeId,
+      )
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
       return mockResponse(history.map((entry) => ({ ...entry })));
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.BILLING.HISTORY);
+    const { data } = await apiClient.get(API_ENDPOINTS.BILLING.HISTORY, { params: { companyScopeId } });
     return data;
   },
 
   /**
    * Indicateurs financiers simulés (dérivés de la liste des factures).
+   * Bornés à l'entreprise courante via `companyScopeId` (vide : toutes).
+   * @param {string} [companyScopeId]
    * @returns {Promise<object>}
    */
-  async getStatistics() {
+  async getStatistics(companyScopeId = '') {
     if (apiConfig.mock) {
-      const invoices = getInvoicesCache();
+      const invoices = companyScopeId
+        ? getInvoicesCache().filter((invoice) => invoice.companyId === companyScopeId)
+        : getInvoicesCache();
       const billedStatuses = new Set(['issued', 'paid', 'partially_paid', 'overdue']);
       const billedInvoices = invoices.filter((invoice) => billedStatuses.has(invoice.status));
 
@@ -536,7 +555,7 @@ export const billingService = {
       return mockResponse(stats);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.BILLING.STATISTICS);
+    const { data } = await apiClient.get(API_ENDPOINTS.BILLING.STATISTICS, { params: { companyScopeId } });
     return data;
   },
 

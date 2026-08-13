@@ -26,18 +26,13 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
-import { useAuthStore } from '@/features/auth';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { auditService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
 
-/** Entreprise du contexte courant (simulation tenant). */
-export const getAuditCompanyScopeId = () => {
-  const { user, company } = useAuthStore.getState();
-  if (!user) return '';
-  if (user.role === 'super_admin') return '';
-  return company?.id ?? '';
-};
+/** Entreprise du contexte courant (simulation tenant) — source canonique. */
+export const getAuditCompanyScopeId = () => getTenantScopeCompanyId();
 
 const initialState = {
   logs: [],

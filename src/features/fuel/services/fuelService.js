@@ -139,16 +139,21 @@ const buildFuelRecord = (payload) => ({
 
 export const fuelService = {
   /**
-   * Liste de tous les pleins (copie — les mutations ultérieures du cache
-   * n'affectent pas les consommateurs).
+   * Liste des pleins (copie — les mutations ultérieures du cache
+   * n'affectent pas les consommateurs). Bornée à l'entreprise courante via
+   * `companyScopeId` (multi-tenant simulé — vide pour super_admin).
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async getAll() {
+  async getAll({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
-      return mockResponse([...getFuelCache()]);
+      const records = companyScopeId
+        ? getFuelCache().filter((record) => record.companyId === companyScopeId)
+        : getFuelCache();
+      return mockResponse([...records]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.FUEL.LIST);
+    const { data } = await apiClient.get(API_ENDPOINTS.FUEL.LIST, { params: { companyScopeId } });
     return data;
   },
 
@@ -271,11 +276,15 @@ export const fuelService = {
    * coût total du mois, litres consommés du mois, coût moyen par véhicule,
    * consommation moyenne, top 5 des véhicules les plus consommateurs,
    * évolution mensuelle (6 derniers mois) et consommations anormales.
+   * Bornées à l'entreprise courante via `companyScopeId` (vide : toutes).
+   * @param {string} [companyScopeId]
    * @returns {Promise<object>}
    */
-  async statistics() {
+  async statistics(companyScopeId = '') {
     if (apiConfig.mock) {
-      const records = getFuelCache();
+      const records = companyScopeId
+        ? getFuelCache().filter((record) => record.companyId === companyScopeId)
+        : getFuelCache();
       const now = new Date();
       const currentMonth = monthKey(now.toISOString());
 
@@ -365,7 +374,7 @@ export const fuelService = {
       });
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.FUEL.STATS);
+    const { data } = await apiClient.get(API_ENDPOINTS.FUEL.STATS, { params: { companyScopeId } });
     return data;
   },
 };

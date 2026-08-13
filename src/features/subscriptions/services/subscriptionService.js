@@ -172,16 +172,21 @@ export const subscriptionService = {
   },
 
   /**
-   * Liste de tous les abonnements (copie — les mutations ultérieures du cache
-   * n'affectent pas les consommateurs).
+   * Liste des abonnements (copie — les mutations ultérieures du cache
+   * n'affectent pas les consommateurs). Bornée à l'entreprise courante via
+   * `companyScopeId` (multi-tenant simulé — vide pour super_admin).
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async getSubscriptions() {
+  async getSubscriptions({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
-      return mockResponse([...getSubscriptionsCache()]);
+      const subscriptions = companyScopeId
+        ? getSubscriptionsCache().filter((subscription) => subscription.companyId === companyScopeId)
+        : getSubscriptionsCache();
+      return mockResponse([...subscriptions]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.SUBSCRIPTIONS.LIST);
+    const { data } = await apiClient.get(API_ENDPOINTS.SUBSCRIPTIONS.LIST, { params: { companyScopeId } });
     return data;
   },
 

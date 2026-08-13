@@ -9,16 +9,11 @@
 import { useEffect, useMemo } from 'react';
 import { MOCK_COMPANIES } from '@/features/companies/mocks';
 import { MOCK_AGENCIES } from '@/features/agencies/mocks';
-import { useAuthStore } from '@/features/auth';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { useRoleStore } from '../store';
 
-/** Portée multi-tenant simulée : tout sauf pour super_admin. */
-export const getTenantScopeCompanyId = () => {
-  const { user, company } = useAuthStore.getState();
-  if (!user) return '';
-  if (user.role === 'super_admin') return '';
-  return company?.id ?? '';
-};
+/** Portée multi-tenant simulée (source canonique) : tout sauf super_admin. */
+export { getTenantScopeCompanyId } from '@/utils/tenantScope';
 
 /** Carte id → entreprise (référentiel global, sauf portée bornée). */
 export const buildCompanyById = (scopeCompanyId = '') =>

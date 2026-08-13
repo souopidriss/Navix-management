@@ -18,6 +18,7 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { billingService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
@@ -64,7 +65,7 @@ const useBillingStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const invoices = await billingService.getInvoices();
+      const invoices = await billingService.getInvoices({ companyScopeId: getTenantScopeCompanyId() });
       set({ invoices, isLoading: false });
       return { success: true };
     } catch (error) {
@@ -180,7 +181,7 @@ const useBillingStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const payments = await billingService.getPayments();
+      const payments = await billingService.getPayments({ companyScopeId: getTenantScopeCompanyId() });
       set({ payments, isLoading: false });
       return { success: true };
     } catch (error) {
@@ -284,7 +285,7 @@ const useBillingStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const history = await billingService.getBillingHistory();
+      const history = await billingService.getBillingHistory({ companyScopeId: getTenantScopeCompanyId() });
       set({ history, isLoading: false });
       return { success: true };
     } catch (error) {
@@ -302,7 +303,7 @@ const useBillingStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const statistics = await billingService.getStatistics();
+      const statistics = await billingService.getStatistics(getTenantScopeCompanyId());
       set({ statistics, isLoading: false });
       return { success: true };
     } catch (error) {

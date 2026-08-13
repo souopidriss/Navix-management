@@ -15,18 +15,14 @@
  */
 import { create } from 'zustand';
 import { useAuthStore } from '@/features/auth';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { settingsService } from '../services/settingsService';
 import { SETTINGS_SECTION_VALUES, USER_SCOPE_SECTIONS } from '../constants';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
 
-/** Entreprise du contexte courant (simulation tenant). */
-export const getSettingsCompanyScopeId = () => {
-  const { user, company } = useAuthStore.getState();
-  if (!user) return '';
-  if (user.role === 'super_admin') return '';
-  return company?.id ?? '';
-};
+/** Entreprise du contexte courant (simulation tenant) — source canonique. */
+export const getSettingsCompanyScopeId = () => getTenantScopeCompanyId();
 
 /** Utilisateur du contexte courant (préférences personnelles). */
 export const getSettingsUserScopeId = () => {

@@ -12,7 +12,7 @@
 import { useMemo } from 'react';
 import { MOCK_COMPANIES } from '@/features/companies/mocks';
 import { MOCK_AGENCIES } from '@/features/agencies/mocks';
-import { useAuthStore } from '@/features/auth';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { useAuditStore } from '../store';
 import { sanitizeAuditFilters } from '../schemas';
 import { applyAuditFilters, sortAuditLogs } from '../services';
@@ -31,12 +31,11 @@ export const buildAgencyById = () =>
     return acc;
   }, {});
 
-/** Portée multi-tenant simulée : tout sauf pour super_admin. */
-export const getAuditScopeCompanyId = () => {
-  const { user, company } = useAuthStore.getState();
-  if (!user) return '';
-  return user.role === 'super_admin' ? '' : company?.id ?? '';
-};
+/**
+ * Portée multi-tenant simulée : bornée à l'entreprise courante, sauf pour
+ * super_admin (vision globale). Définition unique dans `src/utils/tenantScope`.
+ */
+export const getAuditScopeCompanyId = () => getTenantScopeCompanyId();
 
 const paginate = (items, { page, pageSize }) => {
   const totalItems = items.length;

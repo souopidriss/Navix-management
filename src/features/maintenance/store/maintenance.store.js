@@ -18,6 +18,7 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { maintenanceService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
@@ -60,7 +61,9 @@ const useMaintenanceStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const maintenanceRecords = await maintenanceService.getAll();
+      const maintenanceRecords = await maintenanceService.getAll({
+        companyScopeId: getTenantScopeCompanyId(),
+      });
       set({ maintenanceRecords, isLoading: false });
       return { success: true };
     } catch (error) {
@@ -97,7 +100,7 @@ const useMaintenanceStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const statistics = await maintenanceService.statistics();
+      const statistics = await maintenanceService.statistics(getTenantScopeCompanyId());
       set({ statistics, isLoading: false });
       return { success: true };
     } catch (error) {

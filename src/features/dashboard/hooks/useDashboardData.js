@@ -12,6 +12,7 @@
 import { useEffect, useMemo } from 'react';
 import { useDashboardStore } from '../store';
 import { useVehiclesStore } from '@/features/vehicles';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { formatDashboardMoney, formatDashboardRate } from '../constants';
 
 const useDashboardData = () => {
@@ -42,10 +43,11 @@ const useDashboardData = () => {
     }
   }, [vehicles.length, fetchVehicles]);
 
-  const visibleVehicles = useMemo(
-    () => (filters.companyId ? vehicles.filter((vehicle) => vehicle.companyId === filters.companyId) : vehicles),
-    [vehicles, filters.companyId],
-  );
+  const visibleVehicles = useMemo(() => {
+    const scopeCompanyId = getTenantScopeCompanyId();
+    const companyId = scopeCompanyId || filters.companyId;
+    return companyId ? vehicles.filter((vehicle) => vehicle.companyId === companyId) : vehicles;
+  }, [vehicles, filters.companyId]);
 
   const metrics = useMemo(() => {
     if (!overview || !financialStatistics) return [];

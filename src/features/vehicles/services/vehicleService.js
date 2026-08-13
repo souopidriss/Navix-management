@@ -53,16 +53,21 @@ const isDuplicateRegistration = (registrationNumber, excludedId) =>
 
 export const vehicleService = {
   /**
-   * Liste de tous les véhicules (copie — les mutations ultérieures du
-   * cache n'affectent pas les consommateurs).
+   * Liste des véhicules (copie — les mutations ultérieures du cache
+   * n'affectent pas les consommateurs). Bornée à l'entreprise courante via
+   * `companyScopeId` (multi-tenant simulé — vide pour super_admin).
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async getAll() {
+  async getAll({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
-      return mockResponse([...getVehiclesCache()]);
+      const vehicles = companyScopeId
+        ? getVehiclesCache().filter((vehicle) => vehicle.companyId === companyScopeId)
+        : getVehiclesCache();
+      return mockResponse([...vehicles]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.VEHICLES.LIST);
+    const { data } = await apiClient.get(API_ENDPOINTS.VEHICLES.LIST, { params: { companyScopeId } });
     return data;
   },
 

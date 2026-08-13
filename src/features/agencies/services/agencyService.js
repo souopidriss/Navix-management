@@ -92,16 +92,21 @@ const isDuplicateCode = (code, companyId, excludedId) =>
 
 export const agencyService = {
   /**
-   * Liste de toutes les agences (copie — les mutations ultérieures du cache
-   * n'affectent pas les consommateurs).
+   * Liste des agences (copie — les mutations ultérieures du cache
+   * n'affectent pas les consommateurs). Bornée à l'entreprise courante via
+   * `companyScopeId` (multi-tenant simulé — vide pour super_admin).
+   * @param {object} [query] — { companyScopeId }
    * @returns {Promise<Array<object>>}
    */
-  async getAll() {
+  async getAll({ companyScopeId = '' } = {}) {
     if (apiConfig.mock) {
-      return mockResponse([...getAgenciesCache()]);
+      const agencies = companyScopeId
+        ? getAgenciesCache().filter((agency) => agency.companyId === companyScopeId)
+        : getAgenciesCache();
+      return mockResponse([...agencies]);
     }
 
-    const { data } = await apiClient.get(API_ENDPOINTS.AGENCIES.LIST);
+    const { data } = await apiClient.get(API_ENDPOINTS.AGENCIES.LIST, { params: { companyScopeId } });
     return data;
   },
 

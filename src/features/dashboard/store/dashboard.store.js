@@ -14,6 +14,7 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PERIOD } from '../constants';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { dashboardService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
@@ -51,7 +52,10 @@ const useDashboardStore = create((set, get) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const params = { ...filters };
+      /* Multi-tenant : hors super_admin, la portée est toujours bornée à
+         l'entreprise courante, indépendamment du filtre affiché. */
+      const scopeCompanyId = getTenantScopeCompanyId();
+      const params = { ...filters, companyId: scopeCompanyId || filters.companyId };
 
       const [
         overview,

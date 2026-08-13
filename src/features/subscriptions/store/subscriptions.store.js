@@ -19,6 +19,7 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { subscriptionService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
@@ -99,7 +100,9 @@ const useSubscriptionsStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const subscriptions = await subscriptionService.getSubscriptions();
+      const subscriptions = await subscriptionService.getSubscriptions({
+        companyScopeId: getTenantScopeCompanyId(),
+      });
       set({ subscriptions, isLoading: false });
       return { success: true };
     } catch (error) {

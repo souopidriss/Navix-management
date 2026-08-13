@@ -16,6 +16,7 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { tripService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
@@ -57,7 +58,7 @@ const useTripsStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const trips = await tripService.getAll();
+      const trips = await tripService.getAll({ companyScopeId: getTenantScopeCompanyId() });
       set({ trips, isLoading: false });
       return { success: true };
     } catch (error) {
@@ -94,7 +95,7 @@ const useTripsStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const history = await tripService.history();
+      const history = await tripService.history({ companyScopeId: getTenantScopeCompanyId() });
       set({ history, isLoading: false });
       return { success: true };
     } catch (error) {

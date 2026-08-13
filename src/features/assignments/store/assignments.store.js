@@ -17,6 +17,7 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { assignmentService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
@@ -57,7 +58,7 @@ const useAssignmentsStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const assignments = await assignmentService.getAll();
+      const assignments = await assignmentService.getAll({ companyScopeId: getTenantScopeCompanyId() });
       set({ assignments, isLoading: false });
       return { success: true };
     } catch (error) {
@@ -94,7 +95,7 @@ const useAssignmentsStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const history = await assignmentService.history();
+      const history = await assignmentService.history({ companyScopeId: getTenantScopeCompanyId() });
       set({ history, isLoading: false });
       return { success: true };
     } catch (error) {

@@ -16,6 +16,7 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { fuelService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
@@ -58,7 +59,7 @@ const useFuelStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const fuelRecords = await fuelService.getAll();
+      const fuelRecords = await fuelService.getAll({ companyScopeId: getTenantScopeCompanyId() });
       set({ fuelRecords, isLoading: false });
       return { success: true };
     } catch (error) {
@@ -95,7 +96,7 @@ const useFuelStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const statistics = await fuelService.statistics();
+      const statistics = await fuelService.statistics(getTenantScopeCompanyId());
       set({ statistics, isLoading: false });
       return { success: true };
     } catch (error) {

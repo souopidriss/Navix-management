@@ -15,6 +15,7 @@
  */
 import { create } from 'zustand';
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { partnerService } from '../services';
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
@@ -53,7 +54,7 @@ const usePartnersStore = create((set) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const partnerRecords = await partnerService.getAll();
+      const partnerRecords = await partnerService.getAll({ companyScopeId: getTenantScopeCompanyId() });
       set({ partnerRecords, isLoading: false });
       return { success: true };
     } catch (error) {
