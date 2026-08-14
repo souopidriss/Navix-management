@@ -30,8 +30,8 @@ export const MOCK_PLANS = [
     name: 'Starter',
     description:
       'L’essentiel pour démarrer la gestion de votre flotte : véhicules, chauffeurs, trajets, carburant et maintenance.',
-    price: 29,
-    currency: 'EUR',
+    price: 19000,
+    currency: 'XAF',
     billingInterval: 'monthly',
     trialDays: 14,
     isActive: true,
@@ -46,8 +46,8 @@ export const MOCK_PLANS = [
     name: 'Business',
     description:
       'Pour les flottes en croissance : agences, rapports et analytiques en plus des fonctionnalités Starter.',
-    price: 79,
-    currency: 'EUR',
+    price: 51800,
+    currency: 'XAF',
     billingInterval: 'monthly',
     trialDays: 14,
     isActive: true,
@@ -62,8 +62,8 @@ export const MOCK_PLANS = [
     name: 'Professional',
     description:
       'Pilotage avancé : gestion financière, journal d’audit et export avancé pour les opérations exigeantes.',
-    price: 149,
-    currency: 'EUR',
+    price: 97700,
+    currency: 'XAF',
     billingInterval: 'monthly',
     trialDays: 14,
     isActive: true,
@@ -78,8 +78,8 @@ export const MOCK_PLANS = [
     name: 'Enterprise',
     description:
       'La solution complète : multi-entreprises, accès API, permissions avancées et support dédié.',
-    price: 299,
-    currency: 'EUR',
+    price: 196000,
+    currency: 'XAF',
     billingInterval: 'monthly',
     trialDays: 14,
     isActive: true,
@@ -260,15 +260,15 @@ export const MOCK_SUBSCRIPTIONS = [
     cancelAtPeriodEnd: false,
     cancelledAt: null,
     renewalDate: '2026-08-14T00:00:00.000Z',
-    price: 299,
-    currency: 'EUR',
+    price: 196000,
+    currency: 'XAF',
     billingInterval: 'monthly',
     createdAt: '2024-02-12T09:30:00.000Z',
     updatedAt: '2026-07-15T08:00:00.000Z',
   },
   {
     id: '01JS2B3C4D5E6F7G8H9J0K1L2M3',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     planId: '01JT0B2C3D4E5F6G7H8J9K0L1M2', // Business
     status: 'expired',
     startDate: '2024-06-03T11:20:00.000Z',
@@ -279,8 +279,8 @@ export const MOCK_SUBSCRIPTIONS = [
     cancelAtPeriodEnd: false,
     cancelledAt: null,
     renewalDate: null,
-    price: 79,
-    currency: 'EUR',
+    price: 51800,
+    currency: 'XAF',
     billingInterval: 'monthly',
     createdAt: '2024-06-03T11:20:00.000Z',
     updatedAt: '2026-07-31T23:59:00.000Z',
@@ -298,15 +298,15 @@ export const MOCK_SUBSCRIPTIONS = [
     cancelAtPeriodEnd: false,
     cancelledAt: null,
     renewalDate: '2026-08-15T00:00:00.000Z',
-    price: 29,
-    currency: 'EUR',
+    price: 19000,
+    currency: 'XAF',
     billingInterval: 'monthly',
     createdAt: '2026-08-01T08:00:00.000Z',
     updatedAt: '2026-08-01T08:00:00.000Z',
   },
   {
     id: '01JS4D5E6F7G8H9J0K1L2M3N4P5',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
     planId: '01JT0B2C3D4E5F6G7H8J9K0L1M2', // Business
     status: 'active',
     startDate: '2024-11-08T08:00:00.000Z',
@@ -317,15 +317,15 @@ export const MOCK_SUBSCRIPTIONS = [
     cancelAtPeriodEnd: false,
     cancelledAt: null,
     renewalDate: '2026-08-28T00:00:00.000Z',
-    price: 790,
-    currency: 'EUR',
+    price: 518000,
+    currency: 'XAF',
     billingInterval: 'yearly',
     createdAt: '2024-11-08T08:00:00.000Z',
     updatedAt: '2026-07-28T10:00:00.000Z',
   },
   {
     id: '01JS5E6F7G8H9J0K1L2M3N4P5Q6',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
     planId: '01JT0A1B2C3D4E5F6G7H8J9K0L1', // Starter
     status: 'past_due',
     startDate: '2025-01-17T10:45:00.000Z',
@@ -336,15 +336,15 @@ export const MOCK_SUBSCRIPTIONS = [
     cancelAtPeriodEnd: false,
     cancelledAt: null,
     renewalDate: null,
-    price: 29,
-    currency: 'EUR',
+    price: 19000,
+    currency: 'XAF',
     billingInterval: 'monthly',
     createdAt: '2025-01-17T10:45:00.000Z',
     updatedAt: '2026-07-25T18:00:00.000Z',
   },
   {
     id: '01JS6F7G8H9J0K1L2M3N4P5Q6R7',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
     planId: '01JT0C3D4E5F6G7H8J9K0L1M2N3', // Professional
     status: 'active',
     startDate: '2025-03-22T09:15:00.000Z',
@@ -355,15 +355,15 @@ export const MOCK_SUBSCRIPTIONS = [
     cancelAtPeriodEnd: false,
     cancelledAt: null,
     renewalDate: '2026-08-22T00:00:00.000Z',
-    price: 149,
-    currency: 'EUR',
+    price: 97700,
+    currency: 'XAF',
     billingInterval: 'monthly',
     createdAt: '2025-03-22T09:15:00.000Z',
     updatedAt: '2026-07-22T09:00:00.000Z',
   },
   {
     id: '01JS7G8H9J0K1L2M3N4P5Q6R7S8',
-    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Bénin Express
+    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Littoral Transport
     planId: '01JT0A1B2C3D4E5F6G7H8J9K0L1', // Starter
     status: 'cancelled',
     startDate: '2025-06-11T14:30:00.000Z',
@@ -374,15 +374,15 @@ export const MOCK_SUBSCRIPTIONS = [
     cancelAtPeriodEnd: true,
     cancelledAt: null,
     renewalDate: '2026-08-09T00:00:00.000Z',
-    price: 29,
-    currency: 'EUR',
+    price: 19000,
+    currency: 'XAF',
     billingInterval: 'monthly',
     createdAt: '2025-06-11T14:30:00.000Z',
     updatedAt: '2026-07-09T08:00:00.000Z',
   },
   {
     id: '01JS8H9J0K1L2M3N4P5Q6R7S8T9',
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
     planId: '01JT0A1B2C3D4E5F6G7H8J9K0L1', // Starter
     status: 'trialing',
     startDate: '2026-08-03T08:00:00.000Z',
@@ -393,8 +393,8 @@ export const MOCK_SUBSCRIPTIONS = [
     cancelAtPeriodEnd: false,
     cancelledAt: null,
     renewalDate: '2026-08-17T00:00:00.000Z',
-    price: 29,
-    currency: 'EUR',
+    price: 19000,
+    currency: 'XAF',
     billingInterval: 'monthly',
     createdAt: '2026-08-03T08:00:00.000Z',
     updatedAt: '2026-08-03T08:00:00.000Z',
@@ -412,8 +412,8 @@ export const MOCK_SUBSCRIPTIONS = [
     cancelAtPeriodEnd: false,
     cancelledAt: null,
     renewalDate: '2026-08-09T00:00:00.000Z',
-    price: 79,
-    currency: 'EUR',
+    price: 51800,
+    currency: 'XAF',
     billingInterval: 'monthly',
     pausedAt: '2026-08-02T09:30:00.000Z',
     createdAt: '2025-09-05T16:20:00.000Z',
@@ -421,7 +421,7 @@ export const MOCK_SUBSCRIPTIONS = [
   },
   {
     id: '01JS0K1L2M3N4P5Q6R7S8T9U1V2',
-    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Libreville Moves
+    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Sahel Express
     planId: '01JT0D4E5F6G7H8J9K0L1M2N3P4', // Enterprise
     status: 'active',
     startDate: '2025-12-01T07:40:00.000Z',
@@ -432,8 +432,8 @@ export const MOCK_SUBSCRIPTIONS = [
     cancelAtPeriodEnd: false,
     cancelledAt: null,
     renewalDate: '2026-08-20T00:00:00.000Z',
-    price: 2990,
-    currency: 'EUR',
+    price: 1960000,
+    currency: 'XAF',
     billingInterval: 'yearly',
     createdAt: '2025-12-01T07:40:00.000Z',
     updatedAt: '2026-07-20T09:00:00.000Z',
@@ -464,7 +464,7 @@ export const MOCK_USAGE = {
     updatedAt: '2026-08-04T18:00:00.000Z',
   },
   '01J8B2C3D4E5F6G7H8J9K0L1M2': {
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     vehiclesUsed: 6,
     driversUsed: 4,
     usersUsed: 5,
@@ -492,7 +492,7 @@ export const MOCK_USAGE = {
     updatedAt: '2026-08-04T09:00:00.000Z',
   },
   '01J8D2E3F4G5H6J7K8L9M0N1P2': {
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
     vehiclesUsed: 9,
     driversUsed: 6,
     usersUsed: 6,
@@ -506,7 +506,7 @@ export const MOCK_USAGE = {
     updatedAt: '2026-08-03T11:00:00.000Z',
   },
   '01J8E2F3G4H5J6K7L8M9N0P1Q2': {
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
     vehiclesUsed: 5,
     driversUsed: 3,
     usersUsed: 3,
@@ -520,7 +520,7 @@ export const MOCK_USAGE = {
     updatedAt: '2026-07-25T18:00:00.000Z',
   },
   '01J8F2G3H4J5K6L7M8N9P0Q1R2': {
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
     vehiclesUsed: 8,
     driversUsed: 5,
     usersUsed: 5,
@@ -534,7 +534,7 @@ export const MOCK_USAGE = {
     updatedAt: '2026-08-04T14:00:00.000Z',
   },
   '01J8G2H3J4K5L6M7N8P9Q0R1S2': {
-    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Bénin Express
+    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Littoral Transport
     vehiclesUsed: 2,
     driversUsed: 1,
     usersUsed: 2,
@@ -548,7 +548,7 @@ export const MOCK_USAGE = {
     updatedAt: '2026-01-15T10:00:00.000Z',
   },
   '01J8H2J3K4L5M6N7P8Q9R0S1T2': {
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
     vehiclesUsed: 1,
     driversUsed: 1,
     usersUsed: 2,
@@ -576,7 +576,7 @@ export const MOCK_USAGE = {
     updatedAt: '2026-08-02T09:30:00.000Z',
   },
   '01J8K2L3M4N5P6Q7R8S9T0U1V2': {
-    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Libreville Moves
+    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Sahel Express
     vehiclesUsed: 14,
     driversUsed: 9,
     usersUsed: 10,

@@ -65,7 +65,7 @@ const StatBox = ({ icon, label, value }) => (
 
 /** Historique simulé (affectations et trajets seront fournis par leurs modules). */
 const MOCK_HISTORY = [
-  { date: '2026-07-18', type: 'trip', label: 'Trajet Abidjan → Yamoussoukro (420 km)', icon: 'bi-signpost-2' },
+  { date: '2026-07-18', type: 'trip', label: 'Trajet Douala → Yaoundé (250 km)', icon: 'bi-signpost-2' },
   { date: '2026-06-27', type: 'assignment', label: 'Affecté au véhicule VHC-0021', icon: 'bi-truck' },
   { date: '2026-05-21', type: 'maintenance', label: 'Visite médicale à jour', icon: 'bi-heart-pulse' },
 ];

@@ -8,11 +8,17 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.5rem 0;
+  padding: 0.5rem 0.375rem;
+  border-radius: var(--navix-radius-md);
+  transition: background-color var(--navix-transition-fast) var(--navix-ease-out);
 }
 
 .navix-dash-rankings__row + .navix-dash-rankings__row {
   border-top: 1px solid var(--bs-border-color);
+}
+
+.navix-dash-rankings__row:hover {
+  background-color: var(--navix-hover);
 }
 
 .navix-dash-rankings__rank {
@@ -25,8 +31,28 @@
   font-size: 0.875rem;
   font-weight: 700;
   color: var(--bs-primary);
-  background: var(--bs-primary-bg-subtle);
+  background: linear-gradient(135deg, rgba(68, 83, 242, 0.22), rgba(122, 111, 242, 0.08));
+  box-shadow: 0 6px 14px -8px rgba(68, 83, 242, 0.5);
   flex-shrink: 0;
+}
+
+/* Podium — or, argent, bronze */
+.navix-dash-rankings__row:first-child .navix-dash-rankings__rank {
+  color: #ffd36e;
+  background: linear-gradient(135deg, rgba(245, 165, 36, 0.28), rgba(245, 165, 36, 0.1));
+  box-shadow: 0 6px 16px -6px rgba(245, 165, 36, 0.55);
+}
+
+.navix-dash-rankings__row:nth-child(2) .navix-dash-rankings__rank {
+  color: #cdd5e4;
+  background: linear-gradient(135deg, rgba(196, 203, 216, 0.24), rgba(196, 203, 216, 0.08));
+  box-shadow: 0 6px 16px -6px rgba(196, 203, 216, 0.4);
+}
+
+.navix-dash-rankings__row:nth-child(3) .navix-dash-rankings__rank {
+  color: #e0a06f;
+  background: linear-gradient(135deg, rgba(217, 148, 90, 0.24), rgba(217, 148, 90, 0.08));
+  box-shadow: 0 6px 16px -6px rgba(217, 148, 90, 0.45);
 }
 
 .navix-dash-rankings__main {
@@ -63,6 +89,7 @@
 
 .navix-dash-rankings__value {
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
   color: var(--bs-emphasis-color);
   white-space: nowrap;
   text-align: right;

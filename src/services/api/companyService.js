@@ -15,9 +15,9 @@ import { apiConfig } from '../config';
 import { mockResponse } from '../utils';
 
 const MOCK_COMPANIES = [
-  { id: 'cmp_001', name: 'Navix Trans', slug: 'navix-trans', city: 'Abidjan', vehiclesCount: 12, driversCount: 8 },
-  { id: 'cmp_002', name: 'Trans Express CI', slug: 'trans-express', city: 'Yamoussoukro', vehiclesCount: 6, driversCount: 4 },
-  { id: 'cmp_003', name: 'LogiSud', slug: 'logisud', city: 'Bouaké', vehiclesCount: 9, driversCount: 5 },
+  { id: 'cmp_001', name: 'Navix Trans', slug: 'navix-trans', city: 'Douala', vehiclesCount: 12, driversCount: 8 },
+  { id: 'cmp_002', name: 'Cameroon Express', slug: 'trans-express', city: 'Yaoundé', vehiclesCount: 6, driversCount: 4 },
+  { id: 'cmp_003', name: 'LogiSud', slug: 'logisud', city: 'Ebolowa', vehiclesCount: 9, driversCount: 5 },
 ];
 
 export const companyService = {

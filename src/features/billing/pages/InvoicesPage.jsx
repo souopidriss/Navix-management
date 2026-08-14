@@ -115,7 +115,7 @@ const InvoicesPage = () => {
         ]}
       />
 
-      <BillingOverview stats={stats} currency={stats.currency || 'EUR'} />
+      <BillingOverview stats={stats} currency={stats.currency || 'XAF'} />
 
       {error && (
         <Alert variant="danger" closable onClose={clearError} className="mb-3">

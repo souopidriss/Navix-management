@@ -101,7 +101,7 @@ export const generalSettingsDefaultValues = {
   address: '',
   country: '',
   city: '',
-  timezone: 'Africa/Abidjan',
+  timezone: 'Africa/Douala',
   currency: 'XAF',
   language: 'fr',
 };
@@ -351,7 +351,7 @@ export const userSettingsDefaultValues = {
   position: '',
   avatar: '',
   language: 'fr',
-  timezone: 'Africa/Abidjan',
+  timezone: 'Africa/Douala',
   dateFormat: 'DD/MM/YYYY',
   timeFormat: 'HH:mm',
   currencyDisplay: 'symbol',
@@ -431,8 +431,8 @@ export const regionalSettingsSchema = z.object({
 
 export const regionalSettingsDefaultValues = {
   language: 'fr',
-  country: 'CI',
-  timezone: 'Africa/Abidjan',
+  country: 'CM',
+  timezone: 'Africa/Douala',
   currency: 'XAF',
   dateFormat: 'DD/MM/YYYY',
   timeFormat: 'HH:mm',

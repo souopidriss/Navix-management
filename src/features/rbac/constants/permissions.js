@@ -116,15 +116,17 @@ export const PERMISSIONS = {
   ROLES_MANAGE: 'roles.manage',
   PERMISSIONS_VIEW: 'permissions.view',
 
-  /* Rapports & analytics */
-  REPORTS_VIEW: 'reports.view',
-  REPORTS_EXPORT: 'reports.export',
-  REPORTS_CREATE: 'reports.create',
-  REPORTS_UPDATE: 'reports.update',
-  REPORTS_DELETE: 'reports.delete',
-  REPORTS_MANAGE: 'reports.manage',
-  REPORTS_VIEW_FINANCIAL: 'reports.viewFinancial',
-  REPORTS_VIEW_SENSITIVE: 'reports.viewSensitive',
+  /* Espace Client */
+  CLIENT_DASHBOARD_READ: 'client.dashboard.read',
+  CLIENT_SERVICES_READ: 'client.services.read',
+  CLIENT_VEHICLES_READ: 'client.vehicles.read',
+  CLIENT_REQUESTS_READ: 'client.requests.read',
+  CLIENT_REQUESTS_CREATE: 'client.requests.create',
+  CLIENT_TRIPS_READ: 'client.trips.read',
+  CLIENT_DOCUMENTS_READ: 'client.documents.read',
+  CLIENT_INVOICES_READ: 'client.invoices.read',
+  CLIENT_PROFILE_READ: 'client.profile.read',
+  CLIENT_PROFILE_UPDATE: 'client.profile.update',
 };
 
 /** Liste exhaustive de toutes les permissions de l'application. */

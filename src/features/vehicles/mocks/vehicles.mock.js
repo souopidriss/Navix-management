@@ -16,7 +16,7 @@ export const MOCK_VEHICLES = [
   {
     id: '01J9A2B3C4D5E6F7G8H9J0K1L3',
     companyId: '01J8A2B3C4D5E6F7G8H9J0K1L2', // Navix Trans
-    registrationNumber: 'AB-3824-KL',
+    registrationNumber: 'AB 3824 KL',
     vin: 'JTMHV05J2N4011234',
     engineNumber: '2GD1112345',
     brand: 'Toyota',
@@ -36,7 +36,7 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '2026-11-20',
     registrationExpiry: '2027-03-15',
     currentDriver: 'Yao N\'Guessan',
-    agency: 'Agence Abidjan',
+    agency: 'Agence Douala',
     photo: '',
     qrCode: 'QRV-AB3824KL',
     notes: 'Véhicule de liaison inter-agences.',
@@ -45,8 +45,8 @@ export const MOCK_VEHICLES = [
   },
   {
     id: '01J9B2C3D4E5F6G7H8J9K0L1M3',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
-    registrationNumber: 'CD-5510-MN',
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
+    registrationNumber: 'CD 5510 MN',
     vin: 'WDB9066572S881234',
     engineNumber: 'OM651123456',
     brand: 'Mercedes-Benz',
@@ -66,7 +66,7 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '2026-09-10',
     registrationExpiry: '2026-09-02',
     currentDriver: 'Moussa Kone',
-    agency: 'Agence Yamoussoukro',
+    agency: 'Agence Yaoundé',
     photo: '',
     qrCode: 'QRV-CD5510MN',
     notes: '',
@@ -76,7 +76,7 @@ export const MOCK_VEHICLES = [
   {
     id: '01J9C2D3E4F5G6H7J8K9L0M1N3',
     companyId: '01J8C2D3E4F5G6H7J8K9L0M1N2', // LogiSud
-    registrationNumber: 'EF-2040-OP',
+    registrationNumber: 'EF 2040 OP',
     vin: 'VF1MA000000011111',
     engineNumber: 'R9M201234',
     brand: 'Renault',
@@ -96,7 +96,7 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '2026-08-15',
     registrationExpiry: '2028-02-20',
     currentDriver: '',
-    agency: 'Agence Bouaké',
+    agency: 'Agence Ebolowa',
     photo: '',
     qrCode: 'QRV-EF2040OP',
     notes: 'En atelier pour remplacement d’embrayage.',
@@ -105,8 +105,8 @@ export const MOCK_VEHICLES = [
   },
   {
     id: '01J9D2E3F4G5H6J7K8L9M0N1P3',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
-    registrationNumber: 'GH-7781-QR',
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
+    registrationNumber: 'GH 7781 QR',
     vin: 'JTDBT923305123456',
     engineNumber: '2ZR1212345',
     brand: 'Toyota',
@@ -126,7 +126,7 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '2027-01-05',
     registrationExpiry: '2027-06-11',
     currentDriver: 'Awa Diop',
-    agency: 'Agence Dakar',
+    agency: 'Agence Kribi',
     photo: '',
     qrCode: 'QRV-GH7781QR',
     notes: '',
@@ -135,8 +135,8 @@ export const MOCK_VEHICLES = [
   },
   {
     id: '01J9E2F3G4H5J6K7L8M9N0P1Q3',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
-    registrationNumber: 'IJ-9034-ST',
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
+    registrationNumber: 'IJ 9034 ST',
     vin: 'JHDFC4J27XL123456',
     engineNumber: 'J08E111234',
     brand: 'Hino',
@@ -156,17 +156,17 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '2026-10-12',
     registrationExpiry: '2026-12-05',
     currentDriver: 'Seydou Traoré',
-    agency: 'Agence Bamako',
+    agency: 'Agence Garoua',
     photo: '',
     qrCode: 'QRV-IJ9034ST',
-    notes: 'Transport longue distance Bamako–Dakar.',
+    notes: 'Transport longue distance Garoua–Kribi.',
     createdAt: '2025-01-17T10:45:00.000Z',
     updatedAt: '2026-05-30T12:18:00.000Z',
   },
   {
     id: '01J9F2G3H4J5K6L7M8N9P0Q1R3',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
-    registrationNumber: 'KL-1274-UV',
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
+    registrationNumber: 'KL 1274 UV',
     vin: 'JTFHS004511234567',
     engineNumber: 'N04C123456',
     brand: 'Toyota',
@@ -186,7 +186,7 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '2027-02-01',
     registrationExpiry: '2027-04-18',
     currentDriver: 'Rasmata Ouédraogo',
-    agency: 'Agence Ouagadougou',
+    agency: 'Agence Bafoussam',
     photo: '',
     qrCode: 'QRV-KL1274UV',
     notes: 'Navette urbaine.',
@@ -195,8 +195,8 @@ export const MOCK_VEHICLES = [
   },
   {
     id: '01J9G2H3J4K5L6M7N8P9Q0R1S3',
-    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Bénin Express
-    registrationNumber: 'MN-5602-WX',
+    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Littoral Transport
+    registrationNumber: 'MN 5602 WX',
     vin: 'VF3L45C2XKS123456',
     engineNumber: 'EP6 123456',
     brand: 'Peugeot',
@@ -216,7 +216,7 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '2026-07-31',
     registrationExpiry: '2027-07-22',
     currentDriver: '',
-    agency: 'Agence Cotonou',
+    agency: 'Agence Kumba',
     photo: '',
     qrCode: 'QRV-MN5602WX',
     notes: 'Accident — en attente d’expertise.',
@@ -225,8 +225,8 @@ export const MOCK_VEHICLES = [
   },
   {
     id: '01J9H2J3K4L5M6N7P8Q9R0S1T3',
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
-    registrationNumber: 'OP-8120-YZ',
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
+    registrationNumber: 'OP 8120 YZ',
     vin: 'JYARM31E9PA123456',
     engineNumber: 'CP2 789012',
     brand: 'Yamaha',
@@ -246,7 +246,7 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '',
     registrationExpiry: '2027-01-30',
     currentDriver: 'Komi Agbeko',
-    agency: 'Agence Lomé',
+    agency: 'Agence Edéa',
     photo: '',
     qrCode: 'QRV-OP8120YZ',
     notes: '',
@@ -256,7 +256,7 @@ export const MOCK_VEHICLES = [
   {
     id: '01J9J2K3L4M5N6P7Q8R9S0T1U3',
     companyId: '01J8J2K3L4M5N6P7Q8R9S0T1U2', // Douala Cars
-    registrationNumber: 'QR-3345-AB',
+    registrationNumber: 'QR 3345 AB',
     vin: 'LC0CB56B1R0123456',
     engineNumber: 'TZ364 90123',
     brand: 'BYD',
@@ -276,7 +276,7 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '2027-01-12',
     registrationExpiry: '2029-03-10',
     currentDriver: 'Estelle Ngo',
-    agency: 'Agence Douala',
+    agency: 'Agence Bonanjo',
     photo: '',
     qrCode: 'QRV-QR3345AB',
     notes: 'Bus électrique — recharge à la station centrale.',
@@ -285,8 +285,8 @@ export const MOCK_VEHICLES = [
   },
   {
     id: '01J9K2L3M4N5P6Q7R8S9T0U1V3',
-    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Libreville Moves
-    registrationNumber: 'ST-9901-CD',
+    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Sahel Express
+    registrationNumber: 'ST 9901 CD',
     vin: 'JTEBU5JR0N5123456',
     engineNumber: '1GD 334455',
     brand: 'Toyota',
@@ -306,7 +306,7 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '2026-11-02',
     registrationExpiry: '2026-11-14',
     currentDriver: 'Charles Mba',
-    agency: 'Agence Libreville',
+    agency: 'Agence Maroua',
     photo: '',
     qrCode: 'QRV-ST9901CD',
     notes: 'Révision des freins prévue.',
@@ -316,7 +316,7 @@ export const MOCK_VEHICLES = [
   {
     id: '01J9L2M3N4P5Q6R7S8T9U0V1W3',
     companyId: '01J8A2B3C4D5E6F7G8H9J0K1L2', // Navix Trans
-    registrationNumber: 'UV-4467-EF',
+    registrationNumber: 'UV 4467 EF',
     vin: 'YV2JZ6CC5LA123456',
     engineNumber: 'D13K 556677',
     brand: 'Volvo',
@@ -336,7 +336,7 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '2026-08-25',
     registrationExpiry: '2026-08-08',
     currentDriver: 'Adama Bamba',
-    agency: 'Agence Abidjan',
+    agency: 'Agence Douala',
     photo: '',
     qrCode: 'QRV-UV4467EF',
     notes: 'Tracteur routier long parcours.',
@@ -345,8 +345,8 @@ export const MOCK_VEHICLES = [
   },
   {
     id: '01J9M2N3P4Q5R6S7T8U9V0W1X3',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
-    registrationNumber: 'WX-2210-GH',
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
+    registrationNumber: 'WX 2210 GH',
     vin: 'JTFST22P500123456',
     engineNumber: '2TR 778899',
     brand: 'Toyota',
@@ -366,7 +366,7 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '2027-04-18',
     registrationExpiry: '2027-10-01',
     currentDriver: 'Serge Kouassi',
-    agency: 'Agence Yamoussoukro',
+    agency: 'Agence Yaoundé',
     photo: '',
     qrCode: 'QRV-WX2210GH',
     notes: 'Ambulance médicalisée — CHU de rattachement.',
@@ -376,7 +376,7 @@ export const MOCK_VEHICLES = [
   {
     id: '01J9X8Y7Z6A5B4C3D2E1F0G9H8J7K6',
     companyId: '01J8C2D3E4F5G6H7J8K9L0M1N2', // LogiSud
-    registrationNumber: 'EF-8821-OP',
+    registrationNumber: 'EF 8821 OP',
     vin: 'KMAZC21A2LZ012345',
     engineNumber: 'S6D114 332200',
     brand: 'Komatsu',
@@ -396,7 +396,7 @@ export const MOCK_VEHICLES = [
     inspectionExpiry: '2026-09-15',
     registrationExpiry: '2027-05-20',
     currentDriver: 'Koffi N\'Dri',
-    agency: 'Agence Bouaké',
+    agency: 'Agence Ebolowa',
     photo: '',
     qrCode: 'QRV-EF8821OP',
     notes: 'Engin de chantier — maintenance tous les 250 h.',

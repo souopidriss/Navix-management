@@ -3,6 +3,7 @@
  */
 .navix-datatable {
   width: 100%;
+  contain: paint;
 }
 
 .navix-datatable__header {
@@ -18,8 +19,22 @@
   font-weight: var(--navix-font-weight-semibold);
 }
 
+.navix-datatable__table thead th {
+  color: var(--navix-text-muted);
+  background-color: color-mix(in srgb, var(--navix-muted-bg) 60%, transparent);
+  border-bottom: 1px solid var(--navix-border-color);
+}
+
 .navix-datatable__table td {
   vertical-align: middle;
+}
+
+.navix-datatable__table tbody tr {
+  transition: background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-datatable__table tbody tr:hover {
+  background-color: rgba(var(--navix-primary-rgb), 0.04) !important;
 }
 
 .navix-datatable__sort {

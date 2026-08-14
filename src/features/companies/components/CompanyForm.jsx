@@ -200,7 +200,7 @@ const CompanyForm = ({
             value={values.phone}
             onChange={(value) => setField('phone', value)}
             error={errors.phone}
-            placeholder="+225 27 22 48 19 00"
+            placeholder="+237 27 22 48 19 00"
           />
         </div>
 
@@ -245,7 +245,7 @@ const CompanyForm = ({
             value={values.city}
             onChange={(value) => setField('city', value)}
             error={errors.city}
-            placeholder="Ex. Abidjan"
+            placeholder="Ex. Douala"
           />
         </div>
 

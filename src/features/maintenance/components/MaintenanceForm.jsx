@@ -243,7 +243,7 @@ const MaintenanceForm = ({ values, errors = {}, setField, companies = [], vehicl
           className="form-control"
           value={values.supplier}
           onChange={(event) => setField('supplier', event.target.value)}
-          placeholder="Ex. Fournitures Auto CI"
+          placeholder="Ex. Fournitures Auto Cameroun"
         />
       </div>
 
@@ -344,9 +344,7 @@ const MaintenanceForm = ({ values, errors = {}, setField, companies = [], vehicl
           value={values.currency}
           onChange={(event) => setField('currency', event.target.value)}
         >
-          <option value={DEFAULT_CURRENCY}>XOF</option>
-          <option value="EUR">EUR</option>
-          <option value="USD">USD</option>
+          <option value={DEFAULT_CURRENCY}>FCFA</option>
         </select>
       </div>
 

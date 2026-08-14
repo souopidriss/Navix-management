@@ -19,7 +19,7 @@ export const MOCK_ASSIGNMENTS = [
   {
     id: '01JAAB2C3D4E5F6G7H8J9K0L1M2',
     companyId: '01J8A2B3C4D5E6F7G8H9J0K1L2', // Navix Trans
-    agencyId: '01JA1B2C3D4E5F6G7H8J9K0L1M5', // Agence Abidjan
+    agencyId: '01JA1B2C3D4E5F6G7H8J9K0L1M5', // Agence Douala
     vehicleId: '01J9A2B3C4D5E6F7G8H9J0K1L3', // Toyota Hilux
     driverId: '01J9N2P3Q4R5S6T7U8V9W0X1Y2Z3', // Yao N'Guessan
     assignmentNumber: 'ASG-0001',
@@ -33,7 +33,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 75,
     fuelLevelEnd: 0,
     reason: 'Affectation permanente du pick-up de liaison.',
-    destination: 'Abidjan — corridor intérieur',
+    destination: 'Douala — corridor intérieur',
     notes: 'Véhicule de liaison inter-agences.',
     createdBy: 'Awa Kouamé',
     validatedBy: 'Awa Kouamé',
@@ -42,8 +42,8 @@ export const MOCK_ASSIGNMENTS = [
   },
   {
     id: '01JAAC2D3E4F5G6H7J8K9L0M1N3',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
-    agencyId: '01JA2B3C4D5E6F7G8H9J0K1L2M5', // Agence Yamoussoukro
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
+    agencyId: '01JA2B3C4D5E6F7G8H9J0K1L2M5', // Agence Yaoundé
     vehicleId: '01J9B2C3D4E5F6G7H8J9K0L1M3', // Mercedes-Benz Sprinter
     driverId: '01J9P2Q3R4S5T6U7V8W9X0Y1Z2A3', // Moussa Kone
     assignmentNumber: 'ASG-0002',
@@ -57,7 +57,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 60,
     fuelLevelEnd: 0,
     reason: 'Affectation permanente du fourgon livraison.',
-    destination: 'Yamoussoukro et environs',
+    destination: 'Yaoundé et environs',
     notes: 'Fourgon affecté aux livraisons urbaines.',
     createdBy: 'Ibrahim Traoré',
     validatedBy: 'Ibrahim Traoré',
@@ -66,8 +66,8 @@ export const MOCK_ASSIGNMENTS = [
   },
   {
     id: '01JAAD2E3F4G5H6J7K8L9M0N1P4',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
-    agencyId: '01JA4B5C6D7E8F9G0H1J2K3L4M5', // Agence Dakar
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
+    agencyId: '01JA4B5C6D7E8F9G0H1J2K3L4M5', // Agence Kribi
     vehicleId: '01J9D2E3F4G5H6J7K8L9M0N1P3', // Toyota Corolla
     driverId: '01J9Q2R3S4T5U6V7W8X9Y0Z1A2B3', // Awa Diop
     assignmentNumber: 'ASG-0003',
@@ -81,7 +81,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 80,
     fuelLevelEnd: 0,
     reason: 'Affectation permanente berline de service.',
-    destination: 'Dakar et banlieue',
+    destination: 'Kribi et banlieue',
     notes: '',
     createdBy: 'Ousmane Diallo',
     validatedBy: 'Ousmane Diallo',
@@ -90,8 +90,8 @@ export const MOCK_ASSIGNMENTS = [
   },
   {
     id: '01JAAE2F3G4H5J6K7L8M9N0P1Q5',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
-    agencyId: '01JA5B6C7D8E9F0G1H2J3K4L5M6', // Agence Bamako
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
+    agencyId: '01JA5B6C7D8E9F0G1H2J3K4L5M6', // Agence Garoua
     vehicleId: '01J9E2F3G4H5J6K7L8M9N0P1Q3', // Hino 500
     driverId: '01J9R2S3T4U5V6W7X8Y9Z0A1B2C3', // Seydou Traoré
     assignmentNumber: 'ASG-0004',
@@ -105,8 +105,8 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 55,
     fuelLevelEnd: 0,
     reason: 'Affectation permanente camion longue distance.',
-    destination: 'Bamako — Dakar',
-    notes: 'Corridor longue distance Bamako–Dakar.',
+    destination: 'Garoua — Kribi',
+    notes: 'Corridor longue distance Garoua–Kribi.',
     createdBy: 'Seydou Coulibaly',
     validatedBy: 'Seydou Coulibaly',
     createdAt: '2026-04-01T07:45:00.000Z',
@@ -114,8 +114,8 @@ export const MOCK_ASSIGNMENTS = [
   },
   {
     id: '01JAAF2G3H4J5K6L7M8N9P0Q1R6',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
-    agencyId: '01JA6B7C8D9E0F1G2H3J4K5L6M7', // Agence Ouagadougou
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
+    agencyId: '01JA6B7C8D9E0F1G2H3J4K5L6M7', // Agence Bafoussam
     vehicleId: '01J9F2G3H4J5K6L7M8N9P0Q1R3', // Toyota Coaster
     driverId: '01J9S2T3U4V5W6X7Y8Z9A0B1C2D3', // Rasmata Ouédraogo
     assignmentNumber: 'ASG-0005',
@@ -129,7 +129,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 70,
     fuelLevelEnd: 0,
     reason: 'Renfort navette urbaine pour la saison.',
-    destination: 'Ouagadougou — navette centre-ville',
+    destination: 'Bafoussam — navette centre-ville',
     notes: 'Affectation temporaire jusqu’à la fin de la saison.',
     createdBy: 'Fatou Sawadogo',
     validatedBy: 'Fatou Sawadogo',
@@ -138,8 +138,8 @@ export const MOCK_ASSIGNMENTS = [
   },
   {
     id: '01JAAG2H3J4K5L6M7N8P9Q0R1S7',
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
-    agencyId: '01JA8B9C0D1E2F3G4H5J6K7L8M9', // Agence Lomé
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
+    agencyId: '01JA8B9C0D1E2F3G4H5J6K7L8M9', // Agence Edéa
     vehicleId: '01J9H2J3K4L5M6N7P8Q9R0S1T3', // Yamaha MT-07
     driverId: '01J9T2U3V4W5X6Y7Z8A9B0C1D2E3', // Komi Agbeko
     assignmentNumber: 'ASG-0006',
@@ -153,7 +153,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 85,
     fuelLevelEnd: 0,
     reason: 'Affectation permanente moto livreur.',
-    destination: 'Lomé — secteur centre-ville',
+    destination: 'Edéa — secteur centre-ville',
     notes: 'Livreur moto, secteur centre-ville.',
     createdBy: 'Abla Mensah',
     validatedBy: 'Abla Mensah',
@@ -163,7 +163,7 @@ export const MOCK_ASSIGNMENTS = [
   {
     id: '01JAAH2J3K4L5M6N7P8Q9R0S1T8',
     companyId: '01J8J2K3L4M5N6P7Q8R9S0T1U2', // Douala Cars
-    agencyId: '01JA9B0C1D2E3F4G5H6J7K8L9N1', // Agence Douala
+    agencyId: '01JA9B0C1D2E3F4G5H6J7K8L9N1', // Agence Bonanjo
     vehicleId: '01J9J2K3L4M5N6P7Q8R9S0T1U3', // BYD K6
     driverId: '01J9U2V3W4X5Y6Z7A8B9C0D1E2F3', // Estelle Ngo
     assignmentNumber: 'ASG-0007',
@@ -187,7 +187,7 @@ export const MOCK_ASSIGNMENTS = [
   {
     id: '01JAAJ2K3L4M5N6P7Q8R9S0T1U9',
     companyId: '01J8A2B3C4D5E6F7G8H9J0K1L2', // Navix Trans
-    agencyId: '01JA1B2C3D4E5F6G7H8J9K0L1M5', // Agence Abidjan
+    agencyId: '01JA1B2C3D4E5F6G7H8J9K0L1M5', // Agence Douala
     vehicleId: '01J9L2M3N4P5Q6R7S8T9U0V1W3', // Volvo FH
     driverId: '01J9W2X3Y4Z5A6B7C8D9E0F1G2H3', // Adama Bamba
     assignmentNumber: 'ASG-0008',
@@ -201,7 +201,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 65,
     fuelLevelEnd: 0,
     reason: 'Affectation permanente tracteur routier.',
-    destination: 'Abidjan — corridors internationaux',
+    destination: 'Douala — corridors internationaux',
     notes: 'Doyen de la flotte — tracteur routier.',
     createdBy: 'Awa Kouamé',
     validatedBy: 'Awa Kouamé',
@@ -211,7 +211,7 @@ export const MOCK_ASSIGNMENTS = [
   {
     id: '01JAAK2L3M4N5P6Q7R8S9T0U1V2A',
     companyId: '01J8C2D3E4F5G6H7J8K9L0M1N2', // LogiSud
-    agencyId: '01JA3B4C5D6E7F8G9H0J1K2L3M5', // Agence Bouaké
+    agencyId: '01JA3B4C5D6E7F8G9H0J1K2L3M5', // Agence Ebolowa
     vehicleId: '01J9X8Y7Z6A5B4C3D2E1F0G9H8J7K6', // Komatsu PC210
     driverId: '01J9X2Y3Z4A5B6C7D8E9F0G1H2J3', // Koffi N'Dri
     assignmentNumber: 'ASG-0009',
@@ -225,7 +225,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 50,
     fuelLevelEnd: 0,
     reason: 'Affectation permanente pelle mécanique chantier.',
-    destination: 'Bouaké — zone industrielle PK 15',
+    destination: 'Ebolowa — zone industrielle PK 15',
     notes: 'Engin de chantier — maintenance tous les 250 h.',
     createdBy: 'Mariam Koné',
     validatedBy: 'Mariam Koné',
@@ -234,8 +234,8 @@ export const MOCK_ASSIGNMENTS = [
   },
   {
     id: '01JAAL2M3N4P5Q6R7S8T9U0V1W3B',
-    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Libreville Moves
-    agencyId: '01JA0B1C2D3E4F5G6H7J8K9L0N2', // Agence Libreville
+    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Sahel Express
+    agencyId: '01JA0B1C2D3E4F5G6H7J8K9L0N2', // Agence Maroua
     vehicleId: '01J9K2L3M4N5P6Q7R8S9T0U1V3', // Toyota Land Cruiser 79
     driverId: '01J9V2W3X4Y5Z6A7B8C9D0E1F2G3', // Charles Mba
     assignmentNumber: 'ASG-0010',
@@ -249,7 +249,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 70,
     fuelLevelEnd: 0,
     reason: 'Suspension temporaire — congé du chauffeur et révision du véhicule.',
-    destination: 'Libreville et périphérie',
+    destination: 'Maroua et périphérie',
     notes: 'Affectation suspendue pendant le congé annuel de Charles Mba.',
     createdBy: 'Charles Mba',
     validatedBy: 'Charles Mba',
@@ -258,8 +258,8 @@ export const MOCK_ASSIGNMENTS = [
   },
   {
     id: '01JAAM2N3P4Q5R6S7T8U9V0W1X4C',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
-    agencyId: '01JA2B3C4D5E6F7G8H9J0K1L2M5', // Agence Yamoussoukro
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
+    agencyId: '01JA2B3C4D5E6F7G8H9J0K1L2M5', // Agence Yaoundé
     vehicleId: '01J9M2N3P4Q5R6S7T8U9V0W1X3', // Toyota Hiace Ambulance
     driverId: '01J9Y2Z3A4B5C6D7E8F9G0H1J2K3', // Serge Kouassi
     assignmentNumber: 'ASG-0011',
@@ -273,7 +273,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 80,
     fuelLevelEnd: 0,
     reason: 'Annulée suite à la suspension administrative du chauffeur.',
-    destination: 'Yamoussoukro — CHU',
+    destination: 'Yaoundé — CHU',
     notes: 'Ambulance médicalisée — CHU de rattachement.',
     createdBy: 'Ibrahim Traoré',
     validatedBy: 'Ibrahim Traoré',
@@ -283,7 +283,7 @@ export const MOCK_ASSIGNMENTS = [
   {
     id: '01JAAN2P3Q4R5S6T7U8V9W0X1Y5D',
     companyId: '01J8A2B3C4D5E6F7G8H9J0K1L2', // Navix Trans
-    agencyId: '01JA1B2C3D4E5F6G7H8J9K0L1M5', // Agence Abidjan
+    agencyId: '01JA1B2C3D4E5F6G7H8J9K0L1M5', // Agence Douala
     vehicleId: '01J9L2M3N4P5Q6R7S8T9U0V1W3', // Volvo FH
     driverId: '01J9W2X3Y4Z5A6B7C8D9E0F1G2H3', // Adama Bamba
     assignmentNumber: 'ASG-0012',
@@ -297,7 +297,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 60,
     fuelLevelEnd: 45,
     reason: 'Affectation annuelle précédente — renouvelée.',
-    destination: 'Abidjan — corridors internationaux',
+    destination: 'Douala — corridors internationaux',
     notes: 'Clôturée avant le renouvellement de janvier 2026.',
     createdBy: 'Awa Kouamé',
     validatedBy: 'Awa Kouamé',
@@ -307,7 +307,7 @@ export const MOCK_ASSIGNMENTS = [
   {
     id: '01JAAP2Q3R4S5T6U7V8W9X0Y1Z6E',
     companyId: '01J8J2K3L4M5N6P7Q8R9S0T1U2', // Douala Cars
-    agencyId: '01JA9B0C1D2E3F4G5H6J7K8L9N1', // Agence Douala
+    agencyId: '01JA9B0C1D2E3F4G5H6J7K8L9N1', // Agence Bonanjo
     vehicleId: '01J9J2K3L4M5N6P7Q8R9S0T1U3', // BYD K6
     driverId: '01J9A3B4C5D6E7F8G9H0J1K2L3M4', // Jean-Marc Ekani
     assignmentNumber: 'ASG-0013',
@@ -330,8 +330,8 @@ export const MOCK_ASSIGNMENTS = [
   },
   {
     id: '01JAAQ2R3S4T5U6V7W8X9Y0Z1A7F',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
-    agencyId: '01JA4B5C6D7E8F9G0H1J2K3L4M5', // Agence Dakar
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
+    agencyId: '01JA4B5C6D7E8F9G0H1J2K3L4M5', // Agence Kribi
     vehicleId: '01J9D2E3F4G5H6J7K8L9M0N1P3', // Toyota Corolla
     driverId: '01J9Q2R3S4T5U6V7W8X9Y0Z1A2B3', // Awa Diop
     assignmentNumber: 'ASG-0014',
@@ -345,7 +345,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 65,
     fuelLevelEnd: 40,
     reason: 'Affectation précédente clôturée avant renouvellement.',
-    destination: 'Dakar et banlieue',
+    destination: 'Kribi et banlieue',
     notes: '',
     createdBy: 'Ousmane Diallo',
     validatedBy: 'Ousmane Diallo',
@@ -355,7 +355,7 @@ export const MOCK_ASSIGNMENTS = [
   {
     id: '01JAAR2S3T4U5V6W7X8Y9Z0A1B8G',
     companyId: '01J8A2B3C4D5E6F7G8H9J0K1L2', // Navix Trans
-    agencyId: '01JA1B2C3D4E5F6G7H8J9K0L1M5', // Agence Abidjan
+    agencyId: '01JA1B2C3D4E5F6G7H8J9K0L1M5', // Agence Douala
     vehicleId: '01J9A2B3C4D5E6F7G8H9J0K1L3', // Toyota Hilux
     driverId: '01J9N2P3Q4R5S6T7U8V9W0X1Y2Z3', // Yao N'Guessan
     assignmentNumber: 'ASG-0015',
@@ -369,7 +369,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 90,
     fuelLevelEnd: 50,
     reason: 'Mission de déploiement de l’antenne régionale.',
-    destination: 'Abidjan — Bouaké',
+    destination: 'Douala — Ebolowa',
     notes: 'Mission longue durée sur le corridor central.',
     createdBy: 'Awa Kouamé',
     validatedBy: 'Awa Kouamé',
@@ -379,7 +379,7 @@ export const MOCK_ASSIGNMENTS = [
   {
     id: '01JAAS2T3U4V5W6X7Y8Z9A0B1C9H',
     companyId: '01J8J2K3L4M5N6P7Q8R9S0T1U2', // Douala Cars
-    agencyId: '01JA9B0C1D2E3F4G5H6J7K8L9N1', // Agence Douala
+    agencyId: '01JA9B0C1D2E3F4G5H6J7K8L9N1', // Agence Bonanjo
     vehicleId: '01J9J2K3L4M5N6P7Q8R9S0T1U3', // BYD K6
     driverId: '01J9A3B4C5D6E7F8G9H0J1K2L3M4', // Jean-Marc Ekani
     assignmentNumber: 'ASG-0016',
@@ -402,8 +402,8 @@ export const MOCK_ASSIGNMENTS = [
   },
   {
     id: '01JAAT2U3V4W5X6Y7Z8A9B0C1D2AI',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
-    agencyId: '01JA6B7C8D9E0F1G2H3J4K5L6M7', // Agence Ouagadougou
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
+    agencyId: '01JA6B7C8D9E0F1G2H3J4K5L6M7', // Agence Bafoussam
     vehicleId: '01J9F2G3H4J5K6L7M8N9P0Q1R3', // Toyota Coaster
     driverId: '01J9S2T3U4V5W6X7Y8Z9A0B1C2D3', // Rasmata Ouédraogo
     assignmentNumber: 'ASG-0017',
@@ -417,7 +417,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 0,
     fuelLevelEnd: 0,
     reason: 'Période d’essai du minibus après la saison.',
-    destination: 'Ouagadougou — navette centre-ville',
+    destination: 'Bafoussam — navette centre-ville',
     notes: 'Essai d’un mois avant décision d’affectation définitive.',
     createdBy: 'Fatou Sawadogo',
     validatedBy: '',
@@ -427,7 +427,7 @@ export const MOCK_ASSIGNMENTS = [
   {
     id: '01JAAU2V3W4X5Y6Z7A8B9C0D1E2BJ',
     companyId: '01J8C2D3E4F5G6H7J8K9L0M1N2', // LogiSud
-    agencyId: '01JA3B4C5D6E7F8G9H0J1K2L3M5', // Agence Bouaké
+    agencyId: '01JA3B4C5D6E7F8G9H0J1K2L3M5', // Agence Ebolowa
     vehicleId: '01J9C2D3E4F5G6H7J8K9L0M1N3', // Renault Master
     driverId: '01J9X2Y3Z4A5B6C7D8E9F0G1H2J3', // Koffi N'Dri
     assignmentNumber: 'ASG-0018',
@@ -441,7 +441,7 @@ export const MOCK_ASSIGNMENTS = [
     fuelLevelStart: 0,
     fuelLevelEnd: 0,
     reason: 'Planification de la remise en service après remplacement d’embrayage.',
-    destination: 'Bouaké — atelier LogiSud',
+    destination: 'Ebolowa — atelier LogiSud',
     notes: 'Le fourgon sera réaffecté à Koffi N’Dri après la maintenance.',
     createdBy: 'Mariam Koné',
     validatedBy: '',

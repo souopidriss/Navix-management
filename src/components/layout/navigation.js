@@ -2,11 +2,11 @@ import { ROUTES } from '@/routes/route.constants';
 
 export const SIDEBAR_SECTIONS = [
   {
-    label: 'Principal',
+    label: 'PRINCIPAL',
     items: [{ to: ROUTES.DASHBOARD, label: 'Dashboard', icon: 'bi-speedometer2', end: true }],
   },
   {
-    label: 'Gestion',
+    label: 'GESTION',
     items: [
       { to: ROUTES.COMPANIES, label: 'Entreprises', icon: 'bi-buildings' },
       { to: ROUTES.AGENCIES, label: 'Agences', icon: 'bi-diagram-3' },
@@ -16,36 +16,33 @@ export const SIDEBAR_SECTIONS = [
     ],
   },
   {
-    label: 'Exploitation',
+    label: 'EXPLOITATION',
     items: [
       { to: ROUTES.TRIPS, label: 'Trajets', icon: 'bi-signpost-split' },
       { to: ROUTES.FUEL, label: 'Carburant', icon: 'bi-fuel-pump' },
       { to: ROUTES.ENTRETIENS, label: 'Entretiens', icon: 'bi-wrench-adjustable' },
       { to: ROUTES.PARTNERS, label: 'Partenaires', icon: 'bi-handshake' },
-      { to: ROUTES.FILES, label: 'Documents', icon: 'bi-folder2-open' },
     ],
   },
   {
-    label: 'Finances',
+    label: 'DOCUMENTS',
+    items: [{ to: ROUTES.FILES, label: 'Documents', icon: 'bi-folder2-open' }],
+  },
+  {
+    label: 'ANALYSE',
+    items: [
+      { to: ROUTES.REPORTS, label: 'Rapports & Analytics', icon: 'bi-file-earmark-bar-graph' },
+      { to: ROUTES.AUDIT_LOGS, label: 'Journal des actions', icon: 'bi-journal-text' },
+    ],
+  },
+  {
+    label: 'ADMINISTRATION',
     items: [
       { to: ROUTES.BILLING, label: 'Facturation', icon: 'bi-receipt' },
       { to: ROUTES.SUBSCRIPTIONS, label: 'Abonnements', icon: 'bi-credit-card' },
-    ],
-  },
-  {
-    label: 'Rapports',
-    items: [
-      { to: ROUTES.REPORTS, label: 'Rapports & Analytics', icon: 'bi-file-earmark-bar-graph' },
-    ],
-  },
-  {
-    label: 'Système',
-    items: [
       { to: ROUTES.NOTIFICATIONS, label: 'Notifications', icon: 'bi-bell' },
-      { to: ROUTES.AUDIT_LOGS, label: 'Journal des actions', icon: 'bi-journal-text' },
       { to: ROUTES.USERS, label: 'Utilisateurs', icon: 'bi-people' },
-      { to: ROUTES.ROLES, label: 'Rôles', icon: 'bi-person-badge' },
-      { to: ROUTES.PERMISSIONS, label: 'Permissions', icon: 'bi-shield-check' },
+      { to: ROUTES.ROLES, label: 'Rôles & permissions', icon: 'bi-shield-check' },
       { to: ROUTES.SETTINGS, label: 'Paramètres', icon: 'bi-gear' },
     ],
   },

@@ -59,9 +59,10 @@
   width: 1.75rem;
   height: 1.75rem;
   border-radius: var(--navix-radius-md);
-  background: linear-gradient(135deg, var(--navix-primary), var(--navix-info));
+  background: var(--navix-brand-gradient);
   color: var(--navix-text-inverse);
   font-size: 0.875rem;
+  box-shadow: 0 1px 4px rgba(var(--navix-primary-rgb), 0.3);
 }
 
 /* ---- Recherche -------------------------------------------------------- */
@@ -121,8 +122,17 @@
 .navix-topbar__actions {
   display: flex;
   align-items: center;
-  gap: var(--navix-space-1);
+  gap: var(--navix-space-2);
   margin-left: auto;
+}
+
+.navix-country-badge {
+  padding: 0.25rem 0.625rem;
+  border: 1px solid var(--navix-border-color);
+  border-radius: var(--navix-radius-full);
+  background-color: var(--navix-muted-bg);
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-primary);
 }
 
 /* ---- Sélecteur d'entreprise ------------------------------------------- */

@@ -69,7 +69,7 @@ const BillingDashboardPage = () => {
   const recentPayments = payments.slice(0, 5);
   const recentHistory = history.slice(0, 6);
 
-  const currency = settings?.defaultCurrency || statistics?.currency || 'EUR';
+  const currency = settings?.defaultCurrency || statistics?.currency || 'XAF';
   const loading = isLoading && invoices.length === 0;
 
   return (

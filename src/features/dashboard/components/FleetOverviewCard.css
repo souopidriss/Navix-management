@@ -17,6 +17,36 @@
   height: 0.5rem;
   margin-top: 0.375rem;
   background-color: var(--bs-secondary-bg);
+  overflow: hidden;
+}
+
+.navix-dash-fleet__progress .progress-bar {
+  border-radius: var(--navix-radius-full);
+}
+
+.navix-dash-fleet__progress .progress-bar.bg-primary {
+  background-image: linear-gradient(90deg, var(--navix-primary), var(--navix-accent));
+  box-shadow: 0 2px 10px -2px rgba(68, 83, 242, 0.55);
+}
+
+.navix-dash-fleet__progress .progress-bar.bg-success {
+  background-image: linear-gradient(90deg, #2fb07f, var(--navix-success-hover));
+  box-shadow: 0 2px 10px -2px rgba(63, 203, 143, 0.5);
+}
+
+.navix-dash-fleet__progress .progress-bar.bg-warning {
+  background-image: linear-gradient(90deg, #d98a0f, var(--navix-warning-hover));
+  box-shadow: 0 2px 10px -2px rgba(245, 165, 36, 0.45);
+}
+
+.navix-dash-fleet__progress .progress-bar.bg-danger {
+  background-image: linear-gradient(90deg, #d63b40, var(--navix-danger-hover));
+  box-shadow: 0 2px 10px -2px rgba(240, 72, 77, 0.5);
+}
+
+.navix-dash-fleet__progress .progress-bar.bg-info {
+  background-image: linear-gradient(90deg, #3d8fe8, var(--navix-info-hover));
+  box-shadow: 0 2px 10px -2px rgba(77, 163, 255, 0.5);
 }
 
 .navix-dash-fleet__rate {
@@ -37,5 +67,6 @@
   display: block;
   font-size: 1.25rem;
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
   margin-top: 0.125rem;
 }

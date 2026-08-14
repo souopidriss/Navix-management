@@ -71,12 +71,12 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNE3H4J5K6L7M8N9P0Q1R2S3T4',
-    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Libreville Moves
+    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Sahel Express
     userId: DEMO_USER_ID,
     kind: 'unusual_activity',
     title: 'Activité inhabituelle détectée',
     message:
-      'Plusieurs tentatives de connexion échouées ont été relevées sur le compte Libreville Moves depuis une IP inconnue.',
+      'Plusieurs tentatives de connexion échouées ont été relevées sur le compte Sahel Express depuis une IP inconnue.',
     status: 'unread',
     resourceType: null,
     resourceId: null,
@@ -85,12 +85,12 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNE4J5K6L7M8N9P0Q1R2S3T4U5',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
     userId: DEMO_USER_ID,
     kind: 'subscription_expired',
     title: 'Abonnement Starter expiré',
     message:
-      'L’abonnement Starter de Bamakotrans est arrivé à échéance. Renouvelez pour conserver l’accès aux véhicules.',
+      'L’abonnement Starter de Nord Express est arrivé à échéance. Renouvelez pour conserver l’accès aux véhicules.',
     status: 'unread',
     resourceType: 'subscription',
     resourceId: '01JS5E6F7G8H9J0K1L2M3N4P5Q6',
@@ -98,12 +98,12 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNE5K6L7M8N9P0Q1R2S3T4U5V6',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
     userId: DEMO_USER_ID,
     kind: 'role_changed',
     title: 'Rôle modifié',
     message:
-      'Le rôle de Fatou Diallo est passé de « Gestionnaire de flotte » à « Administrateur » sur SenTrans.',
+      'Le rôle de Fatou Diallo est passé de « Gestionnaire de flotte » à « Administrateur » sur Kribi Port Trans.',
     status: 'unread',
     resourceType: null,
     resourceId: null,
@@ -112,7 +112,7 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNE6L7M8N9P0Q1R2S3T4U5V6W7',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
     userId: DEMO_USER_ID,
     kind: 'admin_action',
     title: 'Action administrative',
@@ -127,7 +127,7 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNE7M8N9P0Q1R2S3T4U5V6W7X8',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     userId: DEMO_USER_ID,
     kind: 'fuel_price_high',
     title: 'Prix du carburant élevé',
@@ -142,7 +142,7 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNE8N9P0Q1R2S3T4U5V6W7X8Y9',
-    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Bénin Express
+    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Littoral Transport
     userId: DEMO_USER_ID,
     kind: 'vehicle_available',
     title: 'Véhicule disponible',
@@ -171,12 +171,12 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNA0Q1R2S3T4U5V6W7X8Y9Z0A1B2',
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
     userId: DEMO_USER_ID,
     kind: 'plan_limit_soon',
     title: 'Limite du plan bientôt atteinte',
     message:
-      'LoméTrans utilise 4 véhicules sur 5 autorisés par le plan Starter (80 %). Pensez à passer au plan supérieur.',
+      'Sanaga Trans utilise 4 véhicules sur 5 autorisés par le plan Starter (80 %). Pensez à passer au plan supérieur.',
     status: 'read',
     readAt: '2026-08-05T10:00:00.000Z',
     resourceType: 'subscription',
@@ -191,12 +191,12 @@ const RAW_NOTIFICATIONS = [
     kind: 'security_login',
     title: 'Connexion depuis un nouvel appareil',
     message:
-      'Un accès au compte Navix Trans a été détecté depuis un nouvel appareil (Chrome — Abidjan). Si ce n’est pas vous, sécurisez immédiatement votre compte.',
+      'Un accès au compte Navix Trans a été détecté depuis un nouvel appareil (Chrome — Douala). Si ce n’est pas vous, sécurisez immédiatement votre compte.',
     status: 'unread',
     resourceType: null,
     resourceId: null,
     createdAt: '2026-08-05T08:50:00.000Z',
-    metadata: { device: 'Chrome — Windows', location: 'Abidjan, Côte d’Ivoire' },
+    metadata: { device: 'Chrome — Windows', location: 'Douala, Cameroun' },
   },
   {
     id: '01JNA2C3D4E5F6G7H8J9K0L1M2N3',
@@ -228,7 +228,7 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNA4E5F6G7H8J9K0L1M2N3P4Q5',
-    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Bénin Express
+    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Littoral Transport
     userId: DEMO_USER_ID,
     kind: 'vehicle_immobilized',
     title: 'Véhicule immobilisé',
@@ -241,12 +241,12 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNA5F6G7H8J9K0L1M2N3P4Q5R6',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
     userId: DEMO_USER_ID,
     kind: 'invoice_overdue',
     title: 'Facture en retard de paiement',
     message:
-      'La facture NAVIX-2026-000007 (22 420 FCFA) de Bamakotrans est en retard depuis le 10 juillet 2026.',
+      'La facture NAVIX-2026-000007 (22 420 FCFA) de Nord Express est en retard depuis le 10 juillet 2026.',
     status: 'unread',
     resourceType: 'invoice',
     resourceId: '01KB0G7H8J9K0L1M2N3P4Q5R6S7',
@@ -255,12 +255,12 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNA6G7H8J9K0L1M2N3P4Q5R6S7',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
     userId: DEMO_USER_ID,
     kind: 'plan_limit_reached',
     title: 'Limite du plan Starter atteinte',
     message:
-      'Bamakotrans utilise 5 véhicules sur 5 autorisés par le plan Starter (100 %). Le dépassement entraînera des frais supplémentaires.',
+      'Nord Express utilise 5 véhicules sur 5 autorisés par le plan Starter (100 %). Le dépassement entraînera des frais supplémentaires.',
     status: 'unread',
     resourceType: 'subscription',
     resourceId: '01JS5E6F7G8H9J0K1L2M3N4P5Q6',
@@ -269,7 +269,7 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNA7H8J9K0L1M2N3P4Q5R6S7T8',
-    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Libreville Moves
+    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Sahel Express
     userId: DEMO_USER_ID,
     kind: 'maintenance_due_soon',
     title: 'Entretien planifié',
@@ -283,7 +283,7 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNA8J9K0L1M2N3P4Q5R6S7T8U9',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     userId: DEMO_USER_ID,
     kind: 'maintenance_overdue',
     title: 'Entretien en retard',
@@ -297,12 +297,12 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNA9K0L1M2N3P4Q5R6S7T8U9V0',
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
     userId: DEMO_USER_ID,
     kind: 'subscription_expiring',
     title: 'Fin d’essai de l’abonnement',
     message:
-      'L’essai gratuit du plan Starter de LoméTrans se termine le 10 août 2026. Choisissez une formule pour éviter une interruption.',
+      'L’essai gratuit du plan Starter de Sanaga Trans se termine le 10 août 2026. Choisissez une formule pour éviter une interruption.',
     status: 'unread',
     resourceType: 'subscription',
     resourceId: '01JS8H9J0K1L2M3N4P5Q6R7S8T9',
@@ -311,12 +311,12 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNB0L1M2N3P4Q5R6S7T8U9V0W1',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
     userId: DEMO_USER_ID,
     kind: 'assignment_created',
     title: 'Nouvelle affectation',
     message:
-      'Awa Diop a été affectée à la Toyota Corolla GH-7781-QR pour une mission active.',
+      'Awa Diop a été affectée à la Toyota Corolla GH 7781 QR pour une mission active.',
     status: 'unread',
     resourceType: 'assignment',
     resourceId: '01JAAD2E3F4G5H6J7K8L9M0N1P4',
@@ -338,7 +338,7 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNB2N3P4Q5R6S7T8U9V0W1X2Y3',
-    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Libreville Moves
+    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Sahel Express
     userId: DEMO_USER_ID,
     kind: 'vehicle_in_maintenance',
     title: 'Véhicule en entretien',
@@ -352,7 +352,7 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNB3P4Q5R6S7T8U9V0W1X2Y3Z4',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
     userId: DEMO_USER_ID,
     kind: 'license_expiring',
     title: 'Permis de conduire bientôt expiré',
@@ -366,7 +366,7 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNB4Q5R6S7T8U9V0W1X2Y3Z4A5',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     userId: DEMO_USER_ID,
     kind: 'inspection_expiring',
     title: 'Visite technique bientôt expirée',
@@ -380,7 +380,7 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNB5R6S7T8U9V0W1X2Y3Z4A5B6',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
     userId: DEMO_USER_ID,
     kind: 'abnormal_consumption',
     title: 'Consommation anormale détectée',
@@ -422,12 +422,12 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNB8U9V0W1X2Y3Z4A5B6C7D8E9',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
     userId: DEMO_USER_ID,
     kind: 'payment_failed',
     title: 'Paiement échoué',
     message:
-      'Le paiement Mobile Money de 22 420 FCFA a été refusé pour Bamakotrans. Vérifiez le compte ou choisissez un autre moyen de paiement.',
+      'Le paiement Mobile Money de 22 420 FCFA a été refusé pour Nord Express. Vérifiez le compte ou choisissez un autre moyen de paiement.',
     status: 'read',
     readAt: '2026-08-01T09:30:00.000Z',
     resourceType: 'payment',
@@ -441,7 +441,7 @@ const RAW_NOTIFICATIONS = [
     kind: 'subscription_renewed',
     title: 'Abonnement renouvelé',
     message:
-      'L’abonnement Enterprise de Navix Trans a été renouvelé pour la période d’août 2026 (299 €/mois).',
+      'L’abonnement Enterprise de Navix Trans a été renouvelé pour la période d’août 2026 (196 000 FCFA/mois).',
     status: 'read',
     readAt: '2026-07-29T16:00:00.000Z',
     resourceType: 'subscription',
@@ -450,27 +450,27 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNC0W1X2Y3Z4A5B6C7D8E9F0G1',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
     userId: DEMO_USER_ID,
     kind: 'payment_success',
     title: 'Paiement reçu',
     message:
-      'Un virement de 932,20 € a été reçu pour SenTrans (facture NAVIX-2026-000006).',
+      'Un virement de 611 240 FCFA a été reçu pour Kribi Port Trans (facture NAVIX-2026-000006).',
     status: 'read',
     readAt: '2026-07-28T12:00:00.000Z',
     resourceType: 'payment',
     resourceId: '01KM0D4E5F6G7H8J9K0L1M2N3P4',
     createdAt: '2026-07-28T10:00:00.000Z',
-    metadata: { amount: 932.2, currency: 'EUR' },
+    metadata: { amount: 611240, currency: 'XAF' },
   },
   {
     id: '01JNC1X2Y3Z4A5B6C7D8E9F0G1H2',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
     userId: DEMO_USER_ID,
     kind: 'trip_completed',
     title: 'Trajet terminé',
     message:
-      'Le trajet Abidjan → Yamoussoukro de la Toyota Corolla GH-7781-QR s’est terminé avec succès (320 km).',
+      'Le trajet Douala → Yaoundé de la Toyota Corolla GH 7781 QR s’est terminé avec succès (250 km).',
     status: 'read',
     readAt: '2026-07-28T18:10:00.000Z',
     resourceType: 'trip',
@@ -507,7 +507,7 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNC4A5B6C7D8E9F0G1H2J3K4L5',
-    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Libreville Moves
+    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Sahel Express
     userId: DEMO_USER_ID,
     kind: 'insurance_expiring',
     title: 'Assurance bientôt expirée',
@@ -536,27 +536,27 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNC6C7D8E9F0G1H2J3K4L5M6N7',
-    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Libreville Moves
+    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Sahel Express
     userId: DEMO_USER_ID,
     kind: 'payment_success',
     title: 'Paiement reçu',
     message:
-      'Un virement de 3 528,20 € a été reçu pour Libreville Moves (facture NAVIX-2026-000013).',
+      'Un virement de 2 312 800 FCFA a été reçu pour Sahel Express (facture NAVIX-2026-000013).',
     status: 'read',
     readAt: '2026-07-20T12:00:00.000Z',
     resourceType: 'payment',
     resourceId: '01KM0K0L1M2N3P4Q5R6S7T8U9V1',
     createdAt: '2026-07-20T09:00:00.000Z',
-    metadata: { amount: 3528.2, currency: 'EUR' },
+    metadata: { amount: 2312800, currency: 'XAF' },
   },
   {
     id: '01JNC7D8E9F0G1H2J3K4L5M6N7P8',
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
     userId: DEMO_USER_ID,
     kind: 'company_created',
     title: 'Nouvelle entreprise enregistrée',
     message:
-      'LoméTrans a rejoint la plateforme Navix Management. Compte créé avec un essai Starter de 14 jours.',
+      'Sanaga Trans a rejoint la plateforme Navix Management. Compte créé avec un essai Starter de 14 jours.',
     status: 'read',
     readAt: '2026-06-25T17:00:00.000Z',
     resourceType: 'company',
@@ -565,12 +565,12 @@ const RAW_NOTIFICATIONS = [
   },
   {
     id: '01JNC8E9F0G1H2J3K4L5M6N7P8Q9R',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     userId: DEMO_USER_ID,
     kind: 'invoice_overdue',
     title: 'Facture en retard',
     message:
-      'La facture NAVIX-2026-000004 (61 124 FCFA) de Trans Express CI reste impayée depuis le 15 juin 2026.',
+      'La facture NAVIX-2026-000004 (61 124 FCFA) de Cameroon Express reste impayée depuis le 15 juin 2026.',
     status: 'archived',
     readAt: '2026-07-10T09:00:00.000Z',
     resourceType: 'invoice',

@@ -162,7 +162,7 @@ const TripForm = ({
             className={errors.purpose ? 'form-control is-invalid' : 'form-control'}
             value={values.purpose}
             onChange={(event) => setField('purpose', event.target.value)}
-            placeholder="Ex. Livraison de marchandises à Bouaké"
+            placeholder="Ex. Livraison de marchandises à Douala"
             aria-invalid={errors.purpose ? true : undefined}
             aria-describedby={errors.purpose ? 'trip-purpose-error' : undefined}
           />
@@ -187,7 +187,7 @@ const TripForm = ({
             className={errors.departureLocation ? 'form-control is-invalid' : 'form-control'}
             value={values.departureLocation}
             onChange={(event) => setField('departureLocation', event.target.value)}
-            placeholder="Ex. Abidjan"
+            placeholder="Ex. Douala"
             aria-invalid={errors.departureLocation ? true : undefined}
             aria-describedby={errors.departureLocation ? 'trip-departure-location-error' : undefined}
           />
@@ -207,7 +207,7 @@ const TripForm = ({
             className={errors.arrivalLocation ? 'form-control is-invalid' : 'form-control'}
             value={values.arrivalLocation}
             onChange={(event) => setField('arrivalLocation', event.target.value)}
-            placeholder="Ex. Bouaké"
+            placeholder="Ex. Garoua"
             aria-invalid={errors.arrivalLocation ? true : undefined}
             aria-describedby={errors.arrivalLocation ? 'trip-arrival-location-error' : undefined}
           />

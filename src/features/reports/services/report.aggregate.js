@@ -1297,6 +1297,7 @@ export const buildCustomReport = (config = {}, ctx = {}) => {
    -------------------------------------------------------------------------- */
 
 const statOf = (report, key) => report?.statistics?.find((stat) => stat.key === key) ?? null;
+const renameStat = (stat, key) => (stat ? { ...stat, key } : null);
 
 const vehicleGroupOf = (vehicleId) => MOCK_VEHICLES.find((v) => v.id === vehicleId)?.group ?? 'autre';
 
@@ -1403,7 +1404,7 @@ export const aggregateOverviewReport = (ctx, range, previousRange) => {
       statOf(fleet, 'available'),
       statOf(fleet, 'inUse'),
       statOf(fleet, 'availabilityRate'),
-      statOf(trips, 'total'),
+      renameStat(statOf(trips, 'total'), 'tripCount'),
       statOf(trips, 'distance'),
       toStat({
         key: 'maintenanceVehicles',

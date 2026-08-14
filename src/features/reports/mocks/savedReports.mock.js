@@ -34,8 +34,8 @@ export const MOCK_SAVED_REPORTS = [
   },
   {
     id: '01JR0B2C3D4E5F6G7H8J9K0L1M2N3',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
-    name: 'Fiabilité flotte — Trans Express',
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
+    name: 'Fiabilité flotte — Cameroon Express',
     description: 'Suivi des entretiens et de la disponibilité des véhicules.',
     reportType: 'maintenance',
     status: 'active',
@@ -53,8 +53,8 @@ export const MOCK_SAVED_REPORTS = [
   },
   {
     id: '01JR0C3D4E5F6G7H8J9K0L1M2N3P4',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
-    name: 'Activité des chauffeurs — SenTrans',
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
+    name: 'Activité des chauffeurs — Kribi Port Trans',
     description: 'Trajets, distances et heures par chauffeur.',
     reportType: 'drivers',
     status: 'draft',
@@ -91,8 +91,8 @@ export const MOCK_SAVED_REPORTS = [
   },
   {
     id: '01JR0E5F6G7H8J9K0L1M2N3P4Q5R6',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
-    name: 'Parc long-courrier — Bamakotrans',
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
+    name: 'Parc long-courrier — Nord Express',
     description: 'Vue d’ensemble du parc de camions et de leur utilisation.',
     reportType: 'fleet',
     status: 'archived',
@@ -110,8 +110,8 @@ export const MOCK_SAVED_REPORTS = [
   },
   {
     id: '01JR0F6G7H8J9K0L1M2N3P4Q5R6S7',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
-    name: 'Trajets livraison — OuagaLogistics',
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
+    name: 'Trajets livraison — Ouest Logistique',
     description: 'Volume de livraisons et taux de ponctualité.',
     reportType: 'trips',
     status: 'draft',
@@ -129,8 +129,8 @@ export const MOCK_SAVED_REPORTS = [
   },
   {
     id: '01JR0G7H8J9K0L1M2N3P4Q5R6S7T8',
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
-    name: 'Documents expirants — LoméTrans',
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
+    name: 'Documents expirants — Sanaga Trans',
     description: 'Suivi des expirations de documents par véhicule.',
     reportType: 'documents',
     status: 'active',

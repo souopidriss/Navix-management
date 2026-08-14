@@ -14,7 +14,7 @@ import PaymentSimulationForm from './PaymentSimulationForm';
 const PaymentSimulationModal = ({ open, onClose, invoice, loading, error, onConfirm }) => {
   const invoiceId = invoice?.id ?? '';
   const amountDue = Number(invoice?.amountDue || 0);
-  const currency = invoice?.currency || 'EUR';
+  const currency = invoice?.currency || 'XAF';
 
   const defaultValues = useMemo(
     () => ({ ...paymentDefaultValues, invoiceId, currency }),

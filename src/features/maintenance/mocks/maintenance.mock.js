@@ -29,7 +29,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     status: 'completed',
     workshop: 'Garage Navix',
     mechanic: 'Kouassi Yapi',
-    supplier: 'Fournitures Auto CI',
+    supplier: 'Fournitures Auto Cameroun',
     scheduledDate: '2026-04-15',
     startedAt: '2026-04-15T08:00:00.000Z',
     completedAt: '2026-04-15T10:30:00.000Z',
@@ -38,7 +38,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: 72000,
     estimatedCost: 38000,
     actualCost: 36500,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Vidange moteur + filtre à huile.',
     diagnostic: '',
     performedWork: 'Vidange moteur, remplacement filtre à huile, contrôle niveaux.',
@@ -68,7 +68,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: '',
     estimatedCost: 650000,
     actualCost: 0,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Remplacement d’embrayage (véhicule immobilisé).',
     diagnostic: 'Embrayage usé, patinage sur les rapports 2 et 3.',
     performedWork: 'Dépose boîte de vitesses, remplacement kit embrayage en cours.',
@@ -81,15 +81,15 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBX3D4E5F6G7H8J9K0L1M2N3P4',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
-    vehicleId: '01J9D2E3F4G5H6J7K8L9M0N1P3', // Toyota Corolla GH-7781-QR
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
+    vehicleId: '01J9D2E3F4G5H6J7K8L9M0N1P3', // Toyota Corolla GH 7781 QR
     maintenanceNumber: 'MT-0003',
     maintenanceType: 'controle_technique',
     priority: 'normal',
     status: 'completed',
     workshop: 'Centre de contrôle 2C',
     mechanic: '',
-    supplier: 'DGT SenTrans',
+    supplier: 'DGT Kribi Port Trans',
     scheduledDate: '2026-06-20',
     startedAt: '2026-06-20T07:30:00.000Z',
     completedAt: '2026-06-20T09:00:00.000Z',
@@ -98,7 +98,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: '',
     estimatedCost: 25000,
     actualCost: 25000,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Contrôle technique périodique (validité 1 an).',
     diagnostic: '',
     performedWork: 'Vérification générale, homologation conforme.',
@@ -111,7 +111,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBX4E5F6G7H8J9K0L1M2N3P4Q5',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
     vehicleId: '01J9E2F3G4H5J6K7L8M9N0P1Q3', // Hino 500 IJ-9034-ST
     maintenanceNumber: 'MT-0004',
     maintenanceType: 'freinage',
@@ -119,7 +119,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     status: 'in_progress',
     workshop: 'Auto Mécano',
     mechanic: 'Seydou Coulibaly',
-    supplier: 'Freins Mali',
+    supplier: 'Freins Cameroun',
     scheduledDate: '2026-08-01',
     startedAt: '2026-08-01T06:00:00.000Z',
     completedAt: '',
@@ -128,7 +128,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: '',
     estimatedCost: 145000,
     actualCost: 0,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Réfection du circuit de freinage avant.',
     diagnostic: 'Usure importante des plaquettes avant, disques voilés.',
     performedWork: 'Remplacement plaquettes et disques avant en cours.',
@@ -141,7 +141,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBX5F6G7H8J9K0L1M2N3P4Q5R6',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     vehicleId: '01J9B2C3D4E5F6G7H8J9K0L1M3', // Mercedes Sprinter CD-5510-MN
     maintenanceNumber: 'MT-0005',
     maintenanceType: 'revision',
@@ -158,7 +158,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: 94000,
     estimatedCost: 220000,
     actualCost: 0,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Révision complète 90 000 km.',
     diagnostic: '',
     performedWork: '',
@@ -171,7 +171,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBX6G7H8J9K0L1M2N3P4Q5R6S7',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
     vehicleId: '01J9F2G3H4J5K6L7M8N9P0Q1R3', // Toyota Coaster KL-1274-UV
     maintenanceNumber: 'MT-0006',
     maintenanceType: 'pneumatiques',
@@ -188,7 +188,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: 90000,
     estimatedCost: 420000,
     actualCost: 415000,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Remplacement des 6 pneus du car.',
     diagnostic: 'Pneus avant à plat, usure irrégulière sur l’essieu avant.',
     performedWork: 'Montage de 6 pneus neufs, équilibrage et parallélisme.',
@@ -218,7 +218,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: '',
     estimatedCost: 75000,
     actualCost: 0,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Contrôle de l’état de santé de la batterie de traction.',
     diagnostic: '',
     performedWork: '',
@@ -248,7 +248,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: 215000,
     estimatedCost: 850000,
     actualCost: 0,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Surchauffe moteur détectée sur le corridor — diagnostic à programmer.',
     diagnostic: 'Témoin de température anormal, baisse du niveau de liquide de refroidissement.',
     performedWork: '',
@@ -261,7 +261,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBX9K0L1M2N3P4Q5R6S7T8U9V0',
-    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Bénin Express
+    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Littoral Transport
     vehicleId: '01J9G2H3J4K5L6M7N8P9Q0R1S3', // Peugeot 3008 MN-5602-WX
     maintenanceNumber: 'MT-0009',
     maintenanceType: 'suspension',
@@ -269,7 +269,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     status: 'completed',
     workshop: 'Garage Central',
     mechanic: 'Koffi Ahouansou',
-    supplier: 'Peugeot Bénin',
+    supplier: 'Peugeot Cameroun',
     scheduledDate: '2026-03-12',
     startedAt: '2026-03-12T08:00:00.000Z',
     completedAt: '2026-03-12T13:00:00.000Z',
@@ -278,7 +278,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: '',
     estimatedCost: 180000,
     actualCost: 172500,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Remplacement des amortisseurs avant.',
     diagnostic: 'Amortisseurs avant fuyards, instabilité en virage.',
     performedWork: 'Remplacement des 2 amortisseurs avant + têtes d’amortisseurs.',
@@ -291,7 +291,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBXA0L1M2N3P4Q5R6S7T8U9V0W1',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     vehicleId: '01J9M2N3P4Q5R6S7T8U9V0W1X3', // Toyota Hiace WX-2210-GH
     maintenanceNumber: 'MT-0010',
     maintenanceType: 'climatisation',
@@ -308,7 +308,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: '',
     estimatedCost: 60000,
     actualCost: 0,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Recharge de climatisation — ambulance de service.',
     diagnostic: '',
     performedWork: '',
@@ -321,8 +321,8 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBXB1M2N3P4Q5R6S7T8U9V0W1X2',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
-    vehicleId: '01J9D2E3F4G5H6J7K8L9M0N1P3', // Toyota Corolla GH-7781-QR
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
+    vehicleId: '01J9D2E3F4G5H6J7K8L9M0N1P3', // Toyota Corolla GH 7781 QR
     maintenanceNumber: 'MT-0011',
     maintenanceType: 'carrosserie',
     priority: 'low',
@@ -338,7 +338,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: '',
     estimatedCost: 95000,
     actualCost: 0,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Réparation de la rayure sur l’aile arrière droite.',
     diagnostic: 'Rayure profonde sur l’aile arrière droite (choc parking).',
     performedWork: '',
@@ -351,7 +351,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBXC2N3P4Q5R6S7T8U9V0W1X2Y3',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
     vehicleId: '01J9E2F3G4H5J6K7L8M9N0P1Q3', // Hino 500 IJ-9034-ST
     maintenanceNumber: 'MT-0012',
     maintenanceType: 'transmission',
@@ -359,7 +359,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     status: 'completed',
     workshop: 'Auto Mécano',
     mechanic: 'Seydou Coulibaly',
-    supplier: 'Hino Mali',
+    supplier: 'Hino Cameroun',
     scheduledDate: '2026-02-18',
     startedAt: '2026-02-18T08:00:00.000Z',
     completedAt: '2026-02-19T17:30:00.000Z',
@@ -368,7 +368,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: '',
     estimatedCost: 520000,
     actualCost: 505000,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Révision complète de la boîte de vitesses.',
     diagnostic: 'Bruits anormaux au passage de la 4e vitesse.',
     performedWork: 'Contrôle interne, remplacement synchroniseurs et joints.',
@@ -381,7 +381,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBXD3P4Q5R6S7T8U9V0W1X2Y3Z4',
-    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Libreville Moves
+    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Sahel Express
     vehicleId: '01J9K2L3M4N5P6Q7R8S9T0U1V3', // Land Cruiser 79 ST-9901-CD
     maintenanceNumber: 'MT-0013',
     maintenanceType: 'vidange',
@@ -389,7 +389,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     status: 'planned',
     workshop: 'Garage Navix',
     mechanic: 'Charles Mba',
-    supplier: 'Fournitures Auto CI',
+    supplier: 'Fournitures Auto Cameroun',
     scheduledDate: '2026-08-12',
     startedAt: '',
     completedAt: '',
@@ -398,7 +398,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: 122000,
     estimatedCost: 65000,
     actualCost: 0,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Vidange moteur (kilométrage proche de 122 000 km).',
     diagnostic: '',
     performedWork: '',
@@ -419,7 +419,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     status: 'in_progress',
     workshop: 'Garage Central',
     mechanic: 'Moussa Traoré',
-    supplier: 'Komatsu CI',
+    supplier: 'Komatsu Cameroun',
     scheduledDate: '2026-07-30',
     startedAt: '2026-07-30T07:00:00.000Z',
     completedAt: '',
@@ -428,7 +428,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: '',
     estimatedCost: 1250000,
     actualCost: 0,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Réparation de la pompe hydraulique (chantier bloqué).',
     diagnostic: 'Chute de pression hydraulique, fuite interne de la pompe principale.',
     performedWork: 'Dépose de la pompe, envoi en atelier spécialisé.',
@@ -441,7 +441,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBXF5R6S7T8U9V0W1X2Y3Z4A5B6',
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
     vehicleId: '01J9H2J3K4L5M6N7P8Q9R0S1T3', // Yamaha MT-07 OP-8120-YZ
     maintenanceNumber: 'MT-0015',
     maintenanceType: 'revision',
@@ -449,7 +449,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     status: 'completed',
     workshop: 'Moto Center',
     mechanic: 'Abla Mensah',
-    supplier: 'Yamaha Togo',
+    supplier: 'Yamaha Cameroun',
     scheduledDate: '2026-06-05',
     startedAt: '2026-06-05T10:00:00.000Z',
     completedAt: '2026-06-05T11:30:00.000Z',
@@ -458,7 +458,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: 12000,
     estimatedCost: 55000,
     actualCost: 52000,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Révision des 10 000 km.',
     diagnostic: '',
     performedWork: 'Vidange, réglage chaîne, contrôle freins.',
@@ -488,7 +488,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: '',
     estimatedCost: 30000,
     actualCost: 0,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Inspection générale avant grand déplacement.',
     diagnostic: '',
     performedWork: '',
@@ -501,7 +501,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBXH7T8U9V0W1X2Y3Z4A5B6C7D8',
-    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Bénin Express
+    companyId: '01J8G2H3J4K5L6M7N8P9Q0R1S2', // Littoral Transport
     vehicleId: '01J9G2H3J4K5L6M7N8P9Q0R1S3', // Peugeot 3008 MN-5602-WX
     maintenanceNumber: 'MT-0017',
     maintenanceType: 'vidange',
@@ -518,7 +518,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: 54000,
     estimatedCost: 42000,
     actualCost: 0,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Vidange moteur planifiée.',
     diagnostic: '',
     performedWork: '',
@@ -531,7 +531,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBXI8U9V0W1X2Y3Z4A5B6C7D8E9',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     vehicleId: '01J9B2C3D4E5F6G7H8J9K0L1M3', // Mercedes Sprinter CD-5510-MN
     maintenanceNumber: 'MT-0018',
     maintenanceType: 'freinage',
@@ -548,7 +548,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: '',
     estimatedCost: 130000,
     actualCost: 0,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Contrôle et réfection des freins avant.',
     diagnostic: '',
     performedWork: '',
@@ -561,7 +561,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
   },
   {
     id: '01JBXJ9V0W1X2Y3Z4A5B6C7D8E9F0',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     vehicleId: '01J9M2N3P4Q5R6S7T8U9V0W1X3', // Toyota Hiace WX-2210-GH
     maintenanceNumber: 'MT-0019',
     maintenanceType: 'controle_technique',
@@ -569,7 +569,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     status: 'completed',
     workshop: 'Centre de contrôle 2C',
     mechanic: '',
-    supplier: 'DGT Trans Express',
+    supplier: 'DGT Cameroon Express',
     scheduledDate: '2026-05-30',
     startedAt: '2026-05-30T08:00:00.000Z',
     completedAt: '2026-05-30T09:30:00.000Z',
@@ -578,7 +578,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: '',
     estimatedCost: 25000,
     actualCost: 25000,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Contrôle technique périodique (ambulance).',
     diagnostic: '',
     performedWork: 'Vérification générale, homologation conforme.',
@@ -608,7 +608,7 @@ export const MOCK_MAINTENANCE_RECORDS = [
     nextMileage: 220000,
     estimatedCost: 120000,
     actualCost: 118000,
-    currency: 'XOF',
+    currency: 'XAF',
     description: 'Vidange moteur semi-remorque.',
     diagnostic: '',
     performedWork: 'Vidange, filtres huile et gasoil.',

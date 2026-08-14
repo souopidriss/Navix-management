@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Avatar } from '@/components/ui';
 
 const COMPANIES = [
-  { id: 1, name: 'Navix Transport SARL', city: 'Abidjan' },
-  { id: 2, name: 'Société Alpha', city: 'Dakar' },
-  { id: 3, name: 'Groupe Bêta', city: 'Paris' },
+  { id: 1, name: 'Navix Trans', city: 'Douala' },
+  { id: 2, name: 'Cameroon Express', city: 'Yaoundé' },
+  { id: 3, name: 'LogiSud', city: 'Ebolowa' },
 ];
 
 const CompanySwitcher = ({ className }) => {

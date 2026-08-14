@@ -259,7 +259,7 @@ const AssignmentForm = ({
             className="form-control"
             value={values.destination}
             onChange={(event) => setField('destination', event.target.value)}
-            placeholder="Ex. Site de Bouaké"
+            placeholder="Ex. Site de Bonabéri"
           />
         </div>
 

@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Navix Driver Layout — Styles Premium
+   Réutilisation du socle global (Layout Master) mais isolée
+   ========================================================================== */
+
+.navix-driver-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--navix-body-bg);
+}
+
+.navix-driver-sidebar {
+  width: var(--navix-sidebar-width, 280px);
+  background: var(--navix-sidebar-bg);
+  border-right: 1px solid var(--navix-border-color-subtle);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--navix-transition-normal) var(--navix-ease-out),
+              width var(--navix-transition-normal) var(--navix-ease-out);
+  z-index: 1040;
+}
+
+.navix-driver-sidebar--collapsed {
+  width: var(--navix-sidebar-collapsed-width, 80px);
+}
+
+.navix-driver-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.navix-driver-main {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.5rem;
+  background: var(--navix-body-bg);
+}
+
+@media (max-width: 991.98px) {
+  .navix-driver-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+  }
+
+  .navix-driver-sidebar.show {
+    transform: translateX(0);
+  }
+
+  .navix-driver-main {
+    padding: 1rem;
+  }
+}
+
+.navix-driver-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 15, 26, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1030;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.navix-driver-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+}

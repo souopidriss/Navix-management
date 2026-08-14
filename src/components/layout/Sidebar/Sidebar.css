@@ -39,10 +39,10 @@
   height: 2.25rem;
   flex: 0 0 2.25rem;
   border-radius: var(--navix-radius-lg);
-  background: linear-gradient(135deg, var(--navix-primary), var(--navix-info));
+  background: var(--navix-brand-gradient);
   color: var(--navix-text-inverse);
   font-size: 1.125rem;
-  box-shadow: var(--navix-shadow-sm);
+  box-shadow: 0 2px 6px rgba(var(--navix-primary-rgb), 0.35);
 }
 
 .navix-sidebar__brand-text {
@@ -111,12 +111,14 @@
   font-weight: var(--navix-font-weight-medium);
   transition:
     color var(--navix-transition-fast) var(--navix-ease-out),
-    background-color var(--navix-transition-fast) var(--navix-ease-out);
+    background-color var(--navix-transition-fast) var(--navix-ease-out),
+    transform var(--navix-transition-fast) var(--navix-ease-out);
 }
 
 .navix-sidebar__item:hover {
   background-color: var(--navix-hover);
   color: var(--navix-text-primary);
+  transform: translateX(2px);
 }
 
 .navix-sidebar__item > i {
@@ -127,8 +129,15 @@
 }
 
 .navix-sidebar__item--active {
-  background-color: var(--navix-primary-muted);
+  background: linear-gradient(90deg, var(--navix-primary-muted), transparent 85%);
   color: var(--navix-primary);
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.navix-sidebar__item--active:hover {
+  background: linear-gradient(90deg, var(--navix-primary-muted), transparent 85%);
+  color: var(--navix-primary);
+  transform: none;
 }
 
 .navix-sidebar__item--disabled {

@@ -37,6 +37,9 @@ export const formatNumber = (value, { locale = 'fr-FR', maximumFractionDigits = 
   return new Intl.NumberFormat(locale, { maximumFractionDigits }).format(number);
 };
 
+/** Libellé d'affichage d'une devise (XAF → « FCFA », sinon code). */
+export const currencyLabel = (currency) => (currency === 'XAF' ? 'FCFA' : currency);
+
 /**
  * Montant formaté selon la configuration de devise.
  * @param {number} value — montant

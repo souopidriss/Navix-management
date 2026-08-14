@@ -222,7 +222,7 @@ export const MOCK_ROLES = [
     companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2',
     name: 'Responsable exploitation',
     code: 'ops_manager',
-    description: 'Supervision de l’exploitation (Trans Express CI).',
+    description: 'Supervision de l’exploitation (Cameroon Express).',
     isSystem: false,
     isActive: true,
     permissions: [

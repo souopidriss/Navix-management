@@ -4,7 +4,7 @@
  * Description : facturation SaaS simulée — factures, lignes, paiements,
  * échéances, crédits, remises, taxes, historique, renouvellements.
  * Aucun paiement réel : aucun traitement Stripe / PayPal / Mobile Money /
- * MTN MoMo / Orange Money. Les montants, devises (XAF / EUR / USD), taxes
+ * MTN MoMo / Orange Money. Les montants, la devise (XAF / FCFA), les taxes
  * et transactions sont fictifs ; la validation financière réelle sera faite
  * plus tard par le backend Express.js / MySQL.
  * Responsabilité : fournir les données de facturation aux vues et aux stores.

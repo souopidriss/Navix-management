@@ -220,21 +220,21 @@ export const AUDIT_USER_OPTIONS = AUDIT_USERS.map((user) => ({
 
 /** Adresses e-mail simulées des utilisateurs du journal (jamais affichées sans `audit.viewSensitive`). */
 const AUDIT_USER_EMAILS = {
-  usr_001: 'awa.kouame@navix.com',
-  usr_002: 'ibrahim.traore@trans-express.ci',
-  usr_003: 'mariam.kone@logisud.ci',
-  usr_004: 'ousmane.diallo@sentrans.sn',
-  usr_005: 'seydou.coulibaly@bamakotrans.ml',
-  usr_006: 'fatou.sawadogo@ouagalogistics.bf',
-  usr_007: 'koffi.ahouansou@beninexpress.bj',
-  usr_008: 'abla.mensah@lometrans.tg',
+  usr_001: 'awa.kouame@navixtrans.cm',
+  usr_002: 'ibrahim.traore@cameroonexpress.cm',
+  usr_003: 'mariam.kone@logisud.cm',
+  usr_004: 'ousmane.diallo@kribiporttrans.cm',
+  usr_005: 'seydou.coulibaly@norduxpress.cm',
+  usr_006: 'fatou.sawadogo@ouestlogistique.cm',
+  usr_007: 'koffi.ahouansou@littoraltransport.cm',
+  usr_008: 'abla.mensah@sanagatrans.cm',
   usr_009: 'estelle.ngono@doualacars.cm',
-  usr_010: 'charles.mba@librevillemoves.ga',
-  usr_011: 'yao.nguessan@navix.com',
-  usr_012: 'jean.kouassi@navix.com',
-  usr_013: 'moussa.kone@trans-express.ci',
-  usr_014: 'rasmata.ouedraogo@ouagalogistics.bf',
-  usr_015: 'aicha.diallo@sentrans.sn',
+  usr_010: 'charles.mba@sahelexpress.cm',
+  usr_011: 'yao.nguessan@navixtrans.cm',
+  usr_012: 'jean.kouassi@navixtrans.cm',
+  usr_013: 'moussa.kone@cameroonexpress.cm',
+  usr_014: 'rasmata.ouedraogo@ouestlogistique.cm',
+  usr_015: 'aicha.diallo@kribiporttrans.cm',
 };
 
 /** Adresse e-mail d'un utilisateur (vide si inconnu). */

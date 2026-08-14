@@ -75,7 +75,7 @@ const AgencyForm = ({ values, errors = {}, setField, companies = [], drivers = [
         className={errors.name ? 'form-control is-invalid' : 'form-control'}
         value={values.name}
         onChange={(event) => setField('name', event.target.value)}
-        placeholder="Ex. Agence Abidjan"
+        placeholder="Ex. Agence Douala"
         aria-invalid={errors.name ? true : undefined}
         aria-describedby={errors.name ? 'agency-name-error' : undefined}
       />
@@ -92,7 +92,7 @@ const AgencyForm = ({ values, errors = {}, setField, companies = [], drivers = [
         className={errors.code ? 'form-control is-invalid' : 'form-control'}
         value={values.code}
         onChange={(event) => setField('code', event.target.value)}
-        placeholder="Ex. AG-ABJ"
+        placeholder="Ex. AG-DLA"
         aria-invalid={errors.code ? true : undefined}
         aria-describedby={errors.code ? 'agency-code-error' : undefined}
       />
@@ -206,7 +206,7 @@ const AgencyForm = ({ values, errors = {}, setField, companies = [], drivers = [
         className={errors.city ? 'form-control is-invalid' : 'form-control'}
         value={values.city}
         onChange={(event) => setField('city', event.target.value)}
-        placeholder="Ex. Abidjan"
+        placeholder="Ex. Douala"
         aria-invalid={errors.city ? true : undefined}
         aria-describedby={errors.city ? 'agency-city-error' : undefined}
       />
@@ -223,7 +223,7 @@ const AgencyForm = ({ values, errors = {}, setField, companies = [], drivers = [
         className="form-control"
         value={values.region}
         onChange={(event) => setField('region', event.target.value)}
-        placeholder="Ex. District d’Abidjan"
+        placeholder="Ex. District de Bonapriso"
       />
     </div>
 
@@ -278,7 +278,7 @@ const AgencyForm = ({ values, errors = {}, setField, companies = [], drivers = [
         className={errors.phone ? 'form-control is-invalid' : 'form-control'}
         value={values.phone}
         onChange={(event) => setField('phone', event.target.value)}
-        placeholder="+225 27 22 48 19 00"
+        placeholder="+237 27 22 48 19 00"
         aria-invalid={errors.phone ? true : undefined}
         aria-describedby={errors.phone ? 'agency-phone-error' : undefined}
       />

@@ -49,7 +49,7 @@ const PartnerForm = ({ values, errors = {}, setField, companies = [] }) => (
         className={errors.name ? 'form-control is-invalid' : 'form-control'}
         value={values.name}
         onChange={(event) => setField('name', event.target.value)}
-        placeholder="Ex. Garage Navix, TotalEnergies Abidjan…"
+        placeholder="Ex. Garage Navix, TotalEnergies Douala…"
         aria-invalid={errors.name ? true : undefined}
         aria-describedby={errors.name ? 'partner-name-error' : undefined}
       />
@@ -156,7 +156,7 @@ const PartnerForm = ({ values, errors = {}, setField, companies = [] }) => (
         className={errors.phone ? 'form-control is-invalid' : 'form-control'}
         value={values.phone}
         onChange={(event) => setField('phone', event.target.value)}
-        placeholder="+225 07 00 00 00 00"
+        placeholder="+237 07 00 00 00 00"
         aria-invalid={errors.phone ? true : undefined}
         aria-describedby={errors.phone ? 'partner-phone-error' : undefined}
       />
@@ -216,7 +216,7 @@ const PartnerForm = ({ values, errors = {}, setField, companies = [] }) => (
         className="form-control"
         value={values.address}
         onChange={(event) => setField('address', event.target.value)}
-        placeholder="Ex. Zone industrielle, Koumassi, Abidjan"
+        placeholder="Ex. Zone industrielle, Bonabéri, Douala"
       />
     </div>
 
@@ -230,7 +230,7 @@ const PartnerForm = ({ values, errors = {}, setField, companies = [] }) => (
         className="form-control"
         value={values.city}
         onChange={(event) => setField('city', event.target.value)}
-        placeholder="Ex. Abidjan"
+        placeholder="Ex. Douala"
       />
     </div>
 
@@ -244,7 +244,7 @@ const PartnerForm = ({ values, errors = {}, setField, companies = [] }) => (
         className="form-control"
         value={values.country}
         onChange={(event) => setField('country', event.target.value)}
-        placeholder="Ex. Côte d'Ivoire"
+        placeholder="Ex. Cameroun"
       />
     </div>
 

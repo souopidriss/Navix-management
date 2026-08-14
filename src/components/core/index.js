@@ -28,6 +28,7 @@ export { default as ActionDropdown } from './ActionDropdown';
 export { default as EmptyState } from './EmptyState';
 export { default as LoadingState } from './LoadingState';
 export { default as ErrorState } from './ErrorState';
+export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as Timeline } from './Timeline';
 
 export { default as FileUploader } from './FileUploader';

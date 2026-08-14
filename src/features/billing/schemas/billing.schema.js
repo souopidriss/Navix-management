@@ -29,7 +29,7 @@ export const paymentDefaultValues = {
   invoiceId: '',
   method: 'bank_transfer',
   amount: 0,
-  currency: 'EUR',
+  currency: 'XAF',
   transactionReference: '',
   paymentDate: new Date().toISOString().slice(0, 10),
 };
@@ -43,7 +43,7 @@ export const toPaymentFormValues = (payment = {}) => ({
   invoiceId: payment.invoiceId ?? '',
   method: payment.method ?? 'bank_transfer',
   amount: Number(payment.amount || 0),
-  currency: payment.currency ?? 'EUR',
+  currency: payment.currency ?? 'XAF',
   transactionReference: payment.transactionReference ?? '',
   paymentDate: (payment.paymentDate || new Date().toISOString()).slice(0, 10),
 });
@@ -79,7 +79,7 @@ export const billingSettingsSchema = z.object({
 });
 
 export const billingSettingsDefaultValues = {
-  defaultCurrency: 'EUR',
+  defaultCurrency: 'XAF',
   paymentTermsDays: 15,
   defaultTaxRate: 0.18,
   allowPartialPayments: true,
@@ -94,7 +94,7 @@ export const billingSettingsDefaultValues = {
  * @returns {object}
  */
 export const toBillingSettingsFormValues = (settings = {}) => ({
-  defaultCurrency: settings.defaultCurrency ?? 'EUR',
+  defaultCurrency: settings.defaultCurrency ?? 'XAF',
   paymentTermsDays: settings.paymentTermsDays ?? 15,
   defaultTaxRate: Number(settings.defaultTaxRate ?? 0.18),
   allowPartialPayments: Boolean(settings.allowPartialPayments),

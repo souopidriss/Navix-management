@@ -4,6 +4,16 @@
  */
 .navix-metric__card {
   height: 100%;
+  transition:
+    transform var(--navix-transition-base) var(--navix-ease-out),
+    box-shadow var(--navix-transition-base) var(--navix-ease-out),
+    border-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-metric__card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--navix-primary) 32%, var(--navix-border-color));
+  box-shadow: var(--navix-shadow-hover);
 }
 
 .navix-metric {
@@ -32,30 +42,48 @@ a.navix-metric.navix-metric--link:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: var(--navix-radius-md);
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--navix-radius-lg);
   font-size: 1.25rem;
   color: var(--navix-metric-color, var(--navix-primary));
-  background: var(--navix-metric-bg, var(--navix-primary-muted));
+  background: var(--navix-metric-gradient, var(--navix-primary-muted));
+  box-shadow:
+    0 8px 20px -8px var(--navix-metric-glow, rgba(68, 83, 242, 0.45)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition:
+    transform var(--navix-transition-base) var(--navix-ease-out),
+    box-shadow var(--navix-transition-base) var(--navix-ease-out);
+}
+
+.navix-metric__card:hover .navix-metric__icon {
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow:
+    0 12px 28px -8px var(--navix-metric-glow, rgba(68, 83, 242, 0.55)),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .navix-metric__variation {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--navix-radius-full);
+  background: var(--navix-metric-pill, var(--navix-muted-bg));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   font-size: var(--navix-font-size-caption);
   font-weight: var(--navix-font-weight-semibold);
-  color: var(--navix-text-secondary);
+  color: var(--navix-metric-color, var(--navix-text-secondary));
   white-space: nowrap;
 }
 
 .navix-metric__value {
-  font-size: var(--navix-font-size-h2);
+  font-size: 1.625rem;
   font-weight: var(--navix-font-weight-bold);
   line-height: var(--navix-line-height-tight);
-  letter-spacing: var(--navix-letter-spacing-tight);
+  letter-spacing: -0.03em;
   color: var(--navix-text-primary);
+  font-variant-numeric: tabular-nums;
 }
 
 .navix-metric__label {
@@ -71,35 +99,49 @@ a.navix-metric.navix-metric--link:hover {
 /* Variantes de couleur (icône + fond) — toutes issues des tokens */
 .navix-metric--primary {
   --navix-metric-color: var(--navix-primary);
-  --navix-metric-bg: var(--navix-primary-muted);
+  --navix-metric-gradient: linear-gradient(135deg, rgba(68, 83, 242, 0.2), rgba(122, 111, 242, 0.08));
+  --navix-metric-glow: rgba(68, 83, 242, 0.45);
+  --navix-metric-pill: color-mix(in srgb, var(--navix-primary-muted) 72%, transparent);
 }
 
 .navix-metric--success {
   --navix-metric-color: var(--navix-success);
-  --navix-metric-bg: rgba(var(--navix-success-rgb), 0.14);
+  --navix-metric-gradient: linear-gradient(135deg, rgba(63, 203, 143, 0.18), rgba(63, 203, 143, 0.06));
+  --navix-metric-glow: rgba(63, 203, 143, 0.4);
+  --navix-metric-pill: rgba(63, 203, 143, 0.12);
 }
 
 .navix-metric--warning {
   --navix-metric-color: var(--navix-warning);
-  --navix-metric-bg: rgba(var(--navix-warning-rgb), 0.14);
+  --navix-metric-gradient: linear-gradient(135deg, rgba(245, 165, 36, 0.18), rgba(245, 165, 36, 0.06));
+  --navix-metric-glow: rgba(245, 165, 36, 0.4);
+  --navix-metric-pill: rgba(245, 165, 36, 0.12);
 }
 
 .navix-metric--danger {
   --navix-metric-color: var(--navix-danger);
-  --navix-metric-bg: rgba(var(--navix-danger-rgb), 0.14);
+  --navix-metric-gradient: linear-gradient(135deg, rgba(240, 72, 77, 0.18), rgba(240, 72, 77, 0.06));
+  --navix-metric-glow: rgba(240, 72, 77, 0.4);
+  --navix-metric-pill: rgba(240, 72, 77, 0.12);
 }
 
 .navix-metric--info {
   --navix-metric-color: var(--navix-info);
-  --navix-metric-bg: rgba(var(--navix-info-rgb), 0.14);
+  --navix-metric-gradient: linear-gradient(135deg, rgba(77, 163, 255, 0.18), rgba(77, 163, 255, 0.06));
+  --navix-metric-glow: rgba(77, 163, 255, 0.4);
+  --navix-metric-pill: rgba(77, 163, 255, 0.12);
 }
 
 .navix-metric--secondary {
   --navix-metric-color: var(--navix-secondary);
-  --navix-metric-bg: rgba(var(--navix-secondary-rgb), 0.14);
+  --navix-metric-gradient: linear-gradient(135deg, rgba(124, 134, 152, 0.18), rgba(124, 134, 152, 0.06));
+  --navix-metric-glow: rgba(124, 134, 152, 0.35);
+  --navix-metric-pill: rgba(124, 134, 152, 0.12);
 }
 
 .navix-metric--dark {
   --navix-metric-color: var(--navix-text-secondary);
-  --navix-metric-bg: var(--navix-muted-bg);
+  --navix-metric-gradient: linear-gradient(135deg, rgba(154, 164, 184, 0.16), rgba(154, 164, 184, 0.05));
+  --navix-metric-glow: rgba(154, 164, 184, 0.25);
+  --navix-metric-pill: var(--navix-muted-bg);
 }

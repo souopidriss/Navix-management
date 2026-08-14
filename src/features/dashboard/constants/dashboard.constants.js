@@ -6,6 +6,7 @@
  * d'affichage (libellé, variante Badge, icône). Consommé par le service,
  * le store, les hooks, les composants et la page.
  */
+import { formatCurrency } from '@/utils/format';
 
 /** Périodes d'analyse disponibles pour le filtre global du tableau de bord. */
 export const PERIOD_OPTIONS = [
@@ -82,8 +83,8 @@ export const QUICK_ACTIONS = [
   { key: 'document', label: 'Ajouter un document', icon: 'bi-file-earmark-plus', to: '/dashboard/files/new' },
 ];
 
-/** Monnaie par défaut des montants du tableau de bord. */
-export const DEFAULT_CURRENCY = 'XOF';
+/** Monnaie par défaut des montants du tableau de bord (Cameroun — FCFA). */
+export const DEFAULT_CURRENCY = 'XAF';
 
 /** Nombre de lignes affichées dans les classements (top véhicules / chauffeurs). */
 export const TOP_LIMIT = 5;
@@ -97,9 +98,9 @@ export const ALERT_LIMIT = 8;
 /** Nombre de mois couverts par les évolutions mensuelles. */
 export const TREND_MONTHS = 6;
 
-/** Formate un montant (ex. 2 450 000 XOF). */
+/** Formate un montant (ex. 2 450 000 FCFA). */
 export const formatDashboardMoney = (value, currency = DEFAULT_CURRENCY) =>
-  Number.isFinite(Number(value)) ? `${Number(value).toLocaleString('fr-FR')} ${currency}` : '—';
+  formatCurrency(value, currency);
 
 /** Formate un taux (ex. 84 %). */
 export const formatDashboardRate = (value) =>

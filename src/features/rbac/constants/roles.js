@@ -29,6 +29,8 @@ export const ROLES = {
   MECHANIC: 'mechanic',
   ACCOUNTANT: 'accountant',
   VIEWER: 'viewer',
+  CLIENT_ENTERPRISE: 'client_enterprise',
+  CLIENT_INDIVIDUAL: 'client_individual',
 };
 
 /* Sous-ensembles réutilisables de permissions. */
@@ -318,6 +320,41 @@ export const ROLE_DEFINITIONS = [
       PERMISSIONS.FILES_DOWNLOAD,
       ...NOTIFICATIONS_FULL,
       ...REPORTS_READ,
+    ],
+  },
+  {
+    key: ROLES.CLIENT_ENTERPRISE,
+    label: 'Client Entreprise',
+    description: 'Espace client entreprise : suivi des véhicules, demandes, trajets, factures et documents.',
+    permissions: [
+      PERMISSIONS.CLIENT_DASHBOARD_READ,
+      PERMISSIONS.CLIENT_SERVICES_READ,
+      PERMISSIONS.CLIENT_VEHICLES_READ,
+      PERMISSIONS.CLIENT_REQUESTS_READ,
+      PERMISSIONS.CLIENT_REQUESTS_CREATE,
+      PERMISSIONS.CLIENT_TRIPS_READ,
+      PERMISSIONS.CLIENT_DOCUMENTS_READ,
+      PERMISSIONS.CLIENT_INVOICES_READ,
+      PERMISSIONS.CLIENT_PROFILE_READ,
+      PERMISSIONS.CLIENT_PROFILE_UPDATE,
+      ...NOTIFICATIONS_FULL,
+    ],
+  },
+  {
+    key: ROLES.CLIENT_INDIVIDUAL,
+    label: 'Client Particulier',
+    description: 'Espace client particulier : suivi des demandes personnelles, trajets et factures.',
+    permissions: [
+      PERMISSIONS.CLIENT_DASHBOARD_READ,
+      PERMISSIONS.CLIENT_SERVICES_READ,
+      PERMISSIONS.CLIENT_REQUESTS_READ,
+      PERMISSIONS.CLIENT_REQUESTS_CREATE,
+      PERMISSIONS.CLIENT_TRIPS_READ,
+      PERMISSIONS.CLIENT_DOCUMENTS_READ,
+      PERMISSIONS.CLIENT_INVOICES_READ,
+      PERMISSIONS.CLIENT_PROFILE_READ,
+      PERMISSIONS.CLIENT_PROFILE_UPDATE,
+      ...NOTIFICATIONS_FULL,
     ],
   },
 ];

@@ -16,6 +16,8 @@
   position: absolute;
   inset: 0;
   background: var(--navix-backdrop);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 .navix-modal__dialog {
@@ -25,7 +27,14 @@
   max-height: calc(100vh - 2 * var(--navix-space-4));
   display: flex;
   flex-direction: column;
-  animation: navix-modal-in 0.15s var(--navix-ease-out);
+  animation: navix-modal-in 0.18s var(--navix-ease-out);
+}
+
+.navix-modal__dialog .modal-content {
+  border-radius: var(--navix-radius-xl);
+  border: 1px solid var(--navix-border-color);
+  box-shadow: var(--navix-shadow-xl);
+  overflow: hidden;
 }
 
 .navix-modal--sm {

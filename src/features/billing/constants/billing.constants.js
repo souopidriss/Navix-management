@@ -1,8 +1,8 @@
 /**
  * Navix Billing — Constantes métier du module Facturation
  * --------------------------------------------------------------------------
- * Source unique de vérité pour les statuts de facture et de paiement, les
- * devises (XAF / EUR / USD), les taux de taxe fictifs, les moyens de
+ * Source unique de vérité pour les statuts de facture et de paiement, la
+ * devise (XAF / FCFA), les taux de taxe fictifs, les moyens de
  * paiement simulés, les statuts de crédit / types de remise et la
  * numérotation des documents (NAVIX-AAAA-NNNNNN / PAY-AAAA-NNNNNN).
  * Contient aussi les règles de formatage (dates, montants) et les getters
@@ -69,9 +69,6 @@ export const getPaymentMethod = (value) =>
    -------------------------------------------------------------------------- */
 
 export const CURRENCIES = {
-  EUR: { label: 'Euro', symbol: '€', code: 'EUR' },
-  USD: { label: 'Dollar américain', symbol: '$', code: 'USD' },
-  GBP: { label: 'Livre sterling', symbol: '£', code: 'GBP' },
   XAF: { label: 'Franc CFA (XAF)', symbol: 'FCFA', code: 'XAF' },
 };
 
@@ -80,10 +77,10 @@ export const CURRENCY_VALUES = Object.keys(CURRENCIES);
 export const getCurrency = (value) =>
   CURRENCIES[value] || { label: value, symbol: value, code: value };
 
-/** Monnaie par défaut de la facturation (paramètres de la plateforme). */
-export const DEFAULT_CURRENCY = 'EUR';
+/** Monnaie par défaut de la facturation (Cameroun — FCFA / XAF). */
+export const DEFAULT_CURRENCY = 'XAF';
 
-/** Monnaie par défaut pour les entreprises de la zone CEMOA/UEMOA (simulée). */
+/** Monnaie par défaut pour les entreprises de la zone CEMAC (simulée). */
 export const DEFAULT_XAF_CURRENCY = 'XAF';
 
 /* --------------------------------------------------------------------------
@@ -280,7 +277,7 @@ export const formatBillingNumber = (value, decimals = 2) =>
 
 /**
  * Formate un montant selon sa devise.
- * XAF : entier suivi de « FCFA ». EUR / USD : décimales + symbole.
+ * XAF : entier suivi de « FCFA ».
  */
 export const formatBillingMoney = (value, currency = DEFAULT_CURRENCY) => {
   if (!Number.isFinite(Number(value)) || Number(value) === 0) return '—';

@@ -7,6 +7,7 @@
  * (dates, montants, coordonnées) et l'heure d'ouverture par défaut.
  * Consommé par les composants, les pages, les filtres, la table et le service.
  */
+import { currencyLabel } from '@/utils/format';
 
 export const AGENCY_TYPES = {
   siege: { label: 'Siège', variant: 'primary', icon: 'bi-building' },
@@ -64,7 +65,7 @@ export const DEFAULT_PAGE_SIZE = 8;
 export const PAGE_SIZE_OPTIONS = [5, 8, 10, 20];
 
 /** Monnaie par défaut des agrégats financiers. */
-export const DEFAULT_CURRENCY = 'XOF';
+export const DEFAULT_CURRENCY = 'XAF';
 
 /** Heures d'ouverture proposées par défaut lors de la création. */
 export const DEFAULT_OPENING_HOURS = 'Lun–Ven : 08h00–18h00, Sam : 08h00–12h00';
@@ -123,10 +124,10 @@ export const formatAgencyDateTime = (value) => {
     : '—';
 };
 
-/** Formate un montant (ex. 227 240 XOF). */
+/** Formate un montant (ex. 227 240 FCFA). */
 export const formatAgencyMoney = (value, currency = DEFAULT_CURRENCY) =>
   Number.isFinite(Number(value)) && Number(value) !== 0
-    ? `${Number(value).toLocaleString('fr-FR')} ${currency}`
+    ? `${Number(value).toLocaleString('fr-FR')} ${currencyLabel(currency)}`
     : '—';
 
 /** Formate une distance (ex. 3 850 km). */

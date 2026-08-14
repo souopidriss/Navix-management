@@ -192,8 +192,8 @@ export const SORT_DIRECTIONS = [
   { value: 'desc', label: 'Décroissant' },
 ];
 
-/** Monnaie par défaut des prix d'abonnement (prix fictifs). */
-export const DEFAULT_CURRENCY = 'EUR';
+/** Monnaie par défaut des prix d'abonnement (Cameroun — FCFA / XAF). */
+export const DEFAULT_CURRENCY = 'XAF';
 
 /** Durée de l'essai gratuit simulé (en jours). */
 export const DEFAULT_TRIAL_DAYS = 14;
@@ -241,10 +241,10 @@ export const formatSubscriptionDateTime = (value) => {
     : '—';
 };
 
-/** Formate un montant (ex. 79 €). */
+/** Formate un montant (ex. 75 000 FCFA). */
 export const formatSubscriptionMoney = (value, currency = DEFAULT_CURRENCY) =>
   Number.isFinite(Number(value)) && Number(value) !== 0
-    ? `${Number(value).toLocaleString('fr-FR')} ${currency}`
+    ? `${Number(value).toLocaleString('fr-FR')} ${currency === 'XAF' ? 'FCFA' : currency}`
     : '—';
 
 /** Formate un stockage en Go (ex. 12 Go). */

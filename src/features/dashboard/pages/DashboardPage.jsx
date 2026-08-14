@@ -1,13 +1,16 @@
 /**
- * Navix Dashboard — DashboardPage
+ * Navix Dashboard — DashboardPage (DASHBOARD MASTER)
  * --------------------------------------------------------------------------
- * Tableau de bord de gestion de flotte : filtres globaux (période /
- * entreprise), indicateurs clés (StatsCards), état de la flotte, répartition
- * par groupe, graphiques CSS (flotte, carburant, entretiens, coûts),
- * finances, alertes, activité récente, classements et tableau du parc.
+ * Tableau de bord Master de la plateforme NAVIX MANAGEMENT.
+ * Design SaaS haut de gamme, filtres globaux (période / entreprise),
+ * indicateurs KPI avec tendance, graphique d'évolution mensuelle (Area SVG),
+ * graphique de répartition des dépenses par catégorie (Donut SVG),
+ * carte de consommation de carburant avec jauge d'efficience,
+ * section d'alertes importantes hiérarchisées, tableau du parc automobile,
+ * et fil d'activités récentes en temps réel.
  */
 import { useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Alert, Button, Card } from '@/components/ui';
 import {
@@ -18,6 +21,7 @@ import {
   ErrorState,
   EmptyState,
 } from '@/components/core';
+import useAuthStore from '@/features/auth/store/auth.store';
 import { useDashboardStore } from '../store';
 import { useDashboardData } from '../hooks';
 import { NotificationCenter } from '@/features/notifications/components';
@@ -29,21 +33,20 @@ import {
   FleetOverviewCard,
   GroupStatsCard,
   FleetEvolutionChart,
-  FuelTrendChart,
-  MaintenanceTrendChart,
-  CostBreakdownChart,
-  FinancialOverview,
+  CostAreaChart,
+  CategoryCostDonutChart,
+  FuelConsumptionCard,
   DashboardAlerts,
   DashboardAuditActivity,
   RecentActivityList,
-  TopVehicles,
-  TopDrivers,
   VehicleStatusTable,
 } from '../components';
-import { QUICK_ACTIONS, formatDashboardMoney } from '../constants';
+import { QUICK_ACTIONS } from '../constants';
 
 const DashboardPage = () => {
   const navigate = useNavigate();
+  const user = useAuthStore((state) => state.user);
+  const userName = user?.name || user?.fullName || user?.email?.split('@')[0] || 'Administrateur';
 
   const setFilter = useDashboardStore((state) => state.setFilter);
   const resetFilters = useDashboardStore((state) => state.resetFilters);
@@ -57,8 +60,7 @@ const DashboardPage = () => {
     fetchCompanies();
   }, [fetchNotifications, fetchCompanies]);
 
-  /* Multi-tenant : hors super_admin, le filtre entreprise est verrouillé sur
-     l'entreprise courante (les données sont de toute façon bornées au store). */
+  /* Multi-tenant : hors super_admin, le filtre entreprise est verrouillé sur l'entreprise courante. */
   useEffect(() => {
     const { isSuperAdmin, companyId } = getTenantScope();
     if (!isSuperAdmin && companyId) {
@@ -71,12 +73,9 @@ const DashboardPage = () => {
     overview,
     fleetStatistics,
     fuelStatistics,
-    maintenanceStatistics,
     financialStatistics,
     alerts,
     recentActivities,
-    topVehicles,
-    topDrivers,
     vehicles,
     metrics,
     hasActiveFilters,
@@ -103,26 +102,36 @@ const DashboardPage = () => {
     [navigate],
   );
 
+  const handleExport = () => {
+    window.print();
+  };
+
   return (
     <PageContainer>
       <Helmet>
-        <title>Tableau de bord — Navix Management</title>
+        <title>Dashboard Master — Navix Management</title>
       </Helmet>
 
+      {/* Header Principal */}
       <PageHeader
-        title="Tableau de bord"
-        subtitle="Vue d’ensemble de votre flotte : véhicules, carburant, entretiens et coûts."
+        title="Dashboard Master"
+        subtitle={`Bienvenue, ${userName} ! Aperçu en temps réel de la performance de votre flotte automobile.`}
         icon="bi-speedometer2"
         breadcrumbs={[{ label: 'Dashboard' }]}
         actions={
           <div className="d-flex flex-wrap gap-2">
-            <Button variant="outline" size="sm" icon="bi-arrow-clockwise" onClick={refetch}>
+            <Button variant="outline" size="sm" icon="bi-download" onClick={handleExport}>
+              Exporter
+            </Button>
+
+            <Button variant="primary" size="sm" icon="bi-arrow-clockwise" onClick={refetch}>
               Actualiser
             </Button>
           </div>
         }
       />
 
+      {/* Barre de filtres globaux */}
       <div className="mb-3">
         <DashboardFilters
           filters={filters}
@@ -132,21 +141,68 @@ const DashboardPage = () => {
         />
       </div>
 
-      <div className="d-flex flex-wrap gap-2 mb-3">{quickActions}</div>
+      {/* Actions rapides */}
+      <div className="d-flex flex-wrap gap-2 mb-4">{quickActions}</div>
 
       {error && (
-        <Alert variant="danger" closable onClose={clearError} className="mb-3">
+        <Alert variant="danger" closable onClose={clearError} className="mb-4">
           {error}
         </Alert>
       )}
 
       {initialLoading ? (
-        <LoadingState variant="cards" rows={4} label="Chargement du tableau de bord…" />
+        <LoadingState variant="cards" rows={4} label="Chargement du Dashboard Master…" />
       ) : overview ? (
         <>
-          <StatsCards stats={metrics} loading={isLoading} />
+          {/* Rangée de KPI Master */}
+          <div className="mb-4">
+            <StatsCards stats={metrics} loading={isLoading} />
+          </div>
 
-          <div className="row g-3 mt-1">
+          {/* Section 1 : Analytics Financières & Graphiques Master */}
+          <div className="row g-3 mb-4">
+            <div className="col-xl-7 col-lg-6">
+              <Card
+                className="h-100"
+                title={
+                  <span className="d-flex align-items-center gap-2">
+                    <i className="bi bi-graph-up-arrow text-primary" aria-hidden="true" />
+                    <span>Évolution des dépenses (6 derniers mois)</span>
+                  </span>
+                }
+              >
+                <CostAreaChart data={financialStatistics?.monthlyEvolution ?? []} />
+              </Card>
+            </div>
+
+            <div className="col-xl-5 col-lg-6">
+              <Card
+                className="h-100"
+                title={
+                  <span className="d-flex align-items-center gap-2">
+                    <i className="bi bi-pie-chart text-accent" aria-hidden="true" />
+                    <span>Dépenses par catégorie</span>
+                  </span>
+                }
+              >
+                <CategoryCostDonutChart financialData={financialStatistics} />
+              </Card>
+            </div>
+          </div>
+
+          {/* Section 2 : Consommation Carburant & Alertes Importantes */}
+          <div className="row g-3 mb-4">
+            <div className="col-xl-5 col-lg-6">
+              <FuelConsumptionCard fuelData={fuelStatistics} />
+            </div>
+
+            <div className="col-xl-7 col-lg-6">
+              <DashboardAlerts alerts={alerts} />
+            </div>
+          </div>
+
+          {/* Section 3 : Structure du parc & Évolution */}
+          <div className="row g-3 mb-4">
             <div className="col-lg-4">
               <FleetOverviewCard fleet={overview.fleet} />
             </div>
@@ -155,58 +211,34 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <div className="row g-3">
+          {/* Section 4 : Évolution Flotte & Activité Récente */}
+          <div className="row g-3 mb-4">
             <div className="col-lg-6">
-              <Card title={<span><i className="bi bi-truck me-2" aria-hidden="true" />Évolution du parc</span>}>
+              <Card
+                title={
+                  <span>
+                    <i className="bi bi-truck me-2 text-primary" aria-hidden="true" />
+                    Évolution de la taille du parc
+                  </span>
+                }
+              >
                 <FleetEvolutionChart data={fleetStatistics?.monthlyEvolution ?? []} />
               </Card>
             </div>
             <div className="col-lg-6">
-              <Card title={<span><i className="bi bi-fuel-pump me-2" aria-hidden="true" />Coût carburant mensuel</span>}>
-                <FuelTrendChart
-                  data={fuelStatistics?.monthlyEvolution ?? []}
-                  formatValue={(value) => formatDashboardMoney(value)}
-                />
-              </Card>
+              <RecentActivityList activities={recentActivities} />
             </div>
           </div>
 
-          <div className="row g-3">
-            <div className="col-lg-6">
-              <Card title={<span><i className="bi bi-wrench-adjustable me-2" aria-hidden="true" />Coût entretiens mensuel</span>}>
-                <MaintenanceTrendChart
-                  data={maintenanceStatistics?.monthlyEvolution ?? []}
-                  formatValue={(value) => formatDashboardMoney(value)}
-                />
-              </Card>
-            </div>
-            <div className="col-lg-6">
-              <Card title={<span><i className="bi bi-bar-chart-line me-2" aria-hidden="true" />Coûts mensuels (carburant + entretiens)</span>}>
-                <CostBreakdownChart
-                  data={financialStatistics?.monthlyEvolution ?? []}
-                  formatValue={(value) => formatDashboardMoney(value)}
-                />
-              </Card>
-            </div>
-          </div>
-
-          <div className="row g-3">
-            <div className="col-xl-4">
-              <FinancialOverview financial={financialStatistics} />
-            </div>
-            <div className="col-xl-8">
-              <DashboardAlerts alerts={alerts} />
-            </div>
-          </div>
-
-          <div className="row g-3">
+          {/* Section 5 : Journal d'Audit & Centre de Notifications */}
+          <div className="row g-3 mb-4">
             <div className="col-lg-5">
               <Card
                 className="h-100"
                 flush
                 title={
                   <span>
-                    <i className="bi bi-bell me-2" aria-hidden="true" />
+                    <i className="bi bi-bell me-2 text-warning" aria-hidden="true" />
                     Centre de notifications
                   </span>
                 }
@@ -219,18 +251,7 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <div className="row g-3">
-            <div className="col-xl-4">
-              <TopVehicles vehicles={topVehicles} />
-            </div>
-            <div className="col-xl-4">
-              <TopDrivers drivers={topDrivers} />
-            </div>
-            <div className="col-xl-4">
-              <RecentActivityList activities={recentActivities} />
-            </div>
-          </div>
-
+          {/* Section 6 : Tableau Véhicules Master */}
           {vehicles.length === 0 && !isLoading ? (
             <Card className="mt-3">
               <EmptyState
@@ -240,9 +261,23 @@ const DashboardPage = () => {
               />
             </Card>
           ) : (
-            <div className="mt-3">
+            <Card
+              className="mt-3"
+              title={
+                <div className="d-flex align-items-center justify-content-between w-100">
+                  <span className="d-flex align-items-center gap-2">
+                    <i className="bi bi-shield-shaded text-primary" aria-hidden="true" />
+                    <span>Véhicules les plus utilisés</span>
+                  </span>
+                  <Link to="/dashboard/vehicles" className="btn btn-sm btn-outline-primary">
+                    Voir tous les véhicules
+                    <i className="bi bi-arrow-right ms-1" aria-hidden="true" />
+                  </Link>
+                </div>
+              }
+            >
               <VehicleStatusTable vehicles={vehicles} loading={isLoading} />
-            </div>
+            </Card>
           )}
         </>
       ) : (

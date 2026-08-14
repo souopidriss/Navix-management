@@ -8,6 +8,7 @@
  * « véhicule immobilisé ». Consommé par les composants, les pages, les
  * filtres, la table, le calendrier et le service.
  */
+import { currencyLabel } from '@/utils/format';
 
 export const MAINTENANCE_TYPES = {
   vidange: { label: 'Vidange', variant: 'info', icon: 'bi-droplet-half' },
@@ -83,7 +84,7 @@ export const DEFAULT_PAGE_SIZE = 8;
 export const PAGE_SIZE_OPTIONS = [5, 8, 10, 20];
 
 /** Monnaie par défaut des entretiens. */
-export const DEFAULT_CURRENCY = 'XOF';
+export const DEFAULT_CURRENCY = 'XAF';
 
 /**
  * Seuils d'alerte (règles métier simulées).
@@ -197,10 +198,10 @@ export const formatMaintenanceLongDate = (value) => {
     : '—';
 };
 
-/** Formate un montant (ex. 38 250 XOF). */
+/** Formate un montant (ex. 38 250 FCFA). */
 export const formatMaintenanceMoney = (value, currency = DEFAULT_CURRENCY) =>
   Number.isFinite(Number(value)) && Number(value) !== 0
-    ? `${Number(value).toLocaleString('fr-FR')} ${currency}`
+    ? `${Number(value).toLocaleString('fr-FR')} ${currencyLabel(currency)}`
     : '—';
 
 /** Formate un kilométrage en français (ex. 68 350 km). */

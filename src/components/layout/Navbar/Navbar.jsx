@@ -41,6 +41,10 @@ const Navbar = ({ onMenuClick }) => (
     </div>
 
     <div className="navix-topbar__actions">
+      <div className="navix-country-badge d-none d-sm-flex align-items-center me-1" title="Marché Cameroun">
+        <span className="me-1" role="img" aria-label="Cameroun">🇨🇲</span>
+        <span className="navix-country-badge__label fw-semibold">Cameroun</span>
+      </div>
       <CompanySwitcher className="d-none d-md-flex" />
       <ThemeSwitcher />
       <NotificationDropdown />

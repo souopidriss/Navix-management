@@ -217,21 +217,20 @@ export const LANGUAGES = [
 ];
 
 export const COUNTRIES = [
-  { value: 'CI', label: 'Côte d’Ivoire' },
-  { value: 'FR', label: 'France' },
-  { value: 'SN', label: 'Sénégal' },
   { value: 'CM', label: 'Cameroun' },
-  { value: 'MA', label: 'Maroc' },
-  { value: 'US', label: 'États-Unis' },
-  { value: 'DE', label: 'Allemagne' },
-  { value: 'BE', label: 'Belgique' },
+  { value: 'NG', label: 'Nigéria' },
+  { value: 'TD', label: 'Tchad' },
+  { value: 'CF', label: 'République centrafricaine' },
+  { value: 'GQ', label: 'Guinée équatoriale' },
+  { value: 'GA', label: 'Gabon' },
+  { value: 'CG', label: 'République du Congo' },
+  { value: 'CD', label: 'République démocratique du Congo' },
 ];
 
 export const TIMEZONES = [
   { value: 'UTC', label: 'UTC (Temps universel)' },
-  { value: 'Africa/Abidjan', label: 'Afrique — Abidjan (GMT+0)' },
-  { value: 'Africa/Dakar', label: 'Afrique — Dakar (GMT+0)' },
   { value: 'Africa/Douala', label: 'Afrique — Douala (GMT+1)' },
+  { value: 'Africa/Lagos', label: 'Afrique — Lagos (GMT+1)' },
   { value: 'Europe/Paris', label: 'Europe — Paris (GMT+1)' },
   { value: 'Europe/Brussels', label: 'Europe — Bruxelles (GMT+1)' },
   { value: 'America/New_York', label: 'Amérique — New York (GMT-5)' },

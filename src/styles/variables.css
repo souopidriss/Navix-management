@@ -25,12 +25,20 @@
      1. Couleurs de marque
      ------------------------------------------------------------------ */
 
-  /* Primary — bleu moderne (accent principal) */
-  --navix-primary: #4a5df5;
-  --navix-primary-rgb: 74, 93, 245;
-  --navix-primary-hover: #6b7cff;
-  --navix-primary-active: #3b4bd4;
-  --navix-primary-muted: rgba(74, 93, 245, 0.16);
+  /* Primary — indigo premium (accent principal) */
+  --navix-primary: #4453f2;
+  --navix-primary-rgb: 68, 83, 242;
+  --navix-primary-hover: #5d6bf5;
+  --navix-primary-active: #3644d8;
+  --navix-primary-muted: rgba(68, 83, 242, 0.14);
+
+  /* Accent secondaire — violet très léger (détails raffinés) */
+  --navix-accent: #7a6ff2;
+  --navix-accent-rgb: 122, 111, 242;
+  --navix-accent-muted: rgba(122, 111, 242, 0.12);
+
+  /* Dégradé de marque — signature Navix */
+  --navix-brand-gradient: linear-gradient(135deg, #4453f2 0%, #6a5cf5 55%, #7a6ff2 100%);
 
   /* Secondary — ardoise */
   --navix-secondary: #7c8698;
@@ -181,14 +189,14 @@
   /* ------------------------------------------------------------------
      10. Focus (accessibilité)
      ------------------------------------------------------------------ */
-  --navix-focus-ring-color: rgba(74, 93, 245, 0.45);
+  --navix-focus-ring-color: rgba(68, 83, 242, 0.45);
   --navix-focus-ring-width: 3px;
   --navix-focus-ring-offset: 2px;
 
   /* ------------------------------------------------------------------
      11. Sélection de texte
-     ------------------------------------------------------------------ */
-  --navix-selection-background: rgba(74, 93, 245, 0.3);
+      ------------------------------------------------------------------ */
+  --navix-selection-background: rgba(68, 83, 242, 0.28);
   --navix-selection-color: var(--navix-text-primary);
 
   /* ------------------------------------------------------------------
@@ -228,6 +236,8 @@
   --navix-active: rgba(255, 255, 255, 0.08);
   --navix-muted-bg: rgba(255, 255, 255, 0.03);
   --navix-backdrop: rgba(0, 0, 0, 0.55);
+  --navix-background-glow: rgba(68, 83, 242, 0.08);
+  --navix-background-glow-secondary: rgba(122, 111, 242, 0.07);
 
   /* Textes */
   --navix-text-primary: var(--navix-neutral-50);
@@ -252,6 +262,8 @@
   --navix-shadow-md: 0 2px 4px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
   --navix-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
   --navix-shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5), 0 4px 12px rgba(0, 0, 0, 0.25);
+  --navix-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 14px rgba(0, 0, 0, 0.2);
+  --navix-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.32), 0 10px 28px rgba(0, 0, 0, 0.38), 0 0 0 1px rgba(93, 107, 245, 0.25);
   --navix-shadow-focus: 0 0 0 var(--navix-focus-ring-width) var(--navix-focus-ring-color);
 
   /* Scrollbar */
@@ -266,21 +278,23 @@
 [data-bs-theme='light'] {
   color-scheme: light;
 
-  /* Fonds */
-  --navix-background: var(--navix-neutral-50);
-  --navix-background-rgb: 245, 247, 250;
-  --navix-surface: var(--navix-neutral-100);
-  --navix-surface-rgb: 231, 235, 242;
+  /* Fonds — hiérarchie premium : Background → Surface → Card → Elevated */
+  --navix-background: #f3f5fa;
+  --navix-background-rgb: 243, 245, 250;
+  --navix-surface: #e9edf4;
+  --navix-surface-rgb: 233, 237, 244;
   --navix-card: #ffffff;
   --navix-card-rgb: 255, 255, 255;
   --navix-raised: #ffffff;
   --navix-raised-rgb: 255, 255, 255;
-  --navix-sidebar: var(--navix-neutral-100);
-  --navix-navbar: var(--navix-neutral-100);
+  --navix-sidebar: #ffffff;
+  --navix-navbar: rgba(255, 255, 255, 0.85);
   --navix-hover: rgba(16, 20, 30, 0.04);
   --navix-active: rgba(16, 20, 30, 0.08);
-  --navix-muted-bg: rgba(16, 20, 30, 0.03);
-  --navix-backdrop: rgba(0, 0, 0, 0.35);
+  --navix-muted-bg: rgba(16, 20, 30, 0.035);
+  --navix-backdrop: rgba(16, 20, 30, 0.45);
+  --navix-background-glow: rgba(68, 83, 242, 0.05);
+  --navix-background-glow-secondary: rgba(122, 111, 242, 0.045);
 
   /* Textes */
   --navix-text-primary: var(--navix-neutral-900);
@@ -305,6 +319,8 @@
   --navix-shadow-md: 0 2px 4px rgba(16, 20, 30, 0.04), 0 6px 16px rgba(16, 20, 30, 0.06);
   --navix-shadow-lg: 0 8px 24px rgba(16, 20, 30, 0.06), 0 2px 8px rgba(16, 20, 30, 0.04);
   --navix-shadow-xl: 0 16px 48px rgba(16, 20, 30, 0.08), 0 4px 12px rgba(16, 20, 30, 0.04);
+  --navix-shadow-card: 0 1px 2px rgba(16, 20, 30, 0.04), 0 4px 16px rgba(16, 20, 30, 0.05);
+  --navix-shadow-hover: 0 2px 4px rgba(16, 20, 30, 0.05), 0 12px 28px rgba(16, 20, 30, 0.1), 0 0 0 1px rgba(93, 107, 245, 0.18);
   --navix-shadow-focus: 0 0 0 var(--navix-focus-ring-width) var(--navix-focus-ring-color);
 
   /* Scrollbar */

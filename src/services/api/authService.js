@@ -28,7 +28,7 @@ let MOCK_USER = {
   lastName: 'Kouamé',
   name: 'Awa Kouamé',
   email: 'demo@navix.app',
-  phone: '+225 07 07 07 07 07',
+  phone: '+237 07 07 07 07 07',
   jobTitle: 'Super Administratrice',
   role: 'super_admin',
   status: 'active',

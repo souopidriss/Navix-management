@@ -8,7 +8,7 @@ import { Card } from '@/components/ui';
 import { formatDashboardMoney } from '../constants';
 
 const formatPerKm = (value) =>
-  Number.isFinite(Number(value)) ? `${Number(value).toLocaleString('fr-FR', { maximumFractionDigits: 1 })} XOF/km` : '—';
+  Number.isFinite(Number(value)) ? `${Number(value).toLocaleString('fr-FR', { maximumFractionDigits: 1 })} FCFA/km` : '—';
 import './FinancialOverview.css';
 
 const FinancialOverview = ({ financial = {} }) => {

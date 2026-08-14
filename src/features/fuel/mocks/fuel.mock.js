@@ -26,12 +26,12 @@ export const MOCK_FUEL_RECORDS = [
     tripId: '',
     fuelNumber: 'FL-0001',
     stationName: 'TotalEnergies',
-    stationCity: 'Abidjan',
+    stationCity: 'Douala',
     fuelType: 'diesel',
     quantity: 55,
     unitPrice: 605,
     totalCost: 33275,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 63200,
     consumptionAverage: 8.4,
     paymentMethod: 'fuel_card',
@@ -51,12 +51,12 @@ export const MOCK_FUEL_RECORDS = [
     tripId: '',
     fuelNumber: 'FL-0002',
     stationName: 'Vivo Energy',
-    stationCity: 'Abidjan',
+    stationCity: 'Douala',
     fuelType: 'diesel',
     quantity: 380,
     unitPrice: 598,
     totalCost: 227240,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 206300,
     consumptionAverage: 34.8,
     paymentMethod: 'company_account',
@@ -70,18 +70,18 @@ export const MOCK_FUEL_RECORDS = [
   },
   {
     id: '01JBE3D4E5F6G7H8J9K0L1M2N3P4',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
     vehicleId: '01J9D2E3F4G5H6J7K8L9M0N1P3', // Toyota Corolla
     driverId: '01J9Q2R3S4T5U6V7W8X9Y0Z1A2B3', // Awa Diop
     tripId: '',
     fuelNumber: 'FL-0003',
     stationName: 'TotalEnergies',
-    stationCity: 'Dakar',
+    stationCity: 'Kribi',
     fuelType: 'essence',
     quantity: 42,
     unitPrice: 720,
     totalCost: 30240,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 76200,
     consumptionAverage: 6.9,
     paymentMethod: 'card',
@@ -95,18 +95,18 @@ export const MOCK_FUEL_RECORDS = [
   },
   {
     id: '01JBE4D5E6F7G8H9J0K1L2M3N4P5',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
     vehicleId: '01J9E2F3G4H5J6K7L8M9N0P1Q3', // Hino 500
     driverId: '01J9R2S3T4U5V6W7X8Y9Z0A1B2C3', // Seydou Traoré
     tripId: '',
     fuelNumber: 'FL-0004',
     stationName: 'Oryx',
-    stationCity: 'Bamako',
+    stationCity: 'Garoua',
     fuelType: 'diesel',
     quantity: 250,
     unitPrice: 585,
     totalCost: 146250,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 149800,
     consumptionAverage: 31.8,
     paymentMethod: 'fuel_card',
@@ -120,18 +120,18 @@ export const MOCK_FUEL_RECORDS = [
   },
   {
     id: '01JBE5D6E7F8G9H0J1K2L3M4N5P6',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     vehicleId: '01J9B2C3D4E5F6G7H8J9K0L1M3', // Mercedes-Benz Sprinter
     driverId: '01J9P2Q3R4S5T6U7V8W9X0Y1Z2A3', // Moussa Kone
     tripId: '',
     fuelNumber: 'FL-0005',
     stationName: 'Shell',
-    stationCity: 'Yamoussoukro',
+    stationCity: 'Yaoundé',
     fuelType: 'diesel',
     quantity: 68,
     unitPrice: 612,
     totalCost: 41616,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 89500,
     consumptionAverage: 9.2,
     paymentMethod: 'cash',
@@ -145,18 +145,18 @@ export const MOCK_FUEL_RECORDS = [
   },
   {
     id: '01JBE6D7E8F9G0H1J2K3L4M5N6P7',
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
     vehicleId: '01J9H2J3K4L5M6N7P8Q9R0S1T3', // Yamaha MT-07
     driverId: '01J9T2U3V4W5X6Y7Z8A9B0C1D2E3', // Komi Agbeko
     tripId: '',
     fuelNumber: 'FL-0006',
     stationName: 'Sahara',
-    stationCity: 'Lomé',
+    stationCity: 'Edéa',
     fuelType: 'essence',
     quantity: 9,
     unitPrice: 640,
     totalCost: 5760,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 4150,
     consumptionAverage: 4.6,
     paymentMethod: 'cash',
@@ -170,18 +170,18 @@ export const MOCK_FUEL_RECORDS = [
   },
   {
     id: '01JBE7D8E9F0G1H2J3K4L5M6N7P8',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
     vehicleId: '01J9F2G3H4J5K6L7M8N9P0Q1R3', // Toyota Coaster
     driverId: '01J9S2T3U4V5W6X7Y8Z9A0B1C2D3', // Rasmata Ouédraogo
     tripId: '',
     fuelNumber: 'FL-0007',
     stationName: 'TotalEnergies',
-    stationCity: 'Ouagadougou',
+    stationCity: 'Bafoussam',
     fuelType: 'diesel',
     quantity: 95,
     unitPrice: 618,
     totalCost: 58710,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 87100,
     consumptionAverage: 19.8,
     paymentMethod: 'fuel_card',
@@ -226,12 +226,12 @@ export const MOCK_FUEL_RECORDS = [
     tripId: '',
     fuelNumber: 'FL-0009',
     stationName: 'TotalEnergies',
-    stationCity: 'Abidjan',
+    stationCity: 'Douala',
     fuelType: 'diesel',
     quantity: 52,
     unitPrice: 620,
     totalCost: 32240,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 64250,
     consumptionAverage: 8.0,
     paymentMethod: 'fuel_card',
@@ -251,12 +251,12 @@ export const MOCK_FUEL_RECORDS = [
     tripId: '01JBC9D0E1F2G3H4J5K6L7M8N9Q1', // TRP-0009
     fuelNumber: 'FL-0010',
     stationName: 'Petroci',
-    stationCity: 'Bouaké',
+    stationCity: 'Ebolowa',
     fuelType: 'gasoil',
     quantity: 180,
     unitPrice: 608,
     totalCost: 109440,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 6120,
     consumptionAverage: 21.6,
     paymentMethod: 'company_account',
@@ -276,12 +276,12 @@ export const MOCK_FUEL_RECORDS = [
     tripId: '01JBC1D2E3F4G5H6J7K8L9M0N1P2', // TRP-0001
     fuelNumber: 'FL-0011',
     stationName: 'TotalEnergies',
-    stationCity: 'Abidjan',
+    stationCity: 'Douala',
     fuelType: 'diesel',
     quantity: 55,
     unitPrice: 625,
     totalCost: 34375,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 68350,
     consumptionAverage: 14.6,
     paymentMethod: 'fuel_card',
@@ -295,18 +295,18 @@ export const MOCK_FUEL_RECORDS = [
   },
   {
     id: '01JBF3D4E5F6G7H8J9K0L1M2N3P4',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     vehicleId: '01J9B2C3D4E5F6G7H8J9K0L1M3', // Mercedes-Benz Sprinter
     driverId: '01J9P2Q3R4S5T6U7V8W9X0Y1Z2A3', // Moussa Kone
     tripId: '01JBD2D3E4F5G6H7J8K9L0M1N2P3', // TRP-0011
     fuelNumber: 'FL-0012',
     stationName: 'Shell',
-    stationCity: 'Yamoussoukro',
+    stationCity: 'Yaoundé',
     fuelType: 'diesel',
     quantity: 70,
     unitPrice: 618,
     totalCost: 43260,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 92400,
     consumptionAverage: 15.8,
     paymentMethod: 'cash',
@@ -326,37 +326,37 @@ export const MOCK_FUEL_RECORDS = [
     tripId: '01JBC8D9E0F1G2H3J4K5L6M7N8P9', // TRP-0008
     fuelNumber: 'FL-0013',
     stationName: 'Vivo Energy',
-    stationCity: 'Abidjan',
+    stationCity: 'Douala',
     fuelType: 'diesel',
     quantity: 390,
     unitPrice: 610,
     totalCost: 237900,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 210100,
     consumptionAverage: 34.6,
     paymentMethod: 'company_account',
     invoiceNumber: 'FN-2026-0270',
     receiptImage: '',
     status: 'validated',
-    notes: 'Plein convoi conteneurs — corridor Abidjan–Bamako.',
+    notes: 'Plein convoi conteneurs — corridor Douala–Garoua.',
     createdBy: 'Awa Kouamé',
     createdAt: '2026-07-30T05:50:00.000Z',
     updatedAt: '2026-07-30T14:00:00.000Z',
   },
   {
     id: '01JBF5D6E7F8G9H0J1K2L3M4N5P6',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
     vehicleId: '01J9D2E3F4G5H6J7K8L9M0N1P3', // Toyota Corolla
     driverId: '01J9Q2R3S4T5U6V7W8X9Y0Z1A2B3', // Awa Diop
     tripId: '',
     fuelNumber: 'FL-0014',
     stationName: 'TotalEnergies',
-    stationCity: 'Dakar',
+    stationCity: 'Kribi',
     fuelType: 'essence',
     quantity: 40,
     unitPrice: 735,
     totalCost: 29400,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 78300,
     consumptionAverage: 6.8,
     paymentMethod: 'card',
@@ -370,18 +370,18 @@ export const MOCK_FUEL_RECORDS = [
   },
   {
     id: '01JBF6D7E8F9G0H1J2K3L4M5N6P7',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
     vehicleId: '01J9E2F3G4H5J6K7L8M9N0P1Q3', // Hino 500
     driverId: '01J9R2S3T4U5V6W7X8Y9Z0A1B2C3', // Seydou Traoré
     tripId: '',
     fuelNumber: 'FL-0015',
     stationName: 'Oryx',
-    stationCity: 'Bamako',
+    stationCity: 'Garoua',
     fuelType: 'diesel',
     quantity: 260,
     unitPrice: 590,
     totalCost: 153400,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 150900,
     consumptionAverage: 32.4,
     paymentMethod: 'fuel_card',
@@ -395,18 +395,18 @@ export const MOCK_FUEL_RECORDS = [
   },
   {
     id: '01JBF7D8E9F0G1H2J3K4L5M6N7P8',
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
     vehicleId: '01J9H2J3K4L5M6N7P8Q9R0S1T3', // Yamaha MT-07
     driverId: '01J9T2U3V4W5X6Y7Z8A9B0C1D2E3', // Komi Agbeko
     tripId: '',
     fuelNumber: 'FL-0016',
     stationName: 'Sahara',
-    stationCity: 'Lomé',
+    stationCity: 'Edéa',
     fuelType: 'essence',
     quantity: 8,
     unitPrice: 645,
     totalCost: 5160,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 4280,
     consumptionAverage: 5.0,
     paymentMethod: 'cash',
@@ -420,18 +420,18 @@ export const MOCK_FUEL_RECORDS = [
   },
   {
     id: '01JBF8D9E0F1G2H3J4K5L6M7N8P9',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
     vehicleId: '01J9F2G3H4J5K6L7M8N9P0Q1R3', // Toyota Coaster
     driverId: '01J9S2T3U4V5W6X7Y8Z9A0B1C2D3', // Rasmata Ouédraogo
     tripId: '',
     fuelNumber: 'FL-0017',
     stationName: 'TotalEnergies',
-    stationCity: 'Ouagadougou',
+    stationCity: 'Bafoussam',
     fuelType: 'diesel',
     quantity: 100,
     unitPrice: 622,
     totalCost: 62200,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 88000,
     consumptionAverage: 18.9,
     paymentMethod: 'fuel_card',
@@ -451,12 +451,12 @@ export const MOCK_FUEL_RECORDS = [
     tripId: '01JBD8D9E0F1G2H3J4K5L6M7N8P9', // TRP-0017
     fuelNumber: 'FL-0018',
     stationName: 'Vivo Energy',
-    stationCity: 'Abidjan',
+    stationCity: 'Douala',
     fuelType: 'diesel',
     quantity: 400,
     unitPrice: 615,
     totalCost: 246000,
-    currency: 'XOF',
+    currency: 'XAF',
     mileage: 217400,
     consumptionAverage: 35.0,
     paymentMethod: 'company_account',

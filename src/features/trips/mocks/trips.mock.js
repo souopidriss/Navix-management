@@ -25,10 +25,10 @@ export const MOCK_TRIPS = [
     driverId: '01J9N2P3Q4R5S6T7U8V9W0X1Y2Z3', // Yao N'Guessan
     tripNumber: 'TRP-0001',
     tripType: 'mission',
-    purpose: 'Réunion de coordination régionale avec Trans Express CI',
+    purpose: 'Réunion de coordination régionale avec Cameroon Express',
     status: 'completed',
-    departureLocation: 'Abidjan — Siège Navix Trans',
-    arrivalLocation: 'Yamoussoukro — Agence Trans Express CI',
+    departureLocation: 'Douala — Siège Navix Trans',
+    arrivalLocation: 'Yaoundé — Agence Cameroon Express',
     plannedDistance: 245,
     actualDistance: 238,
     departureDate: '2026-07-14',
@@ -49,7 +49,7 @@ export const MOCK_TRIPS = [
   },
   {
     id: '01JBC2D3E4F5G6H7J8K9L0M1N2P3',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     assignmentId: '01JAAC2D3E4F5G6H7J8K9L0M1N3', // ASG-0002
     vehicleId: '01J9B2C3D4E5F6G7H8J9K0L1M3', // Mercedes-Benz Sprinter
     driverId: '01J9P2Q3R4S5T6U7V8W9X0Y1Z2A3', // Moussa Kone
@@ -57,8 +57,8 @@ export const MOCK_TRIPS = [
     tripType: 'delivery',
     purpose: 'Livraison de pièces détachées vers LogiSud',
     status: 'in_progress',
-    departureLocation: 'Yamoussoukro — Dépôt Trans Express',
-    arrivalLocation: 'Bouaké — Zone industrielle PK 15',
+    departureLocation: 'Yaoundé — Dépôt Cameroon Express',
+    arrivalLocation: 'Ebolowa — Zone industrielle PK 15',
     plannedDistance: 150,
     actualDistance: 0,
     departureDate: '2026-08-03',
@@ -79,7 +79,7 @@ export const MOCK_TRIPS = [
   },
   {
     id: '01JBC3D4E5F6G7H8J9K0L1M2N3P4',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
     assignmentId: '01JAAD2E3F4G5H6J7K8L9M0N1P4', // ASG-0003
     vehicleId: '01J9D2E3F4G5H6J7K8L9M0N1P3', // Toyota Corolla
     driverId: '01J9Q2R3S4T5U6V7W8X9Y0Z1A2B3', // Awa Diop
@@ -87,7 +87,7 @@ export const MOCK_TRIPS = [
     tripType: 'personnel',
     purpose: 'Transport du personnel — déplacement de service',
     status: 'completed',
-    departureLocation: 'Dakar — Plateau',
+    departureLocation: 'Kribi — Plateau',
     arrivalLocation: 'Saint-Louis — Direction régionale',
     plannedDistance: 264,
     actualDistance: 258,
@@ -109,7 +109,7 @@ export const MOCK_TRIPS = [
   },
   {
     id: '01JBC4D5E6F7G8H9J0K1L2M3N4P5',
-    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Bamakotrans
+    companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2', // Nord Express
     assignmentId: '01JAAE2F3G4H5J6K7L8M9N0P1Q5', // ASG-0004
     vehicleId: '01J9E2F3G4H5J6K7L8M9N0P1Q3', // Hino 500
     driverId: '01J9R2S3T4U5V6W7X8Y9Z0A1B2C3', // Seydou Traoré
@@ -117,8 +117,8 @@ export const MOCK_TRIPS = [
     tripType: 'transport',
     purpose: 'Transport longue distance de marchandises',
     status: 'in_progress',
-    departureLocation: 'Bamako — Dépôt Bamakotrans',
-    arrivalLocation: 'Dakar — Corridor Bamako–Dakar',
+    departureLocation: 'Garoua — Dépôt Nord Express',
+    arrivalLocation: 'Kribi — Corridor Garoua–Kribi',
     plannedDistance: 1230,
     actualDistance: 0,
     departureDate: '2026-08-02',
@@ -132,14 +132,14 @@ export const MOCK_TRIPS = [
     averageSpeed: 0,
     passengerCount: 1,
     cargoWeight: 18000,
-    notes: 'Corridor Bamako–Dakar — arrêt technique prévu à Kayes.',
+    notes: 'Corridor Garoua–Kribi — arrêt technique prévu à Kayes.',
     createdBy: 'Seydou Coulibaly',
     createdAt: '2026-07-31T16:20:00.000Z',
     updatedAt: '2026-08-02T22:05:00.000Z',
   },
   {
     id: '01JBC5D6E7F8G9H0J1K2L3M4N5P6',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
     assignmentId: '01JAAF2G3H4J5K6L7M8N9P0Q1R6', // ASG-0005
     vehicleId: '01J9F2G3H4J5K6L7M8N9P0Q1R3', // Toyota Coaster
     driverId: '01J9S2T3U4V5W6X7Y8Z9A0B1C2D3', // Rasmata Ouédraogo
@@ -147,7 +147,7 @@ export const MOCK_TRIPS = [
     tripType: 'service',
     purpose: 'Navette régulière passagers',
     status: 'completed',
-    departureLocation: 'Ouagadougou — Gare routière',
+    departureLocation: 'Bafoussam — Gare routière',
     arrivalLocation: 'Bobo-Dioulasso — Gare routière',
     plannedDistance: 360,
     actualDistance: 355,
@@ -169,7 +169,7 @@ export const MOCK_TRIPS = [
   },
   {
     id: '01JBC6D7E8F9G0H1J2K3L4M5N6P7',
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
     assignmentId: '01JAAG2H3J4K5L6M7N8P9Q0R1S7', // ASG-0006
     vehicleId: '01J9H2J3K4L5M6N7P8Q9R0S1T3', // Yamaha MT-07
     driverId: '01J9T2U3V4W5X6Y7Z8A9B0C1D2E3', // Komi Agbeko
@@ -177,8 +177,8 @@ export const MOCK_TRIPS = [
     tripType: 'delivery',
     purpose: 'Tournée de livraison moto — colis express',
     status: 'planned',
-    departureLocation: 'Lomé — Agence LoméTrans',
-    arrivalLocation: 'Lomé — Secteur centre-ville',
+    departureLocation: 'Edéa — Agence Sanaga Trans',
+    arrivalLocation: 'Edéa — Secteur centre-ville',
     plannedDistance: 18,
     actualDistance: 0,
     departureDate: '2026-08-05',
@@ -235,10 +235,10 @@ export const MOCK_TRIPS = [
     driverId: '01J9W2X3Y4Z5A6B7C8D9E0F1G2H3', // Adama Bamba
     tripNumber: 'TRP-0008',
     tripType: 'transport',
-    purpose: 'Convoi de conteneurs — corridor Abidjan–Bamako',
+    purpose: 'Convoi de conteneurs — corridor Douala–Garoua',
     status: 'in_progress',
-    departureLocation: 'Abidjan — Terminal portuaire',
-    arrivalLocation: 'Bamako — Dépôt Bamakotrans',
+    departureLocation: 'Douala — Terminal portuaire',
+    arrivalLocation: 'Garoua — Dépôt Nord Express',
     plannedDistance: 1150,
     actualDistance: 0,
     departureDate: '2026-08-03',
@@ -267,8 +267,8 @@ export const MOCK_TRIPS = [
     tripType: 'maintenance',
     purpose: 'Transfert engin vers l’atelier pour maintenance',
     status: 'planned',
-    departureLocation: 'Bouaké — Zone industrielle PK 15',
-    arrivalLocation: 'Bouaké — Atelier LogiSud',
+    departureLocation: 'Ebolowa — Zone industrielle PK 15',
+    arrivalLocation: 'Ebolowa — Atelier LogiSud',
     plannedDistance: 12,
     actualDistance: 0,
     departureDate: '2026-08-11',
@@ -297,8 +297,8 @@ export const MOCK_TRIPS = [
     tripType: 'service',
     purpose: 'Visite client — démonstration de service',
     status: 'cancelled',
-    departureLocation: 'Abidjan — Siège Navix Trans',
-    arrivalLocation: 'Abidjan — Agence Abidjan',
+    departureLocation: 'Douala — Siège Navix Trans',
+    arrivalLocation: 'Douala — Agence Douala',
     plannedDistance: 22,
     actualDistance: 0,
     departureDate: '2026-07-30',
@@ -319,7 +319,7 @@ export const MOCK_TRIPS = [
   },
   {
     id: '01JBD2D3E4F5G6H7J8K9L0M1N2P3',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     assignmentId: '01JAAC2D3E4F5G6H7J8K9L0M1N3', // ASG-0002
     vehicleId: '01J9B2C3D4E5F6G7H8J9K0L1M3', // Mercedes-Benz Sprinter
     driverId: '01J9P2Q3R4S5T6U7V8W9X0Y1Z2A3', // Moussa Kone
@@ -327,8 +327,8 @@ export const MOCK_TRIPS = [
     tripType: 'delivery',
     purpose: 'Livraison de fret régional',
     status: 'suspended',
-    departureLocation: 'Yamoussoukro — Dépôt Trans Express',
-    arrivalLocation: 'Bouaké — Zone industrielle PK 15',
+    departureLocation: 'Yaoundé — Dépôt Cameroon Express',
+    arrivalLocation: 'Ebolowa — Zone industrielle PK 15',
     plannedDistance: 150,
     actualDistance: 40,
     departureDate: '2026-07-25',
@@ -357,8 +357,8 @@ export const MOCK_TRIPS = [
     tripType: 'transport',
     purpose: 'Convoi de conteneurs — corridor international',
     status: 'completed',
-    departureLocation: 'Abidjan — Terminal portuaire',
-    arrivalLocation: 'Bamako — Dépôt Bamakotrans',
+    departureLocation: 'Douala — Terminal portuaire',
+    arrivalLocation: 'Garoua — Dépôt Nord Express',
     plannedDistance: 1150,
     actualDistance: 1142,
     departureDate: '2025-12-10',
@@ -409,7 +409,7 @@ export const MOCK_TRIPS = [
   },
   {
     id: '01JBD5D6E7F8G9H0J1K2L3M4N5P6',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
     assignmentId: '01JAAQ2R3S4T5U6V7W8X9Y0Z1A7F', // ASG-0014
     vehicleId: '01J9D2E3F4G5H6J7K8L9M0N1P3', // Toyota Corolla
     driverId: '01J9Q2R3S4T5U6V7W8X9Y0Z1A2B3', // Awa Diop
@@ -417,7 +417,7 @@ export const MOCK_TRIPS = [
     tripType: 'mission',
     purpose: 'Mission commerciale — prospection client',
     status: 'completed',
-    departureLocation: 'Dakar — Plateau',
+    departureLocation: 'Kribi — Plateau',
     arrivalLocation: 'Thiès — Centre-ville',
     plannedDistance: 70,
     actualDistance: 68,
@@ -447,8 +447,8 @@ export const MOCK_TRIPS = [
     tripType: 'mission',
     purpose: 'Mission de déploiement de l’antenne régionale',
     status: 'completed',
-    departureLocation: 'Abidjan — Siège Navix Trans',
-    arrivalLocation: 'Bouaké — Zone industrielle PK 15',
+    departureLocation: 'Douala — Siège Navix Trans',
+    arrivalLocation: 'Ebolowa — Zone industrielle PK 15',
     plannedDistance: 350,
     actualDistance: 341,
     departureDate: '2025-10-06',
@@ -469,7 +469,7 @@ export const MOCK_TRIPS = [
   },
   {
     id: '01JBD7D8E9F0G1H2J3K4L5M6N7P8',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
     assignmentId: '01JAAF2G3H4J5K6L7M8N9P0Q1R6', // ASG-0005
     vehicleId: '01J9F2G3H4J5K6L7M8N9P0Q1R3', // Toyota Coaster
     driverId: '01J9S2T3U4V5W6X7Y8Z9A0B1C2D3', // Rasmata Ouédraogo
@@ -478,7 +478,7 @@ export const MOCK_TRIPS = [
     purpose: 'Navette retour passagers — ligne régulière',
     status: 'planned',
     departureLocation: 'Bobo-Dioulasso — Gare routière',
-    arrivalLocation: 'Ouagadougou — Gare routière',
+    arrivalLocation: 'Bafoussam — Gare routière',
     plannedDistance: 360,
     actualDistance: 0,
     departureDate: '2026-08-15',
@@ -505,10 +505,10 @@ export const MOCK_TRIPS = [
     driverId: '01J9W2X3Y4Z5A6B7C8D9E0F1G2H3', // Adama Bamba
     tripNumber: 'TRP-0017',
     tripType: 'transport',
-    purpose: 'Convoi de marchandises — corridor Abidjan–Bouaké',
+    purpose: 'Convoi de marchandises — corridor Douala–Ebolowa',
     status: 'planned',
-    departureLocation: 'Abidjan — Terminal portuaire',
-    arrivalLocation: 'Bouaké — Zone industrielle PK 15',
+    departureLocation: 'Douala — Terminal portuaire',
+    arrivalLocation: 'Ebolowa — Zone industrielle PK 15',
     plannedDistance: 350,
     actualDistance: 0,
     departureDate: '2026-08-20',
@@ -529,7 +529,7 @@ export const MOCK_TRIPS = [
   },
   {
     id: '01JBD9D0E1F2G3H4J5K6L7M8N9Q1',
-    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // LoméTrans
+    companyId: '01J8H2J3K4L5M6N7P8Q9R0S1T2', // Sanaga Trans
     assignmentId: '01JAAG2H3J4K5L6M7N8P9Q0R1S7', // ASG-0006
     vehicleId: '01J9H2J3K4L5M6N7P8Q9R0S1T3', // Yamaha MT-07
     driverId: '01J9T2U3V4W5X6Y7Z8A9B0C1D2E3', // Komi Agbeko
@@ -537,8 +537,8 @@ export const MOCK_TRIPS = [
     tripType: 'delivery',
     purpose: 'Tournée de livraison moto — colis de bureau',
     status: 'planned',
-    departureLocation: 'Lomé — Agence LoméTrans',
-    arrivalLocation: 'Lomé — Quartier administratif',
+    departureLocation: 'Edéa — Agence Sanaga Trans',
+    arrivalLocation: 'Edéa — Quartier administratif',
     plannedDistance: 24,
     actualDistance: 0,
     departureDate: '2026-08-06',

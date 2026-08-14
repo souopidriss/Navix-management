@@ -15,10 +15,10 @@ import { apiConfig } from '../config';
 import { mockResponse } from '../utils';
 
 const MOCK_DRIVERS = [
-  { id: 'drv_001', name: 'Jean Kouassi', email: 'jean.kouassi@navix.app', phone: '+225 07 00 00 00 01', license: 'B', status: 'active' },
-  { id: 'drv_002', name: 'Moussa Diabaté', email: 'moussa.diabate@navix.app', phone: '+225 07 00 00 00 02', license: 'C', status: 'active' },
-  { id: 'drv_003', name: 'Fatou Traoré', email: 'fatou.traore@navix.app', phone: '+225 07 00 00 00 03', license: 'B', status: 'inactive' },
-  { id: 'drv_004', name: 'Aïcha Diallo', email: 'aicha.diallo@navix.app', phone: '+225 07 00 00 00 04', license: 'C', status: 'active' },
+  { id: 'drv_001', name: 'Jean Kouassi', email: 'jean.kouassi@navix.app', phone: '+237 07 00 00 00 01', license: 'B', status: 'active' },
+  { id: 'drv_002', name: 'Moussa Diabaté', email: 'moussa.diabate@navix.app', phone: '+237 07 00 00 00 02', license: 'C', status: 'active' },
+  { id: 'drv_003', name: 'Fatou Traoré', email: 'fatou.traore@navix.app', phone: '+237 07 00 00 00 03', license: 'B', status: 'inactive' },
+  { id: 'drv_004', name: 'Aïcha Diallo', email: 'aicha.diallo@navix.app', phone: '+237 07 00 00 00 04', license: 'C', status: 'active' },
 ];
 
 export const driverService = {

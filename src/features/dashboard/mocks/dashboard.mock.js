@@ -17,8 +17,8 @@ export const MOCK_DASHBOARD_ALERTS = [
     severity: 'critical',
     entityType: 'maintenance',
     entityId: '01JBX2C3D4E5F6G7H8J9K0L1M2N3', // MT-0002 Renault Master
-    vehicleId: '01J9C2D3E4F5G6H7J8K9L0M1N3', // Renault Master EF-2040-OP
-    title: 'Réparation urgente — Renault Master EF-2040-OP',
+    vehicleId: '01J9C2D3E4F5G6H7J8K9L0M1N3', // Renault Master EF 2040 OP
+    title: 'Réparation urgente — Renault Master EF 2040 OP',
     description: 'Remplacement d’embrayage en cours, pièce en attente de livraison. Véhicule immobilisé.',
     createdAt: '2026-08-02T08:00:00.000Z',
   },
@@ -28,9 +28,9 @@ export const MOCK_DASHBOARD_ALERTS = [
     type: 'vehicle_immobilized',
     severity: 'critical',
     entityType: 'vehicle',
-    entityId: '01J9G2H3J4K5L6M7N8P9Q0R1S3', // Peugeot 3008 MN-5602-WX
+    entityId: '01J9G2H3J4K5L6M7N8P9Q0R1S3', // Peugeot 3008 MN 5602 WX
     vehicleId: '01J9G2H3J4K5L6M7N8P9Q0R1S3',
-    title: 'Peugeot 3008 MN-5602-WX hors service',
+    title: 'Peugeot 3008 MN 5602 WX hors service',
     description: 'Véhicule déclaré hors service, aucun trajet planifié tant qu’il n’est pas réparé.',
     createdAt: '2026-08-01T10:30:00.000Z',
   },
@@ -41,20 +41,20 @@ export const MOCK_DASHBOARD_ALERTS = [
     severity: 'warning',
     entityType: 'maintenance',
     entityId: '01JBX1C2D3E4F5G6H7J8K9L0M1N2', // MT-0001 vidange Hilux
-    vehicleId: '01J9A2B3C4D5E6F7G8H9J0K1L3', // Toyota Hilux AB-3824-KL
-    title: 'Vidange à prévoir — Toyota Hilux AB-3824-KL',
+    vehicleId: '01J9A2B3C4D5E6F7G8H9J0K1L3', // Toyota Hilux AB 3824 KL
+    title: 'Vidange à prévoir — Toyota Hilux AB 3824 KL',
     description: 'Prochaine vidange programmée au 15 octobre 2026 (seuil 72 000 km).',
     createdAt: '2026-08-01T07:45:00.000Z',
   },
   {
     id: '01JDK4D5E6F7G8H9J0K1L2M3N4P5',
-    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Trans Express CI
+    companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2', // Cameroon Express
     type: 'document_expiring',
     severity: 'warning',
     entityType: 'document',
     entityId: '01JDA6F7G8H9J0K1L2M3N4P5Q6R7', // CT Mercedes-Benz Sprinter
-    vehicleId: '01J9B2C3D4E5F6G7H8J9K0L1M3', // Mercedes-Benz Sprinter CD-5510-MN
-    title: 'Contrôle technique expirant — Sprinter CD-5510-MN',
+    vehicleId: '01J9B2C3D4E5F6G7H8J9K0L1M3', // Mercedes-Benz Sprinter CD 5510 MN
+    title: 'Contrôle technique expirant — Sprinter CD 5510 MN',
     description: 'La visite technique expire le 10 septembre 2026. Prévoyez le passage au centre 2C.',
     createdAt: '2026-07-31T15:20:00.000Z',
   },
@@ -65,20 +65,20 @@ export const MOCK_DASHBOARD_ALERTS = [
     severity: 'warning',
     entityType: 'fuel',
     entityId: '01JBE1D2E3F4G5H6J7K8L9M0N1P2', // FL-0001 Toyota Hilux
-    vehicleId: '01J9A2B3C4D5E6F7G8H9J0K1L3', // Toyota Hilux AB-3824-KL
-    title: 'Consommation anormale — Toyota Hilux AB-3824-KL',
+    vehicleId: '01J9A2B3C4D5E6F7G8H9J0K1L3', // Toyota Hilux AB 3824 KL
+    title: 'Consommation anormale — Toyota Hilux AB 3824 KL',
     description: 'Consommation relevée au-dessus du seuil de la catégorie Pick-up. Contrôler le véhicule.',
     createdAt: '2026-07-29T09:00:00.000Z',
   },
   {
     id: '01JDK6F7G8H9J0K1L2M3N4P5Q6R7',
-    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Libreville Moves
+    companyId: '01J8K2L3M4N5P6Q7R8S9T0U1V2', // Sahel Express
     type: 'maintenance_late',
     severity: 'warning',
     entityType: 'maintenance',
     entityId: '01JBX5F6G7H8J9K0L1M2N3P4Q5R6',
-    vehicleId: '01J9K2L3M4N5P6Q7R8S9T0U1V3', // Toyota Land Cruiser 79 ST-9901-CD
-    title: 'Entretien en retard — Land Cruiser 79 ST-9901-CD',
+    vehicleId: '01J9K2L3M4N5P6Q7R8S9T0U1V3', // Toyota Land Cruiser 79 ST 9901 CD
+    title: 'Entretien en retard — Land Cruiser 79 ST 9901 CD',
     description: 'Un entretien planifié n’a pas été réalisé à la date prévue. À replanifier rapidement.',
     createdAt: '2026-07-28T11:10:00.000Z',
   },
@@ -88,21 +88,21 @@ export const MOCK_DASHBOARD_ALERTS = [
     type: 'insurance_expiry',
     severity: 'info',
     entityType: 'vehicle',
-    entityId: '01J9C2D3E4F5G6H7J8K9L0M1N3', // Renault Master EF-2040-OP
+    entityId: '01J9C2D3E4F5G6H7J8K9L0M1N3', // Renault Master EF 2040 OP
     vehicleId: '01J9C2D3E4F5G6H7J8K9L0M1N3',
-    title: 'Assurance proche de l’échéance — Master EF-2040-OP',
+    title: 'Assurance proche de l’échéance — Master EF 2040 OP',
     description: 'L’assurance du véhicule expire le 15 août 2026. Pensez au renouvellement.',
     createdAt: '2026-07-27T14:00:00.000Z',
   },
   {
     id: '01JDK8H9J0K1L2M3N4P5Q6R7S8T9',
-    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // OuagaLogistics
+    companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2', // Ouest Logistique
     type: 'inspection_expiry',
     severity: 'info',
     entityType: 'vehicle',
-    entityId: '01J9F2G3H4J5K6L7M8N9P0Q1R3', // Toyota Coaster KL-1274-UV
+    entityId: '01J9F2G3H4J5K6L7M8N9P0Q1R3', // Toyota Coaster KL 1274 UV
     vehicleId: '01J9F2G3H4J5K6L7M8N9P0Q1R3',
-    title: 'Visite technique proche — Coaster KL-1274-UV',
+    title: 'Visite technique proche — Coaster KL 1274 UV',
     description: 'La visite technique du véhicule approche. Planifier le contrôle avant utilisation en ligne.',
     createdAt: '2026-07-26T16:40:00.000Z',
   },
@@ -115,8 +115,8 @@ export const MOCK_DASHBOARD_ACTIVITIES = [
     type: 'trip_completed',
     entityType: 'trip',
     entityId: '01JBC1D2E3F4G5H6J7K8L9M0N1P2', // TRP-0001
-    title: 'Trajet terminé — Abidjan → Yamoussoukro',
-    description: 'Toyota Hilux AB-3824-KL · Yao N’Guessan · 238 km',
+    title: 'Trajet terminé — Douala → Yaoundé',
+    description: 'Toyota Hilux AB 3824 KL · Yao N’Guessan · 238 km',
     createdAt: '2026-07-14T11:50:00.000Z',
   },
   {
@@ -125,18 +125,18 @@ export const MOCK_DASHBOARD_ACTIVITIES = [
     type: 'fuel_validated',
     entityType: 'fuel',
     entityId: '01JBE1D2E3F4G5H6J7K8L9M0N1P2', // FL-0001
-    title: 'Plein validé — Toyota Hilux AB-3824-KL',
-    description: '55 L de diesel · TotalEnergies Abidjan · 33 275 XOF',
+    title: 'Plein validé — Toyota Hilux AB 3824 KL',
+    description: '55 L de diesel · TotalEnergies Douala · 33 275 FCFA',
     createdAt: '2026-07-13T14:30:00.000Z',
   },
   {
     id: '01JDL3D4E5F6G7H8J9K0L1M2N3P4',
-    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // SenTrans
+    companyId: '01J8D2E3F4G5H6J7K8L9M0N1P2', // Kribi Port Trans
     type: 'maintenance_completed',
     entityType: 'maintenance',
     entityId: '01JBX3D4E5F6G7H8J9K0L1M2N3P4', // MT-0003
-    title: 'Contrôle technique terminé — Corolla GH-7781-QR',
-    description: 'Centre de contrôle 2C · 25 000 XOF · certificat valable 1 an',
+    title: 'Contrôle technique terminé — Corolla GH 7781 QR',
+    description: 'Centre de contrôle 2C · 25 000 FCFA · certificat valable 1 an',
     createdAt: '2026-06-20T09:05:00.000Z',
   },
   {
@@ -145,7 +145,7 @@ export const MOCK_DASHBOARD_ACTIVITIES = [
     type: 'maintenance_created',
     entityType: 'maintenance',
     entityId: '01JBX2C3D4E5F6G7H8J9K0L1M2N3', // MT-0002
-    title: 'Entretien planifié — Renault Master EF-2040-OP',
+    title: 'Entretien planifié — Renault Master EF 2040 OP',
     description: 'Réparation embrayage · priorité urgente · Garage Central',
     createdAt: '2026-07-25T11:00:00.000Z',
   },
@@ -156,7 +156,7 @@ export const MOCK_DASHBOARD_ACTIVITIES = [
     entityType: 'document',
     entityId: '01JDA6F7G8H9J0K1L2M3N4P5Q6R7',
     title: 'Document ajouté — Contrôle technique Sprinter',
-    description: 'Visite technique Mercedes-Benz Sprinter CD-5510-MN',
+    description: 'Visite technique Mercedes-Benz Sprinter CD 5510 MN',
     createdAt: '2026-07-22T10:15:00.000Z',
   },
   {
@@ -165,7 +165,7 @@ export const MOCK_DASHBOARD_ACTIVITIES = [
     type: 'vehicle_created',
     entityType: 'vehicle',
     entityId: '01J9X8Y7Z6A5B4C3D2E1F0G9H8J7K6', // Komatsu PC210
-    title: 'Véhicule ajouté — Komatsu PC210 EF-8821-OP',
+    title: 'Véhicule ajouté — Komatsu PC210 EF 8821 OP',
     description: 'Groupe E · Engins · ajouté au parc LogiSud',
     createdAt: '2026-07-18T09:40:00.000Z',
   },
@@ -173,9 +173,9 @@ export const MOCK_DASHBOARD_ACTIVITIES = [
 
 export const MOCK_DASHBOARD_TOP_VEHICLES = [
   {
-    vehicleId: '01J9L2M3N4P5Q6R7S8T9U0V1W3', // Volvo FH UV-4467-EF
+    vehicleId: '01J9L2M3N4P5Q6R7S8T9U0V1W3', // Volvo FH UV 4467 EF
     companyId: '01J8A2B3C4D5E6F7G8H9J0K1L2',
-    registrationNumber: 'UV-4467-EF',
+    registrationNumber: 'UV 4467 EF',
     brand: 'Volvo',
     model: 'FH',
     group: 'D',
@@ -184,9 +184,9 @@ export const MOCK_DASHBOARD_TOP_VEHICLES = [
     fuelCost: 908960,
   },
   {
-    vehicleId: '01J9A2B3C4D5E6F7G8H9J0K1L3', // Toyota Hilux AB-3824-KL
+    vehicleId: '01J9A2B3C4D5E6F7G8H9J0K1L3', // Toyota Hilux AB 3824 KL
     companyId: '01J8A2B3C4D5E6F7G8H9J0K1L2',
-    registrationNumber: 'AB-3824-KL',
+    registrationNumber: 'AB 3824 KL',
     brand: 'Toyota',
     model: 'Hilux',
     group: 'C',
@@ -195,9 +195,9 @@ export const MOCK_DASHBOARD_TOP_VEHICLES = [
     fuelCost: 332750,
   },
   {
-    vehicleId: '01J9E2F3G4H5J6K7L8M9N0P1Q3', // Hino 500 IJ-9034-ST
+    vehicleId: '01J9E2F3G4H5J6K7L8M9N0P1Q3', // Hino 500 IJ 9034 ST
     companyId: '01J8E2F3G4H5J6K7L8M9N0P1Q2',
-    registrationNumber: 'IJ-9034-ST',
+    registrationNumber: 'IJ 9034 ST',
     brand: 'Hino',
     model: '500',
     group: 'D',
@@ -206,9 +206,9 @@ export const MOCK_DASHBOARD_TOP_VEHICLES = [
     fuelCost: 731250,
   },
   {
-    vehicleId: '01J9F2G3H4J5K6L7M8N9P0Q1R3', // Toyota Coaster KL-1274-UV
+    vehicleId: '01J9F2G3H4J5K6L7M8N9P0Q1R3', // Toyota Coaster KL 1274 UV
     companyId: '01J8F2G3H4J5K6L7M8N9P0Q1R2',
-    registrationNumber: 'KL-1274-UV',
+    registrationNumber: 'KL 1274 UV',
     brand: 'Toyota',
     model: 'Coaster',
     group: 'F',
@@ -217,9 +217,9 @@ export const MOCK_DASHBOARD_TOP_VEHICLES = [
     fuelCost: 495000,
   },
   {
-    vehicleId: '01J9B2C3D4E5F6G7H8J9K0L1M3', // Mercedes-Benz Sprinter CD-5510-MN
+    vehicleId: '01J9B2C3D4E5F6G7H8J9K0L1M3', // Mercedes-Benz Sprinter CD 5510 MN
     companyId: '01J8B2C3D4E5F6G7H8J9K0L1M2',
-    registrationNumber: 'CD-5510-MN',
+    registrationNumber: 'CD 5510 MN',
     brand: 'Mercedes-Benz',
     model: 'Sprinter',
     group: 'C',

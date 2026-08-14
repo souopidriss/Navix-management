@@ -162,8 +162,8 @@ const SettingsForm = ({
       ) : (
         <ErrorState
           title="Impossible de charger les paramètres"
-          message={error || 'Une erreur est survenue.'}
-          onRetry={onRetry}
+          description={error || 'Une erreur est survenue.'}
+          retry={onRetry}
         />
       )}
     </>

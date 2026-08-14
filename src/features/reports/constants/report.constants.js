@@ -14,6 +14,7 @@
  */
 
 import { ROUTES } from '@/routes/route.constants';
+import { currencyLabel } from '@/utils/format';
 
 /* --------------------------------------------------------------------------
    Catégories de rapports
@@ -261,15 +262,15 @@ export const EXPORT_FORMAT_VALUES = EXPORT_FORMATS.map((format) => format.value)
 
 export const REPORTS_ICON = 'bi-file-earmark-bar-graph';
 
-export const DEFAULT_CURRENCY = 'XOF';
+export const DEFAULT_CURRENCY = 'XAF';
 
 export const DEFAULT_PAGE_SIZE = 10;
 
 export const PAGE_SIZE_OPTIONS = [5, 10, 20, 50];
 
-/** Formate un montant (ex. 2 450 000 XOF). */
+/** Formate un montant (ex. 2 450 000 FCFA). */
 export const formatReportMoney = (value, currency = DEFAULT_CURRENCY) =>
-  Number.isFinite(Number(value)) ? `${Number(value).toLocaleString('fr-FR')} ${currency}` : '—';
+  Number.isFinite(Number(value)) ? `${Number(value).toLocaleString('fr-FR')} ${currencyLabel(currency)}` : '—';
 
 /** Formate un montant court (ex. 2,45 M FCFA). */
 export const formatReportCompactMoney = (value, currency = DEFAULT_CURRENCY) => {
@@ -277,7 +278,7 @@ export const formatReportCompactMoney = (value, currency = DEFAULT_CURRENCY) => 
   if (!Number.isFinite(amount)) return '—';
   if (Math.abs(amount) >= 1_000_000) return `${(amount / 1_000_000).toLocaleString('fr-FR', { maximumFractionDigits: 2 })} M`;
   if (Math.abs(amount) >= 1_000) return `${(amount / 1_000).toLocaleString('fr-FR', { maximumFractionDigits: 1 })} k`;
-  return `${amount.toLocaleString('fr-FR')} ${currency}`;
+  return `${amount.toLocaleString('fr-FR')} ${currencyLabel(currency)}`;
 };
 
 /** Formate un nombre (ex. 12 450). */

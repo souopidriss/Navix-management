@@ -213,7 +213,7 @@ const VehicleForm = ({
             value={values.agency}
             onChange={(value) => setField('agency', value)}
             error={errors.agency}
-            placeholder="Ex. Agence Abidjan"
+            placeholder="Ex. Agence Douala"
           />
         </div>
         <div className="col-12 col-md-6">

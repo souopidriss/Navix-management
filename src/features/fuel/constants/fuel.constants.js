@@ -6,6 +6,7 @@
  * d'affichage (libellé, variante Badge, icône). Consommé par les composants,
  * les pages, les filtres, la table, les formulaires et le service.
  */
+import { currencyLabel } from '@/utils/format';
 
 export const FUEL_TYPES = {
   essence: { label: 'Essence', variant: 'warning', icon: 'bi-fuel-pump' },
@@ -68,7 +69,7 @@ export const DEFAULT_PAGE_SIZE = 8;
 export const PAGE_SIZE_OPTIONS = [5, 8, 10, 20];
 
 /** Monnaie par défaut des enregistrements de carburant. */
-export const DEFAULT_CURRENCY = 'XOF';
+export const DEFAULT_CURRENCY = 'XAF';
 
 /**
  * Détection des consommations anormales : référence de consommation
@@ -121,9 +122,9 @@ export const formatFuelLongDate = (value) =>
     ? new Date(value).toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })
     : '—';
 
-/** Formate un montant (ex. 38 250 XOF). */
+/** Formate un montant (ex. 38 250 FCFA). */
 export const formatFuelMoney = (value, currency = DEFAULT_CURRENCY) =>
-  Number.isFinite(Number(value)) ? `${Number(value).toLocaleString('fr-FR')} ${currency}` : '—';
+  Number.isFinite(Number(value)) ? `${Number(value).toLocaleString('fr-FR')} ${currencyLabel(currency)}` : '—';
 
 /** Formate une quantité en litres (ex. 55 L). */
 export const formatFuelQuantity = (value) =>
@@ -131,7 +132,7 @@ export const formatFuelQuantity = (value) =>
 
 /** Formate un prix unitaire (ex. 625 /L). */
 export const formatFuelUnitPrice = (value, currency = DEFAULT_CURRENCY) =>
-  Number.isFinite(Number(value)) && Number(value) > 0 ? `${Number(value).toLocaleString('fr-FR')} ${currency}` : '—';
+  Number.isFinite(Number(value)) && Number(value) > 0 ? `${Number(value).toLocaleString('fr-FR')} ${currencyLabel(currency)}` : '—';
 
 /** Formate une consommation moyenne (ex. 8,4 L/100 km). */
 export const formatFuelConsumption = (value) =>

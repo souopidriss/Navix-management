@@ -33,15 +33,13 @@ export const SUBSCRIPTION_STATUSES = {
 export const SUBSCRIPTION_STATUS_VALUES = Object.keys(SUBSCRIPTION_STATUSES);
 
 export const COUNTRIES = [
-  'Côte d’Ivoire',
-  'Sénégal',
-  'Mali',
-  'Burkina Faso',
-  'Bénin',
-  'Togo',
-  'Guinée',
   'Cameroun',
+  'Nigéria',
+  'Tchad',
+  'République centrafricaine',
+  'Guinée équatoriale',
   'Gabon',
+  'République du Congo',
   'République démocratique du Congo',
 ];
 

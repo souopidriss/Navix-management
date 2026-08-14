@@ -66,7 +66,7 @@ const u = (
   lastName,
   fullName: `${firstName} ${lastName}`,
   email: `${firstName.toLowerCase().replace(/[^a-z]/g, '.')}.${lastName.toLowerCase().replace(/[^a-z]/g, '.')}@navix.app`,
-  phone: `+225 07 ${String(10 + (id.length % 80)).padStart(2, '0')} ${String(10 + (id.length % 70)).padStart(2, '0')} ${String(10 + (id.length % 60)).padStart(2, '0')}`,
+  phone: `+237 07 ${String(10 + (id.length % 80)).padStart(2, '0')} ${String(10 + (id.length % 70)).padStart(2, '0')} ${String(10 + (id.length % 60)).padStart(2, '0')}`,
   avatar: `${firstName[0]}${lastName[0]}`.toUpperCase(),
   jobTitle,
   status,
@@ -89,7 +89,7 @@ export const MOCK_USERS = [
   u('usr_019', CO.NAVIX, AG.ABJ, 'Didier', 'Koffi', 'Consultant', 'invited', ['role_viewer'], null, '2026-07-28T10:00:00.000Z'),
   u('usr_022', CO.NAVIX, AG.ABJ, 'Kader', 'Ouattara', 'Chauffeur', 'suspended', ['role_driver'], '2026-07-21T12:30:00.000Z', '2026-03-20T08:00:00.000Z'),
 
-  /* Trans Express CI */
+  /* Cameroon Express */
   u('usr_002', CO.TRX, AG.YAM, 'Ibrahim', 'Traoré', 'Propriétaire', 'active', ['role_company_admin'], '2026-08-05T08:10:00.000Z', '2025-10-05T08:00:00.000Z'),
   u('usr_013', CO.TRX, AG.YAM, 'Moussa', 'Koné', 'Gestionnaire de flotte', 'inactive', ['role_fleet_manager'], '2026-05-18T09:00:00.000Z', '2025-11-22T08:00:00.000Z'),
   u('usr_023', CO.TRX, AG.YAM, 'Adama', 'Traoré', 'Opérateur de flotte', 'pending', ['role_fleet_operator'], null, '2026-07-30T09:00:00.000Z'),
@@ -101,29 +101,29 @@ export const MOCK_USERS = [
   u('usr_003', CO.LOGISUD, AG.BKA, 'Mariam', 'Koné', 'Administratrice', 'active', ['role_company_admin'], '2026-08-04T10:30:00.000Z', '2025-10-08T08:00:00.000Z'),
   u('usr_027', CO.LOGISUD, AG.BKA, 'Yacouba', 'Konaté', 'Opérateur de flotte', 'invited', ['role_fleet_operator'], null, '2026-07-26T09:00:00.000Z'),
 
-  /* SenTrans */
+  /* Kribi Port Trans */
   u('usr_004', CO.SEN, AG.DKR, 'Ousmane', 'Diallo', 'Propriétaire', 'active', ['role_company_admin'], '2026-08-05T08:30:00.000Z', '2025-10-10T08:00:00.000Z'),
   u('usr_015', CO.SEN, AG.DKR, 'Aïcha', 'Diallo', 'Comptable', 'active', ['role_accountant'], '2026-08-04T17:00:00.000Z', '2026-01-05T08:00:00.000Z'),
   u('usr_028', CO.SEN, AG.DKR, 'Mame', 'Diarra', 'Chauffeur', 'active', ['role_driver'], '2026-08-05T06:10:00.000Z', '2026-02-25T08:00:00.000Z'),
 
-  /* Bamakotrans */
+  /* Nord Express */
   u('usr_005', CO.BKO, AG.BKO, 'Seydou', 'Coulibaly', 'Propriétaire', 'active', ['role_company_admin'], '2026-08-03T11:00:00.000Z', '2025-10-12T08:00:00.000Z'),
   u('usr_029', CO.BKO, AG.BKO, 'Souleymane', 'Keita', 'Responsable maintenance', 'active', ['role_maintenance_manager'], '2026-08-04T13:00:00.000Z', '2026-03-10T08:00:00.000Z'),
 
-  /* OuagaLogistics */
+  /* Ouest Logistique */
   u('usr_006', CO.OGA, AG.OUA, 'Fatou', 'Sawadogo', 'Propriétaire', 'active', ['role_company_admin'], '2026-08-05T08:05:00.000Z', '2025-10-15T08:00:00.000Z'),
   u('usr_014', CO.OGA, AG.OUA, 'Rasmata', 'Ouédraogo', 'Administratrice', 'suspended', ['role_company_admin'], '2026-06-30T09:00:00.000Z', '2026-01-10T08:00:00.000Z'),
 
-  /* Bénin Express */
+  /* Littoral Transport */
   u('usr_007', CO.BEN, AG.CTA, 'Koffi', 'Ahouansou', 'Propriétaire', 'active', ['role_company_admin'], '2026-08-04T09:30:00.000Z', '2025-10-18T08:00:00.000Z'),
 
-  /* LoméTrans */
+  /* Sanaga Trans */
   u('usr_008', CO.LOME, AG.LOM, 'Abla', 'Mensah', 'Propriétaire', 'active', ['role_company_admin'], '2026-08-03T15:00:00.000Z', '2025-10-20T08:00:00.000Z'),
 
   /* Douala Cars */
   u('usr_009', CO.DLA, AG.DLA, 'Estelle', 'Ngono', 'Propriétaire', 'active', ['role_company_admin'], '2026-08-05T08:00:00.000Z', '2025-10-22T08:00:00.000Z'),
 
-  /* Libreville Moves */
+  /* Sahel Express */
   u('usr_010', CO.LBV, AG.LBV, 'Charles', 'Mba', 'Propriétaire', 'inactive', ['role_company_admin'], '2026-04-12T09:00:00.000Z', '2025-10-25T08:00:00.000Z'),
   u('usr_030', CO.LBV, AG.LBV, 'Prisca', 'Okemba', 'Gestionnaire de flotte', 'pending', ['role_fleet_manager'], null, '2026-07-29T09:00:00.000Z'),
 ];

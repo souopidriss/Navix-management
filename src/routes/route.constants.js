@@ -123,6 +123,30 @@ export const ROUTES = {
   SETTINGS_SECURITY: '/dashboard/settings/security',
   SETTINGS_SYSTEM: '/dashboard/settings/system',
   PROFILE: '/dashboard/profile',
+
+  /* Espace Client */
+  CLIENT_ROOT: '/client',
+  CLIENT_DASHBOARD: '/client/dashboard',
+  CLIENT_SERVICES: '/client/services',
+  CLIENT_VEHICLES: '/client/vehicles',
+  CLIENT_REQUESTS: '/client/requests',
+  CLIENT_REQUESTS_NEW: '/client/requests/new',
+  CLIENT_REQUESTS_DETAIL: '/client/requests/:id',
+  CLIENT_TRIPS: '/client/trips',
+  CLIENT_TRIPS_DETAIL: '/client/trips/:id',
+  CLIENT_DOCUMENTS: '/client/documents',
+  CLIENT_INVOICES: '/client/invoices',
+  CLIENT_PROFILE: '/client/profile',
+
+  /* Espace Chauffeur */
+  DRIVER_ROOT: '/driver',
+  DRIVER_DASHBOARD: '/driver/dashboard',
+  DRIVER_TRIPS: '/driver/trips',
+  DRIVER_VEHICLE: '/driver/vehicle',
+  DRIVER_FUEL: '/driver/fuel',
+  DRIVER_MAINTENANCE: '/driver/maintenance',
+  DRIVER_DOCUMENTS: '/driver/documents',
+  DRIVER_PROFILE: '/driver/profile',
 };
 
 export const PUBLIC_ROUTES = [ROUTES.HOME, ROUTES.MAINTENANCE];
@@ -136,7 +160,19 @@ export const AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD, ROUTES.RESET_P
  * rôle) pourra être branchée ici sans toucher aux guards.
  * @returns {string}
  */
-export const resolveLandingRoute = () => ROUTES.DASHBOARD;
+export const resolveLandingRoute = (role) => {
+  if (role === 'client_enterprise' || role === 'client_individual') {
+    return ROUTES.CLIENT_DASHBOARD;
+  }
+  if (role === 'driver') {
+    return ROUTES.DRIVER_DASHBOARD;
+  }
+  return ROUTES.DASHBOARD;
+};
+
+/* Path builders Client */
+export const clientRequestDetailPath = (id) => `${ROUTES.CLIENT_REQUESTS}/${id}`;
+export const clientTripDetailPath = (id) => `${ROUTES.CLIENT_TRIPS}/${id}`;
 
 /** Construit le chemin de détail d'une entreprise. */
 export const companyDetailPath = (id) => `${ROUTES.COMPANIES}/${id}`;
@@ -338,4 +374,25 @@ export const PRIVATE_ROUTES = [
   ROUTES.SETTINGS_SECURITY,
   ROUTES.SETTINGS_SYSTEM,
   ROUTES.PROFILE,
+  ROUTES.CLIENT_ROOT,
+  ROUTES.CLIENT_DASHBOARD,
+  ROUTES.CLIENT_SERVICES,
+  ROUTES.CLIENT_VEHICLES,
+  ROUTES.CLIENT_REQUESTS,
+  ROUTES.CLIENT_REQUESTS_NEW,
+  ROUTES.CLIENT_REQUESTS_DETAIL,
+  ROUTES.CLIENT_TRIPS,
+  ROUTES.CLIENT_TRIPS_DETAIL,
+  ROUTES.CLIENT_DOCUMENTS,
+  ROUTES.CLIENT_INVOICES,
+  ROUTES.CLIENT_NOTIFICATIONS,
+  ROUTES.CLIENT_PROFILE,
+  ROUTES.DRIVER_ROOT,
+  ROUTES.DRIVER_DASHBOARD,
+  ROUTES.DRIVER_TRIPS,
+  ROUTES.DRIVER_VEHICLE,
+  ROUTES.DRIVER_FUEL,
+  ROUTES.DRIVER_MAINTENANCE,
+  ROUTES.DRIVER_DOCUMENTS,
+  ROUTES.DRIVER_PROFILE,
 ];

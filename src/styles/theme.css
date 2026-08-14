@@ -478,3 +478,210 @@
   background-color: var(--navix-navbar);
   border-color: var(--navix-border-color);
 }
+
+/* --------------------------------------------------------------------------
+   16. Finition premium — fond & cartes
+   -------------------------------------------------------------------------- */
+.navix-dashboard {
+  background-image:
+    radial-gradient(56rem 28rem at 85% -8%, var(--navix-background-glow), transparent 70%),
+    radial-gradient(44rem 22rem at -8% 8%, var(--navix-background-glow), transparent 70%),
+    radial-gradient(32rem 18rem at 50% -12%, var(--navix-background-glow-secondary), transparent 72%);
+  background-repeat: no-repeat;
+}
+
+/* Dashboard — en-tête de page rayonnant (icône dégradée + titre dégradé) */
+.navix-dashboard .navix-page-header__icon {
+  background: var(--navix-brand-gradient);
+  color: var(--navix-text-inverse);
+  box-shadow: 0 10px 26px -8px rgba(var(--navix-primary-rgb), 0.6);
+}
+
+.navix-dashboard .navix-page-header__title {
+  background-image: var(--navix-brand-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Cartes Bootstrap natives (.card) — profondeur élégante */
+.card {
+  border-radius: var(--navix-radius-lg);
+  box-shadow: var(--navix-shadow-card);
+  transition:
+    border-color var(--navix-transition-fast) var(--navix-ease-out),
+    box-shadow var(--navix-transition-base) var(--navix-ease-out),
+    transform var(--navix-transition-base) var(--navix-ease-out);
+}
+
+.card-header {
+  border-radius: var(--navix-radius-lg) var(--navix-radius-lg) 0 0 !important;
+  background-color: color-mix(in srgb, var(--navix-card) 92%, var(--navix-primary-muted));
+}
+
+.card-footer {
+  border-radius: 0 0 var(--navix-radius-lg) var(--navix-radius-lg) !important;
+  background-color: color-mix(in srgb, var(--navix-card) 92%, var(--navix-muted-bg));
+}
+
+.card:hover {
+  border-color: var(--navix-border-color-strong);
+}
+
+.card.hoverable,
+.card--hoverable:hover {
+  box-shadow: var(--navix-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   17. Boutons — hiérarchie & micro-interactions
+   -------------------------------------------------------------------------- */
+.btn {
+  letter-spacing: 0.01em;
+}
+
+.btn:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.btn:not(:disabled):active,
+.btn:not(:disabled).active {
+  transform: translateY(0);
+}
+
+.btn:focus-visible {
+  box-shadow: var(--navix-shadow-focus);
+}
+
+.btn-primary {
+  box-shadow: 0 1px 2px rgba(16, 20, 30, 0.2), 0 4px 12px rgba(var(--navix-primary-rgb), 0.28);
+}
+
+.btn-primary:not(:disabled):hover {
+  box-shadow: 0 2px 4px rgba(16, 20, 30, 0.22), 0 8px 20px rgba(var(--navix-primary-rgb), 0.38);
+}
+
+/* --------------------------------------------------------------------------
+   18. Tableaux — lisibilité premium
+   -------------------------------------------------------------------------- */
+.table {
+  --bs-table-header-bg: transparent;
+}
+
+.table > :not(caption) > * > * {
+  padding: var(--navix-space-3) var(--navix-space-4);
+}
+
+.table > thead th {
+  background-color: color-mix(in srgb, var(--navix-muted-bg) 55%, transparent);
+  border-bottom-width: 1px;
+}
+
+.table > tbody tr {
+  transition: background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.table > tbody > tr:hover {
+  --bs-table-hover-bg: rgba(var(--navix-primary-rgb), 0.05);
+}
+
+.table > :not(:last-child) > :last-child > * {
+  border-bottom-color: var(--navix-border-color);
+}
+
+/* --------------------------------------------------------------------------
+   19. Menus déroulants
+   -------------------------------------------------------------------------- */
+.dropdown-menu {
+  border-radius: var(--navix-radius-lg);
+  box-shadow: var(--navix-shadow-lg);
+  padding: var(--navix-space-2);
+}
+
+.dropdown-item {
+  border-radius: var(--navix-radius-md);
+  padding: var(--navix-space-2) var(--navix-space-3);
+  font-weight: var(--navix-font-weight-medium);
+}
+
+.dropdown-menu .dropdown-divider {
+  margin: var(--navix-space-2) calc(var(--navix-space-2) * -1);
+}
+
+/* --------------------------------------------------------------------------
+   20. Modales
+   -------------------------------------------------------------------------- */
+.modal-content {
+  border: 1px solid var(--navix-border-color);
+  border-radius: var(--navix-radius-xl);
+  box-shadow: var(--navix-shadow-xl);
+}
+
+.modal-header,
+.modal-footer {
+  border-color: var(--navix-border-color);
+}
+
+.modal-header {
+  padding: var(--navix-space-4) var(--navix-space-5);
+}
+
+.modal-body {
+  padding: var(--navix-space-5);
+}
+
+.modal-footer {
+  padding: var(--navix-space-3) var(--navix-space-5);
+}
+
+/* --------------------------------------------------------------------------
+   21. Champs de formulaire — états raffinés
+   -------------------------------------------------------------------------- */
+.form-control,
+.form-select {
+  border-radius: var(--navix-radius-md);
+  transition:
+    border-color var(--navix-transition-fast) var(--navix-ease-out),
+    box-shadow var(--navix-transition-fast) var(--navix-ease-out),
+    background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.form-control:not(:disabled):hover,
+.form-select:not(:disabled):hover {
+  border-color: var(--navix-border-color-hover);
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--navix-primary);
+  box-shadow: var(--navix-shadow-focus);
+}
+
+.form-label {
+  font-weight: var(--navix-font-weight-medium);
+  color: var(--navix-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   22. Progression & listes
+   -------------------------------------------------------------------------- */
+.progress {
+  border-radius: var(--navix-radius-full);
+  height: 0.5rem;
+}
+
+.list-group-item {
+  background-color: var(--navix-card);
+  border-color: var(--navix-border-color);
+}
+
+.list-group-item:first-child {
+  border-top-left-radius: var(--navix-radius-lg);
+  border-top-right-radius: var(--navix-radius-lg);
+}
+
+.list-group-item:last-child {
+  border-bottom-left-radius: var(--navix-radius-lg);
+  border-bottom-right-radius: var(--navix-radius-lg);
+}

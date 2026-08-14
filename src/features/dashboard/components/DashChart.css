@@ -4,6 +4,24 @@
   gap: 0.5rem;
   height: 12.5rem;
   margin-top: 1rem;
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--navix-text-muted) 16%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 100% 20%;
+  animation: navix-chart-in 520ms var(--navix-ease-out) both;
+}
+
+@keyframes navix-chart-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .navix-dash-chart__col {
@@ -19,6 +37,8 @@
 
 .navix-dash-chart__value {
   font-size: var(--navix-font-size-sm, 0.75rem);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
   color: var(--bs-secondary-color);
   white-space: nowrap;
   max-width: 100%;
@@ -31,12 +51,39 @@
   max-width: 2.25rem;
   min-height: 8px;
   border-radius: 0.375rem 0.375rem 0 0;
+  transition:
+    filter var(--navix-transition-fast) var(--navix-ease-out),
+    opacity var(--navix-transition-fast) var(--navix-ease-out),
+    box-shadow var(--navix-transition-fast) var(--navix-ease-out);
 }
 
-.navix-dash-chart__bar--primary { background: var(--bs-primary); }
-.navix-dash-chart__bar--info { background: var(--bs-info); }
-.navix-dash-chart__bar--warning { background: var(--bs-warning); }
-.navix-dash-chart__bar--success { background: var(--bs-success); }
+.navix-dash-chart__bar--primary {
+  background: linear-gradient(180deg, var(--bs-primary), color-mix(in srgb, var(--bs-primary) 62%, transparent));
+  box-shadow: 0 8px 18px -8px rgba(68, 83, 242, 0.55);
+}
+
+.navix-dash-chart__bar--info {
+  background: linear-gradient(180deg, var(--bs-info), color-mix(in srgb, var(--bs-info) 62%, transparent));
+  box-shadow: 0 8px 18px -8px rgba(77, 163, 255, 0.5);
+}
+
+.navix-dash-chart__bar--warning {
+  background: linear-gradient(180deg, var(--bs-warning), color-mix(in srgb, var(--bs-warning) 62%, transparent));
+  box-shadow: 0 8px 18px -8px rgba(245, 165, 36, 0.45);
+}
+
+.navix-dash-chart__bar--success {
+  background: linear-gradient(180deg, var(--bs-success), color-mix(in srgb, var(--bs-success) 62%, transparent));
+  box-shadow: 0 8px 18px -8px rgba(63, 203, 143, 0.45);
+}
+
+.navix-dash-chart__col:hover .navix-dash-chart__bar {
+  filter: brightness(1.14);
+}
+
+.navix-dash-chart__col:hover .navix-dash-chart__value {
+  color: var(--bs-emphasis-color);
+}
 
 .navix-dash-chart__bar--grouped {
   display: block;
@@ -75,10 +122,12 @@
   height: 0.625rem;
   border-radius: 0.25rem;
   display: inline-block;
+  box-shadow: 0 4px 10px -4px currentColor;
 }
 
 .navix-dash-chart__label {
   font-size: var(--navix-font-size-sm, 0.75rem);
+  font-weight: 500;
   color: var(--bs-secondary-color);
   text-transform: capitalize;
   white-space: nowrap;
@@ -90,3 +139,73 @@
   padding: 1.5rem 0;
   margin: 0;
 }
+
+/* ---- Donut Chart Styles ---- */
+.navix-donut-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navix-donut-svg {
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.navix-donut-segment {
+  transition: stroke-dasharray 600ms var(--navix-ease-out), stroke-width 200ms ease;
+}
+
+.navix-donut-segment:hover {
+  stroke-width: 26px;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
+}
+
+.navix-donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.navix-donut-total-label {
+  font-size: var(--navix-font-size-caption, 0.75rem);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.navix-donut-total-value {
+  font-size: 0.95rem;
+  color: var(--navix-text-primary);
+  white-space: nowrap;
+}
+
+.navix-donut-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ---- Area Chart Styles ---- */
+.navix-area-chart-container {
+  overflow: hidden;
+}
+
+.navix-chart-point {
+  transition: r 200ms ease, stroke-width 200ms ease;
+  cursor: pointer;
+}
+
+.navix-chart-tooltip {
+  transition: opacity 150ms ease;
+  box-shadow: var(--navix-shadow-md);
+}
+
+/* ---- Fuel Gauge Styles ---- */
+.navix-gauge-circle {
+  transition: stroke-dasharray 800ms var(--navix-ease-out);
+}
+

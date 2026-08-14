@@ -190,7 +190,7 @@ const UserForm = ({
         className={errors.phone ? 'form-control is-invalid' : 'form-control'}
         value={values.phone}
         onChange={(event) => setField('phone', event.target.value)}
-        placeholder="+225 27 22 48 19 00"
+        placeholder="+237 27 22 48 19 00"
         disabled={readOnly}
         aria-invalid={errors.phone ? true : undefined}
         aria-describedby={errors.phone ? 'user-phone-error' : undefined}

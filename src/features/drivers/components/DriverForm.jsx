@@ -220,7 +220,7 @@ const DriverForm = ({
             value={values.phone}
             onChange={(value) => setField('phone', value)}
             error={errors.phone}
-            placeholder="Ex. +225 07 07 77 77 77"
+            placeholder="Ex. +237 07 07 77 77 77"
           />
         </div>
         <div className="col-12 col-md-6 col-lg-4">
@@ -233,7 +233,7 @@ const DriverForm = ({
             value={values.email}
             onChange={(value) => setField('email', value)}
             error={errors.email}
-            placeholder="Ex. yao.nguessan@navix.ci"
+            placeholder="Ex. yao.nguessan@navix.cm"
           />
         </div>
 
@@ -366,7 +366,7 @@ const DriverForm = ({
             value={values.address}
             onChange={(value) => setField('address', value)}
             error={errors.address}
-            placeholder="Ex. Cocody, Rue des Jardins"
+            placeholder="Ex. Bonapriso, Rue des Jardins"
           />
         </div>
         <div className="col-12 col-md-4 col-lg-3">
@@ -377,7 +377,7 @@ const DriverForm = ({
             value={values.city}
             onChange={(value) => setField('city', value)}
             error={errors.city}
-            placeholder="Ex. Abidjan"
+            placeholder="Ex. Douala"
           />
         </div>
         <div className="col-12 col-md-4 col-lg-3">
@@ -388,7 +388,7 @@ const DriverForm = ({
             value={values.country}
             onChange={(value) => setField('country', value)}
             error={errors.country}
-            placeholder="Ex. Côte d’Ivoire"
+            placeholder="Ex. Cameroun"
           />
         </div>
         <div className="col-12 col-md-4 col-lg-2">
@@ -398,7 +398,7 @@ const DriverForm = ({
             value={values.nationality}
             onChange={(value) => setField('nationality', value)}
             error={errors.nationality}
-            placeholder="Ex. Ivoirienne"
+            placeholder="Ex. Camerounaise"
           />
         </div>
         <div className="col-12 col-md-6 col-lg-4">
@@ -445,7 +445,7 @@ const DriverForm = ({
             value={values.emergencyContactPhone}
             onChange={(value) => setField('emergencyContactPhone', value)}
             error={errors.emergencyContactPhone}
-            placeholder="Ex. +225 05 05 55 55 55"
+            placeholder="Ex. +237 05 05 55 55 55"
           />
         </div>
 

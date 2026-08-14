@@ -36,9 +36,10 @@
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
-  background-color: var(--bs-secondary-bg);
-  color: var(--bs-secondary-color);
+  background: linear-gradient(135deg, var(--navix-primary-muted), var(--navix-accent-muted));
+  color: var(--navix-primary);
   font-size: 0.875rem;
+  box-shadow: 0 6px 14px -8px rgba(68, 83, 242, 0.5);
 }
 
 .navix-dashboard-audit__description {

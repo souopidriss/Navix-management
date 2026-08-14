@@ -244,7 +244,7 @@ const FuelForm = ({
             className={errors.stationName ? 'form-control is-invalid' : 'form-control'}
             value={values.stationName}
             onChange={(event) => setField('stationName', event.target.value)}
-            placeholder="Ex. TotalEnergies Riviera"
+            placeholder="Ex. TotalEnergies Bonanjo"
             aria-invalid={errors.stationName ? true : undefined}
             aria-describedby={errors.stationName ? 'fuel-station-name-error' : undefined}
           />
@@ -265,7 +265,7 @@ const FuelForm = ({
             className="form-control"
             value={values.stationCity}
             onChange={(event) => setField('stationCity', event.target.value)}
-            placeholder="Ex. Abidjan"
+            placeholder="Ex. Douala"
           />
         </div>
 

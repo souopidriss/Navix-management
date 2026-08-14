@@ -1,0 +1,13 @@
+/* ==========================================================================
+   Navix Client Layout Styles
+   ========================================================================== */
+
+.navix-client-layout {
+  min-height: 100vh;
+  background-color: var(--navix-background);
+}
+
+.navix-client-switcher .btn {
+  font-size: var(--navix-font-size-caption, 0.75rem);
+  font-weight: 600;
+}
