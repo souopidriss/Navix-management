@@ -1,0 +1,162 @@
+/* ==========================================================================
+   Navix Partner Portal — Clients Partenaire (PROMPT 065)
+   Langage visuel cohérent avec le Master Design Navix.
+   Dark Mode prioritaire — Light Mode via tokens CSS globaux (aucun nouveau token).
+   ========================================================================== */
+
+/* ─── CELLULE CLIENT (tableau : nom + contact) ──────────────────────────── */
+.navix-pcli-refbtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.25rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  border-radius: var(--navix-radius-md);
+  transition:
+    background var(--navix-transition-fast) var(--navix-ease-out),
+    color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-pcli-refbtn:hover {
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+}
+
+.navix-pcli-refbtn:focus-visible {
+  outline: 2px solid var(--navix-primary);
+  outline-offset: 2px;
+}
+
+.navix-pcli-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ─── TYPE CLIENT (icône + libellé) ─────────────────────────────────────── */
+.navix-pcli-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+/* ─── TOOLBAR (recherche + filtres) ─────────────────────────────────────── */
+.navix-pcli-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.navix-pcli-toolbar .navix-searchbar {
+  width: 100%;
+}
+
+.navix-pcli-toolbar .navix-filterbar {
+  flex-wrap: wrap;
+}
+
+/* ─── TABLEAU CLIENTS PARTENAIRE ────────────────────────────────────────── */
+.navix-pcli-table .navix-datatable__table td {
+  vertical-align: middle;
+}
+
+/* ─── DÉTAIL CLIENT (page détail — sections) ────────────────────────────── */
+.navix-pcli-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  min-height: 2.5rem;
+}
+
+.navix-pcli-detail__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+
+.navix-pcli-detail__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.navix-pcli-detail__label {
+  font-size: var(--navix-font-size-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navix-text-muted);
+  margin-bottom: 0.125rem;
+}
+
+.navix-pcli-detail__value {
+  font-size: var(--navix-font-size-base);
+  font-weight: 500;
+  color: var(--navix-text-primary);
+  word-break: break-word;
+}
+
+/* ─── HERO DE LA PAGE DÉTAIL ────────────────────────────────────────────── */
+.navix-pcli-detail-hero {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--navix-radius-lg);
+  background: var(--navix-surface-2);
+  border: 1px solid var(--navix-border);
+}
+
+.navix-pcli-detail-hero__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--navix-radius-lg);
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  flex-shrink: 0;
+  font-size: 1.25rem;
+}
+
+/* ─── MINI-CARTES D'ACTIVITÉ (détail client) ────────────────────────────── */
+.navix-pcli-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--navix-radius-lg);
+  background: var(--navix-surface-2);
+  border: 1px solid var(--navix-border);
+}
+
+.navix-pcli-mini__value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.navix-pcli-mini__label {
+  font-size: var(--navix-font-size-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navix-text-muted);
+}

@@ -1,0 +1,17 @@
+/* ==========================================================================
+   Navix Driver Portal — Styles partagés des pages
+   ========================================================================== */
+
+.navix-detail-marker {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+}
+
+.navix-doc-card {
+  transition: border-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-doc-card:hover {
+  border-color: var(--navix-primary);
+}

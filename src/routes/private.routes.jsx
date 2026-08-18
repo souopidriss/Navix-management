@@ -2,6 +2,7 @@ import { Route } from 'react-router-dom';
 import { dashboardRoutes } from './dashboard.routes';
 import { clientRoutes } from './client.routes';
 import { driverRoutes } from './driver.routes';
+import { partnerRoutes } from './partner.routes';
 import { ProtectedRoute, RouteRbacGuard } from './route.guards';
 
 export const privateRoutes = (
@@ -10,6 +11,7 @@ export const privateRoutes = (
       {dashboardRoutes}
       {clientRoutes}
       {driverRoutes}
+      {partnerRoutes}
     </Route>
   </Route>
 );

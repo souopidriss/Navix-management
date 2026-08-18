@@ -13,6 +13,7 @@ import {
   FUEL_TYPE_VALUES,
   TRANSMISSION_VALUES,
   MIN_VEHICLE_YEAR,
+  normalizeRegistrationNumber,
 } from '../constants';
 
 const currentYear = new Date().getFullYear();
@@ -34,7 +35,8 @@ export const vehicleSchema = z.object({
     .string()
     .trim()
     .min(1, 'L’immatriculation est requise.')
-    .min(5, 'L’immatriculation doit contenir au moins 5 caractères.'),
+    .min(5, 'L’immatriculation doit contenir au moins 5 caractères.')
+    .transform((value) => normalizeRegistrationNumber(value)),
   vin: z
     .string()
     .trim()
@@ -141,7 +143,7 @@ export const toVehicleFormValues = (vehicle = {}) => ({
  * @returns {object}
  */
 export const toVehiclePayload = (values) => ({
-  registrationNumber: values.registrationNumber,
+  registrationNumber: normalizeRegistrationNumber(values.registrationNumber),
   vin: values.vin,
   companyId: values.companyId,
   brand: values.brand,

@@ -178,11 +178,11 @@ export const DRIVER_MOCK_DATA = {
     { id: 'DOC-3', name: 'Visite technique', type: 'Visite', expiry: '25/08/2026', status: 'expiring' },
   ],
   quickActions: [
-    { key: 'start_trip', label: 'Démarrer un trajet', icon: 'bi-play-circle', to: '#' },
-    { key: 'report_incident', label: 'Déclarer un incident', icon: 'bi-exclamation-triangle', to: '#' },
-    { key: 'add_fuel', label: 'Ajouter un plein', icon: 'bi-ev-station', to: '#' },
+    { key: 'start_trip', label: 'Démarrer un trajet', icon: 'bi-play-circle', to: '/driver/trips' },
+    { key: 'report_incident', label: 'Déclarer un incident', icon: 'bi-exclamation-triangle', to: '/driver/incidents' },
+    { key: 'add_fuel', label: 'Ajouter un plein', icon: 'bi-ev-station', to: '/driver/fuel' },
     { key: 'view_vehicle', label: 'Voir mon véhicule', icon: 'bi-truck', to: '/driver/vehicle' },
     { key: 'view_docs', label: 'Voir mes documents', icon: 'bi-folder', to: '/driver/documents' },
-    { key: 'contact_manager', label: 'Contacter le gestionnaire', icon: 'bi-headset', to: '#' },
+    { key: 'contact_manager', label: 'Contacter le gestionnaire', icon: 'bi-headset', to: '/driver/profile' },
   ],
 };

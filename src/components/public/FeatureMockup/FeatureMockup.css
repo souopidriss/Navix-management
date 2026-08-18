@@ -1,0 +1,74 @@
+.nv-fmockup {
+  width: 100%;
+  max-width: 36rem;
+  perspective: 1000px;
+}
+
+.nv-fmockup__window {
+  background: var(--nv-bg);
+  border-radius: var(--navix-radius-xl);
+  border: 1px solid var(--nv-border);
+  box-shadow:
+    0 8px 32px rgba(var(--nv-navy-rgb), 0.1),
+    0 2px 8px rgba(var(--nv-navy-rgb), 0.05);
+  overflow: hidden;
+  transform: rotateY(-1.5deg) rotateX(0.5deg);
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nv-fmockup__window:hover {
+  transform: rotateY(0) rotateX(0);
+}
+
+.nv-fmockup__toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-3) var(--navix-space-4);
+  background: var(--nv-bg-alt);
+  border-bottom: 1px solid var(--nv-border-light);
+}
+
+.nv-fmockup__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.nv-fmockup__dot--red { background: var(--nv-dot-red); }
+.nv-fmockup__dot--yellow { background: var(--nv-dot-yellow); }
+.nv-fmockup__dot--green { background: var(--nv-dot-green); }
+
+.nv-fmockup__url {
+  flex: 1;
+  margin-inline-start: var(--navix-space-3);
+  padding: var(--navix-space-1) var(--navix-space-3);
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-md);
+  font-size: 0.7rem;
+  color: var(--nv-text-secondary);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.nv-fmockup__body {
+  padding: var(--navix-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-3);
+}
+
+@media (max-width: 480px) {
+  .nv-fmockup {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-fmockup__window {
+    transform: none;
+  }
+  .nv-fmockup__window:hover {
+    transform: none;
+  }
+}

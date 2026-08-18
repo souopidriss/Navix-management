@@ -1,0 +1,156 @@
+/* ==========================================================================
+   Navix Public — LoginSpaceMenu
+   --------------------------------------------------------------------------
+   Menu déroulant de sélection d'espace de connexion.
+   Affiche les 4 espaces : Super Admin, Client, Chauffeur, Partenaire – Station.
+   ========================================================================== */
+
+.nv-login-menu {
+  position: relative;
+  display: inline-block;
+}
+
+/* Trigger button */
+.nv-login-menu__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-2) var(--navix-space-4);
+  background: transparent;
+  color: var(--nv-text);
+  font-weight: var(--navix-font-weight-medium);
+  font-size: var(--navix-font-size-base);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-md);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    border-color var(--nv-transition-card),
+    box-shadow var(--nv-transition-card);
+}
+
+.nv-login-menu__trigger:hover {
+  border-color: var(--nv-navy);
+}
+
+.nv-login-menu__trigger:focus-visible {
+  outline: var(--navix-focus-ring-width) solid rgba(var(--nv-navy-rgb), 0.45);
+  outline-offset: var(--navix-focus-ring-offset);
+}
+
+.nv-login-menu__trigger-icon {
+  transition: transform var(--navix-transition-card);
+}
+
+.nv-login-menu__trigger--open .nv-login-menu__trigger-icon {
+  transform: rotate(180deg);
+}
+
+/* Panel */
+.nv-login-menu__panel {
+  position: absolute;
+  top: calc(100% + var(--navix-space-2));
+  right: 0;
+  width: 20rem;
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-xl);
+  box-shadow: 0 8px 32px rgba(var(--nv-navy-rgb), 0.12);
+  padding: var(--navix-space-2);
+  z-index: var(--navix-z-dropdown);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition:
+    opacity var(--navix-transition-card),
+    visibility var(--navix-transition-card),
+    transform var(--navix-transition-card);
+}
+
+.nv-login-menu__panel--open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Item */
+.nv-login-menu__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--navix-space-3);
+  padding: var(--navix-space-3);
+  border-radius: var(--navix-radius-md);
+  text-decoration: none;
+  color: var(--nv-text);
+  transition:
+    background-color var(--nv-transition-card),
+    color var(--nv-transition-card);
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+}
+
+.nv-login-menu__item:hover {
+  background-color: var(--nv-bg-alt);
+  color: var(--nv-navy);
+}
+
+.nv-login-menu__item:focus-visible {
+  outline: var(--navix-focus-ring-width) solid rgba(var(--nv-navy-rgb), 0.45);
+  outline-offset: calc(var(--navix-focus-ring-offset) * -1);
+}
+
+.nv-login-menu__item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--navix-radius-md);
+  background-color: var(--nv-bg-alt);
+  color: var(--nv-navy);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.nv-login-menu__item:hover .nv-login-menu__item-icon {
+  background-color: rgba(var(--nv-navy-rgb), 0.08);
+}
+
+.nv-login-menu__item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.nv-login-menu__item-label {
+  font-weight: var(--navix-font-weight-semibold);
+  font-size: var(--navix-font-size-sm);
+  line-height: 1.3;
+}
+
+.nv-login-menu__item-desc {
+  font-size: var(--navix-font-size-caption);
+  color: var(--nv-text-secondary);
+  line-height: 1.4;
+}
+
+/* Mobile : panneau en pleine largeur */
+@media (max-width: 767.98px) {
+  .nv-login-menu__panel {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: var(--navix-radius-xl) var(--navix-radius-xl) 0 0;
+    padding: var(--navix-space-4);
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}

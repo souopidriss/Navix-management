@@ -1,0 +1,192 @@
+/* Navix Super Admin — Rapports Financiers (SA-FIN-04)
+   BEM naming: navix-sa-report-*
+   Thème clair/sombre via variables CSS. */
+
+/* ─── KPI period cards ─── */
+.navix-sa-report-period-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  text-align: center;
+}
+
+.navix-sa-report-period-card__label {
+  font-size: var(--navix-font-size-xs, 0.6875rem);
+  color: var(--bs-secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.navix-sa-report-period-card__value {
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+  font-weight: 600;
+  color: var(--bs-body-color);
+}
+
+/* ─── Stat cards ─── */
+.navix-sa-report-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+}
+
+.navix-sa-report-stat-card__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.navix-sa-report-stat-card__icon--info {
+  background: color-mix(in srgb, var(--bs-info) 15%, transparent);
+  color: var(--bs-info);
+}
+
+.navix-sa-report-stat-card__icon--warning {
+  background: color-mix(in srgb, var(--bs-warning) 15%, transparent);
+  color: var(--bs-warning);
+}
+
+.navix-sa-report-stat-card__icon--success {
+  background: color-mix(in srgb, var(--bs-success) 15%, transparent);
+  color: var(--bs-success);
+}
+
+.navix-sa-report-stat-card__icon--primary {
+  background: color-mix(in srgb, var(--bs-primary) 15%, transparent);
+  color: var(--bs-primary);
+}
+
+.navix-sa-report-stat-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+}
+
+.navix-sa-report-stat-card__label {
+  font-size: var(--navix-font-size-xs, 0.6875rem);
+  color: var(--bs-secondary-color);
+}
+
+.navix-sa-report-stat-card__value {
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+  font-weight: 600;
+  color: var(--bs-body-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Control cards ─── */
+.navix-sa-report-control-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  text-align: center;
+}
+
+.navix-sa-report-control-card__label {
+  font-size: var(--navix-font-size-xs, 0.6875rem);
+  color: var(--bs-secondary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.navix-sa-report-control-card__value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--bs-body-color);
+}
+
+.navix-sa-report-control-card__value--success {
+  color: var(--bs-success);
+}
+
+.navix-sa-report-control-card__value--danger {
+  color: var(--bs-danger);
+}
+
+/* ─── Alerts ─── */
+.navix-sa-report-alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: var(--navix-font-size-sm, 0.8125rem);
+}
+
+.navix-sa-report-alert--warning {
+  background: color-mix(in srgb, var(--bs-warning) 12%, transparent);
+  color: var(--bs-warning);
+  border: 1px solid color-mix(in srgb, var(--bs-warning) 25%, transparent);
+}
+
+.navix-sa-report-alert--success {
+  background: color-mix(in srgb, var(--bs-success) 12%, transparent);
+  color: var(--bs-success);
+  border: 1px solid color-mix(in srgb, var(--bs-success) 25%, transparent);
+}
+
+.navix-sa-report-alert__icon {
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+.navix-sa-report-alert__text {
+  line-height: 1.4;
+}
+
+/* ─── Dark mode adjustments ─── */
+@media (prefers-color-scheme: dark) {
+  .navix-sa-report-period-card,
+  .navix-sa-report-stat-card,
+  .navix-sa-report-control-card {
+    background: var(--bs-body-bg);
+    border-color: var(--bs-border-color);
+  }
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 767.98px) {
+  .navix-sa-report-control-card__value {
+    font-size: 1rem;
+  }
+
+  .navix-sa-report-stat-card {
+    padding: 0.5rem;
+  }
+
+  .navix-sa-report-stat-card__icon {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.9375rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .navix-sa-report-period-card {
+    padding: 0.5rem;
+  }
+
+  .navix-sa-report-period-card__value {
+    font-size: 0.75rem;
+  }
+}

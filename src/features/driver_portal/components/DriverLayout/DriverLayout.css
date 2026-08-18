@@ -7,22 +7,22 @@
   display: flex;
   height: 100vh;
   overflow: hidden;
-  background-color: var(--navix-body-bg);
+  background-color: var(--navix-background);
 }
 
 .navix-driver-sidebar {
   width: var(--navix-sidebar-width, 280px);
-  background: var(--navix-sidebar-bg);
+  background: var(--navix-sidebar);
   border-right: 1px solid var(--navix-border-color-subtle);
   display: flex;
   flex-direction: column;
-  transition: transform var(--navix-transition-normal) var(--navix-ease-out),
-              width var(--navix-transition-normal) var(--navix-ease-out);
+  transition: transform var(--navix-transition-base) var(--navix-ease-out),
+              width var(--navix-transition-base) var(--navix-ease-out);
   z-index: 1040;
 }
 
 .navix-driver-sidebar--collapsed {
-  width: var(--navix-sidebar-collapsed-width, 80px);
+  width: var(--navix-sidebar-width-collapsed, 80px);
 }
 
 .navix-driver-content {
@@ -38,7 +38,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: 1.5rem;
-  background: var(--navix-body-bg);
+  background: var(--navix-background);
 }
 
 @media (max-width: 991.98px) {
@@ -76,4 +76,14 @@
 .navix-driver-backdrop.show {
   opacity: 1;
   visibility: visible;
+}
+
+/* Élément d'action (déconnexion) rendu en <button> — même rendu qu'un item */
+.navix-sidebar__item--button {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
 }

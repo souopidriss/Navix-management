@@ -1,0 +1,46 @@
+.nv-workflow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: var(--navix-space-3) 0;
+}
+
+.nv-workflow__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.nv-workflow__circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 2px solid;
+  font-size: 0.9rem;
+  background: var(--nv-bg);
+  z-index: 1;
+}
+
+.nv-workflow__label {
+  font-size: 0.7rem;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-navy);
+  margin-top: var(--navix-space-1);
+  margin-bottom: var(--navix-space-1);
+}
+
+.nv-workflow__line {
+  width: 2px;
+  height: 1.5rem;
+  background: var(--nv-border);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: var(--navix-space-1);
+}

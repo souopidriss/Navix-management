@@ -1,0 +1,227 @@
+/* ==========================================================================
+   Navix Management — Vitrine Global Styles
+   --------------------------------------------------------------------------
+   Styles globaux spécifiques au site vitrine (marketing).
+   S'applique uniquement aux pages publiques via le PublicLayout.
+   ========================================================================== */
+
+/* ─── Conteneur vitrine ───────────────────────────────────────────────── */
+.nv-container {
+  width: 100%;
+  max-width: var(--nv-container-max);
+  margin-inline: auto;
+  padding-inline: var(--navix-space-4);
+}
+
+@media (min-width: 768px) {
+  .nv-container {
+    padding-inline: var(--navix-space-6);
+  }
+}
+
+@media (min-width: 1200px) {
+  .nv-container {
+    padding-inline: var(--navix-space-8);
+  }
+}
+
+/* ─── Sections ────────────────────────────────────────────────────────── */
+.nv-section {
+  padding-block: var(--nv-section-py);
+}
+
+.nv-section--alt {
+  background-color: var(--nv-bg-alt);
+}
+
+.nv-section--dark {
+  background-color: var(--nv-navy);
+  color: var(--nv-text-on-navy);
+}
+
+/* ─── Titres de section ───────────────────────────────────────────────── */
+.nv-section-title {
+  font-size: var(--nv-section-title);
+  font-weight: var(--navix-font-weight-bold);
+  letter-spacing: var(--navix-letter-spacing-tight);
+  color: var(--nv-text);
+  margin-bottom: var(--navix-space-3);
+}
+
+.nv-section--dark .nv-section-title {
+  color: var(--nv-text-on-navy);
+}
+
+.nv-section-subtitle {
+  font-size: var(--nv-section-subtitle);
+  color: var(--nv-text-secondary);
+  max-width: 38rem;
+  line-height: var(--navix-line-height-relaxed);
+}
+
+.nv-section--dark .nv-section-subtitle {
+  color: var(--nv-text-on-dark);
+}
+
+.nv-section-header {
+  text-align: center;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.nv-section-header .nv-section-subtitle {
+  margin-inline: auto;
+}
+
+/* ─── Boutons vitrine ─────────────────────────────────────────────────── */
+.nv-btn-orange {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-3) var(--navix-space-6);
+  background-color: var(--nv-orange);
+  color: var(--nv-text-on-navy);
+  font-weight: var(--navix-font-weight-semibold);
+  font-size: var(--navix-font-size-base);
+  border: none;
+  border-radius: var(--navix-radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color var(--nv-transition-card),
+    transform var(--nv-transition-card),
+    box-shadow var(--nv-transition-card);
+}
+
+.nv-btn-orange:hover {
+  background-color: var(--nv-orange-hover);
+  color: var(--nv-text-on-navy);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(var(--nv-orange-rgb), 0.3);
+}
+
+.nv-btn-orange:active {
+  transform: translateY(0);
+}
+
+.nv-btn-orange:focus-visible {
+  outline: var(--navix-focus-ring-width) solid rgba(var(--nv-orange-rgb), 0.45);
+  outline-offset: var(--navix-focus-ring-offset);
+}
+
+.nv-btn-orange--lg {
+  padding: var(--navix-space-4) var(--navix-space-8);
+  font-size: var(--navix-font-size-h5);
+  border-radius: var(--navix-radius-lg);
+}
+
+.nv-btn-outline-navy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-3) var(--navix-space-6);
+  background-color: transparent;
+  color: var(--nv-navy);
+  font-weight: var(--navix-font-weight-semibold);
+  font-size: var(--navix-font-size-base);
+  border: 2px solid var(--nv-navy);
+  border-radius: var(--navix-radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color var(--nv-transition-card),
+    color var(--nv-transition-card),
+    transform var(--nv-transition-card);
+}
+
+.nv-btn-outline-navy:hover {
+  background-color: var(--nv-navy);
+  color: var(--nv-text-on-navy);
+  transform: translateY(-1px);
+}
+
+.nv-btn-outline-navy:active {
+  transform: translateY(0);
+}
+
+.nv-btn-outline-navy:focus-visible {
+  outline: var(--navix-focus-ring-width) solid rgba(var(--nv-navy-rgb), 0.45);
+  outline-offset: var(--navix-focus-ring-offset);
+}
+
+.nv-btn-outline-navy--dark {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--nv-text-on-navy);
+}
+
+.nv-btn-outline-navy--dark:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: var(--nv-text-on-navy);
+}
+
+/* ─── Cartes vitrine ──────────────────────────────────────────────────── */
+.nv-card {
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-xl);
+  padding: var(--navix-space-6);
+  box-shadow: var(--nv-shadow-card);
+  transition:
+    box-shadow var(--nv-transition-card),
+    transform var(--nv-transition-card),
+    border-color var(--nv-transition-card);
+}
+
+.nv-card:hover {
+  box-shadow: var(--nv-shadow-card-hover);
+  transform: translateY(-2px);
+  border-color: var(--nv-blue-light);
+}
+
+/* ─── Badges vitrine ──────────────────────────────────────────────────── */
+.nv-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-1) var(--navix-space-3);
+  background-color: var(--nv-orange-light);
+  color: var(--nv-orange);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-semibold);
+  letter-spacing: var(--navix-letter-spacing-wide);
+  text-transform: uppercase;
+  border-radius: var(--navix-radius-full);
+}
+
+/* ─── Séparateur ──────────────────────────────────────────────────────── */
+.nv-divider {
+  width: 3rem;
+  height: 3px;
+  background: var(--nv-orange);
+  border: none;
+  border-radius: var(--navix-radius-full);
+  margin-block: var(--navix-space-4);
+}
+
+.nv-divider--center {
+  margin-inline: auto;
+}
+
+/* ─── Body vitrine — fond blanc, pas de dark mode ─────────────────────── */
+body[data-page="public"] {
+  --navix-background: var(--nv-bg);
+  --navix-text-primary: var(--nv-text);
+  --navix-text-secondary: var(--nv-text-secondary);
+  --navix-border-color: var(--nv-border);
+  --navix-card: var(--nv-bg);
+  --navix-surface: var(--nv-bg-alt);
+}
+
+/* ─── Reduced motion — hover transforms ────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .nv-btn-orange:hover,
+  .nv-btn-outline-navy:hover,
+  .nv-card:hover { transform: none; }
+}

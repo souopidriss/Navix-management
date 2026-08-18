@@ -1,0 +1,136 @@
+.nv-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.nv-split--reverse .nv-split__text { order: 2; }
+.nv-split--reverse .nv-fmockup { order: 1; }
+
+.nv-feat-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-4);
+  margin-top: var(--navix-space-5);
+}
+
+.nv-feat-list__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--navix-space-3);
+}
+
+.nv-feat-list__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--navix-radius-md);
+  background: rgba(var(--nv-blue-light-rgb), 0.08);
+  color: var(--nv-blue-light);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.nv-feat-list__label {
+  display: block;
+  font-size: var(--navix-font-size-base);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-navy);
+}
+
+.nv-feat-list__desc {
+  display: block;
+  font-size: var(--navix-font-size-sm);
+  color: var(--nv-text-secondary);
+  line-height: var(--navix-line-height-relaxed);
+}
+
+/* Vehicle table mockup */
+.nv-vtable {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.nv-vtable__header {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-2) var(--navix-space-3);
+  border-bottom: 1px solid var(--nv-border);
+}
+
+.nv-vtable__th {
+  font-size: 0.65rem;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.nv-vtable__row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-3);
+  border-bottom: 1px solid var(--nv-border-light);
+  align-items: center;
+}
+
+.nv-vtable__row:last-child { border-bottom: none; }
+
+.nv-vtable__plate {
+  font-size: 0.75rem;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-navy);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.nv-vtable__name {
+  font-size: 0.75rem;
+  color: var(--nv-text);
+  display: flex;
+  flex-direction: column;
+}
+
+.nv-vtable__name small {
+  font-size: 0.65rem;
+  color: var(--nv-text-secondary);
+}
+
+.nv-vtable__status {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-1);
+  font-size: 0.7rem;
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.nv-vtable__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@media (min-width: 992px) {
+  .nv-split {
+    grid-template-columns: 1fr 1fr;
+  }
+  .nv-split--reverse .nv-split__text { order: 1; }
+  .nv-split--reverse .nv-fmockup { order: 2; }
+}
+
+@media (max-width: 480px) {
+  .nv-vtable__header,
+  .nv-vtable__row {
+    grid-template-columns: 1fr 1fr;
+  }
+  .nv-vtable__th:nth-child(2),
+  .nv-vtable__row > :nth-child(2) {
+    display: none;
+  }
+}

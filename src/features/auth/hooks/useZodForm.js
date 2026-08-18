@@ -18,6 +18,7 @@ import { useState } from 'react';
 export const useZodForm = ({ schema, defaultValues, onSubmit }) => {
   const [values, setValues] = useState(defaultValues);
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const setField = (name, value) => {
     setValues((current) => ({ ...current, [name]: value }));
@@ -29,8 +30,10 @@ export const useZodForm = ({ schema, defaultValues, onSubmit }) => {
     setErrors({});
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event?.preventDefault();
+
+    if (isSubmitting) return;
 
     const result = schema.safeParse(values);
 
@@ -47,8 +50,13 @@ export const useZodForm = ({ schema, defaultValues, onSubmit }) => {
     }
 
     setErrors({});
-    onSubmit(values);
+    setIsSubmitting(true);
+    try {
+      await onSubmit(result.data);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  return { values, errors, setField, reset, handleSubmit };
+  return { values, errors, isSubmitting, setField, reset, handleSubmit };
 };

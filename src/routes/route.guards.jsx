@@ -2,15 +2,26 @@ import { matchPath, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { can, hasAnyRole, ROUTE_META, useRbacStore } from '@/features/rbac';
 import { useAuthStore } from '@/features/auth';
 import { resolveLandingRoute, ROUTES } from './route.constants';
+import LoadingPage from '@/pages/LoadingPage';
 
 /**
  * ProtectedRoute — garde des routes privées.
  * Redirige vers LOGIN si l'utilisateur n'est pas authentifié (en conservant
  * la position d'origine via `location.state` pour un éventuel retour).
+ * Affiche un écran de chargement pendant la réhydratation du store.
  */
 export const ProtectedRoute = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isHydrated = useAuthStore((state) => state.isHydrated);
   const location = useLocation();
+
+  if (import.meta.env.DEV) {
+    console.info('[GUARD][ProtectedRoute]', { pathname: location.pathname, isHydrated, isAuthenticated });
+  }
+
+  if (!isHydrated) {
+    return <LoadingPage label="Connexion en cours…" />;
+  }
 
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.LOGIN} replace state={{ from: location }} />;
@@ -22,12 +33,23 @@ export const ProtectedRoute = () => {
 /**
  * GuestRoute — garde des routes réservées aux visiteurs non connectés.
  * Redirige vers la landing si une session est déjà active.
+ * Affiche un écran de chargement pendant la réhydratation du store.
  */
 export const GuestRoute = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const currentRole = useAuthStore((state) => state.currentRole);
+  const isHydrated = useAuthStore((state) => state.isHydrated);
+
+  if (import.meta.env.DEV) {
+    console.info('[GUARD][GuestRoute]', { isHydrated, isAuthenticated, currentRole });
+  }
+
+  if (!isHydrated) {
+    return <LoadingPage label="Connexion en cours…" />;
+  }
 
   if (isAuthenticated) {
-    return <Navigate to={resolveLandingRoute()} replace />;
+    return <Navigate to={resolveLandingRoute(currentRole)} replace />;
   }
 
   return <Outlet />;
@@ -40,8 +62,18 @@ export const GuestRoute = () => {
  */
 export const HomeRedirect = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const currentRole = useAuthStore((state) => state.currentRole);
+  const isHydrated = useAuthStore((state) => state.isHydrated);
 
-  return <Navigate to={isAuthenticated ? ROUTES.DASHBOARD : ROUTES.LOGIN} replace />;
+  if (import.meta.env.DEV) {
+    console.info('[GUARD][HomeRedirect]', { isHydrated, isAuthenticated, currentRole });
+  }
+
+  if (!isHydrated) {
+    return <LoadingPage label="Connexion en cours…" />;
+  }
+
+  return <Navigate to={isAuthenticated ? resolveLandingRoute(currentRole) : ROUTES.LOGIN} replace />;
 };
 
 /**
@@ -90,7 +122,12 @@ export const RouteRbacGuard = () => {
   const permissions = useRbacStore((state) => state.permissions);
 
   const metaKey = Object.keys(ROUTE_META).find((pattern) => matchPath(pattern, location.pathname));
-  const meta = metaKey ? ROUTE_META[metaKey] : {};
+
+  if (!metaKey) {
+    return <Navigate to={ROUTES.UNAUTHORIZED} replace />;
+  }
+
+  const meta = ROUTE_META[metaKey];
 
   const hasRole = !meta.requiredRole || hasAnyRole(role, meta.requiredRole);
   const hasPermissions =

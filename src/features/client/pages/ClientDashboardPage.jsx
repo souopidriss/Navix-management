@@ -1,36 +1,38 @@
 /**
  * Navix Client Dashboard — ClientDashboardPage (DASHBOARD CLIENT PREMIUM)
  * --------------------------------------------------------------------------
- * Tableau de bord principal de l'Espace Client.
- * Reprend fidèlement le langage visuel du Dashboard Master Navix :
- *   - Bannière d'identité client (Entreprise ou Particulier)
- *   - Filtre de période pill-tabs + bouton Exporter
- *   - Actions rapides contextuelles
- *   - KPI cards avec tendances FCFA
- *   - Graphique d'évolution des dépenses (Area SVG — réutilisé)
- *   - Graphique dépenses par catégorie (Donut SVG — réutilisé)
- *   - Alertes importantes (réutilisé DashboardAlerts)
- *   - Consommation de carburant avec jauge (réutilisé FuelConsumptionCard)
- *   - Tableau des véhicules les plus utilisés
- *   - Activités récentes (réutilisé RecentActivityList)
+ * Tableau de bord principal de l'Espace Client (PROMPT 055).
  *
- * Localisation : 🇨🇲 Cameroun — Monnaie : FCFA (XAF)
- * Multi-tenant : données strictement limitées au client connecté.
+ * Structure verticale (respirante) :
+ *   HEADER → KPI (2 rangées) → ÉTAT DE LA FLOTTE → ACTIVITÉ / TRAJETS
+ *   → MAINTENANCE / CARBURANT → ALERTES → RÉSUMÉ FINANCIER → ACTIVITÉ RÉCENTE
+ *   → (sections support) Véhicules les plus utilisés + Factures récentes.
+ *
+ * Contraintes :
+ *   - Actions rapides et boutons filtrés par RBAC (`can` / `Can`).
+ *   - Données strictement limitées au client connecté (multi-tenant).
+ *   - Monnaie : FCFA (XAF) — Localisation : Cameroun 🇨🇲.
  */
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui';
 import { LoadingState, ErrorState, PageContainer, PageHeader } from '@/components/core';
+import { Can } from '@/features/rbac/components';
+import { useCan } from '@/features/rbac/hooks';
+import { PERMISSIONS } from '@/features/rbac/constants';
 import {
-  CostAreaChart,
-  CategoryCostDonutChart,
+  FleetOverviewCard,
+  FleetEvolutionChart,
   FuelConsumptionCard,
-  DashboardAlerts,
   RecentActivityList,
 } from '@/features/dashboard/components';
 import { useClientDashboard } from '../hooks/useClientDashboard';
 import ClientKpiCards from '../components/ClientDashboard/ClientKpiCards';
-import ClientPeriodFilter from '../components/ClientDashboard/ClientPeriodFilter';
+import ClientTripsList from '../components/ClientDashboard/ClientTripsList';
+import ClientMaintenanceCard from '../components/ClientDashboard/ClientMaintenanceCard';
+import ClientAlertsCard from '../components/ClientDashboard/ClientAlertsCard';
+import ClientFleetCategoriesCard from '../components/ClientDashboard/ClientFleetCategoriesCard';
+import ClientFinanceSummaryCard from '../components/ClientDashboard/ClientFinanceSummaryCard';
 import ClientVehicleTable from '../components/ClientDashboard/ClientVehicleTable';
 import { ROUTES } from '@/routes/route.constants';
 import '../components/ClientDashboard/ClientDashboard.css';
@@ -43,15 +45,23 @@ const ClientDashboardPage = () => {
     refetch,
     client,
     metrics,
-    monthlyEvolution,
-    financialData,
+    metricsSecondary,
     vehicles,
+    fleetStatus,
+    fleetCategories,
+    tripsWeekly,
+    tripsOngoing,
+    upcomingTrips,
+    maintenance,
     alerts,
     recentActivities,
     fuelData,
+    financeSummary,
     quickActions,
     isEnterprise,
   } = useClientDashboard();
+
+  const can = useCan();
 
   const handleExport = () => {
     window.print();
@@ -79,9 +89,25 @@ const ClientDashboardPage = () => {
     );
   }
 
+  const greetingName = isEnterprise
+    ? client?.contactName || client?.companyName || 'Votre Entreprise'
+    : client?.displayName || 'Client';
   const displayName = isEnterprise
     ? client?.companyName || 'Votre Entreprise'
     : client?.displayName || 'Client';
+  const todayLabel = new Date().toLocaleDateString('fr-FR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  const kpiGroups = [
+    { title: 'Aperçu de la flotte', metrics },
+    { title: 'Exploitation du mois', metrics: metricsSecondary },
+  ];
+
+  const visibleQuickActions = quickActions.filter((action) => can(action.permission));
 
   return (
     <PageContainer>
@@ -89,41 +115,53 @@ const ClientDashboardPage = () => {
         <title>Dashboard Client — Navix Management</title>
       </Helmet>
 
-      {/* ── PageHeader ─────────────────────────────────────────────────── */}
+      {/* ── Header Premium ─────────────────────────────────────────────── */}
       <PageHeader
-        title={`Bienvenue, ${displayName} ! 👋`}
+        title={`Bonjour, ${greetingName} 👋`}
         subtitle={
           isEnterprise
-            ? 'Aperçu en temps réel de votre flotte, vos services et vos dépenses.'
-            : 'Aperçu de vos services Navix et trajets récents.'
+            ? 'Voici un aperçu de votre flotte aujourd’hui.'
+            : 'Voici un aperçu de vos services Navix et trajets récents.'
         }
         icon="bi-person-workspace"
         breadcrumbs={[{ label: 'Espace Client' }, { label: 'Dashboard' }]}
         actions={
           <div className="d-flex align-items-center gap-2 flex-wrap">
+            <Can permission={PERMISSIONS.CLIENT_VEHICLES_CREATE}>
+              <Link to={ROUTES.CLIENT_VEHICLES} className="btn btn-sm btn-primary">
+                <i className="bi bi-plus-lg me-1" aria-hidden="true" />
+                Ajouter un véhicule
+              </Link>
+            </Can>
+            {isEnterprise && (
+              <Link to={ROUTES.CLIENT_VEHICLES} className="btn btn-sm btn-outline-secondary">
+                <i className="bi bi-truck me-1" aria-hidden="true" />
+                Voir la flotte
+              </Link>
+            )}
             <button
               type="button"
               className="btn btn-sm btn-outline-secondary"
               onClick={handleExport}
               aria-label="Exporter le dashboard"
             >
-              <i className="bi bi-download me-2" aria-hidden="true" />
+              <i className="bi bi-download me-1" aria-hidden="true" />
               Exporter
             </button>
             <button
               type="button"
-              className="btn btn-sm btn-primary"
+              className="btn btn-sm btn-outline-secondary"
               onClick={refetch}
               aria-label="Actualiser les données"
             >
-              <i className="bi bi-arrow-clockwise me-2" aria-hidden="true" />
+              <i className="bi bi-arrow-clockwise me-1" aria-hidden="true" />
               Actualiser
             </button>
           </div>
         }
       />
 
-      {/* ── Bannière Identité Client ────────────────────────────────────── */}
+      {/* ── Bannière Identité Client + date ─────────────────────────────── */}
       <div className="navix-client-identity-banner navix-client-animate mb-4">
         <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
           <div className="d-flex align-items-center gap-3">
@@ -131,7 +169,9 @@ const ClientDashboardPage = () => {
               {isEnterprise ? '🏢' : '👤'}
             </div>
             <div>
-              <h5 className="mb-0 fw-bold text-body-emphasis">{displayName}</h5>
+              <h5 className="mb-0 fw-bold text-body-emphasis">
+                {isEnterprise ? 'Entreprise : ' : ''}{displayName}
+              </h5>
               <span className="text-body-secondary small">
                 {isEnterprise
                   ? `${client?.address}, ${client?.city} · N° RCCM : ${client?.registrationNumber}`
@@ -140,12 +180,16 @@ const ClientDashboardPage = () => {
             </div>
           </div>
           <div className="d-flex align-items-center gap-2 flex-wrap">
+            <span className="badge bg-body-secondary px-2 py-2 text-body-emphasis" title="Date du jour">
+              <i className="bi bi-calendar3 me-1" aria-hidden="true" />
+              {todayLabel}
+            </span>
             <span className={`badge ${isEnterprise ? 'bg-primary-subtle text-primary' : 'bg-info-subtle text-info'} px-3 py-2`}>
-              <i className={`bi ${isEnterprise ? 'bi-buildings' : 'bi-person'} me-1`} />
+              <i className={`bi ${isEnterprise ? 'bi-buildings' : 'bi-person'} me-1`} aria-hidden="true" />
               {isEnterprise ? 'Client Entreprise — Flotte Privilège' : 'Client Particulier Premium'}
             </span>
             <span className="badge bg-success-subtle text-success px-3 py-2">
-              <i className="bi bi-shield-check me-1" />
+              <i className="bi bi-shield-check me-1" aria-hidden="true" />
               Compte vérifié
             </span>
             <span className="badge bg-body-secondary px-2 py-2" title="Espace Cameroun">
@@ -155,92 +199,105 @@ const ClientDashboardPage = () => {
         </div>
       </div>
 
-      {/* ── Filtre Période + Actions Rapides ───────────────────────────── */}
-      <div className="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3 navix-client-animate">
-        <ClientPeriodFilter />
-        <div className="navix-client-quick-actions">
-          {quickActions.map((action) => (
-            <Link
-              key={action.key}
-              to={action.to}
-              className="navix-client-quick-btn"
-              aria-label={action.label}
+      {/* ── Actions rapides (filtrées RBAC) ─────────────────────────────── */}
+      {visibleQuickActions.length > 0 && (
+        <div className="d-flex align-items-center gap-3 flex-wrap mb-3 navix-client-animate">
+          <span className="text-muted small fw-semibold text-uppercase">Actions rapides</span>
+          <div className="navix-client-quick-actions">
+            {visibleQuickActions.map((action) => (
+              <Link key={action.key} to={action.to} className="navix-client-quick-btn" aria-label={action.label}>
+                <i className={`bi ${action.icon}`} aria-hidden="true" />
+                <span className="d-none d-md-inline">{action.label}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── KPI (2 rangées) ─────────────────────────────────────────────── */}
+      <ClientKpiCards groups={kpiGroups} loading={isLoading && !data} />
+
+      {/* ── État de la flotte + Répartition ─────────────────────────────── */}
+      {isEnterprise && fleetStatus && (
+        <div className="row g-3 mb-4 navix-client-animate">
+          <div className="col-xl-7 col-lg-6">
+            <FleetOverviewCard fleet={fleetStatus} />
+          </div>
+          <div className="col-xl-5 col-lg-6">
+            <ClientFleetCategoriesCard categories={fleetCategories} total={fleetStatus.total} />
+          </div>
+        </div>
+      )}
+
+      {/* ── Activité des trajets + Trajets en cours ─────────────────────── */}
+      {isEnterprise && (
+        <div className="row g-3 mb-4 navix-client-animate">
+          <div className="col-xl-6 col-lg-6">
+            <Card
+              className="h-100"
+              title={
+                <span className="d-flex align-items-center gap-2">
+                  <i className="bi bi-graph-up-arrow text-primary" aria-hidden="true" />
+                  <span>Activité des trajets — 7 derniers jours</span>
+                </span>
+              }
             >
-              <i className={`bi ${action.icon}`} aria-hidden="true" />
-              <span className="d-none d-md-inline">{action.label}</span>
-            </Link>
-          ))}
+              <FleetEvolutionChart
+                data={tripsWeekly}
+                title="Activité des trajets — 7 derniers jours"
+              />
+            </Card>
+          </div>
+          <div className="col-xl-6 col-lg-6">
+            <ClientTripsList title="Trajets en cours" icon="bi-signpost-fill" items={tripsOngoing} />
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* ── KPI Cards ──────────────────────────────────────────────────── */}
-      <div className="mb-4 navix-client-animate">
-        <ClientKpiCards metrics={metrics} loading={isLoading && !data} />
-      </div>
+      {/* ── Prochains trajets + Maintenance ─────────────────────────────── */}
+      {isEnterprise && (
+        <div className="row g-3 mb-4 navix-client-animate">
+          <div className="col-xl-6 col-lg-6">
+            <ClientTripsList title="Prochains trajets" icon="bi-calendar2-week" items={upcomingTrips} showAll />
+          </div>
+          <div className="col-xl-6 col-lg-6">
+            <ClientMaintenanceCard maintenance={maintenance} />
+          </div>
+        </div>
+      )}
 
-      {/* ── Section 1 : Graphiques (Évolution + Donut + Alertes) ──────── */}
+      {/* ── Carburant + Alertes ─────────────────────────────────────────── */}
       <div className="row g-3 mb-4 navix-client-animate">
-        {/* Graphique Évolution Area SVG */}
-        <div className="col-xl-7 col-lg-6">
-          <Card
-            className="h-100"
-            title={
-              <span className="d-flex align-items-center gap-2">
-                <i className="bi bi-graph-up-arrow text-primary" aria-hidden="true" />
-                <span>Évolution des dépenses — 6 derniers mois (FCFA)</span>
-              </span>
-            }
-          >
-            <CostAreaChart data={monthlyEvolution} />
-          </Card>
-        </div>
-
-        {/* Graphique Donut par catégorie */}
-        <div className="col-xl-5 col-lg-6">
-          <Card
-            className="h-100"
-            title={
-              <span className="d-flex align-items-center gap-2">
-                <i className="bi bi-pie-chart text-accent" aria-hidden="true" />
-                <span>Dépenses par catégorie</span>
-              </span>
-            }
-          >
-            <CategoryCostDonutChart financialData={financialData} />
-          </Card>
-        </div>
-      </div>
-
-      {/* ── Section 2 : Carburant + Alertes ───────────────────────────── */}
-      <div className="row g-3 mb-4 navix-client-animate">
-        {/* Carburant (Entreprise uniquement) */}
         {isEnterprise && fuelData && (
           <div className="col-xl-5 col-lg-6">
             <FuelConsumptionCard fuelData={fuelData} />
           </div>
         )}
-
-        {/* Alertes importantes */}
         <div className={isEnterprise && fuelData ? 'col-xl-7 col-lg-6' : 'col-12'}>
-          <DashboardAlerts alerts={alerts} />
+          <ClientAlertsCard alerts={alerts} />
         </div>
       </div>
 
-      {/* ── Section 3 : Tableau Véhicules (Entreprise uniquement) ──────── */}
+      {/* ── Résumé financier + Activité récente ─────────────────────────── */}
+      <div className="row g-3 mb-4 navix-client-animate">
+        {isEnterprise && financeSummary && (
+          <div className="col-xl-4 col-lg-5">
+            <ClientFinanceSummaryCard summary={financeSummary} />
+          </div>
+        )}
+        <div className={isEnterprise && financeSummary ? 'col-xl-8 col-lg-7' : 'col-12'}>
+          <RecentActivityList activities={recentActivities} />
+        </div>
+      </div>
+
+      {/* ── Véhicules les plus utilisés (Entreprise) ────────────────────── */}
       {isEnterprise && vehicles.length > 0 && (
         <div className="mb-4 navix-client-animate">
           <ClientVehicleTable vehicles={vehicles} loading={isLoading && !data} />
         </div>
       )}
 
-      {/* ── Section 4 : Activités Récentes ─────────────────────────────── */}
-      <div className="row g-3 mb-4 navix-client-animate">
-        <div className="col-lg-12">
-          <RecentActivityList activities={recentActivities} />
-        </div>
-      </div>
-
-      {/* ── Section 5 : Mes Factures récentes (Particulier + Entreprise) ─ */}
+      {/* ── Mes Factures récentes ───────────────────────────────────────── */}
       <div className="navix-client-animate">
         <Card
           flush

@@ -8,7 +8,11 @@
  *                  API REST (POST /auth/login, GET /auth/me, etc.).
  *
  * Mode mock (actif par défaut) : chaque méthode retourne une Promise simulée.
- * Seule la combinaison `demo@navix.app` / `Password123!` réussit la connexion.
+ * Quatre comptes simulés :
+ *   - `demo@navix.app` / `Password123!`          → super_admin (Dashboard Admin)
+ *   - `chauffeur@navix.app` / `Chauffeur@2026!`   → chauffeur (Espace Chauffeur)
+ *   - `client@navix.app` / `Client@2026!`         → client_enterprise (Espace Client)
+ *   - `partenaire@navix.app` / `Partenaire@2026!` → partner (Espace Partenaire)
  *
  * Exemple d'utilisation :
  *   import { authService } from '@/services/api';
@@ -20,38 +24,142 @@ import { apiConfig } from '../config';
 import { ApiError } from '../errors';
 import { mockResponse } from '../utils';
 
-const MOCK_CREDENTIALS = { email: 'demo@navix.app', password: 'Password123!' };
+/** Rôles autorisés pour l'inscription publique — tout autre rôle est rejeté. */
+const PUBLIC_REGISTRATION_ROLES = ['client_enterprise', 'driver', 'partner'];
 
-let MOCK_USER = {
-  id: 'usr_demo',
-  firstName: 'Awa',
-  lastName: 'Kouamé',
-  name: 'Awa Kouamé',
-  email: 'demo@navix.app',
-  phone: '+237 07 07 07 07 07',
-  jobTitle: 'Super Administratrice',
-  role: 'super_admin',
-  status: 'active',
-  avatar: null,
-  createdAt: '2024-01-15T09:00:00.000Z',
-  updatedAt: '2024-01-15T09:00:00.000Z',
-};
+/** Champs de profil non modifiables via updateProfile (mass assignment protection). */
+const PROFILE_PROTECTED_FIELDS = ['role', 'permissions', 'companyId', 'tenantId', 'status'];
 
-const MOCK_COMPANY = {
-  id: 'cmp_demo',
-  name: 'Navix Trans',
-  slug: 'navix-trans',
-};
-
-const MOCK_TENANT = {
-  id: 'ten_demo',
-  name: 'Navix',
-  slug: 'navix',
-};
+const MOCK_ACCOUNTS = [
+  {
+    email: 'demo@navix.app',
+    password: 'Password123!',
+    user: {
+      id: 'usr_demo',
+      firstName: 'Awa',
+      lastName: 'Kouamé',
+      name: 'Awa Kouamé',
+      email: 'demo@navix.app',
+      phone: '+237 07 07 07 07 07',
+      jobTitle: 'Super Administratrice',
+      role: 'super_admin',
+      status: 'active',
+      avatar: null,
+      createdAt: '2024-01-15T09:00:00.000Z',
+      updatedAt: '2024-01-15T09:00:00.000Z',
+    },
+    company: {
+      id: 'cmp_demo',
+      name: 'Navix Trans',
+      slug: 'navix-trans',
+    },
+    tenant: {
+      id: 'ten_demo',
+      name: 'Navix',
+      slug: 'navix',
+    },
+  },
+  {
+    email: 'chauffeur@navix.app',
+    password: 'Chauffeur@2026!',
+    user: {
+      id: 'usr_driver',
+      firstName: 'Jean',
+      lastName: 'Dupont',
+      name: 'Jean Dupont',
+      displayName: 'Jean Dupont',
+      email: 'chauffeur@navix.app',
+      phone: '+237 06 12 34 56 78',
+      jobTitle: 'Chauffeur poids lourd',
+      role: 'driver',
+      companyRole: 'driver',
+      tenantRole: 'driver',
+      status: 'active',
+      avatar: null,
+      createdAt: '2023-03-12T09:00:00.000Z',
+      updatedAt: '2026-07-20T09:00:00.000Z',
+    },
+    company: {
+      id: 'cmp_tec',
+      name: 'Transports Express Cameroun',
+      slug: 'transports-express-cameroun',
+    },
+    tenant: {
+      id: 'ten_demo',
+      name: 'Navix',
+      slug: 'navix',
+    },
+  },
+  {
+    email: 'client@navix.app',
+    password: 'Client@2026!',
+    user: {
+      id: 'usr_client',
+      firstName: 'Jean-Pierre',
+      lastName: 'Ndongo',
+      name: 'Jean-Pierre Ndongo',
+      displayName: 'Jean-Pierre Ndongo',
+      email: 'client@navix.app',
+      phone: '+237 06 99 88 77 66',
+      jobTitle: 'Responsable de flotte',
+      role: 'client_enterprise',
+      companyRole: 'client_enterprise',
+      tenantRole: 'client_enterprise',
+      status: 'active',
+      avatar: null,
+      createdAt: '2025-01-15T08:00:00.000Z',
+      updatedAt: '2026-08-01T08:00:00.000Z',
+    },
+    company: {
+      id: 'cmp_tec',
+      name: 'Transports Express Cameroun',
+      slug: 'transports-express-cameroun',
+    },
+    tenant: {
+      id: 'ten_demo',
+      name: 'Navix',
+      slug: 'navix',
+    },
+  },
+  {
+    email: 'partenaire@navix.app',
+    password: 'Partenaire@2026!',
+    user: {
+      id: 'usr_partner_001',
+      firstName: 'Aïcha',
+      lastName: 'Mballa',
+      name: 'Aïcha Mballa',
+      displayName: 'Aïcha Mballa',
+      email: 'partenaire@navix.app',
+      phone: '+237 06 88 55 44 33',
+      jobTitle: 'Directrice des opérations',
+      role: 'partner',
+      companyRole: 'partner',
+      tenantRole: 'partner',
+      status: 'active',
+      avatar: null,
+      createdAt: '2025-06-01T08:00:00.000Z',
+      updatedAt: '2026-08-15T08:00:00.000Z',
+    },
+    company: {
+      id: 'cmp_partner_navix',
+      name: 'Cameroon Logistics Partners',
+      slug: 'cameroon-logistics-partners',
+    },
+    tenant: {
+      id: 'ten_demo',
+      name: 'Navix',
+      slug: 'navix',
+    },
+  },
+];
 
 /* Durées de vie simulées (secondes) — prêtes pour l'expiration de session. */
 const ACCESS_TOKEN_TTL = 15 * 60;
 const REFRESH_TOKEN_TTL = 7 * 24 * 3600;
+
+/* Profil mutable (mise à jour de profil simulée) — utilisateur courant. */
+let currentMockUser = null;
 
 const createMockToken = (kind) =>
   `${kind}_${typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)}`;
@@ -66,7 +174,11 @@ export const authService = {
     if (apiConfig.mock) {
       await mockResponse(null, { latency: 900 });
 
-      if (email?.trim().toLowerCase() !== MOCK_CREDENTIALS.email || password !== MOCK_CREDENTIALS.password) {
+      const account = MOCK_ACCOUNTS.find(
+        (entry) => entry.email === email?.trim().toLowerCase() && entry.password === password,
+      );
+
+      if (!account) {
         throw new ApiError({
           status: 401,
           code: 'AUTH_INVALID_CREDENTIALS',
@@ -74,10 +186,12 @@ export const authService = {
         });
       }
 
+      currentMockUser = account.user;
+
       return {
-        user: MOCK_USER,
-        company: MOCK_COMPANY,
-        tenant: MOCK_TENANT,
+        user: account.user,
+        company: account.company,
+        tenant: account.tenant,
         tokens: {
           accessToken: createMockToken('access'),
           refreshToken: createMockToken('refresh'),
@@ -184,10 +298,227 @@ export const authService = {
         throw new ApiError({ status: 401, code: 'AUTH_NOT_AUTHENTICATED', message: 'Session non authentifiée.' });
       }
 
-      return { user: MOCK_USER };
+      return { user: currentMockUser ?? MOCK_ACCOUNTS[0].user };
     }
 
     const { data } = await apiClient.get(API_ENDPOINTS.AUTH.ME);
+    return data;
+  },
+
+  /**
+   * Inscription — client.
+   * @param {{ firstName, lastName, email, password, confirmPassword, companyName, sector, city, country }} payload
+   * @returns {Promise<{ user, company, tenant, tokens }>}
+   */
+  async registerClient(payload) {
+    if (apiConfig.mock) {
+      await mockResponse(null, { latency: 1000 });
+
+      if (payload.role && !PUBLIC_REGISTRATION_ROLES.includes(payload.role)) {
+        throw new ApiError({
+          status: 403,
+          code: 'AUTH_ROLE_RESTRICTED',
+          message: "Ce rôle ne peut pas être attribué via l'inscription publique.",
+        });
+      }
+
+      const existing = MOCK_ACCOUNTS.find(
+        (entry) => entry.email === payload.email?.trim().toLowerCase(),
+      );
+      if (existing) {
+        throw new ApiError({
+          status: 409,
+          code: 'AUTH_EMAIL_EXISTS',
+          message: 'Un compte existe déjà avec cette adresse email.',
+        });
+      }
+
+      const name = `${payload.firstName.trim()} ${payload.lastName.trim()}`;
+
+      return {
+        user: {
+          id: `usr_${Date.now()}`,
+          firstName: payload.firstName.trim(),
+          lastName: payload.lastName.trim(),
+          name,
+          email: payload.email.trim().toLowerCase(),
+          phone: '',
+          jobTitle: '',
+          role: 'client_enterprise',
+          companyRole: 'client_enterprise',
+          tenantRole: 'client_enterprise',
+          status: 'active',
+          avatar: null,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        company: {
+          id: `cmp_${Date.now()}`,
+          name: payload.companyName.trim(),
+          slug: payload.companyName.trim().toLowerCase().replace(/\s+/g, '-'),
+        },
+        tenant: { id: 'ten_demo', name: 'Navix', slug: 'navix' },
+        tokens: {
+          accessToken: createMockToken('access'),
+          refreshToken: createMockToken('refresh'),
+          expiresIn: ACCESS_TOKEN_TTL,
+          refreshExpiresIn: REFRESH_TOKEN_TTL,
+        },
+      };
+    }
+
+    const sanitized = { ...payload };
+    for (const field of PROFILE_PROTECTED_FIELDS) {
+      delete sanitized[field];
+    }
+    const { data } = await apiClient.post(API_ENDPOINTS.AUTH.REGISTER, {
+      ...sanitized,
+      role: 'client_enterprise',
+    });
+    return data;
+  },
+
+  /**
+   * Inscription — chauffeur.
+   * @param {{ firstName, lastName, email, password, confirmPassword, city, country }} payload
+   * @returns {Promise<{ user, company, tenant, tokens }>}
+   */
+  async registerDriver(payload) {
+    if (apiConfig.mock) {
+      await mockResponse(null, { latency: 1000 });
+
+      if (payload.role && !PUBLIC_REGISTRATION_ROLES.includes(payload.role)) {
+        throw new ApiError({
+          status: 403,
+          code: 'AUTH_ROLE_RESTRICTED',
+          message: "Ce rôle ne peut pas être attribué via l'inscription publique.",
+        });
+      }
+
+      const existing = MOCK_ACCOUNTS.find(
+        (entry) => entry.email === payload.email?.trim().toLowerCase(),
+      );
+      if (existing) {
+        throw new ApiError({
+          status: 409,
+          code: 'AUTH_EMAIL_EXISTS',
+          message: 'Un compte existe déjà avec cette adresse email.',
+        });
+      }
+
+      const name = `${payload.firstName.trim()} ${payload.lastName.trim()}`;
+
+      return {
+        user: {
+          id: `usr_${Date.now()}`,
+          firstName: payload.firstName.trim(),
+          lastName: payload.lastName.trim(),
+          name,
+          displayName: name,
+          email: payload.email.trim().toLowerCase(),
+          phone: '',
+          jobTitle: 'Chauffeur',
+          role: 'driver',
+          companyRole: 'driver',
+          tenantRole: 'driver',
+          status: 'active',
+          avatar: null,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        company: { id: `cmp_${Date.now()}`, name: 'Nouvelle entreprise', slug: 'nouvelle-entreprise' },
+        tenant: { id: 'ten_demo', name: 'Navix', slug: 'navix' },
+        tokens: {
+          accessToken: createMockToken('access'),
+          refreshToken: createMockToken('refresh'),
+          expiresIn: ACCESS_TOKEN_TTL,
+          refreshExpiresIn: REFRESH_TOKEN_TTL,
+        },
+      };
+    }
+
+    const sanitized = { ...payload };
+    for (const field of PROFILE_PROTECTED_FIELDS) {
+      delete sanitized[field];
+    }
+    const { data } = await apiClient.post(API_ENDPOINTS.AUTH.REGISTER, {
+      ...sanitized,
+      role: 'driver',
+    });
+    return data;
+  },
+
+  /**
+   * Inscription — partenaire (station).
+   * @param {{ firstName, lastName, email, password, confirmPassword, companyName, partnerType, city, country }} payload
+   * @returns {Promise<{ user, company, tenant, tokens }>}
+   */
+  async registerPartner(payload) {
+    if (apiConfig.mock) {
+      await mockResponse(null, { latency: 1000 });
+
+      if (payload.role && !PUBLIC_REGISTRATION_ROLES.includes(payload.role)) {
+        throw new ApiError({
+          status: 403,
+          code: 'AUTH_ROLE_RESTRICTED',
+          message: "Ce rôle ne peut pas être attribué via l'inscription publique.",
+        });
+      }
+
+      const existing = MOCK_ACCOUNTS.find(
+        (entry) => entry.email === payload.email?.trim().toLowerCase(),
+      );
+      if (existing) {
+        throw new ApiError({
+          status: 409,
+          code: 'AUTH_EMAIL_EXISTS',
+          message: 'Un compte existe déjà avec cette adresse email.',
+        });
+      }
+
+      const name = `${payload.firstName.trim()} ${payload.lastName.trim()}`;
+
+      return {
+        user: {
+          id: `usr_${Date.now()}`,
+          firstName: payload.firstName.trim(),
+          lastName: payload.lastName.trim(),
+          name,
+          displayName: name,
+          email: payload.email.trim().toLowerCase(),
+          phone: '',
+          jobTitle: 'Partenaire',
+          role: 'partner',
+          companyRole: 'partner',
+          tenantRole: 'partner',
+          status: 'active',
+          avatar: null,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        company: {
+          id: `cmp_${Date.now()}`,
+          name: payload.companyName.trim(),
+          slug: payload.companyName.trim().toLowerCase().replace(/\s+/g, '-'),
+        },
+        tenant: { id: 'ten_demo', name: 'Navix', slug: 'navix' },
+        tokens: {
+          accessToken: createMockToken('access'),
+          refreshToken: createMockToken('refresh'),
+          expiresIn: ACCESS_TOKEN_TTL,
+          refreshExpiresIn: REFRESH_TOKEN_TTL,
+        },
+      };
+    }
+
+    const sanitized = { ...payload };
+    for (const field of PROFILE_PROTECTED_FIELDS) {
+      delete sanitized[field];
+    }
+    const { data } = await apiClient.post(API_ENDPOINTS.AUTH.REGISTER, {
+      ...sanitized,
+      role: 'partner',
+    });
     return data;
   },
 
@@ -209,21 +540,27 @@ export const authService = {
         });
       }
 
-      const firstName = payload.firstName.trim();
-      const lastName = payload.lastName.trim();
+      const sanitized = { ...payload };
+      for (const field of PROFILE_PROTECTED_FIELDS) {
+        delete sanitized[field];
+      }
 
-      MOCK_USER = {
-        ...MOCK_USER,
+      const firstName = sanitized.firstName.trim();
+      const lastName = sanitized.lastName.trim();
+
+      const baseUser = currentMockUser ?? MOCK_ACCOUNTS[0].user;
+      currentMockUser = {
+        ...baseUser,
         firstName,
         lastName,
         name: `${firstName} ${lastName}`,
-        phone: payload.phone?.trim() || '',
-        jobTitle: payload.jobTitle?.trim() || '',
-        avatar: payload.avatar ?? MOCK_USER.avatar,
+        phone: sanitized.phone?.trim() || '',
+        jobTitle: sanitized.jobTitle?.trim() || '',
+        avatar: sanitized.avatar ?? baseUser.avatar,
         updatedAt: new Date().toISOString(),
       };
 
-      return { user: MOCK_USER };
+      return { user: currentMockUser };
     }
 
     const { data } = await apiClient.patch(API_ENDPOINTS.AUTH.ME, payload);

@@ -1,0 +1,63 @@
+.nv-btoggle {
+  display: inline-flex;
+  border-radius: var(--navix-radius-full);
+  background: var(--nv-bg-alt);
+  border: 1px solid var(--nv-border);
+  padding: 4px;
+}
+
+.nv-btoggle__btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-2) var(--navix-space-5);
+  font-size: var(--navix-font-size-base);
+  font-weight: var(--navix-font-weight-medium);
+  color: var(--nv-text-secondary);
+  background: transparent;
+  border: none;
+  border-radius: var(--navix-radius-full);
+  cursor: pointer;
+  transition:
+    color var(--nv-transition-card),
+    background-color var(--nv-transition-card),
+    box-shadow var(--nv-transition-card);
+}
+
+.nv-btoggle__btn:hover {
+  color: var(--nv-text);
+}
+
+.nv-btoggle__btn--active {
+  background: var(--nv-navy);
+  color: var(--nv-text-on-navy);
+  box-shadow: 0 2px 8px rgba(var(--nv-navy-rgb), 0.2);
+}
+
+.nv-btoggle__btn--active:hover {
+  color: var(--nv-text-on-navy);
+}
+
+.nv-btoggle__btn:focus-visible {
+  outline: var(--navix-focus-ring-width) solid rgba(var(--nv-orange-rgb), 0.45);
+  outline-offset: var(--navix-focus-ring-offset);
+}
+
+.nv-btoggle__save {
+  display: inline-flex;
+  padding: 2px 8px;
+  background: rgba(var(--nv-orange-rgb), 0.15);
+  color: var(--nv-orange);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-bold);
+  border-radius: var(--navix-radius-full);
+  line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+  .nv-btoggle__btn {
+    padding: var(--navix-space-2) var(--navix-space-3);
+    font-size: var(--navix-font-size-sm);
+  }
+}

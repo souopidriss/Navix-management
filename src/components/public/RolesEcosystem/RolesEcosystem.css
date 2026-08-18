@@ -1,0 +1,127 @@
+.nv-roles__diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--navix-space-5);
+  flex-wrap: wrap;
+  padding: var(--navix-space-6) var(--navix-space-4);
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-xl);
+  box-shadow: var(--nv-shadow-card);
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+.nv-roles__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-4) var(--navix-space-5);
+  background: var(--nv-navy);
+  color: var(--nv-text-on-navy);
+  border-radius: var(--navix-radius-xl);
+}
+
+.nv-roles__center-icon {
+  font-size: 1.5rem;
+}
+
+.nv-roles__center-name {
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-bold);
+  letter-spacing: var(--navix-letter-spacing-wide);
+}
+
+.nv-roles__branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--navix-space-3);
+}
+
+.nv-roles__node {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-3) var(--navix-space-4);
+  background: var(--nv-bg);
+  border: 2px solid var(--nv-border);
+  border-radius: var(--navix-radius-lg);
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-navy);
+  white-space: nowrap;
+}
+
+.nv-roles__node i {
+  font-size: 1rem;
+}
+
+.nv-roles__sub-branch {
+  padding-top: var(--navix-space-3);
+  border-top: 2px dashed var(--nv-border);
+}
+
+.nv-roles__node--sub {
+  font-size: var(--navix-font-size-caption);
+}
+
+.nv-roles__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--navix-space-4);
+}
+
+.nv-roles__card {
+  text-align: center;
+  padding: var(--navix-space-6) var(--navix-space-4);
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-xl);
+  box-shadow: var(--nv-shadow-card);
+  transition:
+    box-shadow var(--nv-transition-card),
+    transform var(--nv-transition-card),
+    border-color var(--nv-transition-card);
+}
+
+.nv-roles__card:hover {
+  box-shadow: var(--nv-shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.nv-roles__card-icon {
+  width: 3rem;
+  height: 3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--navix-radius-lg);
+  font-size: 1.25rem;
+  margin-bottom: var(--navix-space-3);
+}
+
+.nv-roles__card-title {
+  font-size: var(--navix-font-size-h5);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-navy);
+  margin: 0 0 var(--navix-space-2);
+}
+
+.nv-roles__card-desc {
+  font-size: var(--navix-font-size-sm);
+  color: var(--nv-text-secondary);
+  line-height: var(--navix-line-height-relaxed);
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .nv-roles__diagram {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-roles__card:hover { transform: none; }
+}

@@ -16,6 +16,12 @@
  *   - mechanic       : atelier (entretiens et maintenance)
  *   - accountant     : comptabilité et facturation
  *   - viewer         : consultation en lecture seule
+ *   - client_enterprise : espace client entreprise (flotte, exploitation,
+ *                         documents, rapports, finance fondations)
+ *   - client_individual : espace client particulier (demandes, trajets, factures)
+ *
+ * Espaces financiers : Super Admin, Client/Entreprise, Partenaire.
+ * Le Chauffeur ne reçoit aucune permission financière.
  */
 import { PERMISSIONS, WILDCARD } from './permissions';
 
@@ -31,6 +37,7 @@ export const ROLES = {
   VIEWER: 'viewer',
   CLIENT_ENTERPRISE: 'client_enterprise',
   CLIENT_INDIVIDUAL: 'client_individual',
+  PARTNER: 'partner',
 };
 
 /* Sous-ensembles réutilisables de permissions. */
@@ -264,12 +271,19 @@ export const ROLE_DEFINITIONS = [
   {
     key: ROLES.DRIVER,
     label: 'Chauffeur',
-    description: 'Consulte ses trajets, son véhicule et le carburant.',
+    description:
+      'Consulte et opère ses trajets (démarrage, pause, reprise, clôture), son véhicule, son carburant et ses entretiens, signale les incidents.',
     permissions: [
       PERMISSIONS.DASHBOARD_READ,
       PERMISSIONS.VEHICLES_READ,
       PERMISSIONS.TRIPS_READ,
+      PERMISSIONS.TRIPS_UPDATE,
       PERMISSIONS.FUEL_READ,
+      PERMISSIONS.MAINTENANCE_READ,
+      PERMISSIONS.INCIDENTS_READ,
+      PERMISSIONS.INCIDENTS_CREATE,
+      PERMISSIONS.FILES_READ,
+      PERMISSIONS.FILES_DOWNLOAD,
       ...NOTIFICATIONS_FULL,
       ...REPORTS_READ,
     ],
@@ -325,18 +339,50 @@ export const ROLE_DEFINITIONS = [
   {
     key: ROLES.CLIENT_ENTERPRISE,
     label: 'Client Entreprise',
-    description: 'Espace client entreprise : suivi des véhicules, demandes, trajets, factures et documents.',
+    description:
+      'Espace client entreprise : tableau de bord, flotte (véhicules, chauffeurs, affectations), exploitation (trajets, maintenance, carburant), documents, rapports, notifications, profil et fondations financières (fonds & transactions) de son entreprise.',
     permissions: [
       PERMISSIONS.CLIENT_DASHBOARD_READ,
       PERMISSIONS.CLIENT_SERVICES_READ,
       PERMISSIONS.CLIENT_VEHICLES_READ,
+      PERMISSIONS.CLIENT_VEHICLES_CREATE,
+      PERMISSIONS.CLIENT_VEHICLES_UPDATE,
+      PERMISSIONS.CLIENT_VEHICLES_DELETE,
+      PERMISSIONS.CLIENT_DRIVERS_READ,
+      PERMISSIONS.CLIENT_DRIVERS_CREATE,
+      PERMISSIONS.CLIENT_DRIVERS_UPDATE,
+      PERMISSIONS.CLIENT_DRIVERS_DELETE,
+      PERMISSIONS.CLIENT_ASSIGNMENTS_READ,
+      PERMISSIONS.CLIENT_ASSIGNMENTS_CREATE,
+      PERMISSIONS.CLIENT_ASSIGNMENTS_UPDATE,
+      PERMISSIONS.CLIENT_ASSIGNMENTS_DELETE,
       PERMISSIONS.CLIENT_REQUESTS_READ,
       PERMISSIONS.CLIENT_REQUESTS_CREATE,
       PERMISSIONS.CLIENT_TRIPS_READ,
+      PERMISSIONS.CLIENT_TRIPS_CREATE,
+      PERMISSIONS.CLIENT_TRIPS_UPDATE,
+      PERMISSIONS.CLIENT_TRIPS_DELETE,
+      PERMISSIONS.CLIENT_MAINTENANCE_READ,
+      PERMISSIONS.CLIENT_MAINTENANCE_CREATE,
+      PERMISSIONS.CLIENT_MAINTENANCE_UPDATE,
+      PERMISSIONS.CLIENT_MAINTENANCE_DELETE,
+      PERMISSIONS.CLIENT_FUEL_READ,
+      PERMISSIONS.CLIENT_FUEL_CREATE,
+      PERMISSIONS.CLIENT_FUEL_UPDATE,
+      PERMISSIONS.CLIENT_FUEL_DELETE,
       PERMISSIONS.CLIENT_DOCUMENTS_READ,
+      PERMISSIONS.CLIENT_DOCUMENTS_CREATE,
+      PERMISSIONS.CLIENT_DOCUMENTS_UPDATE,
+      PERMISSIONS.CLIENT_DOCUMENTS_DELETE,
       PERMISSIONS.CLIENT_INVOICES_READ,
+      PERMISSIONS.CLIENT_REPORTS_READ,
       PERMISSIONS.CLIENT_PROFILE_READ,
       PERMISSIONS.CLIENT_PROFILE_UPDATE,
+      PERMISSIONS.CLIENT_FINANCE_READ,
+      PERMISSIONS.CLIENT_FINANCE_CREATE,
+      PERMISSIONS.CLIENT_FINANCE_WALLET_DEPOSIT,
+      PERMISSIONS.CLIENT_FINANCE_WALLET_WITHDRAW,
+      PERMISSIONS.CLIENT_FINANCE_WALLET_TRANSFER,
       ...NOTIFICATIONS_FULL,
     ],
   },
@@ -355,6 +401,54 @@ export const ROLE_DEFINITIONS = [
       PERMISSIONS.CLIENT_PROFILE_READ,
       PERMISSIONS.CLIENT_PROFILE_UPDATE,
       ...NOTIFICATIONS_FULL,
+    ],
+  },
+  {
+    key: ROLES.PARTNER,
+    label: 'Partenaire',
+    description:
+      'Espace Partenaire Premium : tableau de bord, flotte partenaire (véhicules, missions, clients), documents, notifications, profil et finances FCFA (fonds & transactions) de son entreprise partenaire.',
+    permissions: [
+      PERMISSIONS.PARTNER_DASHBOARD_READ,
+      PERMISSIONS.PARTNER_VEHICLES_READ,
+      PERMISSIONS.PARTNER_VEHICLES_CREATE,
+      PERMISSIONS.PARTNER_VEHICLES_UPDATE,
+      PERMISSIONS.PARTNER_VEHICLES_DELETE,
+      PERMISSIONS.PARTNER_VEHICLES_ASSIGN,
+      PERMISSIONS.PARTNER_MISSIONS_READ,
+      PERMISSIONS.PARTNER_MISSIONS_CREATE,
+      PERMISSIONS.PARTNER_MISSIONS_UPDATE,
+      PERMISSIONS.PARTNER_MISSIONS_DELETE,
+      PERMISSIONS.PARTNER_CLIENTS_READ,
+      PERMISSIONS.PARTNER_CLIENTS_CREATE,
+      PERMISSIONS.PARTNER_CLIENTS_UPDATE,
+      PERMISSIONS.PARTNER_CLIENTS_ARCHIVE,
+      PERMISSIONS.PARTNER_DOCUMENTS_READ,
+      PERMISSIONS.PARTNER_DOCUMENTS_CREATE,
+      PERMISSIONS.PARTNER_DOCUMENTS_UPDATE,
+      PERMISSIONS.PARTNER_DOCUMENTS_DELETE,
+      PERMISSIONS.PARTNER_PROFILE_READ,
+      PERMISSIONS.PARTNER_PROFILE_UPDATE,
+      PERMISSIONS.PARTNER_FINANCE_READ,
+      PERMISSIONS.PARTNER_FINANCE_CREATE,
+      PERMISSIONS.PARTNER_REQUESTS_READ,
+      PERMISSIONS.PARTNER_REQUESTS_UPDATE,
+      PERMISSIONS.PARTNER_CONTRACTS_READ,
+      PERMISSIONS.PARTNER_CONTRACTS_CREATE,
+      PERMISSIONS.PARTNER_CONTRACTS_UPDATE,
+      PERMISSIONS.PARTNER_ALERTS_READ,
+      PERMISSIONS.PARTNER_ALERTS_UPDATE,
+      PERMISSIONS.PARTNER_CALENDAR_READ,
+      PERMISSIONS.PARTNER_ANALYTICS_READ,
+      PERMISSIONS.PARTNER_SUPPORT_READ,
+      PERMISSIONS.PARTNER_SUPPORT_CREATE,
+      PERMISSIONS.PARTNER_SUPPORT_REPLY,
+      PERMISSIONS.PARTNER_FINANCE_WALLET_DEPOSIT,
+      PERMISSIONS.PARTNER_FINANCE_WALLET_WITHDRAW,
+      PERMISSIONS.PARTNER_FINANCE_WALLET_TRANSFER,
+      PERMISSIONS.NOTIFICATIONS_VIEW,
+      PERMISSIONS.NOTIFICATIONS_READ,
+      PERMISSIONS.NOTIFICATIONS_PREFERENCES,
     ],
   },
 ];

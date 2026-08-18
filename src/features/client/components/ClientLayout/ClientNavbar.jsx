@@ -6,14 +6,24 @@
  */
 import { Link } from 'react-router-dom';
 import { ROUTES } from '@/routes/route.constants';
+import { ROLE_DEFINITIONS } from '@/features/rbac/constants';
+import { useAuthStore } from '@/features/auth';
 import ThemeSwitcher from '@/components/layout/Navbar/ThemeSwitcher';
 import NotificationDropdown from '@/components/layout/Navbar/NotificationDropdown';
 import UserDropdown from '@/components/layout/Navbar/UserDropdown';
 import ClientTypeSwitcher from './ClientTypeSwitcher';
 import { useClientStore } from '../../store/client.store';
+import { useClientContext } from '../../hooks/useClientContext';
+import { CLIENT_TYPE_LABELS } from '../../constants/client.constants';
 
 const ClientNavbar = ({ onMenuClick }) => {
   const clientType = useClientStore((state) => state.clientType);
+  const currentRole = useAuthStore((state) => state.currentRole);
+  const { companyName } = useClientContext();
+
+  const roleLabel =
+    ROLE_DEFINITIONS.find((definition) => definition.key === currentRole)?.label ??
+    'Client';
 
   return (
     <header className="navix-topbar">
@@ -45,6 +55,20 @@ const ClientNavbar = ({ onMenuClick }) => {
       </form>
 
       <div className="navix-topbar__actions ms-auto d-flex align-items-center gap-2">
+        {/* Identité Entreprise + Rôle */}
+        <div
+          className="d-none d-xl-flex flex-column align-items-end lh-1 me-1"
+          title="Entreprise et rôle de la session"
+        >
+          <span className="small fw-semibold text-body-emphasis text-truncate" style={{ maxWidth: '220px' }}>
+            <i className="bi bi-buildings me-1 text-primary" aria-hidden="true" />
+            {companyName || 'Votre Entreprise'}
+          </span>
+          <small className="text-muted">
+            {roleLabel} · {CLIENT_TYPE_LABELS[clientType] ?? 'Client'}
+          </small>
+        </div>
+
         {/* Switcher Entreprise / Particulier */}
         <ClientTypeSwitcher className="me-1" />
 

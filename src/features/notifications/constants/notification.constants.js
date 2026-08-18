@@ -29,6 +29,7 @@ import {
   subscriptionDetailPath,
   invoiceDetailPath,
   paymentDetailPath,
+  transactionDetailPath,
 } from '@/routes/route.constants';
 
 /* --------------------------------------------------------------------------
@@ -50,6 +51,8 @@ export const NOTIFICATION_TYPES = {
   security: { label: 'Sécurité', variant: 'danger', icon: 'bi-shield-lock' },
   audit: { label: 'Audit', variant: 'secondary', icon: 'bi-journal-check' },
   report: { label: 'Rapport', variant: 'secondary', icon: 'bi-file-earmark-bar-graph' },
+  incident: { label: 'Incident', variant: 'danger', icon: 'bi-shield-exclamation' },
+  finance: { label: 'Finance', variant: 'success', icon: 'bi-wallet2' },
 };
 
 export const NOTIFICATION_TYPE_VALUES = Object.keys(NOTIFICATION_TYPES);
@@ -205,6 +208,34 @@ export const NOTIFICATION_KINDS = {
     severity: 'medium',
     icon: 'bi-x-circle',
   },
+  trip_started: {
+    label: 'Trajet démarré',
+    type: 'trip',
+    category: 'success',
+    severity: 'low',
+    icon: 'bi-play-circle',
+  },
+  trip_paused: {
+    label: 'Trajet en pause',
+    type: 'trip',
+    category: 'warning',
+    severity: 'medium',
+    icon: 'bi-pause-circle',
+  },
+  trip_resumed: {
+    label: 'Trajet repris',
+    type: 'trip',
+    category: 'info',
+    severity: 'low',
+    icon: 'bi-play-circle-fill',
+  },
+  incident_reported: {
+    label: 'Incident signalé',
+    type: 'incident',
+    category: 'danger',
+    severity: 'high',
+    icon: 'bi-flag',
+  },
   payment_success: {
     label: 'Paiement réussi',
     type: 'billing',
@@ -218,6 +249,48 @@ export const NOTIFICATION_KINDS = {
     category: 'danger',
     severity: 'high',
     icon: 'bi-cash',
+  },
+  finance_deposit: {
+    label: 'Dépôt effectué',
+    type: 'finance',
+    category: 'success',
+    severity: 'low',
+    icon: 'bi-arrow-down-circle-fill',
+  },
+  finance_withdrawal: {
+    label: 'Retrait effectué',
+    type: 'finance',
+    category: 'success',
+    severity: 'low',
+    icon: 'bi-arrow-up-circle-fill',
+  },
+  finance_transfer: {
+    label: 'Transfert effectué',
+    type: 'finance',
+    category: 'success',
+    severity: 'low',
+    icon: 'bi-arrow-left-right',
+  },
+  finance_payment: {
+    label: 'Transaction sortante effectuée',
+    type: 'finance',
+    category: 'success',
+    severity: 'low',
+    icon: 'bi-cash-coin',
+  },
+  finance_refund: {
+    label: 'Transaction annulée / remboursée',
+    type: 'finance',
+    category: 'success',
+    severity: 'low',
+    icon: 'bi-arrow-counterclockwise',
+  },
+  finance_insufficient: {
+    label: 'Solde insuffisant',
+    type: 'finance',
+    category: 'danger',
+    severity: 'high',
+    icon: 'bi-exclamation-octagon',
   },
   invoice_overdue: {
     label: 'Facture en retard',
@@ -535,6 +608,7 @@ const RESOURCE_ROUTES = {
   subscription: subscriptionDetailPath,
   invoice: invoiceDetailPath,
   payment: paymentDetailPath,
+  transaction: transactionDetailPath,
 };
 
 export const RESOURCE_TYPES = Object.keys(RESOURCE_ROUTES);

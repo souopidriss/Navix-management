@@ -16,6 +16,7 @@ export {
   DEFAULT_PAGE_SIZE,
   PAGE_SIZE_OPTIONS,
   MIN_VEHICLE_YEAR,
+  normalizeRegistrationNumber,
   getVehicleStatus,
   getVehicleGroup,
   getGroupCategories,

@@ -7,13 +7,13 @@
 /* ─── KPI GRID ───────────────────────────────────────────────────────────── */
 .navix-client-kpi-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
 
 @media (max-width: 1280px) {
   .navix-client-kpi-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -27,6 +27,37 @@
   .navix-client-kpi-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Variante 5 colonnes (Dashboard Partenaire — PROMPT 062).
+   Déclarée après la grille de base : cascade sur les breakpoints. */
+.navix-client-kpi-grid--5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+@media (max-width: 1199.98px) {
+  .navix-client-kpi-grid--5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767.98px) {
+  .navix-client-kpi-grid--5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .navix-client-kpi-grid--5 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mini-sparkline dans la carte KPI */
+.navix-client-kpi-card__sparkline {
+  margin: 0.125rem 0 0.625rem;
+  min-height: 34px;
+  opacity: 0.85;
 }
 
 /* ─── KPI CARD ───────────────────────────────────────────────────────────── */
@@ -263,6 +294,206 @@
   color: var(--navix-primary);
   font-size: 0.875rem;
   flex-shrink: 0;
+}
+
+/* ─── TRIPS LIST ─────────────────────────────────────────────────────────── */
+.navix-client-trips {
+  display: flex;
+  flex-direction: column;
+}
+
+.navix-client-trip {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--navix-border-color-subtle);
+}
+
+.navix-client-trip:first-child {
+  padding-top: 0;
+}
+
+.navix-client-trip:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.navix-client-trip__vehicle {
+  font-weight: 600;
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-primary);
+}
+
+.navix-client-trip__route {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.25rem 0;
+}
+
+.navix-client-trip__city {
+  font-size: var(--navix-font-size-sm);
+  font-weight: 600;
+  color: var(--navix-text-secondary);
+}
+
+.navix-client-trip__track {
+  color: var(--navix-primary);
+  font-size: 0.75rem;
+}
+
+/* ─── MAINTENANCE ────────────────────────────────────────────────────────── */
+.navix-client-maint__next {
+  background: var(--navix-primary-muted);
+  border: 1px solid var(--navix-border-color-subtle);
+  border-radius: var(--navix-radius-lg);
+  padding: 0.875rem;
+}
+
+.navix-client-maint__progress {
+  height: 0.5rem;
+  border-radius: var(--navix-radius-full);
+  background: var(--navix-border-color-subtle);
+}
+
+.navix-client-maint__counts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.navix-client-maint__count {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  padding: 0.75rem;
+  background: var(--navix-surface);
+  border: 1px solid var(--navix-border-color-subtle);
+  border-radius: var(--navix-radius-md);
+}
+
+/* ─── ALERTS ─────────────────────────────────────────────────────────────── */
+.navix-client-alerts {
+  display: flex;
+  flex-direction: column;
+}
+
+.navix-client-alert {
+  padding: 0.75rem;
+  margin-bottom: 0.625rem;
+  border: 1px solid var(--navix-border-color-subtle);
+  border-left-width: 3px;
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-surface);
+}
+
+.navix-client-alert:last-child {
+  margin-bottom: 0;
+}
+
+.navix-client-alert--critical {
+  border-left-color: var(--navix-danger);
+}
+
+.navix-client-alert--warning {
+  border-left-color: var(--navix-warning);
+}
+
+.navix-client-alert--info {
+  border-left-color: var(--navix-info);
+}
+
+.navix-client-alert__title {
+  font-weight: 600;
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-primary);
+}
+
+.navix-client-alert__description {
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-muted);
+  line-height: 1.45;
+}
+
+.navix-client-alert__date {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: var(--navix-font-size-xs);
+  color: var(--navix-text-muted);
+}
+
+/* ─── FLEET CATEGORIES ───────────────────────────────────────────────────── */
+.navix-client-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.navix-client-category__count {
+  font-weight: 700;
+  color: var(--navix-text-primary);
+  font-size: var(--navix-font-size-sm);
+}
+
+.navix-client-category__progress {
+  height: 0.5rem;
+  margin-top: 0.3rem;
+  border-radius: var(--navix-radius-full);
+  background: var(--navix-border-color-subtle);
+}
+
+/* ─── FINANCE SUMMARY ────────────────────────────────────────────────────── */
+.navix-client-finance {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.navix-client-finance__row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  background: var(--navix-surface);
+  border: 1px solid var(--navix-border-color-subtle);
+  border-radius: var(--navix-radius-md);
+}
+
+.navix-client-finance__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--navix-radius-md);
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.navix-client-finance__icon--success {
+  background: rgba(63, 203, 143, 0.12);
+  color: var(--navix-success);
+}
+
+.navix-client-finance__icon--primary {
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+}
+
+.navix-client-finance__icon--danger {
+  background: rgba(240, 72, 77, 0.12);
+  color: var(--navix-danger);
+}
+
+.navix-client-finance__label {
+  flex: 1;
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-muted);
+}
+
+.navix-client-finance__value {
+  font-weight: 700;
+  color: var(--navix-text-primary);
+  font-size: var(--navix-font-size-sm);
 }
 
 /* ─── SECTION DIVIDERS ───────────────────────────────────────────────────── */

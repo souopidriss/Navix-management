@@ -1,0 +1,81 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   Partner Portal — Finance Styles
+   Actions, evolution chart and related finance UI for PartnerFinance section.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Actions rapides ─────────────────────────────────────────────────────── */
+
+.navix-client-finance__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ── Évolution (revenus bruts / commissions / nets) ──────────────────────── */
+
+.navix-client-finance__evolution {
+  height: 13.5rem;
+  margin-top: 1rem;
+}
+
+.navix-client-finance__evolution-bars {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+  height: 100%;
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--navix-text-muted, #6c757d) 16%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 100% 20%;
+  animation: navix-chart-in 520ms var(--navix-ease-out) both;
+}
+
+.navix-client-finance__evolution-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.25rem;
+  height: 100%;
+}
+
+.navix-client-finance__evolution-group {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.2rem;
+  width: 100%;
+  max-width: 3.25rem;
+  min-height: 8px;
+}
+
+.navix-client-finance__bar {
+  width: 30%;
+  max-width: 0.7rem;
+  min-height: 4px;
+  border-radius: 0.25rem 0.25rem 0 0;
+  transition: filter var(--navix-transition-fast, 140ms) var(--navix-ease-out), opacity var(--navix-transition-fast, 140ms) ease;
+}
+
+.navix-client-finance__bar--in {
+  background: linear-gradient(180deg, var(--bs-success), color-mix(in srgb, var(--bs-success) 55%, transparent));
+  box-shadow: 0 8px 18px -8px rgba(63, 203, 143, 0.5);
+}
+
+.navix-client-finance__bar--out {
+  background: linear-gradient(180deg, var(--bs-danger), color-mix(in srgb, var(--bs-danger) 55%, transparent));
+  box-shadow: 0 8px 18px -8px rgba(240, 101, 149, 0.5);
+}
+
+.navix-client-finance__bar--solde {
+  background: linear-gradient(180deg, var(--bs-info), color-mix(in srgb, var(--bs-info) 55%, transparent));
+  box-shadow: 0 8px 18px -8px rgba(77, 163, 255, 0.5);
+}
+
+.navix-client-finance__evolution-col:hover .navix-client-finance__bar {
+  filter: brightness(1.14);
+}

@@ -1,0 +1,55 @@
+.nv-reports-mock {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nv-reports-mock__row {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  padding: var(--navix-space-2) var(--navix-space-3);
+  border-radius: var(--navix-radius-sm);
+  font-size: 0.7rem;
+  transition: background var(--nv-transition-card);
+}
+
+.nv-reports-mock__row:nth-child(odd) { background: var(--nv-bg-alt); }
+.nv-reports-mock__row:hover { background: rgba(var(--nv-blue-light-rgb), 0.05); }
+
+.nv-reports-mock__icon {
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  width: 1.5rem;
+  text-align: center;
+}
+
+.nv-reports-mock__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.nv-reports-mock__label {
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-navy);
+}
+
+.nv-reports-mock__desc {
+  font-size: 0.6rem;
+  color: var(--nv-text-secondary);
+}
+
+.nv-reports-mock__export {
+  color: var(--nv-text-secondary);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: color var(--nv-transition-card);
+}
+
+.nv-reports-mock__export:hover { color: var(--nv-orange); }
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-reports-mock__row { transition: none; }
+}

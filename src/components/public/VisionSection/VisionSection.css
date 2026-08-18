@@ -1,0 +1,106 @@
+.nv-vision {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.nv-vision__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-4);
+}
+
+.nv-vision__accent {
+  color: var(--nv-orange);
+}
+
+.nv-vision__subtitle {
+  max-width: 36rem;
+}
+
+.nv-vision__visual {
+  display: flex;
+  justify-content: center;
+}
+
+.nv-vision__mockup {
+  width: 100%;
+  max-width: 30rem;
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--nv-shadow-card);
+}
+
+.nv-vision__mockup-bar {
+  display: flex;
+  gap: 6px;
+  padding: var(--navix-space-3) var(--navix-space-4);
+  background: var(--nv-bg-alt);
+  border-bottom: 1px solid var(--nv-border);
+}
+
+.nv-vision__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.nv-vision__dot--red { background: var(--nv-dot-red); }
+.nv-vision__dot--yellow { background: var(--nv-dot-yellow); }
+.nv-vision__dot--green { background: var(--nv-dot-green); }
+
+.nv-vision__mockup-body {
+  padding: var(--navix-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-5);
+}
+
+.nv-vision__mockup-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--navix-space-4);
+}
+
+.nv-vision__mockup-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-1);
+  padding: var(--navix-space-4);
+  background: var(--nv-bg-alt);
+  border-radius: var(--navix-radius-md);
+}
+
+.nv-vision__mockup-label {
+  font-size: var(--navix-font-size-caption);
+  color: var(--nv-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--navix-letter-spacing-wide);
+}
+
+.nv-vision__mockup-value {
+  font-size: var(--navix-font-size-h4);
+  font-weight: var(--navix-font-weight-bold);
+  color: var(--nv-navy);
+}
+
+.nv-vision__mockup-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-2);
+}
+
+.nv-vision__mockup-bar-fill {
+  height: 8px;
+  border-radius: var(--navix-radius-full);
+  background: linear-gradient(90deg, var(--nv-navy), var(--nv-blue-light));
+}
+
+@media (min-width: 992px) {
+  .nv-vision {
+    grid-template-columns: 1fr 1fr;
+  }
+}

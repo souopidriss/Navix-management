@@ -1,10 +1,19 @@
 /**
  * Navix Client Dashboard — ClientKpiCards
  * --------------------------------------------------------------------------
- * Rangée de cartes KPI premium pour le Dashboard Client.
- * Adaptée selon clientType (Entreprise vs Particulier).
- * Réutilise les tokens CSS du design system Navix.
+ * Rangée(s) de cartes KPI premium pour le Dashboard Client / Partenaire.
+ * Prend en charge deux rangées (KPI principaux + KPI exploitation du mois)
+ * via la prop `groups`. Réutilise les tokens CSS du design system Navix.
+ *
+ * PROMPT 062 : enrichissement additif — si un KPI porte `sparkline`
+ * (nombre[]), une mini-courbe (Sparkline du module Reports) est rendue dans
+ * la carte. La prop `columns` (4 par défaut, 5 pour le Dashboard Partenaire)
+ * pilote le nombre de colonnes sur desktop.
+ *
+ * Sémantique de tendance : une hausse (trend > 0) est positive (verte),
+ * une baisse (trend < 0) est négative (rouge).
  */
+import Sparkline from '@/features/reports/components/charts/Sparkline';
 import './ClientDashboard.css';
 
 const TrendIcon = ({ trend }) => {
@@ -32,10 +41,10 @@ const VARIANT_COLOR = {
 };
 
 const ClientKpiCard = ({ metric }) => {
-  const { label, value, trend, trendLabel, icon, variant } = metric;
+  const { label, value, trend, trendLabel, icon, variant, sparkline } = metric;
   const color = VARIANT_COLOR[variant] || VARIANT_COLOR.primary;
   const iconBg = VARIANT_ICON_BG[variant] || VARIANT_ICON_BG.primary;
-  const trendPositive = trend <= 0;
+  const isPositive = Number(trend) > 0;
 
   return (
     <div className="navix-client-kpi-card" aria-label={`KPI : ${label}`}>
@@ -48,11 +57,17 @@ const ClientKpiCard = ({ metric }) => {
 
       <div className="navix-client-kpi-card__value">{value}</div>
 
+      {Array.isArray(sparkline) && sparkline.length > 0 && (
+        <div className="navix-client-kpi-card__sparkline">
+          <Sparkline values={sparkline} variant={variant} height={34} title={`Tendance — ${label}`} />
+        </div>
+      )}
+
       {trendLabel && (
         <div
-          className={`navix-client-kpi-card__trend ${trendPositive ? 'navix-client-kpi-card__trend--up' : 'navix-client-kpi-card__trend--down'}`}
+          className={`navix-client-kpi-card__trend ${isPositive ? 'navix-client-kpi-card__trend--up' : 'navix-client-kpi-card__trend--down'}`}
         >
-          <TrendIcon trend={trend} />
+          <TrendIcon trend={Number(trend)} />
           <span>{trendLabel}</span>
         </div>
       )}
@@ -63,30 +78,57 @@ const ClientKpiCard = ({ metric }) => {
   );
 };
 
-const ClientKpiCards = ({ metrics = [], loading = false }) => {
+const KpiGridSkeleton = ({ columns = 4 }) => (
+  <div className={`navix-client-kpi-grid ${columns === 5 ? 'navix-client-kpi-grid--5' : ''}`}>
+    {Array.from({ length: columns }).map((_, i) => (
+      <div key={i} className="navix-client-kpi-card navix-client-kpi-card--skeleton">
+        <div className="placeholder-glow">
+          <div className="placeholder col-12 rounded mb-2" style={{ height: 20 }} />
+          <div className="placeholder col-8 rounded mb-1" style={{ height: 32 }} />
+          <div className="placeholder col-6 rounded" style={{ height: 14 }} />
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
+/**
+ * @param {Array<{ title?: string, metrics: Array }>} groups
+ * @param {Array} metrics
+ * @param {boolean} loading
+ * @param {number} columns - nombre de colonnes sur desktop (4 | 5)
+ */
+const ClientKpiCards = ({ groups = [], metrics = [], loading = false, columns = 4 }) => {
   if (loading) {
     return (
-      <div className="navix-client-kpi-grid">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="navix-client-kpi-card navix-client-kpi-card--skeleton">
-            <div className="placeholder-glow">
-              <div className="placeholder col-12 rounded mb-2" style={{ height: 20 }} />
-              <div className="placeholder col-8 rounded mb-1" style={{ height: 32 }} />
-              <div className="placeholder col-6 rounded" style={{ height: 14 }} />
-            </div>
+      <>
+        <KpiGridSkeleton columns={columns} />
+        {groups.length > 1 && (
+          <div className="mt-3">
+            <KpiGridSkeleton columns={columns} />
           </div>
-        ))}
-      </div>
+        )}
+      </>
     );
   }
 
-  return (
-    <div className="navix-client-kpi-grid">
-      {metrics.map((metric) => (
-        <ClientKpiCard key={metric.key} metric={metric} />
-      ))}
-    </div>
-  );
+  // Compatibilité : usage simple `metrics` → un seul groupe sans titre.
+  const normalizedGroups = groups.length > 0 ? groups : metrics.length > 0 ? [{ metrics }] : [];
+
+  return normalizedGroups.map((group, index) => (
+    <section key={group.title || `kpi-group-${index}`} className="mb-4 navix-client-animate">
+      {group.title && (
+        <div className="navix-client-section-title" aria-hidden="true">
+          <span>{group.title}</span>
+        </div>
+      )}
+      <div className={`navix-client-kpi-grid ${columns === 5 ? 'navix-client-kpi-grid--5' : ''}`}>
+        {group.metrics.map((metric) => (
+          <ClientKpiCard key={metric.key} metric={metric} />
+        ))}
+      </div>
+    </section>
+  ));
 };
 
 export default ClientKpiCards;

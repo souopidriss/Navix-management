@@ -21,7 +21,7 @@
  */
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { STORAGE_KEYS } from '@/config';
+import { STORAGE_KEYS, STORAGE_VERSION } from '@/config';
 import { useRbacStore } from '@/features/rbac';
 import { authService } from '@/services/api';
 
@@ -41,10 +41,22 @@ const initialSession = {
 
 const toErrorMessage = (error, fallback) => error?.message || fallback;
 
+/** Synchronise le store RBAC depuis l'utilisateur courant (DRY). */
+const syncRbacFromUser = (user) => {
+  if (!user) return;
+  const role = user.role;
+  useRbacStore.getState().setCurrentRole(role);
+  useRbacStore.getState().setCompanyRole(user.companyRole ?? role);
+  useRbacStore.getState().setTenantRole(user.tenantRole ?? role);
+};
+
 const useAuthStore = create(
   persist(
     (set, get) => ({
       ...initialSession,
+
+      /** true une fois que le persist a terminé sa réhydratation. */
+      isHydrated: false,
 
       /**
        * Connexion — appelle authService.login puis enregistre la session.
@@ -56,9 +68,12 @@ const useAuthStore = create(
         try {
           const { user, company, tenant, tokens } = await authService.login(credentials);
 
-          useRbacStore.getState().setCurrentRole(user.role);
-          useRbacStore.getState().setCompanyRole(user.companyRole ?? user.role);
-          useRbacStore.getState().setTenantRole(user.tenantRole ?? user.role);
+          syncRbacFromUser(user);
+
+          const preState = useAuthStore.getState();
+          if (import.meta.env.DEV) {
+            console.info('[AUTH][login] about to set isAuthenticated=true', { wasHydrated: preState.isHydrated, wasAuthenticated: preState.isAuthenticated, role: user.role });
+          }
 
           set({
             user,
@@ -73,6 +88,12 @@ const useAuthStore = create(
             isLoading: false,
             error: null,
           });
+
+          if (import.meta.env.DEV) {
+            const postState = useAuthStore.getState();
+            console.info('[AUTH][login] state after set', { isHydrated: postState.isHydrated, isAuthenticated: postState.isAuthenticated, currentRole: postState.currentRole });
+          }
+
           return { success: true };
         } catch (error) {
           const message = toErrorMessage(error, 'Une erreur est survenue. Veuillez réessayer.');
@@ -94,7 +115,7 @@ const useAuthStore = create(
           /* La déconnexion locale doit toujours aboutir. */
         } finally {
           useRbacStore.getState().reset();
-          set({ ...initialSession });
+          set({ ...initialSession, isHydrated: true });
         }
 
         return { success: true };
@@ -113,13 +134,10 @@ const useAuthStore = create(
           return { authenticated: false };
         }
 
-        const role = user.role;
-        useRbacStore.getState().setCurrentRole(role);
-        useRbacStore.getState().setCompanyRole(user.companyRole ?? role);
-        useRbacStore.getState().setTenantRole(user.tenantRole ?? role);
+        syncRbacFromUser(user);
 
         set({
-          currentRole: role,
+          currentRole: user.role,
           isAuthenticated: true,
           status: 'authenticated',
           isLoading: false,
@@ -127,6 +145,51 @@ const useAuthStore = create(
         });
 
         return { authenticated: true };
+      },
+
+      /**
+       * Inscription — appelle authService.register{Role} puis enregistre la session.
+       * @param {'client'|'driver'|'partner'} roleType
+       * @param {object} payload
+       * @returns {Promise<{ success: boolean, error?: string }>}
+       */
+      register: async (roleType, payload) => {
+        set({ isLoading: true, error: null });
+
+        try {
+          const registerFn = {
+            client: authService.registerClient,
+            driver: authService.registerDriver,
+            partner: authService.registerPartner,
+          }[roleType];
+
+          if (!registerFn) {
+            throw new Error('Type de compte invalide.');
+          }
+
+          const { user, company, tenant, tokens } = await registerFn(payload);
+
+          syncRbacFromUser(user);
+
+          set({
+            user,
+            company,
+            tenant,
+            accessToken: tokens.accessToken,
+            refreshToken: tokens.refreshToken,
+            currentRole: user.role,
+            loginAt: new Date().toISOString(),
+            isAuthenticated: true,
+            status: 'authenticated',
+            isLoading: false,
+            error: null,
+          });
+          return { success: true };
+        } catch (error) {
+          const message = toErrorMessage(error, "Une erreur est survenue lors de l'inscription.");
+          set({ isLoading: false, error: message });
+          return { success: false, error: message };
+        }
       },
 
       /**
@@ -196,9 +259,7 @@ const useAuthStore = create(
           const { user } = await authService.me(accessToken);
 
           if (user?.role && user.role !== get().currentRole) {
-            useRbacStore.getState().setCurrentRole(user.role);
-            useRbacStore.getState().setCompanyRole(user.companyRole ?? user.role);
-            useRbacStore.getState().setTenantRole(user.tenantRole ?? user.role);
+            syncRbacFromUser(user);
             set({ currentRole: user.role });
           }
 
@@ -226,9 +287,7 @@ const useAuthStore = create(
           const { user } = await authService.updateProfile(payload);
 
           if (user?.role && user.role !== get().currentRole) {
-            useRbacStore.getState().setCurrentRole(user.role);
-            useRbacStore.getState().setCompanyRole(user.companyRole ?? user.role);
-            useRbacStore.getState().setTenantRole(user.tenantRole ?? user.role);
+            syncRbacFromUser(user);
             set({ currentRole: user.role });
           }
 
@@ -246,6 +305,13 @@ const useAuthStore = create(
     }),
     {
       name: STORAGE_KEYS.AUTH,
+      version: STORAGE_VERSION,
+      migrate: (persisted, version) => {
+        if (version !== STORAGE_VERSION) {
+          return undefined;
+        }
+        return persisted;
+      },
       partialize: (state) => ({
         user: state.user,
         company: state.company,
@@ -254,15 +320,33 @@ const useAuthStore = create(
         refreshToken: state.refreshToken,
         loginAt: state.loginAt,
       }),
-      merge: (persisted, current) => ({
-        ...current,
-        ...persisted,
-        currentRole: persisted?.user?.role ?? null,
-        isAuthenticated: Boolean(persisted?.accessToken && persisted?.user),
-        status: persisted?.accessToken && persisted?.user ? 'authenticated' : 'unauthenticated',
-        isLoading: false,
-        error: null,
-      }),
+      merge: (persisted, current) => {
+        const merged = {
+          ...current,
+          ...persisted,
+          currentRole: persisted?.user?.role ?? null,
+          isAuthenticated: Boolean(persisted?.accessToken && persisted?.user),
+          status: persisted?.accessToken && persisted?.user ? 'authenticated' : 'unauthenticated',
+          isLoading: false,
+          error: null,
+          isHydrated: true,
+        };
+        if (import.meta.env.DEV) {
+          console.info('[AUTH][merge]', { hasPersisted: !!persisted, isAuthenticated: merged.isAuthenticated, isHydrated: merged.isHydrated, role: merged.currentRole });
+        }
+        return merged;
+      },
+      onRehydrateStorage: () => (state) => {
+        if (import.meta.env.DEV) {
+          console.info('[AUTH][onRehydrateStorage] callback fired', { hasState: !!state, isAuthenticated: state?.isAuthenticated, isHydrated: state?.isHydrated });
+        }
+        if (state) {
+          useAuthStore.setState({ isHydrated: true });
+          if (state.isAuthenticated && state.user) {
+            syncRbacFromUser(state.user);
+          }
+        }
+      },
     },
   ),
 );

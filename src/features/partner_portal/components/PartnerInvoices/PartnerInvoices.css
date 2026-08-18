@@ -1,0 +1,35 @@
+/**
+ * Navix Partner Portal — Styles Facturation (PROMPT 071)
+ * --------------------------------------------------------------------------
+ * Styles spécifiques aux alertes factures.
+ * Les styles finance partagés (ClientFinance.css) sont importés via JSX.
+ */
+
+/* Alertes factures */
+.navix-invoice-alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  margin-bottom: 0.5rem;
+}
+
+.navix-invoice-alert--overdue {
+  background: var(--bs-danger-bg-subtle, rgba(220, 53, 69, 0.1));
+  color: var(--bs-danger, #dc3545);
+  border-left: 3px solid var(--bs-danger, #dc3545);
+}
+
+.navix-invoice-alert--warning {
+  background: var(--bs-warning-bg-subtle, rgba(255, 193, 7, 0.1));
+  color: var(--bs-warning, #ffc107);
+  border-left: 3px solid var(--bs-warning, #ffc107);
+}
+
+.navix-invoice-alert--info {
+  background: var(--bs-info-bg-subtle, rgba(13, 202, 240, 0.1));
+  color: var(--bs-info, #0dcaf0);
+  border-left: 3px solid var(--bs-info, #0dcaf0);
+}

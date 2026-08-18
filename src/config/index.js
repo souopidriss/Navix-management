@@ -1,10 +1,10 @@
 import { APP_NAME, appConfig } from './app';
 import { API_ENDPOINTS } from './endpoints';
-import { STORAGE_KEYS, THEME_MODES } from './constants';
+import { STORAGE_KEYS, STORAGE_VERSION, THEME_MODES } from './constants';
 
 export { APP_NAME, appConfig };
 export { API_ENDPOINTS };
-export { STORAGE_KEYS, THEME_MODES };
+export { STORAGE_KEYS, STORAGE_VERSION, THEME_MODES };
 
 /*
  * La configuration HTTP (baseURL, timeout, version, mode mock) est

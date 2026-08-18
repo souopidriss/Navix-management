@@ -1,4 +1,5 @@
 import Breadcrumb from '../Breadcrumb';
+import Button from '../../ui/Button';
 import './PageHeader.css';
 
 const PageHeader = ({ title, subtitle, actions, breadcrumbs, icon, className }) => (
@@ -16,7 +17,22 @@ const PageHeader = ({ title, subtitle, actions, breadcrumbs, icon, className }) 
           {subtitle && <p className="navix-page-header__subtitle">{subtitle}</p>}
         </div>
       </div>
-      {actions && <div className="navix-page-header__actions">{actions}</div>}
+      {actions && (
+        <div className="navix-page-header__actions">
+          {Array.isArray(actions)
+            ? actions.map((action, idx) => (
+                <Button
+                  key={action.label || idx}
+                  variant={action.variant || 'primary'}
+                  icon={action.icon}
+                  onClick={action.onClick}
+                >
+                  {action.label}
+                </Button>
+              ))
+            : actions}
+        </div>
+      )}
     </div>
   </header>
 );

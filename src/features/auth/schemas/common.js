@@ -7,5 +7,6 @@ import { z } from 'zod';
 export const emailSchema = z
   .string()
   .trim()
-  .min(1, 'L’adresse email est requise.')
-  .email('Adresse email invalide.');
+  .min(1, "L'adresse email est requise.")
+  .email('Adresse email invalide.')
+  .transform((e) => e.toLowerCase());

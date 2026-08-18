@@ -1,53 +1,180 @@
-/**
- * Navix Client — ClientNotificationsPage
- * --------------------------------------------------------------------------
- * Page de notifications de l'Espace Client.
- */
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Card } from '@/components/ui';
-import { PageHeader } from '@/components/core';
-
-const MOCK_NOTIFS = [
-  { id: 1, title: 'Validation de votre demande REQ-2026-002', text: 'Chauffeur VIP attribué pour le déplacement à Yaoundé Bastos.', time: 'Il y a 30 min', type: 'success' },
-  { id: 2, title: 'Nouvelle facture disponible : FAC-2026-0814', text: 'La facture du mois d’août (14 500 000 FCFA) est disponible.', time: 'Il y a 2 heures', type: 'info' },
-  { id: 3, title: 'Rappel d’entretien véhicule Toyota Hilux AB 3824 KL', text: 'Le véhicule entrera en révision au garage agréé Douala.', time: 'Hier', type: 'warning' },
-];
+import toast from 'react-hot-toast';
+import { Button } from '@/components/ui';
+import { PageContainer, PageHeader, ConfirmDialog } from '@/components/core';
+import { ROUTES } from '@/routes/route.constants';
+import { useClientData } from '../hooks/useClientData';
+import { useClientNotifications } from '../hooks/useClientNotifications';
+import ClientNotificationCenter from '../components/ClientNotifications/ClientNotificationCenter';
+import '../components/ClientNotifications/ClientNotifications.css';
 
 const ClientNotificationsPage = () => {
+  const { currentClient, isEnterprise } = useClientData();
+  const {
+    notifications,
+    unreadCount,
+    isLoading,
+    error,
+    refetch,
+    markAsRead,
+    markManyAsRead,
+    markManyAsUnread,
+    markAllAsRead,
+    archive,
+    archiveMany,
+    deleteNotification,
+    deleteMany,
+  } = useClientNotifications();
+
+  const [deleteTarget, setDeleteTarget] = useState(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState('');
+
+  const handleMarkAsRead = async (ids) => {
+    try {
+      const list = Array.isArray(ids) ? ids : [ids];
+      if (list.length > 1) {
+        await markManyAsRead(list);
+      } else {
+        await markAsRead(list[0]);
+      }
+      toast.success(list.length > 1 ? 'Notifications marquées comme lues.' : 'Notification marquée comme lue.');
+      refetch();
+    } catch (err) {
+      toast.error(err?.message || 'Impossible de mettre à jour la notification.');
+    }
+  };
+
+  const handleMarkAsUnread = async (ids) => {
+    try {
+      const list = Array.isArray(ids) ? ids : [ids];
+      await markManyAsUnread(list);
+      toast.success(list.length > 1 ? 'Notifications marquées comme non lues.' : 'Notification marquée comme non lue.');
+      refetch();
+    } catch (err) {
+      toast.error(err?.message || 'Impossible de mettre à jour la notification.');
+    }
+  };
+
+  const handleMarkAllAsRead = async () => {
+    try {
+      const result = await markAllAsRead();
+      toast.success(result?.count > 0 ? `${result.count} notification(s) marquée(s) comme lue(s).` : 'Aucune notification non lue.');
+      refetch();
+    } catch (err) {
+      toast.error(err?.message || 'Impossible de marquer les notifications comme lues.');
+    }
+  };
+
+  const handleArchive = async (ids) => {
+    try {
+      const list = Array.isArray(ids) ? ids : [ids];
+      if (list.length > 1) {
+        await archiveMany(list);
+      } else {
+        await archive(list[0]);
+      }
+      toast.success(list.length > 1 ? 'Notifications archivées.' : 'Notification archivée.');
+      refetch();
+    } catch (err) {
+      toast.error(err?.message || 'Impossible d’archiver la notification.');
+    }
+  };
+
+  const handleDeleteRequest = (ids) => {
+    setDeleteTarget(Array.isArray(ids) ? ids : [ids]);
+    setDeleteError('');
+  };
+
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
+    setIsDeleting(true);
+    setDeleteError('');
+    try {
+      if (deleteTarget.length > 1) {
+        await deleteMany(deleteTarget);
+      } else {
+        await deleteNotification(deleteTarget[0]);
+      }
+      toast.success(deleteTarget.length > 1 ? 'Notifications supprimées.' : 'Notification supprimée.');
+      setDeleteTarget(null);
+      refetch();
+    } catch (err) {
+      setDeleteError(err?.message || 'Impossible de supprimer la notification.');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
-    <div>
+    <PageContainer>
       <Helmet>
-        <title>Notifications Client — Navix</title>
+        <title>Notifications — Navix Client</title>
       </Helmet>
 
       <PageHeader
-        title="Centre de Notifications Client"
-        subtitle="Alertes et suivis en temps réel concernant vos services, trajets et factures."
+        title="Notifications"
+        subtitle={
+          isEnterprise
+            ? `Alertes et événements de la flotte de ${currentClient?.companyName || 'votre entreprise'} au Cameroun 🇨🇲.`
+            : 'Les notifications ne sont pas disponibles pour un client particulier.'
+        }
         icon="bi-bell"
-        breadcrumbs={[{ label: 'Client', to: '/client/dashboard' }, { label: 'Notifications' }]}
+        breadcrumbs={[{ label: 'Espace Client', to: ROUTES.CLIENT_DASHBOARD }, { label: 'Notifications' }]}
+        actions={
+          <div className="d-flex align-items-center gap-2">
+            <span className="badge text-bg-primary">
+              <i className="bi bi-envelope-open me-1" aria-hidden="true" />
+              {unreadCount} non lue{unreadCount > 1 ? 's' : ''}
+            </span>
+            <Button variant="ghost" size="sm" icon="bi-arrow-clockwise" onClick={refetch} aria-label="Actualiser">
+              <span className="visually-hidden">Actualiser</span>
+            </Button>
+          </div>
+        }
       />
 
-      <Card>
-        <div className="list-group list-group-flush">
-          {MOCK_NOTIFS.map((n) => (
-            <div key={n.id} className="list-group-item px-0 py-3 border-bottom">
-              <div className="d-flex align-items-start gap-3">
-                <span className={`p-2 rounded-circle bg-${n.type}-subtle text-${n.type} fs-5`}>
-                  <i className="bi bi-bell-fill" />
-                </span>
-                <div className="flex-grow-1">
-                  <div className="d-flex align-items-center justify-content-between">
-                    <h6 className="mb-1 fw-bold">{n.title}</h6>
-                    <small className="text-muted">{n.time}</small>
-                  </div>
-                  <p className="mb-0 text-muted small">{n.text}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+      {!isEnterprise ? (
+        <div className="text-center py-5 text-secondary">
+          <i className="bi bi-bell fs-1 d-block mb-3" aria-hidden="true" />
+          <p className="mb-0">Les notifications ne sont pas disponibles pour un client particulier.</p>
         </div>
-      </Card>
-    </div>
+      ) : (
+        <ClientNotificationCenter
+          notifications={notifications}
+          loading={isLoading}
+          error={error}
+          onRetry={refetch}
+          onMarkAsRead={handleMarkAsRead}
+          onMarkAsUnread={handleMarkAsUnread}
+          onMarkAllAsRead={handleMarkAllAsRead}
+          onArchive={handleArchive}
+          onDelete={handleDeleteRequest}
+        />
+      )}
+
+      <ConfirmDialog
+        open={Boolean(deleteTarget)}
+        onClose={() => setDeleteTarget(null)}
+        title={deleteTarget?.length > 1 ? 'Supprimer ces notifications' : 'Supprimer cette notification'}
+        icon="bi-trash3"
+        confirmLabel={deleteTarget?.length > 1 ? 'Supprimer' : 'Supprimer la notification'}
+        confirmVariant="danger"
+        loading={isDeleting}
+        error={deleteError}
+        onConfirm={handleDelete}
+        message={
+          deleteTarget ? (
+            <p className="mb-0">
+              {deleteTarget.length > 1
+                ? `Vous êtes sur le point de supprimer ${deleteTarget.length} notifications. Cette action est irréversible.`
+                : 'Vous êtes sur le point de supprimer cette notification. Cette action est irréversible.'}
+            </p>
+          ) : null
+        }
+      />
+    </PageContainer>
   );
 };
 

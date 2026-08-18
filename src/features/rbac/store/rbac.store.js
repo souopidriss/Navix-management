@@ -16,7 +16,7 @@
  */
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { STORAGE_KEYS } from '@/config';
+import { STORAGE_KEYS, STORAGE_VERSION } from '@/config';
 import { getPermissionsForRole } from '../utils/access';
 
 /**
@@ -70,6 +70,13 @@ const useRbacStore = create(
     }),
     {
       name: STORAGE_KEYS.RBAC,
+      version: STORAGE_VERSION,
+      migrate: (persisted, version) => {
+        if (version !== STORAGE_VERSION) {
+          return undefined;
+        }
+        return persisted;
+      },
       partialize: (state) => ({
         currentRole: state.currentRole,
         companyRole: state.companyRole,

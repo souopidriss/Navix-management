@@ -1,0 +1,8 @@
+/* ==========================================================================
+   Navix Partner Portal — Layout Styles
+   ========================================================================== */
+
+.navix-partner-layout {
+  min-height: 100vh;
+  background-color: var(--navix-background);
+}

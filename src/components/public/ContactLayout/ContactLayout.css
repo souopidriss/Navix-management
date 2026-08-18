@@ -1,0 +1,13 @@
+.nv-contact-layout__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--navix-space-8);
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .nv-contact-layout__grid {
+    grid-template-columns: 1fr 1.3fr;
+    gap: var(--navix-space-10);
+  }
+}

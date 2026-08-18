@@ -1,0 +1,109 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   Partner Portal — Dashboard Styles
+   Alerts + Finance summary for PartnerDashboard cards.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── ALERTS ─────────────────────────────────────────────────────────────── */
+.navix-client-alerts {
+  display: flex;
+  flex-direction: column;
+}
+
+.navix-client-alert {
+  padding: 0.75rem;
+  margin-bottom: 0.625rem;
+  border: 1px solid var(--navix-border-color-subtle);
+  border-left-width: 3px;
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-surface);
+}
+
+.navix-client-alert:last-child {
+  margin-bottom: 0;
+}
+
+.navix-client-alert--critical {
+  border-left-color: var(--navix-danger);
+}
+
+.navix-client-alert--warning {
+  border-left-color: var(--navix-warning);
+}
+
+.navix-client-alert--info {
+  border-left-color: var(--navix-info);
+}
+
+.navix-client-alert__title {
+  font-weight: 600;
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-primary);
+}
+
+.navix-client-alert__description {
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-muted);
+  line-height: 1.45;
+}
+
+.navix-client-alert__date {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: var(--navix-font-size-xs);
+  color: var(--navix-text-muted);
+}
+
+/* ─── FINANCE SUMMARY ────────────────────────────────────────────────────── */
+.navix-client-finance {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.navix-client-finance__row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.75rem;
+  background: var(--navix-surface);
+  border: 1px solid var(--navix-border-color-subtle);
+  border-radius: var(--navix-radius-md);
+}
+
+.navix-client-finance__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--navix-radius-md);
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.navix-client-finance__icon--success {
+  background: rgba(63, 203, 143, 0.12);
+  color: var(--navix-success);
+}
+
+.navix-client-finance__icon--primary {
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+}
+
+.navix-client-finance__icon--danger {
+  background: rgba(240, 72, 77, 0.12);
+  color: var(--navix-danger);
+}
+
+.navix-client-finance__label {
+  flex: 1;
+  font-size: var(--navix-font-size-sm);
+  color: var(--navix-text-muted);
+}
+
+.navix-client-finance__value {
+  font-weight: 700;
+  color: var(--navix-text-primary);
+  font-size: var(--navix-font-size-sm);
+}

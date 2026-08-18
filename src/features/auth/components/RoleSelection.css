@@ -1,0 +1,81 @@
+/* ==========================================================================
+   Navix Auth — RoleSelection
+   --------------------------------------------------------------------------
+   Cartes de sélection de rôle pour l'inscription.
+   ========================================================================== */
+
+.nv-role-selection {
+  max-width: 100%;
+}
+
+.nv-role-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--navix-border-color, #e2e8f0);
+  border-radius: 0.75rem;
+  background-color: var(--navix-surface, #fff);
+  transition:
+    border-color var(--navix-transition-fast) var(--navix-ease-out),
+    box-shadow var(--navix-transition-fast) var(--navix-ease-out),
+    transform var(--navix-transition-fast) var(--navix-ease-out);
+  color: inherit;
+}
+
+.nv-role-card:hover {
+  border-color: var(--navix-primary, #f27b21);
+  box-shadow: 0 2px 8px rgba(242, 123, 33, 0.12);
+  transform: translateY(-1px);
+  color: inherit;
+}
+
+.nv-role-card:focus-visible {
+  outline: var(--navix-focus-ring-width, 2px) solid var(--navix-focus-ring-color, #3b82f6);
+  outline-offset: 2px;
+  color: inherit;
+}
+
+.nv-role-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 0.625rem;
+  background-color: var(--navix-primary-light, #fff3e6);
+  color: var(--navix-primary, #f27b21);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.nv-role-card__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.nv-role-card__title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0 0 0.125rem;
+  color: var(--navix-text-primary, #1a1a2e);
+}
+
+.nv-role-card__desc {
+  font-size: 0.8125rem;
+  color: var(--navix-text-muted, #6b7280);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.nv-role-card__arrow {
+  color: var(--navix-text-muted, #6b7280);
+  font-size: 0.875rem;
+  flex-shrink: 0;
+  transition: transform var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.nv-role-card:hover .nv-role-card__arrow {
+  transform: translateX(2px);
+  color: var(--navix-primary, #f27b21);
+}

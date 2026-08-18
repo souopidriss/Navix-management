@@ -1,0 +1,74 @@
+/* ==========================================================================
+   Navix Management — Vitrine Design Tokens
+   --------------------------------------------------------------------------
+   Tokens spécifiques au site vitrine (marketing).
+   Réutilise les tokens globaux (variables.css) et ajoute les couleurs
+   navy/orange spécifiques au branding vitrine.
+
+   Palette vitrine :
+     - Navy (bleu nuit)  : couleur principale
+     - Orange Navix      : accent / CTA
+     - Blanc / Gris clair : fonds
+   ========================================================================== */
+
+:root {
+  /* ─── Couleurs vitrine ──────────────────────────────────────────────── */
+
+  /* Navy — bleu nuit principal */
+  --nv-navy: #0f1b3d;
+  --nv-navy-light: #1a2c5e;
+  --nv-navy-dark: #0a1230;
+  --nv-navy-rgb: 15, 27, 61;
+
+  /* Orange — accent CTA */
+  --nv-orange: #f27b21;
+  --nv-orange-hover: #e06a10;
+  --nv-orange-light: rgba(242, 123, 33, 0.12);
+  --nv-orange-rgb: 242, 123, 33;
+
+  /* Bleu clair — accents secondaires */
+  --nv-blue-light: #3b82f6;
+  --nv-blue-light-rgb: 59, 130, 246;
+
+  /* Fond vitrine */
+  --nv-bg: #ffffff;
+  --nv-bg-alt: #f8f9fc;
+  --nv-bg-dark: var(--nv-navy);
+
+  /* Texte vitrine */
+  --nv-text: #1e293b;
+  --nv-text-secondary: #64748b;
+  --nv-text-on-dark: #e2e8f0;
+  --nv-text-on-navy: #ffffff;
+
+  /* Bordures */
+  --nv-border: #e2e8f0;
+  --nv-border-light: #f1f5f9;
+
+  /* ─── Typographie vitrine ───────────────────────────────────────────── */
+
+  --nv-hero-title: clamp(2.25rem, 5vw, 3.5rem);
+  --nv-hero-subtitle: clamp(1.05rem, 2vw, 1.25rem);
+  --nv-section-title: clamp(1.75rem, 3.5vw, 2.5rem);
+  --nv-section-subtitle: 1.05rem;
+
+  /* ─── Espacement vitrine ────────────────────────────────────────────── */
+
+  --nv-section-py: clamp(3rem, 8vw, 6rem);
+  --nv-container-max: 75rem;
+
+  /* ─── Ombres vitrine ────────────────────────────────────────────────── */
+
+  --nv-shadow-card: 0 1px 3px rgba(15, 27, 61, 0.06), 0 4px 16px rgba(15, 27, 61, 0.04);
+  --nv-shadow-card-hover: 0 4px 12px rgba(15, 27, 61, 0.08), 0 8px 32px rgba(15, 27, 61, 0.06);
+  --nv-shadow-navbar: 0 1px 3px rgba(15, 27, 61, 0.06);
+
+  /* ─── Couleurs décoratives (macOS dots) ─────────────────────────────── */
+  --nv-dot-red: #ff5f57;
+  --nv-dot-yellow: #febc2e;
+  --nv-dot-green: #28c840;
+
+  /* ─── Transitions ───────────────────────────────────────────────────── */
+
+  --nv-transition-card: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}

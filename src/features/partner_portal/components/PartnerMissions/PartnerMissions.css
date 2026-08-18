@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Navix Partner Portal — Missions & Prestations Partenaire (PROMPT 064)
+   Langage visuel cohérent avec le Master Design Navix.
+   Dark Mode prioritaire — Light Mode via tokens CSS globaux (aucun nouveau token).
+   ========================================================================== */
+
+/* ─── CELLULE RÉFÉRENCE MISSION (tableau) ───────────────────────────────── */
+.navix-pmis-refbtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.25rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  border-radius: var(--navix-radius-md);
+  transition:
+    background var(--navix-transition-fast) var(--navix-ease-out),
+    color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-pmis-refbtn:hover {
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+}
+
+.navix-pmis-refbtn:focus-visible {
+  outline: 2px solid var(--navix-primary);
+  outline-offset: 2px;
+}
+
+.navix-pmis-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ─── PILL TRAJET (départ → destination) ────────────────────────────────── */
+.navix-pmis-route {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+}
+
+.navix-pmis-route__arrow {
+  color: var(--navix-text-muted);
+  font-size: 0.75rem;
+}
+
+/* ─── TOOLBAR (recherche + filtres) ─────────────────────────────────────── */
+.navix-pmis-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.navix-pmis-toolbar .navix-searchbar {
+  width: 100%;
+}
+
+.navix-pmis-toolbar .navix-filterbar {
+  flex-wrap: wrap;
+}
+
+/* ─── TABLEAU MISSIONS PARTENAIRE ───────────────────────────────────────── */
+.navix-pmis-table .navix-datatable__table td {
+  vertical-align: middle;
+}
+
+/* ─── DÉTAIL MISSION (page détail — sections) ───────────────────────────── */
+.navix-pmis-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  min-height: 2.5rem;
+}
+
+.navix-pmis-detail__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+
+.navix-pmis-detail__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.navix-pmis-detail__label {
+  font-size: var(--navix-font-size-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navix-text-muted);
+  margin-bottom: 0.125rem;
+}
+
+.navix-pmis-detail__value {
+  font-size: var(--navix-font-size-base);
+  font-weight: 500;
+  color: var(--navix-text-primary);
+  word-break: break-word;
+}
+
+/* ─── EN-TÊTE DE LA PAGE DÉTAIL ─────────────────────────────────────────── */
+.navix-detail-marker {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+}
+
+.navix-pmis-detail-hero {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--navix-radius-lg);
+  background: var(--navix-surface-2);
+  border: 1px solid var(--navix-border);
+}
+
+.navix-pmis-detail-hero__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--navix-radius-lg);
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  flex-shrink: 0;
+  font-size: 1.25rem;
+}
+
+/* ─── TIMELINE MISSION ──────────────────────────────────────────────────── */
+.navix-pmis-timeline {
+  margin-top: 0.25rem;
+}

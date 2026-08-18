@@ -1,0 +1,81 @@
+.nv-search-mock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-3);
+}
+
+.nv-search-mock__input {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-3);
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-md);
+  font-size: 0.7rem;
+  color: var(--nv-text-secondary);
+}
+
+.nv-search-mock__input i { color: var(--nv-text-secondary); }
+
+.nv-search-mock__filters {
+  display: flex;
+  gap: var(--navix-space-2);
+  flex-wrap: wrap;
+}
+
+.nv-search-mock__filter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--navix-space-1) var(--navix-space-3);
+  background: var(--nv-bg-alt);
+  border: 1px solid var(--nv-border-light);
+  border-radius: var(--navix-radius-full);
+  font-size: 0.6rem;
+  color: var(--nv-navy);
+}
+
+.nv-search-mock__filter i { font-size: 0.55rem; color: var(--nv-blue-light); }
+
+.nv-search-mock__results {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nv-search-mock__result {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-2) var(--navix-space-3);
+  border-radius: var(--navix-radius-sm);
+  font-size: 0.65rem;
+}
+
+.nv-search-mock__result:nth-child(odd) { background: var(--nv-bg-alt); }
+
+.nv-search-mock__type {
+  font-size: 0.55rem;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-blue-light);
+  background: rgba(var(--nv-blue-light-rgb), 0.1);
+  padding: 1px 6px;
+  border-radius: var(--navix-radius-full);
+  white-space: nowrap;
+}
+
+.nv-search-mock__name {
+  flex: 1;
+  color: var(--nv-navy);
+  font-weight: var(--navix-font-weight-semibold);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nv-search-mock__ref {
+  color: var(--nv-text-secondary);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.6rem;
+}

@@ -1,0 +1,212 @@
+.nv-cform {
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-xl);
+  padding: var(--navix-space-6);
+  box-shadow: var(--nv-shadow-card);
+}
+
+.nv-cform__title {
+  font-size: var(--navix-font-size-h4);
+  font-weight: var(--navix-font-weight-bold);
+  color: var(--nv-navy);
+  margin: 0 0 var(--navix-space-6);
+}
+
+/* ─── Formulaire ───────────────────────────────────────────────────────── */
+.nv-cform__field {
+  margin-bottom: var(--navix-space-4);
+}
+
+.nv-cform__label {
+  display: block;
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-text);
+  margin-bottom: var(--navix-space-2);
+}
+
+.nv-cform__required {
+  color: var(--nv-orange);
+}
+
+.nv-cform__input {
+  display: block;
+  width: 100%;
+  padding: var(--navix-space-3) var(--navix-space-4);
+  font-size: var(--navix-font-size-base);
+  font-family: inherit;
+  color: var(--nv-text);
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-md);
+  transition:
+    border-color var(--nv-transition-card),
+    box-shadow var(--nv-transition-card);
+}
+
+.nv-cform__input::placeholder {
+  color: var(--nv-text-secondary);
+  opacity: 0.6;
+}
+
+.nv-cform__input:focus {
+  outline: none;
+  border-color: var(--nv-orange);
+  box-shadow: 0 0 0 3px rgba(var(--nv-orange-rgb), 0.15);
+}
+
+.nv-cform__input:focus-visible {
+  outline: var(--navix-focus-ring-width) solid rgba(var(--nv-orange-rgb), 0.45);
+  outline-offset: var(--navix-focus-ring-offset);
+}
+
+.nv-cform__input--error {
+  border-color: var(--navix-danger, #f0484d);
+}
+
+.nv-cform__input--error:focus {
+  border-color: var(--navix-danger, #f0484d);
+  box-shadow: 0 0 0 3px rgba(var(--navix-danger-rgb, 240, 72, 77), 0.15);
+}
+
+.nv-cform__select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--navix-space-3) center;
+  padding-right: var(--navix-space-8);
+  cursor: pointer;
+}
+
+.nv-cform__textarea {
+  resize: vertical;
+  min-height: 8rem;
+  line-height: var(--navix-line-height-relaxed);
+}
+
+.nv-cform__error {
+  display: block;
+  margin-top: var(--navix-space-1);
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-danger, #f0484d);
+  line-height: 1.4;
+}
+
+/* ─── Alerte ───────────────────────────────────────────────────────────── */
+.nv-cform__alert {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-3) var(--navix-space-4);
+  border-radius: var(--navix-radius-md);
+  font-size: var(--navix-font-size-sm);
+  margin-bottom: var(--navix-space-5);
+}
+
+.nv-cform__alert--error {
+  background: rgba(var(--navix-danger-rgb, 240, 72, 77), 0.08);
+  color: var(--navix-danger, #f0484d);
+  border: 1px solid rgba(var(--navix-danger-rgb, 240, 72, 77), 0.2);
+}
+
+/* ─── Consentement ─────────────────────────────────────────────────────── */
+.nv-cform__consent {
+  margin-bottom: var(--navix-space-5);
+}
+
+.nv-cform__checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--navix-space-2);
+  cursor: pointer;
+  font-size: var(--navix-font-size-caption);
+  color: var(--nv-text-secondary);
+  line-height: 1.5;
+}
+
+.nv-cform__checkbox {
+  flex-shrink: 0;
+  margin-top: 3px;
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--nv-orange);
+  cursor: pointer;
+}
+
+/* ─── Bouton ───────────────────────────────────────────────────────────── */
+.nv-cform__submit {
+  width: 100%;
+}
+
+.nv-cform__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.nv-cform__spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: var(--nv-text-on-navy);
+  border-radius: 50%;
+  animation: nv-spin 0.6s linear infinite;
+}
+
+@keyframes nv-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── État succès ──────────────────────────────────────────────────────── */
+.nv-cform--success {
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-xl);
+  padding: var(--navix-space-10) var(--navix-space-6);
+  box-shadow: var(--nv-shadow-card);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--navix-space-4);
+}
+
+.nv-cform__success-icon {
+  font-size: 3rem;
+  color: var(--nv-success, #3fcb8f);
+  line-height: 1;
+}
+
+.nv-cform__success-title {
+  font-size: var(--navix-font-size-h4);
+  font-weight: var(--navix-font-weight-bold);
+  color: var(--nv-navy);
+  margin: 0;
+}
+
+.nv-cform__success-desc {
+  font-size: var(--navix-font-size-sm);
+  color: var(--nv-text-secondary);
+  line-height: var(--navix-line-height-relaxed);
+  max-width: 28rem;
+  margin: 0;
+}
+
+/* ─── Reduced motion ───────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .nv-cform__spinner { animation: none; }
+}
+
+/* ─── Mobile ───────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .nv-cform {
+    padding: var(--navix-space-5);
+  }
+
+  .nv-cform--success {
+    padding: var(--navix-space-8) var(--navix-space-5);
+  }
+}

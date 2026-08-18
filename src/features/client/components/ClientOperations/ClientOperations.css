@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Navix Client — ClientOperations (Chauffeurs · Affectations · Trajets)
+   Styles premium, thème adaptatif (dark/light), responsive (1440 → 360).
+   ========================================================================== */
+
+/* --- Identité entreprise (réutilisée par les pages Opérations) ---------- */
+.navix-ops-identity {
+  border: 1px solid var(--navix-border);
+  border-radius: var(--navix-radius-lg, 1rem);
+  background: var(--navix-card-bg, var(--navix-surface));
+  padding: 1.25rem 1.5rem;
+}
+
+.navix-ops-identity__logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  background: var(--navix-primary-soft, rgba(13, 110, 253, 0.12));
+  color: var(--navix-primary, #0d6efd);
+}
+
+.navix-ops-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* --- Option de transition (statut / disponibilité) ---------------------- */
+.navix-ops-status-option {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--navix-border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.navix-ops-status-option:hover {
+  border-color: var(--navix-primary, #0d6efd);
+  background: var(--navix-primary-soft, rgba(13, 110, 253, 0.06));
+}
+
+.navix-ops-status-option input {
+  flex-shrink: 0;
+}
+
+/* --- Tuiles détail (page fiche chauffeur / trajet) ---------------------- */
+.navix-ops-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.navix-ops-detail-item {
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--navix-border);
+  border-radius: 0.75rem;
+  background: var(--navix-card-bg, var(--navix-surface));
+}
+
+.navix-ops-detail-item__label {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navix-text-secondary, #6c757d);
+  margin-bottom: 0.375rem;
+}
+
+.navix-ops-detail-item__value {
+  font-weight: 600;
+  color: var(--navix-text, #212529);
+  word-break: break-word;
+}
+
+.navix-ops-detail-item__value.font-monospace {
+  font-weight: 500;
+}
+
+/* --- Bloc action / résumé ---------------------------------------------- */
+.navix-ops-panel {
+  border: 1px solid var(--navix-border);
+  border-radius: var(--navix-radius-lg, 1rem);
+  background: var(--navix-card-bg, var(--navix-surface));
+  padding: 1.25rem;
+  height: 100%;
+}
+
+.navix-ops-panel__title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--navix-text, #212529);
+  margin-bottom: 1rem;
+}
+
+.navix-ops-panel__title i {
+  color: var(--navix-primary, #0d6efd);
+}
+
+/* --- Départ → Arrivée (itinéraire) -------------------------------------- */
+.navix-ops-route {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.navix-ops-route__stop {
+  font-weight: 600;
+  color: var(--navix-text, #212529);
+}
+
+.navix-ops-route__arrow {
+  color: var(--navix-text-secondary, #6c757d);
+  font-size: 0.875rem;
+}
+
+/* --- État vide responsive ------------------------------------------------ */
+.navix-driver-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: var(--navix-primary-soft, rgba(13, 110, 253, 0.12));
+  color: var(--navix-primary, #0d6efd);
+  font-size: 1.125rem;
+}
+
+@media (max-width: 575.98px) {
+  .navix-ops-identity {
+    padding: 1rem;
+  }
+
+  .navix-ops-toolbar > * {
+    width: 100%;
+  }
+
+  .navix-ops-toolbar .btn {
+    width: 100%;
+  }
+}

@@ -34,7 +34,7 @@ const NextTripCard = ({ trip, onStartTrip }) => {
         </div>
         <div className="flex-grow-1 px-3 position-relative d-flex align-items-center justify-content-center">
           <div className="w-100" style={{ height: 2, background: 'var(--navix-border-color)' }} />
-          <div className="position-absolute bg-body px-2 text-muted small fw-medium">
+          <div className="position-absolute px-2 text-muted small fw-medium" style={{ background: 'var(--navix-card)' }}>
             {trip.distance}
           </div>
           <i className="bi bi-caret-right-fill text-primary position-absolute end-0 me-2" style={{ transform: 'translateX(50%)' }} />

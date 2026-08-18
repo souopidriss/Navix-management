@@ -113,6 +113,10 @@ const SaasSettingsPage = lazy(() => import('@/features/settings/pages/SaasSettin
 const SecuritySettingsPage = lazy(() => import('@/features/settings/pages/SecuritySettingsPage'));
 const SystemSettingsPage = lazy(() => import('@/features/settings/pages/SystemSettingsPage'));
 const ProfilePage = lazy(() => import('@/features/profile/pages/ProfilePage'));
+const SuperAdminFinancePage = lazy(() => import('@/features/superAdmin/finance/pages/SuperAdminFinancePage'));
+const SuperAdminFinanceTransactionsPage = lazy(() => import('@/features/superAdmin/finance/pages/SuperAdminFinanceTransactionsPage'));
+const SuperAdminTransactionDetailPage = lazy(() => import('@/features/superAdmin/finance/pages/SuperAdminTransactionDetailPage'));
+const SuperAdminFinanceReportsPage = lazy(() => import('@/features/superAdmin/finance/pages/SuperAdminFinanceReportsPage'));
 
 export const dashboardRoutes = (
   <Route element={<DashboardLayout />}>
@@ -221,5 +225,9 @@ export const dashboardRoutes = (
       <Route path={ROUTES.SETTINGS_SYSTEM} element={<SystemSettingsPage />} />
     </Route>
     <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
+    <Route path={ROUTES.SA_FINANCE} element={<SuperAdminFinancePage />} />
+    <Route path={ROUTES.SA_FINANCE_TRANSACTIONS} element={<SuperAdminFinanceTransactionsPage />} />
+    <Route path={ROUTES.SA_FINANCE_TRANSACTION_DETAIL} element={<SuperAdminTransactionDetailPage />} />
+    <Route path={ROUTES.SA_FINANCE_REPORTS} element={<SuperAdminFinanceReportsPage />} />
   </Route>
 );

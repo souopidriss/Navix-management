@@ -1,0 +1,86 @@
+/* ==========================================================================
+   Navix Public — HeroFeatureCards
+   --------------------------------------------------------------------------
+   Quatre cartes flottantes de fonctionnalités sous le hero.
+   Style : fond blanc, coins arrondis, ombre douce, hover elevation.
+   ========================================================================== */
+
+.nv-fcards__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--navix-space-4);
+}
+
+.nv-fcard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-3);
+  padding: var(--navix-space-6);
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-xl);
+  box-shadow: var(--nv-shadow-card);
+  transition:
+    box-shadow var(--nv-transition-card),
+    transform var(--nv-transition-card),
+    border-color var(--nv-transition-card);
+}
+
+.nv-fcard:hover {
+  box-shadow: var(--nv-shadow-card-hover);
+  transform: translateY(-4px);
+  border-color: var(--nv-blue-light);
+}
+
+.nv-fcard__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--navix-radius-lg);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.nv-fcard__title {
+  font-size: var(--navix-font-size-h5);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-navy);
+  margin: 0;
+}
+
+.nv-fcard__desc {
+  font-size: var(--navix-font-size-base);
+  color: var(--nv-text-secondary);
+  line-height: var(--navix-line-height-relaxed);
+  margin: 0;
+}
+
+/* ─── Desktop: 4 columns ────────────────────────────────────────────────── */
+@media (min-width: 768px) {
+  .nv-fcards__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .nv-fcards__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--navix-space-5);
+  }
+
+  .nv-fcard {
+    padding: var(--navix-space-5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-fcard {
+    transition: none;
+  }
+
+  .nv-fcard:hover {
+    transform: none;
+  }
+}

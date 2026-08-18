@@ -25,6 +25,7 @@ import { apiClient } from '@/services/client';
 import { apiConfig } from '@/services/config';
 import { mockResponse } from '@/services/utils';
 import { ApiError } from '@/services/errors';
+import { getTenantScopeCompanyId } from '@/utils/tenantScope';
 import { MOCK_PARTNER_RECORDS, nextPartnerCode } from '../mocks';
 
 const CROCKFORD = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
@@ -89,7 +90,10 @@ export const partnerService = {
    */
   async getById(id) {
     if (apiConfig.mock) {
-      const record = getPartnersCache().find((item) => item.id === id);
+      const scopeCompanyId = getTenantScopeCompanyId();
+      const record = getPartnersCache().find(
+        (item) => item.id === id && (!scopeCompanyId || item.companyId === scopeCompanyId),
+      );
       if (!record) {
         return mockResponse(null, { error: ApiError.notFound('Partenaire introuvable.') });
       }
@@ -108,7 +112,8 @@ export const partnerService = {
   async create(payload) {
     if (apiConfig.mock) {
       partnerCodeCounter += 1;
-      const record = buildPartnerRecord(payload);
+      const companyId = getTenantScopeCompanyId();
+      const record = buildPartnerRecord({ ...payload, companyId });
       getPartnersCache().unshift(record);
       return mockResponse(record);
     }
@@ -125,7 +130,10 @@ export const partnerService = {
    */
   async update(id, payload) {
     if (apiConfig.mock) {
-      const index = getPartnersCache().findIndex((item) => item.id === id);
+      const scopeCompanyId = getTenantScopeCompanyId();
+      const index = getPartnersCache().findIndex(
+        (item) => item.id === id && (!scopeCompanyId || item.companyId === scopeCompanyId),
+      );
       if (index === -1) {
         return mockResponse(null, { error: ApiError.notFound('Partenaire introuvable.') });
       }
@@ -147,11 +155,16 @@ export const partnerService = {
    */
   async delete(id) {
     if (apiConfig.mock) {
-      const exists = getPartnersCache().some((item) => item.id === id);
+      const scopeCompanyId = getTenantScopeCompanyId();
+      const exists = getPartnersCache().some(
+        (item) => item.id === id && (!scopeCompanyId || item.companyId === scopeCompanyId),
+      );
       if (!exists) {
         return mockResponse(null, { error: ApiError.notFound('Partenaire introuvable.') });
       }
-      partnersCache = getPartnersCache().filter((item) => item.id !== id);
+      partnersCache = getPartnersCache().filter(
+        (item) => !(item.id === id && (!scopeCompanyId || item.companyId === scopeCompanyId)),
+      );
       return mockResponse({ id });
     }
 

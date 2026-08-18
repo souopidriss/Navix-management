@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Navix Public — TopBar
+   --------------------------------------------------------------------------
+   Barre supérieure du site vitrine : fond navy, texte blanc,
+   coordonnées de contact, réseaux sociaux.
+   ========================================================================== */
+
+.nv-topbar {
+  background-color: var(--nv-navy);
+  color: var(--nv-text-on-navy);
+  font-size: var(--navix-font-size-caption);
+  line-height: 1;
+  padding: var(--navix-space-2) 0;
+}
+
+.nv-topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--navix-space-4);
+}
+
+.nv-topbar__contact {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nv-topbar__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--navix-space-1);
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+}
+
+.nv-topbar__item i {
+  font-size: 0.75rem;
+}
+
+.nv-topbar__item a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.nv-topbar__item a:hover {
+  color: var(--nv-text-on-navy);
+}
+
+.nv-topbar__social {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nv-topbar__social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  border-radius: var(--navix-radius-sm);
+  transition:
+    color var(--navix-transition-fast) var(--navix-ease-out),
+    background-color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.nv-topbar__social a:hover {
+  color: var(--nv-text-on-navy);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile : masquer les items secondaires */
+@media (max-width: 767.98px) {
+  .nv-topbar__item--desktop {
+    display: none;
+  }
+
+  .nv-topbar__inner {
+    justify-content: center;
+  }
+}

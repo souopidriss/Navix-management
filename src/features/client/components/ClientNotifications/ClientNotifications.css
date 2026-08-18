@@ -1,0 +1,87 @@
+/* ==========================================================================
+   Navix Client — ClientNotifications (Centre de notifications)
+   Styles premium, thème adaptatif (dark/light), responsive (1440 → 360).
+   ========================================================================== */
+
+/* --- Liste des notifications ----------------------------------------------- */
+.navix-client-notif {
+  position: relative;
+  display: flex;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--navix-border);
+  border-radius: var(--navix-radius-lg, 1rem);
+  background: var(--navix-card-bg, var(--navix-surface));
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.navix-client-notif:hover {
+  border-color: var(--navix-primary, #0d6efd);
+}
+
+.navix-client-notif--unread {
+  border-left: 3px solid var(--navix-primary, #0d6efd);
+}
+
+.navix-client-notif--unread .navix-client-notif__title {
+  font-weight: 700;
+}
+
+.navix-client-notif__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.navix-client-notif__title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--navix-text, #212529);
+}
+
+.navix-client-notif__message {
+  font-size: 0.85rem;
+  color: var(--navix-text-secondary, #6c757d);
+  line-height: 1.45;
+}
+
+.navix-client-notif__time {
+  font-size: 0.75rem;
+  color: var(--navix-text-muted, #9aa4b2);
+  white-space: nowrap;
+}
+
+/* --- Toolbar filtres --------------------------------------------------------- */
+.navix-client-notif-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.navix-client-notif-bulk {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--navix-radius-full, 999px);
+  font-size: 0.8rem;
+  background: var(--navix-primary-soft, rgba(13, 110, 253, 0.1));
+  color: var(--navix-primary, #0d6efd);
+  border: 1px solid var(--navix-border);
+}
+
+@media (max-width: 575.98px) {
+  .navix-client-notif {
+    flex-direction: column;
+  }
+
+  .navix-client-notif-toolbar > * {
+    width: 100%;
+  }
+}

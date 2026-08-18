@@ -1,0 +1,111 @@
+.nv-fcomp {
+  padding-block: var(--nv-section-py);
+}
+
+.nv-fcomp__table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-xl);
+  box-shadow: var(--nv-shadow-card);
+}
+
+.nv-fcomp__table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--nv-bg);
+  min-width: 600px;
+}
+
+.nv-fcomp__th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--nv-navy);
+  color: var(--nv-text-on-navy);
+  padding: var(--navix-space-4);
+  text-align: center;
+  font-weight: var(--navix-font-weight-semibold);
+  font-size: var(--navix-font-size-sm);
+  white-space: nowrap;
+}
+
+.nv-fcomp__th--feature {
+  text-align: left;
+  min-width: 180px;
+}
+
+.nv-fcomp__plan-name {
+  display: block;
+  font-size: var(--navix-font-size-base);
+  font-weight: var(--navix-font-weight-bold);
+}
+
+.nv-fcomp__cat-row {
+  background: var(--nv-bg-alt);
+}
+
+.nv-fcomp__cat-cell {
+  padding: var(--navix-space-3) var(--navix-space-4);
+  font-weight: var(--navix-font-weight-bold);
+  font-size: var(--navix-font-size-sm);
+  color: var(--nv-navy);
+  text-transform: uppercase;
+  letter-spacing: var(--navix-letter-spacing-wide);
+  vertical-align: middle;
+}
+
+.nv-fcomp__cat-cell .bi {
+  color: var(--nv-orange);
+}
+
+.nv-fcomp__row {
+  border-top: 1px solid var(--nv-border-light);
+  transition: background-color var(--nv-transition-card);
+}
+
+.nv-fcomp__row:hover {
+  background: rgba(var(--nv-blue-light-rgb), 0.03);
+}
+
+.nv-fcomp__td {
+  padding: var(--navix-space-3) var(--navix-space-4);
+  text-align: center;
+  font-size: var(--navix-font-size-sm);
+}
+
+.nv-fcomp__td--feature {
+  text-align: left;
+  font-weight: var(--navix-font-weight-medium);
+  color: var(--nv-text);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.nv-fcomp__feature-icon {
+  color: var(--nv-text-secondary);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.nv-fcomp__check {
+  color: var(--nv-blue-light);
+  font-size: 1.15rem;
+}
+
+.nv-fcomp__dash {
+  color: var(--nv-border);
+  font-size: 1.15rem;
+}
+
+@media (max-width: 768px) {
+  .nv-fcomp__table {
+    min-width: 480px;
+  }
+
+  .nv-fcomp__th,
+  .nv-fcomp__td {
+    padding: var(--navix-space-2) var(--navix-space-3);
+    font-size: var(--navix-font-size-caption);
+  }
+}

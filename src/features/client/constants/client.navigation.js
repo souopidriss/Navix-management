@@ -1,38 +1,61 @@
 /**
  * Navix Client — Navigation dédiée à l'Espace Client
  * --------------------------------------------------------------------------
- * Sections et éléments de menu pour l'Espace Client (Entreprise et Particulier).
- * Les éléments sont automatiquement filtrés selon le clientType (enterprise vs individual).
+ * Sections et éléments de menu pour l'Espace Client (Entreprise et Particulier),
+ * conformes à la structure Phase 3 (PROMPT 054) :
+ *
+ *   TABLEAU DE BORD
+ *   FLOTTE            → Véhicules, Chauffeurs, Affectations
+ *   EXPLOITATION      → Trajets, Maintenance, Carburant
+ *   SERVICES          → Mes services, Mes demandes
+ *   DOCUMENTS & RAPPORTS → Documents, Factures, Rapports
+ *   COMMUNICATION     → Notifications
+ *   FINANCE           → Fonds, Transactions
+ *   PARAMÈTRES        → Profil
+ *
+ * Les éléments sont automatiquement filtrés selon le clientType (enterprise vs
+ * individual) via `clientTypes`. Les modules flotte / finance sont réservés à
+ * l'entreprise (isolation RBAC : le Particulier n'a pas ces permissions).
  */
 import { ROUTES } from '@/routes/route.constants';
 import { CLIENT_TYPES } from './client.constants';
 
 export const CLIENT_SIDEBAR_SECTIONS = [
   {
-    label: 'PRINCIPAL',
+    label: 'TABLEAU DE BORD',
     items: [
       { to: ROUTES.CLIENT_DASHBOARD, label: 'Dashboard', icon: 'bi-speedometer2', end: true },
     ],
   },
   {
-    label: 'GESTION',
+    label: 'FLOTTE',
     items: [
-      { to: ROUTES.CLIENT_SERVICES, label: 'Mes services', icon: 'bi-grid-fill' },
-      {
-        to: ROUTES.CLIENT_VEHICLES,
-        label: 'Mes véhicules',
-        icon: 'bi-truck',
-        clientTypes: [CLIENT_TYPES.ENTERPRISE],
-      },
-      { to: ROUTES.CLIENT_REQUESTS, label: 'Mes demandes', icon: 'bi-clipboard-plus' },
-      { to: ROUTES.CLIENT_TRIPS, label: 'Mes trajets', icon: 'bi-signpost-split' },
+      { to: ROUTES.CLIENT_VEHICLES, label: 'Véhicules', icon: 'bi-truck', clientTypes: [CLIENT_TYPES.ENTERPRISE] },
+      { to: ROUTES.CLIENT_DRIVERS, label: 'Chauffeurs', icon: 'bi-person-vcard', clientTypes: [CLIENT_TYPES.ENTERPRISE] },
+      { to: ROUTES.CLIENT_ASSIGNMENTS, label: 'Affectations', icon: 'bi-arrow-left-right', clientTypes: [CLIENT_TYPES.ENTERPRISE] },
     ],
   },
   {
-    label: 'DOCUMENTS',
+    label: 'EXPLOITATION',
     items: [
-      { to: ROUTES.CLIENT_DOCUMENTS, label: 'Mes documents', icon: 'bi-folder2-open' },
+      { to: ROUTES.CLIENT_TRIPS, label: 'Trajets', icon: 'bi-signpost-split' },
+      { to: ROUTES.CLIENT_MAINTENANCE, label: 'Maintenance', icon: 'bi-wrench-adjustable', clientTypes: [CLIENT_TYPES.ENTERPRISE] },
+      { to: ROUTES.CLIENT_FUEL, label: 'Carburant', icon: 'bi-fuel-pump', clientTypes: [CLIENT_TYPES.ENTERPRISE] },
+    ],
+  },
+  {
+    label: 'SERVICES',
+    items: [
+      { to: ROUTES.CLIENT_SERVICES, label: 'Mes services', icon: 'bi-grid-fill' },
+      { to: ROUTES.CLIENT_REQUESTS, label: 'Mes demandes', icon: 'bi-clipboard-plus' },
+    ],
+  },
+  {
+    label: 'DOCUMENTS & RAPPORTS',
+    items: [
+      { to: ROUTES.CLIENT_DOCUMENTS, label: 'Documents', icon: 'bi-folder2-open' },
       { to: ROUTES.CLIENT_INVOICES, label: 'Mes factures', icon: 'bi-receipt' },
+      { to: ROUTES.CLIENT_REPORTS, label: 'Rapports', icon: 'bi-bar-chart-line', clientTypes: [CLIENT_TYPES.ENTERPRISE] },
     ],
   },
   {
@@ -42,9 +65,16 @@ export const CLIENT_SIDEBAR_SECTIONS = [
     ],
   },
   {
-    label: 'COMPTE',
+    label: 'FINANCE',
     items: [
-      { to: ROUTES.CLIENT_PROFILE, label: 'Mon profil', icon: 'bi-person-circle' },
+      { to: ROUTES.CLIENT_FINANCE_FUNDS, label: 'Fonds', icon: 'bi-wallet2', clientTypes: [CLIENT_TYPES.ENTERPRISE] },
+      { to: ROUTES.CLIENT_FINANCE_TRANSACTIONS, label: 'Transactions', icon: 'bi-arrow-repeat', clientTypes: [CLIENT_TYPES.ENTERPRISE] },
+    ],
+  },
+  {
+    label: 'PARAMÈTRES',
+    items: [
+      { to: ROUTES.CLIENT_PROFILE, label: 'Profil', icon: 'bi-person-circle' },
     ],
   },
 ];

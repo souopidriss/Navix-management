@@ -1,0 +1,56 @@
+.nv-trip-mock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-2);
+}
+
+.nv-trip-mock__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-3);
+  border: 1px solid var(--nv-border-light);
+  border-radius: var(--navix-radius-md);
+  background: var(--nv-bg-alt);
+}
+
+.nv-trip-mock__route {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+}
+
+.nv-trip-mock__city {
+  font-size: 0.75rem;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-navy);
+}
+
+.nv-trip-mock__arrow {
+  color: var(--nv-text-secondary);
+  font-size: 0.7rem;
+}
+
+.nv-trip-mock__meta {
+  display: flex;
+  gap: var(--navix-space-3);
+  font-size: 0.6rem;
+  color: var(--nv-text-secondary);
+}
+
+.nv-trip-mock__meta i { font-size: 0.55rem; }
+
+.nv-trip-mock__status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: var(--navix-font-weight-semibold);
+}
+
+.nv-trip-mock__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}

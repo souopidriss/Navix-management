@@ -43,6 +43,8 @@ export const SIDEBAR_SECTIONS = [
       { to: ROUTES.NOTIFICATIONS, label: 'Notifications', icon: 'bi-bell' },
       { to: ROUTES.USERS, label: 'Utilisateurs', icon: 'bi-people' },
       { to: ROUTES.ROLES, label: 'Rôles & permissions', icon: 'bi-shield-check' },
+      { to: ROUTES.SA_FINANCE, label: 'Finance', icon: 'bi-wallet2' },
+      { to: ROUTES.SA_FINANCE_REPORTS, label: 'Rapports Finance', icon: 'bi-bar-chart-line' },
       { to: ROUTES.SETTINGS, label: 'Paramètres', icon: 'bi-gear' },
     ],
   },

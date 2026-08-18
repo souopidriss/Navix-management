@@ -1,0 +1,258 @@
+/* ==========================================================================
+   Navix Partner Portal — Documents & Justificatifs (PROMPT 066)
+   Langage visuel cohérent avec le Master Design Navix.
+   Dark Mode prioritaire — Light Mode via tokens CSS globaux (aucun nouveau token).
+   ========================================================================== */
+
+/* ─── CELLULE DOCUMENT (tableau) ────────────────────────────────────────── */
+.navix-pdoc-docbtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.25rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  border-radius: var(--navix-radius-md);
+  max-width: 24rem;
+  transition:
+    background var(--navix-transition-fast) var(--navix-ease-out),
+    color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-pdoc-docbtn:hover {
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+}
+
+.navix-pdoc-docbtn:focus-visible {
+  outline: 2px solid var(--navix-primary);
+  outline-offset: 2px;
+}
+
+.navix-pdoc-fileicon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--navix-radius-md);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.navix-pdoc-fileicon--pdf {
+  background: rgba(220, 53, 69, 0.12);
+  color: #e35d6a;
+}
+
+.navix-pdoc-fileicon--png,
+.navix-pdoc-fileicon--jpg,
+.navix-pdoc-fileicon--jpeg,
+.navix-pdoc-fileicon--webp {
+  background: rgba(25, 135, 84, 0.12);
+  color: #35b378;
+}
+
+.navix-pdoc-fileicon--doc,
+.navix-pdoc-fileicon--docx {
+  background: rgba(13, 110, 253, 0.12);
+  color: var(--navix-primary);
+}
+
+.navix-pdoc-fileicon--xls,
+.navix-pdoc-fileicon--xlsx,
+.navix-pdoc-fileicon--csv {
+  background: rgba(13, 202, 240, 0.14);
+  color: #22b8d1;
+}
+
+.navix-pdoc-fileicon--zip {
+  background: rgba(255, 193, 7, 0.16);
+  color: #e0a400;
+}
+
+.navix-pdoc-fileicon--other,
+.navix-pdoc-fileicon--txt {
+  background: var(--navix-surface-muted);
+  color: var(--navix-text-muted);
+}
+
+/* ─── TOOLBAR (recherche + filtres) ─────────────────────────────────────── */
+.navix-pdoc-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.navix-pdoc-toolbar .navix-searchbar {
+  width: 100%;
+}
+
+.navix-pdoc-toolbar .navix-filterbar {
+  flex-wrap: wrap;
+}
+
+/* ─── TABLEAU DOCUMENTAIRE ──────────────────────────────────────────────── */
+.navix-pdoc-table .navix-datatable__table td {
+  vertical-align: middle;
+}
+
+/* ─── ZONE « DOCUMENTS À SURVEILLER » ───────────────────────────────────── */
+.navix-pdoc-alerts__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: var(--navix-radius-lg);
+  border: 1px solid var(--navix-border);
+  background: var(--navix-surface);
+  height: 100%;
+  transition:
+    border-color var(--navix-transition-fast) var(--navix-ease-out),
+    transform var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-pdoc-alerts__item:hover {
+  transform: translateY(-2px);
+}
+
+.navix-pdoc-alerts__item--warning {
+  border-left: 3px solid var(--navix-warning, #f0ad4e);
+}
+
+.navix-pdoc-alerts__item--danger {
+  border-left: 3px solid var(--navix-danger, #dc3545);
+}
+
+.navix-pdoc-alerts__item--info {
+  border-left: 3px solid var(--navix-info, #0dcaf0);
+}
+
+.navix-pdoc-alerts__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--navix-radius-md);
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+.navix-pdoc-alerts__item--warning .navix-pdoc-alerts__icon {
+  background: rgba(255, 193, 7, 0.16);
+  color: #e0a400;
+}
+
+.navix-pdoc-alerts__item--danger .navix-pdoc-alerts__icon {
+  background: rgba(220, 53, 69, 0.12);
+  color: #e35d6a;
+}
+
+.navix-pdoc-alerts__item--info .navix-pdoc-alerts__icon {
+  background: rgba(13, 202, 240, 0.14);
+  color: #22b8d1;
+}
+
+.navix-pdoc-alerts__link {
+  color: var(--navix-primary);
+  font-size: var(--navix-font-size-caption);
+  font-weight: 500;
+}
+
+.navix-pdoc-alerts__link:hover {
+  text-decoration: underline !important;
+}
+
+/* ─── FICHIER COURANT (modale édition) ──────────────────────────────────── */
+.navix-pdoc-current-file {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--navix-radius-md);
+  border: 1px dashed var(--navix-border);
+  background: var(--navix-surface-muted);
+  min-width: 0;
+}
+
+.navix-pdoc-current-file > i {
+  color: var(--navix-primary);
+  font-size: 1.25rem;
+}
+
+/* ─── PAGE DÉTAIL — PREVIEW DOCUMENT ────────────────────────────────────── */
+.navix-pdoc-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2.5rem 1.5rem;
+  border-radius: var(--navix-radius-lg);
+  border: 1px dashed var(--navix-border);
+  background: var(--navix-surface-muted);
+  text-align: center;
+  min-height: 14rem;
+}
+
+.navix-pdoc-preview__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: var(--navix-radius-lg);
+  background: rgba(13, 110, 253, 0.12);
+  color: var(--navix-primary);
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+.navix-pdoc-preview__file {
+  font-weight: 600;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.navix-pdoc-preview__meta {
+  color: var(--navix-text-muted);
+  font-size: var(--navix-font-size-caption);
+}
+
+.navix-pdoc-hero {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: var(--navix-radius-lg);
+  border: 1px solid var(--navix-border);
+  background: var(--navix-surface);
+}
+
+.navix-pdoc-hero__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: var(--navix-radius-lg);
+  background: rgba(13, 110, 253, 0.12);
+  color: var(--navix-primary);
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+/* ─── RESPONSIVE ────────────────────────────────────────────────────────── */
+@media (max-width: 767.98px) {
+  .navix-pdoc-docbtn {
+    max-width: 100%;
+  }
+
+  .navix-pdoc-alerts__item {
+    padding: 0.75rem;
+  }
+}

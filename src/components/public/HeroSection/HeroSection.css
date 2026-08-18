@@ -1,0 +1,173 @@
+/* ==========================================================================
+   Navix Public — HeroSection
+   --------------------------------------------------------------------------
+   Section héro premium du site vitrine.
+   Deux colonnes : contenu (gauche) + visuel produit (droite).
+   Fond clair avec éléments décoratifs subtils.
+   ========================================================================== */
+
+/* ─── Hero wrapper ──────────────────────────────────────────────────────── */
+.nv-hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(3rem, 8vw, 6rem);
+  background: linear-gradient(160deg, var(--nv-bg) 0%, var(--nv-bg-alt) 40%, rgba(var(--nv-blue-light-rgb), 0.04) 100%);
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+}
+
+/* ─── Background orbs ───────────────────────────────────────────────────── */
+.nv-hero__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.nv-hero__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.12;
+}
+
+.nv-hero__orb--orange {
+  width: 500px;
+  height: 500px;
+  background: var(--nv-orange);
+  top: -10%;
+  right: -5%;
+}
+
+.nv-hero__orb--blue {
+  width: 400px;
+  height: 400px;
+  background: var(--nv-blue-light);
+  bottom: -8%;
+  left: -5%;
+}
+
+.nv-hero__orb--navy {
+  width: 300px;
+  height: 300px;
+  background: var(--nv-navy);
+  top: 50%;
+  left: 40%;
+  opacity: 0.04;
+}
+
+/* ─── Grid layout ───────────────────────────────────────────────────────── */
+.nv-hero__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+/* ─── Content (left) ────────────────────────────────────────────────────── */
+.nv-hero__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-5);
+  max-width: 38rem;
+}
+
+.nv-hero__title {
+  font-size: var(--nv-hero-title);
+  font-weight: var(--navix-font-weight-bold);
+  color: var(--nv-navy);
+  line-height: var(--navix-line-height-tight);
+  letter-spacing: var(--navix-letter-spacing-tight);
+  margin: 0;
+}
+
+.nv-hero__title-accent {
+  color: var(--nv-orange);
+  position: relative;
+}
+
+.nv-hero__title-accent::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0.05em;
+  width: 100%;
+  height: 0.15em;
+  background: var(--nv-orange);
+  opacity: 0.18;
+  border-radius: 0.1em;
+}
+
+.nv-hero__subtitle {
+  font-size: var(--nv-hero-subtitle);
+  color: var(--nv-text-secondary);
+  line-height: var(--navix-line-height-relaxed);
+  margin: 0;
+  max-width: 32rem;
+}
+
+/* ─── CTA buttons ───────────────────────────────────────────────────────── */
+.nv-hero__ctas {
+  display: flex;
+  gap: var(--navix-space-3);
+  flex-wrap: wrap;
+}
+
+/* ─── Visual (right) ────────────────────────────────────────────────────── */
+.nv-hero__visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ─── Entrance animation ────────────────────────────────────────────────── */
+@keyframes nv-hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nv-hero__content {
+  animation: nv-hero-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.nv-hero__visual {
+  animation: nv-hero-fade-up 0.7s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-hero__content,
+  .nv-hero__visual {
+    animation: none;
+  }
+}
+
+/* ─── Desktop: two columns ──────────────────────────────────────────────── */
+@media (min-width: 992px) {
+  .nv-hero {
+    min-height: 90vh;
+  }
+
+  .nv-hero__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .nv-hero__content {
+    max-width: none;
+  }
+}
+
+/* ─── Large desktop ─────────────────────────────────────────────────────── */
+@media (min-width: 1200px) {
+  .nv-hero__content {
+    padding-right: var(--navix-space-8);
+  }
+}

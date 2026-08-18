@@ -1,0 +1,79 @@
+/* ==========================================================================
+   Navix Driver Portal — Workflow des trajets
+   ========================================================================== */
+
+.navix-workflow-route {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navix-workflow-route__city {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.navix-workflow-route__line {
+  flex: 1;
+  height: 2px;
+  background: var(--navix-border-color, rgba(13, 110, 253, 0.18));
+  position: relative;
+}
+
+.navix-workflow-route__distance {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--navix-card, #fff);
+  padding: 0 0.5rem;
+  color: var(--navix-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.navix-workflow-progress {
+  height: 0.5rem;
+}
+
+.navix-trip-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .navix-trip-summary-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.navix-trip-summary-tile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--navix-muted-bg);
+}
+
+.navix-trip-summary-tile__icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  flex-shrink: 0;
+  border-radius: 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navix-trip-summary-tile__value {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.navix-trip-summary-tile__label {
+  font-size: 0.78rem;
+  color: var(--navix-text-muted);
+}

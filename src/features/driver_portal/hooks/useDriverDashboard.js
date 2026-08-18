@@ -28,35 +28,12 @@ export const useDriverDashboard = () => {
     fetchData();
   }, [fetchData]);
 
-  // Handlers pour actions rapides (mockés)
-  const reportIncident = async (incidentData) => {
-    try {
-      await driverDashboardService.reportIncident(incidentData);
-      // Recharger les données si nécessaire
-      return true;
-    } catch (e) {
-      console.error(e);
-      return false;
-    }
-  };
-
-  const startTrip = async (tripId) => {
-    try {
-      await driverDashboardService.startTrip(tripId);
-      // Recharger les données si nécessaire
-      return true;
-    } catch (e) {
-      console.error(e);
-      return false;
-    }
-  };
-
   return {
     data,
     isLoading,
     error,
     refetch: fetchData,
-    
+
     // Déstructuration utilitaire
     driver: data?.driver || null,
     metrics: data?.metrics || [],
@@ -69,9 +46,5 @@ export const useDriverDashboard = () => {
     maintenances: data?.maintenances || [],
     documents: data?.documents || [],
     quickActions: data?.quickActions || [],
-
-    // Actions
-    reportIncident,
-    startTrip,
   };
 };

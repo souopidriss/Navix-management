@@ -1,0 +1,62 @@
+.nv-dcard__grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-2);
+}
+
+.nv-dcard {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  padding: var(--navix-space-3);
+  border-radius: var(--navix-radius-md);
+  border: 1px solid var(--nv-border-light);
+  background: var(--nv-bg-alt);
+}
+
+.nv-dcard__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: rgba(var(--nv-blue-light-rgb), 0.1);
+  color: var(--nv-blue-light);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.nv-dcard__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.nv-dcard__name {
+  font-size: 0.75rem;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-navy);
+}
+
+.nv-dcard__meta {
+  font-size: 0.6rem;
+  color: var(--nv-text-secondary);
+}
+
+.nv-dcard__status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: var(--navix-font-weight-semibold);
+  white-space: nowrap;
+}
+
+.nv-dcard__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}

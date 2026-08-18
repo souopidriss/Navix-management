@@ -100,6 +100,15 @@ export const PAGE_SIZE_OPTIONS = [5, 8, 10, 20];
 
 export const MIN_VEHICLE_YEAR = 1980;
 
+/**
+ * Normalise une immatriculation camerounaise (minuscules et espaces
+ * superflus supprimés). Formats acceptés : `LT 1234 AB` / `EN 2345 B`.
+ * @param {string|undefined} value
+ * @returns {string}
+ */
+export const normalizeRegistrationNumber = (value) =>
+  String(value ?? '').trim().replace(/\s+/g, ' ').toUpperCase();
+
 export const getVehicleStatus = (value) => VEHICLE_STATUSES[value] || { label: value, variant: 'secondary', icon: 'bi-circle' };
 
 export const getVehicleGroup = (value) =>

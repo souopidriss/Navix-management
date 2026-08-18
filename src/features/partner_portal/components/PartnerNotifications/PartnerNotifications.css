@@ -1,0 +1,272 @@
+/* ==========================================================================
+   Navix Partner Portal — PartnerNotifications (PROMPT 067)
+   Styles premium, thème adaptatif (dark/light), responsive (1440 → 360).
+   ========================================================================== */
+
+/* --- KPI Stats -------------------------------------------------------------- */
+.pn-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 1199.98px) {
+  .pn-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 575.98px) {
+  .pn-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Notification Card ------------------------------------------------------ */
+.pn-card {
+  position: relative;
+  display: flex;
+  gap: 0.875rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--navix-border);
+  border-radius: var(--navix-radius-lg, 1rem);
+  background: var(--navix-card-bg, var(--navix-surface));
+  transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pn-card:hover {
+  border-color: var(--navix-primary, #0d6efd);
+  box-shadow: 0 2px 8px rgba(13, 110, 253, 0.06);
+}
+
+.pn-card--unread {
+  border-left: 3px solid var(--navix-primary, #0d6efd);
+  background: var(--navix-primary-soft, rgba(13, 110, 253, 0.04));
+}
+
+.pn-card--unread .pn-card__title {
+  font-weight: 700;
+}
+
+.pn-card__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.pn-card__title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--navix-text, #212529);
+}
+
+.pn-card__message {
+  font-size: 0.85rem;
+  color: var(--navix-text-secondary, #6c757d);
+  line-height: 1.45;
+}
+
+.pn-card__time {
+  font-size: 0.75rem;
+  color: var(--navix-text-muted, #9aa4b2);
+  white-space: nowrap;
+}
+
+.pn-card__entity {
+  font-size: 0.78rem;
+  color: var(--navix-text-muted, #9aa4b2);
+}
+
+.pn-card__actions {
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+  margin-top: 0.375rem;
+}
+
+.pn-card__checkbox {
+  align-self: flex-start;
+  margin-top: 0.2rem;
+}
+
+/* --- Filters Bar ------------------------------------------------------------ */
+.pn-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.pn-filters .form-control,
+.pn-filters .form-select {
+  max-width: 220px;
+}
+
+@media (max-width: 767.98px) {
+  .pn-filters .form-control,
+  .pn-filters .form-select {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+/* --- Activity Timeline ------------------------------------------------------ */
+.pn-timeline {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.pn-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.625rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--navix-border);
+  border-radius: 1px;
+}
+
+.pn-timeline__group-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--navix-text-muted, #9aa4b2);
+  margin-bottom: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.pn-timeline__group-label:first-child {
+  margin-top: 0;
+}
+
+.pn-timeline__item {
+  position: relative;
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.625rem 0;
+}
+
+.pn-timeline__dot {
+  position: absolute;
+  left: -1.125rem;
+  top: 0.85rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  border: 2px solid var(--navix-border);
+  background: var(--navix-card-bg, var(--navix-surface));
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.pn-timeline__dot--success { border-color: var(--bs-success); background: var(--bs-success); }
+.pn-timeline__dot--info { border-color: var(--bs-info); background: var(--bs-info); }
+.pn-timeline__dot--warning { border-color: var(--bs-warning); background: var(--bs-warning); }
+.pn-timeline__dot--danger { border-color: var(--bs-danger); background: var(--bs-danger); }
+.pn-timeline__dot--primary { border-color: var(--bs-primary); background: var(--bs-primary); }
+.pn-timeline__dot--dark { border-color: var(--bs-dark); background: var(--bs-dark); }
+
+.pn-timeline__icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.pn-timeline__title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--navix-text, #212529);
+  margin-bottom: 0.125rem;
+}
+
+.pn-timeline__desc {
+  font-size: 0.82rem;
+  color: var(--navix-text-secondary, #6c757d);
+}
+
+.pn-timeline__time {
+  font-size: 0.75rem;
+  color: var(--navix-text-muted, #9aa4b2);
+  white-space: nowrap;
+}
+
+/* --- Tabs (Notifications / Activités) -------------------------------------- */
+.pn-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--navix-border);
+  margin-bottom: 1.5rem;
+}
+
+.pn-tab {
+  padding: 0.625rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--navix-text-secondary, #6c757d);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.pn-tab:hover {
+  color: var(--navix-text, #212529);
+}
+
+.pn-tab--active {
+  color: var(--navix-primary, #0d6efd);
+  border-bottom-color: var(--navix-primary, #0d6efd);
+}
+
+.pn-tab__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.375rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-left: 0.375rem;
+  background: var(--navix-primary-soft, rgba(13, 110, 253, 0.12));
+  color: var(--navix-primary, #0d6efd);
+}
+
+/* --- Bulk actions bar ------------------------------------------------------- */
+.pn-bulk {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--navix-radius-full, 999px);
+  font-size: 0.8rem;
+  background: var(--navix-primary-soft, rgba(13, 110, 253, 0.1));
+  color: var(--navix-primary, #0d6efd);
+  border: 1px solid var(--navix-border);
+}
+
+/* --- Responsive ------------------------------------------------------------- */
+@media (max-width: 575.98px) {
+  .pn-card {
+    flex-direction: column;
+  }
+
+  .pn-card__actions {
+    flex-wrap: wrap;
+  }
+}

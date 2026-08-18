@@ -6,11 +6,12 @@
  */
 import { create } from 'zustand';
 import { CLIENT_TYPES } from '../constants/client.constants';
-import { clientService } from '../services/clientService';
+import { clientPortalService } from '../services/clientPortalService';
 
 const initialState = {
   clientType: CLIENT_TYPES.ENTERPRISE,
   currentClient: null,
+  companyContext: null,
   dashboardData: null,
   isLoading: false,
   error: null,
@@ -22,7 +23,23 @@ export const useClientStore = create((set, get) => ({
   /** Bascule entre Client Entreprise et Client Particulier. */
   setClientType: (type) => {
     set({ clientType: type });
+    get().fetchContext();
     get().fetchDashboard();
+  },
+
+  /**
+   * Charge le contexte entreprise / multi-tenant du Client (session + profil).
+   * Ne duplique pas auth.store : seule la vue de lecture est dérivée ici.
+   */
+  fetchContext: async () => {
+    const { clientType } = get();
+
+    try {
+      const companyContext = await clientPortalService.getClientContext(clientType);
+      set({ companyContext });
+    } catch {
+      set({ companyContext: null });
+    }
   },
 
   /** Charge les données du Dashboard Client. */
@@ -31,7 +48,7 @@ export const useClientStore = create((set, get) => ({
     set({ isLoading: true, error: null });
 
     try {
-      const data = await clientService.getClientDashboard(clientType);
+      const data = await clientPortalService.getClientDashboard(clientType);
       set({
         currentClient: data.client,
         dashboardData: data,

@@ -1,0 +1,294 @@
+/* ==========================================================================
+   Navix Public — HeroProductPreview
+   --------------------------------------------------------------------------
+   Mockup visuel premium du dashboard Navix Management.
+   Styles pour le faux navigateur avec KPI, graphique, donut et alerte.
+   ========================================================================== */
+
+/* ─── Window chrome ─────────────────────────────────────────────────────── */
+.nv-mockup {
+  width: 100%;
+  max-width: 34rem;
+  perspective: 1000px;
+}
+
+.nv-mockup__window {
+  background: var(--nv-bg);
+  border-radius: var(--navix-radius-xl);
+  border: 1px solid var(--nv-border);
+  box-shadow:
+    0 8px 32px rgba(var(--nv-navy-rgb), 0.1),
+    0 2px 8px rgba(var(--nv-navy-rgb), 0.05);
+  overflow: hidden;
+  transform: rotateY(-2deg) rotateX(1deg);
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nv-mockup__window:hover {
+  transform: rotateY(0) rotateX(0);
+}
+
+.nv-mockup__toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-3) var(--navix-space-4);
+  background: var(--nv-bg-alt);
+  border-bottom: 1px solid var(--nv-border-light);
+}
+
+.nv-mockup__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.nv-mockup__dot--red {
+  background: var(--nv-dot-red);
+}
+
+.nv-mockup__dot--yellow {
+  background: var(--nv-dot-yellow);
+}
+
+.nv-mockup__dot--green {
+  background: var(--nv-dot-green);
+}
+
+.nv-mockup__url {
+  flex: 1;
+  margin-inline-start: var(--navix-space-3);
+  padding: var(--navix-space-1) var(--navix-space-3);
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-md);
+  font-size: 0.7rem;
+  color: var(--nv-text-secondary);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+/* ─── Dashboard body ────────────────────────────────────────────────────── */
+.nv-mockup__body {
+  padding: var(--navix-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-3);
+}
+
+/* ─── KPI row ───────────────────────────────────────────────────────────── */
+.nv-mockup__kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--navix-space-2);
+}
+
+.nv-mockup__kpi {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  padding: var(--navix-space-2) var(--navix-space-3);
+  background: var(--nv-bg-alt);
+  border-radius: var(--navix-radius-md);
+  border: 1px solid var(--nv-border-light);
+}
+
+.nv-mockup__kpi-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--navix-radius-sm);
+  background: rgba(var(--nv-blue-light-rgb), 0.1);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.nv-mockup__kpi-data {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.nv-mockup__kpi-value {
+  font-size: 0.85rem;
+  font-weight: var(--navix-font-weight-bold);
+  color: var(--nv-navy);
+  line-height: 1.2;
+}
+
+.nv-mockup__kpi-label {
+  font-size: 0.6rem;
+  color: var(--nv-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ─── Charts row ────────────────────────────────────────────────────────── */
+.nv-mockup__charts-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: var(--navix-space-3);
+}
+
+.nv-mockup__chart-card,
+.nv-mockup__donut-card {
+  background: var(--nv-bg-alt);
+  border: 1px solid var(--nv-border-light);
+  border-radius: var(--navix-radius-md);
+  padding: var(--navix-space-3);
+}
+
+.nv-mockup__chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--navix-space-2);
+}
+
+.nv-mockup__chart-title {
+  font-size: 0.7rem;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-navy);
+}
+
+.nv-mockup__chart-badge {
+  font-size: 0.55rem;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-orange);
+  background: var(--nv-orange-light);
+  padding: 2px 6px;
+  border-radius: var(--navix-radius-full);
+}
+
+/* ─── Sparkline ─────────────────────────────────────────────────────────── */
+.nv-mockup__sparkline {
+  width: 100%;
+  height: 40px;
+}
+
+/* ─── Donut ─────────────────────────────────────────────────────────────── */
+.nv-mockup__donut {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 5.5rem;
+  height: 5.5rem;
+  margin: 0 auto;
+}
+
+.nv-mockup__donut-ring {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--nv-blue-light) 0% 45%,
+    var(--nv-success, #3fcb8f) 45% 87%,
+    var(--nv-orange) 87% 95%,
+    var(--nv-border) 95% 100%
+  );
+  mask: radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 8px), #000 calc(100% - 7px));
+}
+
+.nv-mockup__donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.nv-mockup__donut-value {
+  font-size: 0.9rem;
+  font-weight: var(--navix-font-weight-bold);
+  color: var(--nv-navy);
+  line-height: 1;
+}
+
+.nv-mockup__donut-label {
+  font-size: 0.55rem;
+  color: var(--nv-text-secondary);
+}
+
+/* ─── Alert card ────────────────────────────────────────────────────────── */
+.nv-mockup__alert {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-3);
+  padding: var(--navix-space-3);
+  background: rgba(var(--nv-orange-rgb), 0.06);
+  border: 1px solid rgba(var(--nv-orange-rgb), 0.15);
+  border-radius: var(--navix-radius-md);
+}
+
+.nv-mockup__alert-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--navix-radius-md);
+  background: var(--nv-orange);
+  color: var(--nv-text-on-navy);
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.nv-mockup__alert-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  flex: 1;
+}
+
+.nv-mockup__alert-title {
+  font-size: 0.75rem;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-navy);
+}
+
+.nv-mockup__alert-desc {
+  font-size: 0.65rem;
+  color: var(--nv-text-secondary);
+}
+
+.nv-mockup__alert-badge {
+  font-size: 0.55rem;
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-orange);
+  background: rgba(var(--nv-orange-rgb), 0.1);
+  padding: 2px 8px;
+  border-radius: var(--navix-radius-full);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ─── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .nv-mockup__kpi-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .nv-mockup__charts-row {
+    grid-template-columns: 1fr;
+  }
+
+  .nv-mockup__alert-badge {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-mockup__window {
+    transform: none;
+  }
+
+  .nv-mockup__window:hover {
+    transform: none;
+  }
+}

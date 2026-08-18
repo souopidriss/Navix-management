@@ -1,0 +1,107 @@
+/* ==========================================================================
+   Navix Partner Portal — Gestion des Véhicules Partenaire (PROMPT 063)
+   Langage visuel cohérent avec le Master Design Navix.
+   Dark Mode prioritaire — Light Mode via tokens CSS globaux (aucun nouveau token).
+   ========================================================================== */
+
+/* ─── CELLULE VÉHICULE (tableau) ────────────────────────────────────────── */
+.navix-pveh-vehbtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.25rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  border-radius: var(--navix-radius-md);
+  transition:
+    background var(--navix-transition-fast) var(--navix-ease-out),
+    color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-pveh-vehbtn:hover {
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+}
+
+.navix-pveh-vehbtn:focus-visible {
+  outline: 2px solid var(--navix-primary);
+  outline-offset: 2px;
+}
+
+.navix-pveh-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* ─── TOOLBAR (recherche + filtres) ─────────────────────────────────────── */
+.navix-pveh-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.navix-pveh-toolbar .navix-searchbar {
+  width: 100%;
+}
+
+.navix-pveh-toolbar .navix-filterbar {
+  flex-wrap: wrap;
+}
+
+/* ─── TABLEAU FLOTTE PARTENAIRE ─────────────────────────────────────────── */
+.navix-pveh-table .navix-datatable__table td {
+  vertical-align: middle;
+}
+
+/* ─── DÉTAIL VÉHICULE (modale lecture) ──────────────────────────────────── */
+.navix-pveh-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  min-height: 2.5rem;
+}
+
+.navix-pveh-detail__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+
+.navix-pveh-detail__body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.navix-pveh-detail__label {
+  font-size: var(--navix-font-size-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navix-text-muted);
+  margin-bottom: 0.125rem;
+}
+
+.navix-pveh-detail__value {
+  font-size: var(--navix-font-size-base);
+  font-weight: 500;
+  color: var(--navix-text-primary);
+  word-break: break-word;
+}

@@ -1,0 +1,98 @@
+/* ==========================================================================
+   Navix Client — ClientDocuments (Catalogue documentaire)
+   Styles premium, thème adaptatif (dark/light), responsive (1440 → 360).
+   ========================================================================== */
+
+/* --- Catalogue (grille de cartes) ----------------------------------------- */
+.navix-client-doc-card {
+  border: 1px solid var(--navix-border);
+  border-radius: var(--navix-radius-lg, 1rem);
+  background: var(--navix-card-bg, var(--navix-surface));
+  transition:
+    transform 0.2s var(--navix-ease-out, ease),
+    box-shadow 0.2s var(--navix-ease-out, ease),
+    border-color 0.2s var(--navix-ease-out, ease);
+  height: 100%;
+}
+
+.navix-client-doc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+  border-color: var(--navix-primary, #0d6efd);
+}
+
+.navix-client-doc-card__icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.navix-client-doc-card__name {
+  font-weight: 600;
+  color: var(--navix-text, #212529);
+  word-break: break-word;
+}
+
+.navix-client-doc-card__expiry {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8rem;
+}
+
+/* --- Upload (zone simulée) ------------------------------------------------- */
+.navix-client-doc-dropzone {
+  border: 1.5px dashed var(--navix-border, #dee2e6);
+  border-radius: var(--navix-radius-lg, 1rem);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s var(--navix-ease-out, ease), background 0.2s var(--navix-ease-out, ease);
+}
+
+.navix-client-doc-dropzone:hover,
+.navix-client-doc-dropzone.is-dragging {
+  border-color: var(--navix-primary, #0d6efd);
+  background: var(--navix-primary-soft, rgba(13, 110, 253, 0.06));
+}
+
+.navix-client-doc-dropzone input {
+  display: none;
+}
+
+/* --- Filtre statut d'expiration ------------------------------------------- */
+.navix-client-doc-status-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: var(--navix-radius-full, 999px);
+  border: 1px solid var(--navix-border);
+  background: var(--navix-surface, #fff);
+}
+
+.navix-client-doc-status-tab {
+  border: none;
+  background: transparent;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--navix-radius-full, 999px);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--navix-text-secondary, #6c757d);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.navix-client-doc-status-tab:hover {
+  color: var(--navix-primary, #0d6efd);
+}
+
+.navix-client-doc-status-tab--active {
+  background: var(--navix-primary, #0d6efd);
+  color: #fff;
+}

@@ -1,0 +1,216 @@
+/* ==========================================================================
+   Navix Client — Gestion de la Flotte (list + détail)
+   Langage visuel cohérent avec le Dashboard Client Premium.
+   Dark Mode prioritaire — Light Mode via tokens CSS globaux.
+   ========================================================================== */
+
+/* ─── BANNIÈRE IDENTITÉ FLOTTE ──────────────────────────────────────────── */
+.navix-fleet-identity {
+  background: var(--navix-card);
+  border: 1px solid var(--navix-border-color-subtle);
+  border-radius: var(--navix-radius-lg);
+  padding: 1rem 1.25rem;
+  box-shadow: var(--navix-shadow-card);
+}
+
+.navix-fleet-identity__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+/* ─── OUTIL IMAGE VÉHICULE ──────────────────────────────────────────────── */
+.navix-fleet-img {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.navix-fleet-img--sm {
+  width: 2.25rem;
+  height: 2.25rem;
+  font-size: 1rem;
+}
+
+.navix-fleet-img--md {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.3rem;
+}
+
+.navix-fleet-img--xl {
+  width: 4.75rem;
+  height: 4.75rem;
+  font-size: 2.1rem;
+  border-radius: var(--navix-radius-lg);
+}
+
+/* ─── BOUTON VÉHICULE (cellule tableau) ─────────────────────────────────── */
+.navix-fleet-vehbtn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.25rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  border-radius: var(--navix-radius-md);
+  transition:
+    background var(--navix-transition-fast) var(--navix-ease-out),
+    color var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-fleet-vehbtn:hover {
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+}
+
+.navix-fleet-vehbtn:focus-visible {
+  outline: 2px solid var(--navix-primary);
+  outline-offset: 2px;
+}
+
+/* ─── TOOLBAR (recherche + filtres) ─────────────────────────────────────── */
+.navix-fleet-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.navix-fleet-toolbar .navix-searchbar {
+  width: 100%;
+}
+
+.navix-fleet-toolbar .navix-filterbar {
+  flex-wrap: wrap;
+}
+
+/* ─── TABLEAU FLOTTE ────────────────────────────────────────────────────── */
+.navix-fleet-table .navix-datatable__table td {
+  vertical-align: middle;
+}
+
+/* ─── OPTIONS DE STATUT (dialogue radio) ────────────────────────────────── */
+.navix-fleet-status-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--navix-border-color-subtle);
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-surface);
+  cursor: pointer;
+  transition:
+    border-color var(--navix-transition-fast) var(--navix-ease-out),
+    background var(--navix-transition-fast) var(--navix-ease-out);
+}
+
+.navix-fleet-status-option:hover {
+  border-color: var(--navix-border-color-hover);
+}
+
+.navix-fleet-status-option:has(input:checked) {
+  border-color: var(--navix-primary);
+  background: var(--navix-primary-muted);
+}
+
+.navix-fleet-status-option input {
+  margin: 0;
+}
+
+/* ─── DÉTAIL VÉHICULE ───────────────────────────────────────────────────── */
+.navix-fleet-details__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  flex-shrink: 0;
+}
+
+.navix-fleet-details__label {
+  font-size: var(--navix-font-size-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--navix-text-muted);
+  margin-bottom: 0.125rem;
+}
+
+.navix-fleet-details__value {
+  font-size: var(--navix-font-size-base);
+  font-weight: 500;
+  color: var(--navix-text-primary);
+}
+
+.navix-fleet-details__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.75rem 1rem;
+  min-width: 7.5rem;
+  background: var(--navix-surface);
+  border: 1px solid var(--navix-border-color-subtle);
+  border-radius: var(--navix-radius-md);
+}
+
+.navix-fleet-details__stat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--navix-radius-md);
+  background: var(--navix-primary-muted);
+  color: var(--navix-primary);
+  font-size: 0.95rem;
+}
+
+.navix-fleet-details__stat-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.navix-fleet-details__stat-value {
+  font-weight: 700;
+  font-size: var(--navix-font-size-base);
+  color: var(--navix-text-primary);
+  white-space: nowrap;
+}
+
+.navix-fleet-details__stat-label {
+  font-size: var(--navix-font-size-caption);
+  color: var(--navix-text-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 575.98px) {
+  .navix-fleet-details__stats {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .navix-fleet-details__stat {
+    flex: 1 1 auto;
+    min-width: 6rem;
+  }
+}

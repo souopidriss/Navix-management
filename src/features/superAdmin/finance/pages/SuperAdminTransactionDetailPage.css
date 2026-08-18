@@ -1,0 +1,47 @@
+/* Navix Super Admin — Transaction Detail Page */
+
+.navix-sa-detail-card {
+  border: 1px solid var(--bs-border-color, rgba(0, 0, 0, 0.08));
+  border-radius: var(--navix-radius-lg, 10px);
+}
+
+.navix-sa-detail-card .card-header {
+  background: var(--bs-body-bg, #fff);
+  border-bottom: 1px solid var(--bs-border-color, rgba(0, 0, 0, 0.08));
+  padding: 1rem 1.25rem;
+}
+
+.navix-sa-detail-card .card-body {
+  padding: 1.25rem;
+}
+
+.navix-sa-detail__label {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--bs-secondary-color, #6c757d);
+  margin-bottom: 0.15rem;
+}
+
+.navix-sa-detail__value {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--bs-body-color, #212529);
+  word-break: break-word;
+}
+
+.navix-sa-meta dt {
+  margin-bottom: 0;
+}
+
+.navix-sa-meta dd {
+  margin-bottom: 0.75rem;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .navix-sa-detail-card .card-header {
+    background: var(--bs-body-bg, #1a1d20);
+  }
+}

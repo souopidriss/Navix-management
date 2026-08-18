@@ -1,0 +1,201 @@
+.nv-pcards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--navix-space-5);
+  align-items: start;
+}
+
+.nv-pcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--nv-bg);
+  border: 1px solid var(--nv-border);
+  border-radius: var(--navix-radius-xl);
+  padding: var(--navix-space-6);
+  box-shadow: var(--nv-shadow-card);
+  transition:
+    box-shadow var(--nv-transition-card),
+    transform var(--nv-transition-card),
+    border-color var(--nv-transition-card);
+}
+
+.nv-pcard:hover {
+  box-shadow: var(--nv-shadow-card-hover);
+  transform: translateY(-4px);
+  border-color: var(--nv-blue-light);
+}
+
+.nv-pcard--popular {
+  border: 2px solid var(--nv-orange);
+  box-shadow: 0 4px 24px rgba(var(--nv-orange-rgb), 0.12);
+  transform: scale(1.03);
+  z-index: 1;
+}
+
+.nv-pcard--popular:hover {
+  transform: scale(1.03) translateY(-4px);
+  box-shadow: 0 8px 32px rgba(var(--nv-orange-rgb), 0.18);
+}
+
+.nv-pcard__badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 16px;
+  background: var(--nv-orange);
+  color: var(--nv-text-on-navy);
+  font-size: var(--navix-font-size-caption);
+  font-weight: var(--navix-font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--navix-letter-spacing-wide);
+  border-radius: var(--navix-radius-full);
+  white-space: nowrap;
+}
+
+.nv-pcard__head {
+  text-align: center;
+  margin-bottom: var(--navix-space-5);
+}
+
+.nv-pcard__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--navix-radius-lg);
+  background: var(--nv-orange-light);
+  color: var(--nv-orange);
+  font-size: 1.25rem;
+  margin-bottom: var(--navix-space-3);
+}
+
+.nv-pcard--popular .nv-pcard__icon {
+  background: var(--nv-orange);
+  color: var(--nv-text-on-navy);
+}
+
+.nv-pcard__name {
+  font-size: 1.25rem;
+  font-weight: var(--navix-font-weight-bold);
+  color: var(--nv-navy);
+  margin: 0 0 var(--navix-space-2) 0;
+}
+
+.nv-pcard__desc {
+  font-size: var(--navix-font-size-sm);
+  color: var(--nv-text-secondary);
+  line-height: var(--navix-line-height-relaxed);
+  margin: 0;
+}
+
+.nv-pcard__price-block {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: var(--navix-space-1);
+  padding-block: var(--navix-space-4);
+  border-top: 1px solid var(--nv-border-light);
+  border-bottom: 1px solid var(--nv-border-light);
+}
+
+.nv-pcard__price {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: var(--navix-font-weight-bold);
+  color: var(--nv-navy);
+  line-height: 1;
+}
+
+.nv-pcard__currency {
+  font-size: var(--navix-font-size-sm);
+  font-weight: var(--navix-font-weight-semibold);
+  color: var(--nv-text-secondary);
+}
+
+.nv-pcard__period {
+  font-size: var(--navix-font-size-sm);
+  color: var(--nv-text-secondary);
+}
+
+.nv-pcard__monthly {
+  text-align: center;
+  font-size: var(--navix-font-size-caption);
+  color: var(--nv-text-secondary);
+  margin: 0 0 var(--navix-space-3) 0;
+}
+
+.nv-pcard__trial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: var(--navix-font-size-caption);
+  color: var(--nv-blue-light);
+  font-weight: var(--navix-font-weight-medium);
+  margin: 0 0 var(--navix-space-4) 0;
+}
+
+.nv-pcard__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--navix-space-5) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--navix-space-3);
+  flex: 1;
+}
+
+.nv-pcard__feature {
+  display: flex;
+  align-items: center;
+  gap: var(--navix-space-2);
+  font-size: var(--navix-font-size-sm);
+  color: var(--nv-text);
+  line-height: 1.4;
+}
+
+.nv-pcard__feature .bi-check-circle-fill {
+  color: var(--nv-blue-light);
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.nv-pcard__cta {
+  margin-top: auto;
+}
+
+.nv-pcard__btn {
+  width: 100%;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nv-pcard:hover,
+  .nv-pcard--popular:hover { transform: none; }
+}
+
+@media (max-width: 1100px) {
+  .nv-pcards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .nv-pcard--popular {
+    transform: none;
+  }
+  .nv-pcard--popular:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 600px) {
+  .nv-pcards {
+    grid-template-columns: 1fr;
+    max-width: 24rem;
+    margin-inline: auto;
+  }
+}

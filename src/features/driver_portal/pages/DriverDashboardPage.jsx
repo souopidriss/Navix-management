@@ -5,15 +5,21 @@
  */
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import { PageContainer, PageHeader, LoadingState, ErrorState } from '@/components/core';
 import { Card } from '@/components/ui';
-import { CostAreaChart, DashboardAlerts, FuelConsumptionCard } from '@/features/dashboard/components';
+import { CostAreaChart, FuelConsumptionCard } from '@/features/dashboard/components';
+import { usePermission } from '@/features/rbac/hooks';
 import { useDriverDashboard } from '../hooks/useDriverDashboard';
+import { useDriverTripWorkflow } from '../hooks/useDriverTripWorkflow';
 
 import DriverKpiCards from '../components/DriverDashboard/DriverKpiCards';
 import DriverVehicleCard from '../components/DriverDashboard/DriverVehicleCard';
+import DriverAlerts from '../components/DriverDashboard/DriverAlerts';
 import NextTripCard from '../components/DriverDashboard/NextTripCard';
 import DriverRecentTrips from '../components/DriverDashboard/DriverRecentTrips';
+import ActiveTripCard from '../components/DriverTrips/ActiveTripCard';
+import TripWorkflowModals from '../components/DriverTrips/TripWorkflowModals';
 
 import '../components/DriverDashboard/DriverDashboard.css';
 
@@ -32,8 +38,27 @@ const DriverDashboardPage = () => {
     fuelData,
     alerts,
     quickActions,
-    startTrip,
   } = useDriverDashboard();
+
+  const workflow = useDriverTripWorkflow();
+  const canTripUpdate = usePermission('trips.update');
+  const canReportIncident = usePermission('incidents.create');
+
+  const handlePause = async (trip) => {
+    const result = await workflow.submitPause(trip.id);
+    if (result.success) {
+      toast.success(result.message);
+      refetch();
+    }
+  };
+
+  const handleResume = async (trip) => {
+    const result = await workflow.submitResume(trip.id);
+    if (result.success) {
+      toast.success(result.message);
+      refetch();
+    }
+  };
 
   if (isLoading && !data) {
     return (
@@ -100,13 +125,28 @@ const DriverDashboardPage = () => {
         <DriverKpiCards metrics={metrics} loading={isLoading && !data} />
       </div>
 
-      {/* ── Section 1 : Véhicule & Prochain Trajet ──────────────────────── */}
+      {/* ── Section 1 : Véhicule & Prochain / Trajet en cours ──────────── */}
       <div className="row g-3 mb-4 navix-driver-animate">
         <div className="col-xl-5 col-lg-6">
           <DriverVehicleCard vehicle={vehicle} />
         </div>
         <div className="col-xl-7 col-lg-6">
-          <NextTripCard trip={nextTrip} onStartTrip={startTrip} />
+          {workflow.activeTrip ? (
+            <ActiveTripCard
+              trip={workflow.activeTrip}
+              canPause={canTripUpdate && workflow.canPause(workflow.activeTrip)}
+              canResume={canTripUpdate && workflow.canResume(workflow.activeTrip)}
+              canComplete={canTripUpdate && workflow.canComplete(workflow.activeTrip)}
+              canReport={canReportIncident}
+              busy={workflow.isSubmitting}
+              onPause={handlePause}
+              onResume={handleResume}
+              onIncident={workflow.openIncident}
+              onComplete={workflow.openComplete}
+            />
+          ) : (
+            <NextTripCard trip={nextTrip} onStartTrip={workflow.startTrip} />
+          )}
         </div>
       </div>
 
@@ -127,7 +167,7 @@ const DriverDashboardPage = () => {
           </Card>
         </div>
         <div className="col-xl-5 col-lg-6">
-          <DashboardAlerts alerts={alerts} />
+          <DriverAlerts alerts={alerts} />
         </div>
       </div>
 
@@ -140,6 +180,8 @@ const DriverDashboardPage = () => {
           <DriverRecentTrips trips={recentTrips} />
         </div>
       </div>
+
+      <TripWorkflowModals workflow={workflow} onSuccess={refetch} />
     </PageContainer>
   );
 };

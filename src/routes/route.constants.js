@@ -10,9 +10,18 @@ export const ROUTES = {
   /* Publiques */
   HOME: '/',
   MAINTENANCE: '/maintenance',
+  PUBLIC_FEATURES: '/fonctionnalites',
+  PUBLIC_PRICING: '/tarifs',
+  PUBLIC_ABOUT: '/a-propos',
+  PUBLIC_RESOURCES: '/ressources',
+  PUBLIC_CONTACT: '/contact',
 
   /* Authentification */
   LOGIN: '/login',
+  REGISTER: '/register',
+  REGISTER_CLIENT: '/register/client',
+  REGISTER_DRIVER: '/register/driver',
+  REGISTER_PARTNER: '/register/partner',
   FORGOT_PASSWORD: '/forgot-password',
   RESET_PASSWORD: '/reset-password',
 
@@ -124,34 +133,96 @@ export const ROUTES = {
   SETTINGS_SYSTEM: '/dashboard/settings/system',
   PROFILE: '/dashboard/profile',
 
+  /* Espace Super Admin — Finance plateforme */
+  SA_FINANCE: '/dashboard/sa-finance',
+  SA_FINANCE_TRANSACTIONS: '/dashboard/sa-finance/transactions',
+  SA_FINANCE_TRANSACTION_DETAIL: '/dashboard/sa-finance/transactions/:id',
+  SA_FINANCE_REPORTS: '/dashboard/sa-finance/reports',
+
   /* Espace Client */
   CLIENT_ROOT: '/client',
   CLIENT_DASHBOARD: '/client/dashboard',
   CLIENT_SERVICES: '/client/services',
   CLIENT_VEHICLES: '/client/vehicles',
+  CLIENT_VEHICLES_DETAIL: '/client/vehicles/:vehicleId',
+  CLIENT_DRIVERS: '/client/drivers',
+  CLIENT_DRIVERS_DETAIL: '/client/drivers/:driverId',
+  CLIENT_ASSIGNMENTS: '/client/assignments',
   CLIENT_REQUESTS: '/client/requests',
   CLIENT_REQUESTS_NEW: '/client/requests/new',
   CLIENT_REQUESTS_DETAIL: '/client/requests/:id',
   CLIENT_TRIPS: '/client/trips',
-  CLIENT_TRIPS_DETAIL: '/client/trips/:id',
+  CLIENT_TRIPS_DETAIL: '/client/trips/:tripId',
+  CLIENT_MAINTENANCE: '/client/maintenance',
+  CLIENT_FUEL: '/client/fuel',
   CLIENT_DOCUMENTS: '/client/documents',
   CLIENT_INVOICES: '/client/invoices',
+  CLIENT_REPORTS: '/client/reports',
+  CLIENT_NOTIFICATIONS: '/client/notifications',
   CLIENT_PROFILE: '/client/profile',
+  CLIENT_FINANCE: '/client/finance',
+  CLIENT_FINANCE_FUNDS: '/client/finance/funds',
+  CLIENT_FINANCE_TRANSACTIONS: '/client/finance/transactions',
+  CLIENT_FINANCE_TRANSACTION_DETAIL: '/client/finance/transactions/:transactionId',
 
   /* Espace Chauffeur */
   DRIVER_ROOT: '/driver',
   DRIVER_DASHBOARD: '/driver/dashboard',
   DRIVER_TRIPS: '/driver/trips',
+  DRIVER_TRIPS_DETAIL: '/driver/trips/:id',
   DRIVER_VEHICLE: '/driver/vehicle',
   DRIVER_FUEL: '/driver/fuel',
   DRIVER_MAINTENANCE: '/driver/maintenance',
+  DRIVER_INCIDENTS: '/driver/incidents',
   DRIVER_DOCUMENTS: '/driver/documents',
+  DRIVER_NOTIFICATIONS: '/driver/notifications',
   DRIVER_PROFILE: '/driver/profile',
+
+  /* Espace Partenaire */
+  PARTNER_ROOT: '/partner',
+  PARTNER_DASHBOARD: '/partner/dashboard',
+  PARTNER_VEHICLES: '/partner/vehicles',
+  PARTNER_MISSIONS: '/partner/missions',
+  PARTNER_MISSIONS_DETAIL: '/partner/missions/:id',
+  PARTNER_MISSIONS_NEW: '/partner/missions/new',
+  PARTNER_CLIENTS: '/partner/clients',
+  PARTNER_CLIENTS_DETAIL: '/partner/clients/:id',
+  PARTNER_CLIENTS_NEW: '/partner/clients/new',
+  PARTNER_FINANCE: '/partner/finance',
+  PARTNER_FINANCE_FUNDS: '/partner/finance/funds',
+  PARTNER_FINANCE_TRANSACTIONS: '/partner/finance/transactions',
+  PARTNER_FINANCE_TRANSACTION_DETAIL: '/partner/finance/transactions/:transactionId',
+  PARTNER_FINANCE_REVENUE: '/partner/finance/revenue',
+  PARTNER_FINANCE_REVENUE_DETAIL: '/partner/finance/revenue/:revenueId',
+  PARTNER_FINANCE_INVOICES: '/partner/finance/invoices',
+  PARTNER_FINANCE_INVOICE_DETAIL: '/partner/finance/invoices/:invoiceId',
+  PARTNER_DOCUMENTS: '/partner/documents',
+  PARTNER_DOCUMENTS_DETAIL: '/partner/documents/:id',
+  PARTNER_NOTIFICATIONS: '/partner/notifications',
+  PARTNER_REQUESTS: '/partner/requests',
+  PARTNER_REQUESTS_DETAIL: '/partner/requests/:requestId',
+  PARTNER_CONTRACTS: '/partner/contracts',
+  PARTNER_CONTRACTS_DETAIL: '/partner/contracts/:contractId',
+  PARTNER_ALERTS: '/partner/alerts',
+  PARTNER_CALENDAR: '/partner/calendar',
+  PARTNER_ANALYTICS: '/partner/analytics',
+  PARTNER_SUPPORT: '/partner/support',
+  PARTNER_SUPPORT_DETAIL: '/partner/support/:ticketId',
+  PARTNER_PROFILE: '/partner/profile',
+  PARTNER_SETTINGS: '/partner/settings',
 };
 
 export const PUBLIC_ROUTES = [ROUTES.HOME, ROUTES.MAINTENANCE];
 
-export const AUTH_ROUTES = [ROUTES.LOGIN, ROUTES.FORGOT_PASSWORD, ROUTES.RESET_PASSWORD];
+export const AUTH_ROUTES = [
+  ROUTES.LOGIN,
+  ROUTES.REGISTER,
+  ROUTES.REGISTER_CLIENT,
+  ROUTES.REGISTER_DRIVER,
+  ROUTES.REGISTER_PARTNER,
+  ROUTES.FORGOT_PASSWORD,
+  ROUTES.RESET_PASSWORD,
+];
 
 /**
  * Route d'atterrissage post-connexion.
@@ -167,12 +238,23 @@ export const resolveLandingRoute = (role) => {
   if (role === 'driver') {
     return ROUTES.DRIVER_DASHBOARD;
   }
+  if (role === 'partner') {
+    return ROUTES.PARTNER_DASHBOARD;
+  }
   return ROUTES.DASHBOARD;
 };
 
 /* Path builders Client */
 export const clientRequestDetailPath = (id) => `${ROUTES.CLIENT_REQUESTS}/${id}`;
 export const clientTripDetailPath = (id) => `${ROUTES.CLIENT_TRIPS}/${id}`;
+export const clientVehicleDetailPath = (id) => `${ROUTES.CLIENT_VEHICLES}/${id}`;
+export const clientDriverDetailPath = (id) => `${ROUTES.CLIENT_DRIVERS}/${id}`;
+export const transactionDetailPath = (id) => `${ROUTES.CLIENT_FINANCE_TRANSACTIONS}/${id}`;
+export const partnerTransactionDetailPath = (id) => `${ROUTES.PARTNER_FINANCE_TRANSACTIONS}/${id}`;
+export const partnerRevenueDetailPath = (id) => `${ROUTES.PARTNER_FINANCE_REVENUE}/${id}`;
+export const partnerInvoiceDetailPath = (id) => `${ROUTES.PARTNER_FINANCE_INVOICES}/${id}`;
+export const partnerRequestDetailPath = (id) => `${ROUTES.PARTNER_REQUESTS}/${id}`;
+export const partnerContractDetailPath = (id) => `${ROUTES.PARTNER_CONTRACTS}/${id}`;
 
 /** Construit le chemin de détail d'une entreprise. */
 export const companyDetailPath = (id) => `${ROUTES.COMPANIES}/${id}`;
@@ -195,6 +277,12 @@ export const vehicleDetailPath = (id) => `${ROUTES.VEHICLES}/${id}`;
 /** Construit le chemin d'édition d'un véhicule. */
 export const vehicleEditPath = (id) => `${ROUTES.VEHICLES}/${id}/edit`;
 
+/** Construit le chemin de détail d'une mission partenaire. */
+export const partnerMissionDetailPath = (id) => `${ROUTES.PARTNER_MISSIONS}/${id}`;
+
+/** Construit le chemin de détail d'un client partenaire. */
+export const partnerClientDetailPath = (id) => `${ROUTES.PARTNER_CLIENTS}/${id}`;
+
 /** Construit le chemin de détail d'un chauffeur. */
 export const driverDetailPath = (id) => `${ROUTES.DRIVERS}/${id}`;
 
@@ -209,6 +297,9 @@ export const assignmentEditPath = (id) => `${ROUTES.ASSIGNMENTS}/${id}/edit`;
 
 /** Construit le chemin de détail d'un trajet. */
 export const tripDetailPath = (id) => `${ROUTES.TRIPS}/${id}`;
+
+/** Construit le chemin de détail d'un trajet côté chauffeur. */
+export const driverTripDetailPath = (id) => `${ROUTES.DRIVER_TRIPS}/${id}`;
 
 /** Construit le chemin d'édition d'un trajet. */
 export const tripEditPath = (id) => `${ROUTES.TRIPS}/${id}/edit`;
@@ -269,6 +360,10 @@ export const reportCategoryPath = (id) => `${ROUTES.REPORTS}/${id}`;
 
 /** Construit le chemin du rapport personnalisé. */
 export const customReportPath = () => ROUTES.REPORTS_CUSTOM;
+
+/** Construit le chemin de détail d'une transaction Super Admin. */
+export const saTransactionDetailPath = (id) => `${ROUTES.SA_FINANCE_TRANSACTIONS}/${id}`;
+export const saFinanceReportsPath = () => ROUTES.SA_FINANCE_REPORTS;
 
 export const PRIVATE_ROUTES = [
   ROUTES.DASHBOARD,
@@ -374,25 +469,74 @@ export const PRIVATE_ROUTES = [
   ROUTES.SETTINGS_SECURITY,
   ROUTES.SETTINGS_SYSTEM,
   ROUTES.PROFILE,
+  ROUTES.SA_FINANCE,
+  ROUTES.SA_FINANCE_TRANSACTIONS,
+  ROUTES.SA_FINANCE_TRANSACTION_DETAIL,
+  ROUTES.SA_FINANCE_REPORTS,
   ROUTES.CLIENT_ROOT,
   ROUTES.CLIENT_DASHBOARD,
   ROUTES.CLIENT_SERVICES,
   ROUTES.CLIENT_VEHICLES,
+  ROUTES.CLIENT_VEHICLES_DETAIL,
+  ROUTES.CLIENT_DRIVERS,
+  ROUTES.CLIENT_DRIVERS_DETAIL,
+  ROUTES.CLIENT_ASSIGNMENTS,
   ROUTES.CLIENT_REQUESTS,
   ROUTES.CLIENT_REQUESTS_NEW,
   ROUTES.CLIENT_REQUESTS_DETAIL,
   ROUTES.CLIENT_TRIPS,
   ROUTES.CLIENT_TRIPS_DETAIL,
+  ROUTES.CLIENT_MAINTENANCE,
+  ROUTES.CLIENT_FUEL,
   ROUTES.CLIENT_DOCUMENTS,
   ROUTES.CLIENT_INVOICES,
+  ROUTES.CLIENT_REPORTS,
   ROUTES.CLIENT_NOTIFICATIONS,
   ROUTES.CLIENT_PROFILE,
+  ROUTES.CLIENT_FINANCE,
+  ROUTES.CLIENT_FINANCE_FUNDS,
+  ROUTES.CLIENT_FINANCE_TRANSACTIONS,
+  ROUTES.CLIENT_FINANCE_TRANSACTION_DETAIL,
   ROUTES.DRIVER_ROOT,
   ROUTES.DRIVER_DASHBOARD,
   ROUTES.DRIVER_TRIPS,
+  ROUTES.DRIVER_TRIPS_DETAIL,
   ROUTES.DRIVER_VEHICLE,
   ROUTES.DRIVER_FUEL,
   ROUTES.DRIVER_MAINTENANCE,
+  ROUTES.DRIVER_INCIDENTS,
   ROUTES.DRIVER_DOCUMENTS,
+  ROUTES.DRIVER_NOTIFICATIONS,
   ROUTES.DRIVER_PROFILE,
+  ROUTES.PARTNER_ROOT,
+  ROUTES.PARTNER_DASHBOARD,
+  ROUTES.PARTNER_VEHICLES,
+  ROUTES.PARTNER_MISSIONS,
+  ROUTES.PARTNER_MISSIONS_DETAIL,
+  ROUTES.PARTNER_MISSIONS_NEW,
+  ROUTES.PARTNER_CLIENTS,
+  ROUTES.PARTNER_CLIENTS_DETAIL,
+  ROUTES.PARTNER_CLIENTS_NEW,
+  ROUTES.PARTNER_FINANCE,
+  ROUTES.PARTNER_FINANCE_FUNDS,
+  ROUTES.PARTNER_FINANCE_TRANSACTIONS,
+  ROUTES.PARTNER_FINANCE_TRANSACTION_DETAIL,
+  ROUTES.PARTNER_FINANCE_REVENUE,
+  ROUTES.PARTNER_FINANCE_REVENUE_DETAIL,
+  ROUTES.PARTNER_FINANCE_INVOICES,
+  ROUTES.PARTNER_FINANCE_INVOICE_DETAIL,
+  ROUTES.PARTNER_DOCUMENTS,
+  ROUTES.PARTNER_DOCUMENTS_DETAIL,
+  ROUTES.PARTNER_REQUESTS,
+  ROUTES.PARTNER_REQUESTS_DETAIL,
+  ROUTES.PARTNER_CONTRACTS,
+  ROUTES.PARTNER_CONTRACTS_DETAIL,
+  ROUTES.PARTNER_NOTIFICATIONS,
+  ROUTES.PARTNER_ALERTS,
+  ROUTES.PARTNER_CALENDAR,
+  ROUTES.PARTNER_ANALYTICS,
+  ROUTES.PARTNER_SUPPORT,
+  ROUTES.PARTNER_SUPPORT_DETAIL,
+  ROUTES.PARTNER_PROFILE,
+  ROUTES.PARTNER_SETTINGS,
 ];

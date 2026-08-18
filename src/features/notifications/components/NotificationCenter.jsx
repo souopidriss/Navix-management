@@ -16,6 +16,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES, notificationDetailPath } from '@/routes/route.constants';
+import { useAuthStore } from '@/features/auth';
 import { useNotificationCenter } from '../hooks';
 import { useNotificationsStore } from '../store';
 import { useCompaniesStore } from '@/features/companies';
@@ -30,6 +31,8 @@ const NotificationCenter = ({
   className,
 }) => {
   const navigate = useNavigate();
+  const user = useAuthStore((state) => state.user);
+  const isDriver = user?.role === 'driver';
   const { notifications, unreadCount, hasUnread, isConnected, toggleRealtime, actions, isSaving } =
     useNotificationCenter({ limit });
 
@@ -46,7 +49,7 @@ const NotificationCenter = ({
 
   const handleView = async (notification) => {
     if (notification.status === 'unread') await actions.markAsRead(notification.id);
-    navigate(notificationDetailPath(notification.id));
+    navigate(isDriver ? ROUTES.DRIVER_NOTIFICATIONS : notificationDetailPath(notification.id));
   };
 
   return (
@@ -93,7 +96,7 @@ const NotificationCenter = ({
           <button
             type="button"
             className="navix-notif-center__all"
-            onClick={() => navigate(ROUTES.NOTIFICATIONS)}
+            onClick={() => navigate(isDriver ? ROUTES.DRIVER_NOTIFICATIONS : ROUTES.NOTIFICATIONS)}
           >
             <i className="bi bi-inbox me-2" aria-hidden="true" />
             Voir toutes les notifications

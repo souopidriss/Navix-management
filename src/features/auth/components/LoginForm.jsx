@@ -3,7 +3,7 @@
  * --------------------------------------------------------------------------
  * Formulaire de connexion : email, mot de passe, remember me, lien
  * « mot de passe oublié ». Validation exclusive Zod, états loading / error
- * pilotés par le store auth (simulation — aucun appel backend).
+ * pilotés par le store auth.
  */
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -16,6 +16,14 @@ import EmailInput from './EmailInput';
 import PasswordInput from './PasswordInput';
 import RememberMe from './RememberMe';
 
+const isSafeRedirect = (path) => {
+  if (!path || typeof path !== 'string') return false;
+  if (!path.startsWith('/')) return false;
+  if (path.startsWith('//')) return false;
+  if (path.startsWith('/\\')) return false;
+  return true;
+};
+
 const LoginForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,18 +32,27 @@ const LoginForm = () => {
   const isLoading = useAuthStore((state) => state.isLoading);
   const error = useAuthStore((state) => state.error);
 
-  const { values, errors, setField, handleSubmit } = useZodForm({
+  const { values, errors, isSubmitting, setField, handleSubmit } = useZodForm({
     schema: loginSchema,
     defaultValues: loginDefaultValues,
     onSubmit: async (data) => {
+      if (import.meta.env.DEV) {
+        console.info('[LoginForm] onSubmit called', { email: data.email });
+      }
       const result = await login(data);
       if (!result.success) return;
 
       toast.success('Connexion réussie. Bienvenue !');
 
       const fromPath = location.state?.from?.pathname;
+      const currentRole = useAuthStore.getState().currentRole;
       const target =
-        fromPath && PRIVATE_ROUTES.includes(fromPath) ? fromPath : resolveLandingRoute();
+        isSafeRedirect(fromPath) && PRIVATE_ROUTES.some((route) => fromPath.startsWith(route))
+          ? fromPath
+          : resolveLandingRoute(currentRole);
+      if (import.meta.env.DEV) {
+        console.info('[LoginForm] navigating to', { target, currentRole, isAuthenticated: useAuthStore.getState().isAuthenticated, isHydrated: useAuthStore.getState().isHydrated });
+      }
       navigate(target, { replace: true });
     },
   });
@@ -78,7 +95,7 @@ const LoginForm = () => {
         </Link>
       </div>
 
-      <Button type="submit" size="lg" fullWidth loading={isLoading}>
+      <Button type="submit" size="lg" fullWidth loading={isLoading} disabled={isSubmitting}>
         Connexion
       </Button>
     </form>
