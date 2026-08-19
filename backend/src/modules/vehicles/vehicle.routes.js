@@ -9,6 +9,7 @@ import {
   vehicleIdParamSchema,
 } from './vehicle.schema.js';
 import * as vehicleController from './vehicle.controller.js';
+import * as fuelController from '../fuel/fuel.controller.js';
 
 const router = Router();
 
@@ -16,6 +17,11 @@ router.use(authenticate);
 router.use(tenantScope);
 
 router.get('/stats', vehicleController.stats);
+
+router.get(
+  '/:vehicleId/fuel',
+  fuelController.vehicleFuelHistory
+);
 
 router.get(
   '/',
