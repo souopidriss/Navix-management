@@ -1,0 +1,36 @@
+ALTER TABLE notifications
+  ADD COLUMN is_read TINYINT(1) DEFAULT 0 AFTER status,
+  ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER created_at,
+  ADD COLUMN expires_at TIMESTAMP NULL AFTER read_at,
+  ADD COLUMN metadata JSON NULL AFTER expires_at,
+  ADD INDEX idx_notifications_is_read (is_read);
+
+CREATE TABLE notification_preferences (
+  id CHAR(26) PRIMARY KEY,
+  user_id CHAR(26) NOT NULL,
+  company_id CHAR(26) NOT NULL,
+  enabled TINYINT(1) DEFAULT 1,
+  in_app TINYINT(1) DEFAULT 1,
+  email TINYINT(1) DEFAULT 1,
+  push TINYINT(1) DEFAULT 1,
+  sms TINYINT(1) DEFAULT 1,
+  maintenance TINYINT(1) DEFAULT 1,
+  vehicles TINYINT(1) DEFAULT 1,
+  fuel TINYINT(1) DEFAULT 1,
+  documents TINYINT(1) DEFAULT 1,
+  trips TINYINT(1) DEFAULT 1,
+  assignments TINYINT(1) DEFAULT 1,
+  drivers TINYINT(1) DEFAULT 1,
+  billing TINYINT(1) DEFAULT 1,
+  subscription TINYINT(1) DEFAULT 1,
+  users TINYINT(1) DEFAULT 1,
+  security TINYINT(1) DEFAULT 1,
+  audit TINYINT(1) DEFAULT 1,
+  reports TINYINT(1) DEFAULT 1,
+  critical TINYINT(1) DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uk_notif_pref_user (user_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
