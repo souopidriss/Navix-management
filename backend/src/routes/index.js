@@ -4,6 +4,8 @@ import healthRoutes from '../modules/health/health.routes.js';
 import authRoutes from '../modules/auth/auth.routes.js';
 import companyRoutes from '../modules/companies/company.routes.js';
 import adminCompanyRoutes from '../modules/companies/admin.routes.js';
+import vehicleRoutes from '../modules/vehicles/vehicle.routes.js';
+import driverRoutes from '../modules/drivers/driver.routes.js';
 
 const router = Router();
 
@@ -11,6 +13,8 @@ router.use(healthRoutes);
 router.use('/auth', authRoutes);
 router.use('/companies', companyRoutes);
 router.use('/admin/companies', adminCompanyRoutes);
+router.use('/vehicles', vehicleRoutes);
+router.use('/drivers', driverRoutes);
 
 router.get('/', (req, res) => {
   res.json({
