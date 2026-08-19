@@ -69,61 +69,80 @@ export async function createMaintenance(data, { companyId, userName }) {
     throw new NotFoundError('Véhicule');
   }
 
-  const active = await maintenanceRepository.findActiveForVehicle(data.vehicleId);
-  if (active) {
-    throw new ConflictError('Un entretien est déjà en cours pour ce véhicule.');
-  }
-
-  const maintenanceNumber = await maintenanceRepository.getNextMaintenanceNumber(companyId);
-
-  const conn = await getPool().getConnection();
-  try {
-    await conn.beginTransaction();
-
-    const id = generateId();
-    const now = new Date().toISOString();
-
-    let startedAt = null;
-    let completedAt = null;
-    if (data.status === 'in_progress') {
-      startedAt = now;
-    } else if (data.status === 'completed') {
-      startedAt = now;
-      completedAt = now;
+  if (data.status === 'in_progress') {
+    const active = await maintenanceRepository.findActiveForVehicle(data.vehicleId);
+    if (active) {
+      throw new ConflictError('Un entretien est déjà en cours pour ce véhicule.');
     }
-
-    await conn.execute(
-      `INSERT INTO maintenance_records
-        (id, company_id, vehicle_id, maintenance_number, maintenance_type, priority, status,
-          workshop, mechanic, supplier, scheduled_date, started_at, completed_at,
-          next_maintenance_date, mileage_at_service, next_maintenance_mileage,
-          estimated_cost, actual_cost, currency, description, diagnostic,
-          performed_work, replaced_parts, attachments, notes, created_by, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
-      [
-        id, companyId, data.vehicleId, maintenanceNumber,
-        data.maintenanceType || 'autre', data.priority || 'normal', data.status || 'planned',
-        data.workshop || '', data.mechanic || '', data.supplier || '',
-        data.scheduledDate || null, startedAt, completedAt,
-        data.nextMaintenanceDate || null, data.mileage || 0, data.nextMileage || 0,
-        data.estimatedCost || 0, data.actualCost || 0, data.currency || DEFAULT_CURRENCY,
-        data.description || '', data.diagnostic || '', data.performedWork || '',
-        data.replacedParts ? JSON.stringify(data.replacedParts) : '[]',
-        data.attachments ? JSON.stringify(data.attachments) : '[]',
-        data.notes || '', userName || '',
-      ]
-    );
-
-    await conn.commit();
-
-    const full = await maintenanceRepository.findByCompanyIdAndId(companyId, id);
-    return formatMaintenanceResponse(full);
-  } catch (err) {
-    await conn.rollback();
-    throw err;
-  } finally {
-    conn.release();
   }
+
+  const MAX_RETRIES = 3;
+  let lastError;
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    const conn = await getPool().getConnection();
+    try {
+      await conn.beginTransaction();
+
+      const [numRows] = await conn.execute(
+        `SELECT maintenance_number FROM maintenance_records WHERE company_id = ? ORDER BY created_at DESC LIMIT 1`,
+        [companyId]
+      );
+      let maintenanceNumber = 'MT-0001';
+      if (numRows[0]) {
+        const match = numRows[0].maintenance_number.match(/(\d+)$/);
+        if (match) maintenanceNumber = `MT-${String(Number(match[1]) + 1).padStart(4, '0')}`;
+      }
+
+      const id = generateId();
+      const now = new Date().toISOString();
+
+      let startedAt = null;
+      let completedAt = null;
+      if (data.status === 'in_progress') {
+        startedAt = now;
+      } else if (data.status === 'completed') {
+        startedAt = now;
+        completedAt = now;
+      }
+
+      await conn.execute(
+        `INSERT INTO maintenance_records
+          (id, company_id, vehicle_id, maintenance_number, maintenance_type, priority, status,
+            workshop, mechanic, supplier, scheduled_date, started_at, completed_at,
+            next_maintenance_date, mileage_at_service, next_maintenance_mileage,
+            estimated_cost, actual_cost, currency, description, diagnostic,
+            performed_work, replaced_parts, attachments, notes, created_by, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+        [
+          id, companyId, data.vehicleId, maintenanceNumber,
+          data.maintenanceType || 'autre', data.priority || 'normal', data.status || 'planned',
+          data.workshop || '', data.mechanic || '', data.supplier || '',
+          data.scheduledDate || null, startedAt, completedAt,
+          data.nextMaintenanceDate || null, data.mileage || 0, data.nextMileage || 0,
+          data.estimatedCost || 0, data.actualCost || 0, data.currency || DEFAULT_CURRENCY,
+          data.description || '', data.diagnostic || '', data.performedWork || '',
+          data.replacedParts ? JSON.stringify(data.replacedParts) : '[]',
+          data.attachments ? JSON.stringify(data.attachments) : '[]',
+          data.notes || '', userName || '',
+        ]
+      );
+
+      await conn.commit();
+
+      const full = await maintenanceRepository.findByCompanyIdAndId(companyId, id);
+      return formatMaintenanceResponse(full);
+    } catch (err) {
+      await conn.rollback().catch(() => {});
+      if (err.code === 'ER_DUP_ENTRY' && attempt < MAX_RETRIES - 1) {
+        lastError = err;
+        continue;
+      }
+      throw err;
+    } finally {
+      conn.release();
+    }
+  }
+  throw lastError;
 }
 
 export async function listMaintenances({ page, limit, sort, order, status, priority, vehicleId, maintenanceType, search } = {}, { companyId }) {
