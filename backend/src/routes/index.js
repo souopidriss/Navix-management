@@ -7,6 +7,7 @@ import adminCompanyRoutes from '../modules/companies/admin.routes.js';
 import vehicleRoutes from '../modules/vehicles/vehicle.routes.js';
 import driverRoutes from '../modules/drivers/driver.routes.js';
 import assignmentRoutes from '../modules/assignments/assignment.routes.js';
+import tripRoutes from '../modules/trips/trip.routes.js';
 
 const router = Router();
 
@@ -17,6 +18,7 @@ router.use('/admin/companies', adminCompanyRoutes);
 router.use('/vehicles', vehicleRoutes);
 router.use('/drivers', driverRoutes);
 router.use('/assignments', assignmentRoutes);
+router.use('/trips', tripRoutes);
 
 router.get('/', (req, res) => {
   res.json({
