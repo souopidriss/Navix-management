@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS audit_logs (
+  id CHAR(26) PRIMARY KEY,
+  company_id CHAR(26),
+  user_id CHAR(26),
+  action VARCHAR(100) NOT NULL,
+  entity_type VARCHAR(100) NOT NULL,
+  entity_id CHAR(26),
+  old_values JSON,
+  new_values JSON,
+  ip_address VARCHAR(45),
+  user_agent TEXT,
+  metadata JSON,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_audit_logs_company_id (company_id),
+  INDEX idx_audit_logs_user_id (user_id),
+  INDEX idx_audit_logs_entity (entity_type, entity_id),
+  INDEX idx_audit_logs_action (action),
+  INDEX idx_audit_logs_created_at (created_at),
+  CONSTRAINT fk_audit_company FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE SET NULL,
+  CONSTRAINT fk_audit_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

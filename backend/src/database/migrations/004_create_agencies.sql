@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS agencies (
+  id CHAR(26) PRIMARY KEY,
+  company_id CHAR(26) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  code VARCHAR(50) NOT NULL,
+  email VARCHAR(255),
+  phone VARCHAR(50),
+  address TEXT,
+  city VARCHAR(100),
+  country VARCHAR(100) DEFAULT 'Cameroun',
+  latitude DECIMAL(10, 8),
+  longitude DECIMAL(11, 8),
+  status ENUM('active','inactive','closed') NOT NULL DEFAULT 'active',
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  deleted_at TIMESTAMP NULL DEFAULT NULL,
+  UNIQUE KEY uk_agencies_code_company (company_id, code),
+  INDEX idx_agencies_company_id (company_id),
+  INDEX idx_agencies_status (status),
+  INDEX idx_agencies_deleted_at (deleted_at),
+  CONSTRAINT fk_agencies_company FOREIGN KEY (company_id) REFERENCES companies(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

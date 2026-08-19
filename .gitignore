@@ -31,3 +31,16 @@ pnpm-debug.log*
 .env
 .env.local
 .env.*.local
+
+# Backend
+backend/node_modules
+backend/.env
+backend/logs/
+uploads/
+
+# Test coverage
+coverage/
+
+# Database files
+*.sqlite
+*.db
