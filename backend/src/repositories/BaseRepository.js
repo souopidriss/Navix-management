@@ -16,7 +16,7 @@ export class BaseRepository {
   }
 
   async query(sql, params = []) {
-    const [rows] = await this.db.execute(sql, params);
+    const [rows] = await this.db.query(sql, params);
     return rows;
   }
 

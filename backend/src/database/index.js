@@ -46,7 +46,7 @@ async function testConnection() {
 
 async function query(sql, params = []) {
   try {
-    const [rows] = await getPool().execute(sql, params);
+    const [rows] = await getPool().query(sql, params);
     return rows;
   } catch (error) {
     logger.error('Query execution failed:', { sql: sql.substring(0, 200), error: error.message });

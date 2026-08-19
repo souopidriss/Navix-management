@@ -10,6 +10,7 @@ import assignmentRoutes from '../modules/assignments/assignment.routes.js';
 import tripRoutes from '../modules/trips/trip.routes.js';
 import fuelRoutes from '../modules/fuel/fuel.routes.js';
 import maintenanceRoutes from '../modules/maintenance/maintenance.routes.js';
+import documentRoutes from '../modules/documents/document.routes.js';
 
 const router = Router();
 
@@ -23,6 +24,7 @@ router.use('/assignments', assignmentRoutes);
 router.use('/trips', tripRoutes);
 router.use('/fuel', fuelRoutes);
 router.use('/maintenances', maintenanceRoutes);
+router.use('/documents', documentRoutes);
 
 router.get('/', (req, res) => {
   res.json({
