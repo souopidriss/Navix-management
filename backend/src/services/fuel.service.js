@@ -84,7 +84,6 @@ export async function createFuelRecord(payload, { companyId, userName }) {
     await conn.beginTransaction();
 
     const id = (await import('../utils/id.js')).generateId();
-    const now = new Date().toISOString();
 
     await conn.execute(
       `INSERT INTO fuel_records

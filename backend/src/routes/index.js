@@ -9,6 +9,7 @@ import driverRoutes from '../modules/drivers/driver.routes.js';
 import assignmentRoutes from '../modules/assignments/assignment.routes.js';
 import tripRoutes from '../modules/trips/trip.routes.js';
 import fuelRoutes from '../modules/fuel/fuel.routes.js';
+import maintenanceRoutes from '../modules/maintenance/maintenance.routes.js';
 
 const router = Router();
 
@@ -21,6 +22,7 @@ router.use('/drivers', driverRoutes);
 router.use('/assignments', assignmentRoutes);
 router.use('/trips', tripRoutes);
 router.use('/fuel', fuelRoutes);
+router.use('/maintenances', maintenanceRoutes);
 
 router.get('/', (req, res) => {
   res.json({

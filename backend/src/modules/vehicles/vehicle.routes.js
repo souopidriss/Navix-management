@@ -10,6 +10,7 @@ import {
 } from './vehicle.schema.js';
 import * as vehicleController from './vehicle.controller.js';
 import * as fuelController from '../fuel/fuel.controller.js';
+import * as maintenanceController from '../maintenance/maintenance.controller.js';
 
 const router = Router();
 
@@ -21,6 +22,11 @@ router.get('/stats', vehicleController.stats);
 router.get(
   '/:vehicleId/fuel',
   fuelController.vehicleFuelHistory
+);
+
+router.get(
+  '/:vehicleId/maintenances',
+  maintenanceController.vehicleMaintenanceHistory
 );
 
 router.get(

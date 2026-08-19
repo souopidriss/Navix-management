@@ -141,14 +141,6 @@ class FuelRepository extends BaseRepository {
       [companyId, currentMonth]
     );
 
-    const statusCounts = await this.query(
-      `SELECT status, COUNT(*) AS count
-      FROM fuel_records
-      WHERE company_id = ? AND deleted_at IS NULL
-      GROUP BY status`,
-      [companyId]
-    );
-
     const topVehicles = await this.query(
       `SELECT vehicle_id,
         COALESCE(SUM(quantity), 0) AS quantity,
