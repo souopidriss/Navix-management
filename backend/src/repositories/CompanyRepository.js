@@ -84,11 +84,14 @@ class CompanyRepository extends BaseRepository {
       SELECT c.*,
         u.id AS owner_id, u.first_name AS owner_first_name, u.last_name AS owner_last_name,
         u.email AS owner_email,
-        (SELECT COUNT(*) FROM vehicles v WHERE v.company_id = c.id AND v.deleted_at IS NULL) AS vehicle_count,
-        (SELECT COUNT(*) FROM drivers d WHERE d.company_id = c.id AND d.deleted_at IS NULL) AS driver_count,
-        (SELECT COUNT(*) FROM agencies a WHERE a.company_id = c.id AND a.deleted_at IS NULL) AS agency_count
+        IFNULL(vc.vehicle_count, 0) AS vehicle_count,
+        IFNULL(dc.driver_count, 0) AS driver_count,
+        IFNULL(ac.agency_count, 0) AS agency_count
       FROM companies c
       LEFT JOIN users u ON u.company_id = c.id AND u.role IN ('company_owner', 'client_enterprise') AND u.deleted_at IS NULL
+      LEFT JOIN (SELECT company_id, COUNT(*) AS vehicle_count FROM vehicles WHERE deleted_at IS NULL GROUP BY company_id) vc ON vc.company_id = c.id
+      LEFT JOIN (SELECT company_id, COUNT(*) AS driver_count FROM drivers WHERE deleted_at IS NULL GROUP BY company_id) dc ON dc.company_id = c.id
+      LEFT JOIN (SELECT company_id, COUNT(*) AS agency_count FROM agencies WHERE deleted_at IS NULL GROUP BY company_id) ac ON ac.company_id = c.id
       ${where}
       ORDER BY c.${allowedSort} ${allowedOrder}
       LIMIT ? OFFSET ?

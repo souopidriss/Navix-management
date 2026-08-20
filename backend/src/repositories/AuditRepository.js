@@ -162,31 +162,22 @@ class AuditRepository extends BaseRepository {
     const companyFilter = companyId ? 'WHERE company_id = ?' : '';
     const companyParams = companyId ? [companyId] : [];
 
-    const today = new Date().toISOString().slice(0, 10);
-
-    const [totalResult] = await this.db.query(
-      `SELECT COUNT(*) as total FROM audit_logs ${companyFilter}`,
+    const rows = await this.query(
+      `SELECT
+        COUNT(*) AS total,
+        SUM(CASE WHEN DATE(created_at) = CURDATE() THEN 1 ELSE 0 END) AS today,
+        SUM(CASE WHEN status = 'success' THEN 1 ELSE 0 END) AS success,
+        SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) AS failed,
+        SUM(CASE WHEN status = 'warning' THEN 1 ELSE 0 END) AS warning,
+        SUM(CASE WHEN status = 'info' THEN 1 ELSE 0 END) AS info,
+        SUM(CASE WHEN severity = 'critical' THEN 1 ELSE 0 END) AS critical,
+        SUM(CASE WHEN severity = 'high' THEN 1 ELSE 0 END) AS high,
+        SUM(CASE WHEN severity = 'medium' THEN 1 ELSE 0 END) AS medium,
+        SUM(CASE WHEN severity = 'low' THEN 1 ELSE 0 END) AS low
+      FROM audit_logs ${companyFilter}`,
       companyParams
     );
-    const total = totalResult[0]?.total || 0;
-
-    const [todayResult] = await this.db.query(
-      `SELECT COUNT(*) as today FROM audit_logs ${companyFilter ? companyFilter + ' AND' : 'WHERE'} DATE(created_at) = ?`,
-      [...companyParams, today]
-    );
-    const todayCount = todayResult[0]?.today || 0;
-
-    const statusRows = await this.query(
-      `SELECT status, COUNT(*) as count FROM audit_logs ${companyFilter} GROUP BY status`,
-      companyParams
-    );
-    const byStatus = Object.fromEntries(statusRows.map((r) => [r.status, r.count]));
-
-    const severityRows = await this.query(
-      `SELECT severity, COUNT(*) as count FROM audit_logs ${companyFilter} GROUP BY severity`,
-      companyParams
-    );
-    const bySeverity = Object.fromEntries(severityRows.map((r) => [r.severity, r.count]));
+    const stats = rows[0] || {};
 
     const actionRows = await this.query(
       `SELECT action, COUNT(*) as count FROM audit_logs ${companyFilter} GROUP BY action ORDER BY count DESC`,
@@ -201,16 +192,16 @@ class AuditRepository extends BaseRepository {
     const byResource = Object.fromEntries(resourceRows.map((r) => [r.entity_type, r.count]));
 
     return {
-      total,
-      today: todayCount,
-      success: byStatus.success || 0,
-      failed: byStatus.failed || 0,
-      warning: byStatus.warning || 0,
-      info: byStatus.info || 0,
-      critical: bySeverity.critical || 0,
-      high: bySeverity.high || 0,
-      medium: bySeverity.medium || 0,
-      low: bySeverity.low || 0,
+      total: Number(stats.total || 0),
+      today: Number(stats.today || 0),
+      success: Number(stats.success || 0),
+      failed: Number(stats.failed || 0),
+      warning: Number(stats.warning || 0),
+      info: Number(stats.info || 0),
+      critical: Number(stats.critical || 0),
+      high: Number(stats.high || 0),
+      medium: Number(stats.medium || 0),
+      low: Number(stats.low || 0),
       byAction,
       byResource,
     };

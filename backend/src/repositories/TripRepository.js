@@ -184,34 +184,26 @@ class TripRepository extends BaseRepository {
   }
 
   async getStats(companyId) {
-    const total = await this.count({ company_id: companyId });
-    const plannedResult = await this.queryOne(
-      `SELECT COUNT(*) as count FROM trips WHERE company_id = ? AND status = 'planned' AND deleted_at IS NULL`,
+    const rows = await this.query(
+      `SELECT
+        COUNT(*) AS total,
+        SUM(CASE WHEN status = 'planned' THEN 1 ELSE 0 END) AS planned,
+        SUM(CASE WHEN status = 'in_progress' THEN 1 ELSE 0 END) AS in_progress,
+        SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completed,
+        SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) AS cancelled,
+        SUM(CASE WHEN status = 'suspended' THEN 1 ELSE 0 END) AS suspended
+      FROM trips
+      WHERE company_id = ? AND deleted_at IS NULL`,
       [companyId]
     );
-    const inProgressResult = await this.queryOne(
-      `SELECT COUNT(*) as count FROM trips WHERE company_id = ? AND status = 'in_progress' AND deleted_at IS NULL`,
-      [companyId]
-    );
-    const completedResult = await this.queryOne(
-      `SELECT COUNT(*) as count FROM trips WHERE company_id = ? AND status = 'completed' AND deleted_at IS NULL`,
-      [companyId]
-    );
-    const cancelledResult = await this.queryOne(
-      `SELECT COUNT(*) as count FROM trips WHERE company_id = ? AND status = 'cancelled' AND deleted_at IS NULL`,
-      [companyId]
-    );
-    const suspendedResult = await this.queryOne(
-      `SELECT COUNT(*) as count FROM trips WHERE company_id = ? AND status = 'suspended' AND deleted_at IS NULL`,
-      [companyId]
-    );
+    const row = rows[0] || {};
     return {
-      total,
-      planned: plannedResult?.count || 0,
-      in_progress: inProgressResult?.count || 0,
-      completed: completedResult?.count || 0,
-      cancelled: cancelledResult?.count || 0,
-      suspended: suspendedResult?.count || 0,
+      total: Number(row.total || 0),
+      planned: Number(row.planned || 0),
+      in_progress: Number(row.in_progress || 0),
+      completed: Number(row.completed || 0),
+      cancelled: Number(row.cancelled || 0),
+      suspended: Number(row.suspended || 0),
     };
   }
 

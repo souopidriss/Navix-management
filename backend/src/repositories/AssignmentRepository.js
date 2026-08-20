@@ -222,29 +222,23 @@ class AssignmentRepository extends BaseRepository {
   }
 
   async getStats(companyId) {
-    const total = await this.count({ company_id: companyId });
-    const activeResult = await this.queryOne(
-      `SELECT COUNT(*) as count FROM assignments WHERE company_id = ? AND status = 'active' AND deleted_at IS NULL`,
-      [companyId]
-    );
-    const plannedResult = await this.queryOne(
-      `SELECT COUNT(*) as count FROM assignments WHERE company_id = ? AND status = 'planned' AND deleted_at IS NULL`,
-      [companyId]
-    );
-    const completedResult = await this.queryOne(
-      `SELECT COUNT(*) as count FROM assignments WHERE company_id = ? AND status = 'completed' AND deleted_at IS NULL`,
-      [companyId]
-    );
-    const suspendedResult = await this.queryOne(
-      `SELECT COUNT(*) as count FROM assignments WHERE company_id = ? AND status = 'suspended' AND deleted_at IS NULL`,
+    const row = await this.queryOne(
+      `SELECT
+        COUNT(*) AS total,
+        SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) AS active,
+        SUM(CASE WHEN status = 'planned' THEN 1 ELSE 0 END) AS planned,
+        SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completed,
+        SUM(CASE WHEN status = 'suspended' THEN 1 ELSE 0 END) AS suspended
+      FROM assignments
+      WHERE company_id = ? AND deleted_at IS NULL`,
       [companyId]
     );
     return {
-      total,
-      active: activeResult?.count || 0,
-      planned: plannedResult?.count || 0,
-      completed: completedResult?.count || 0,
-      suspended: suspendedResult?.count || 0,
+      total: Number(row?.total || 0),
+      active: Number(row?.active || 0),
+      planned: Number(row?.planned || 0),
+      completed: Number(row?.completed || 0),
+      suspended: Number(row?.suspended || 0),
     };
   }
 

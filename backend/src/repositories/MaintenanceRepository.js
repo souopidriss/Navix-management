@@ -135,14 +135,7 @@ class MaintenanceRepository extends BaseRepository {
         SUM(CASE WHEN status = 'in_progress' THEN 1 ELSE 0 END) AS immobilizedCount,
         SUM(CASE WHEN priority = 'urgent' AND status NOT IN ('completed', 'cancelled') THEN 1 ELSE 0 END) AS urgentCount,
         SUM(CASE WHEN status NOT IN ('completed', 'cancelled') AND (scheduled_date < CURDATE() OR (next_maintenance_date IS NOT NULL AND next_maintenance_date < CURDATE())) THEN 1 ELSE 0 END) AS lateCount,
-        SUM(CASE WHEN status NOT IN ('completed', 'cancelled') AND next_maintenance_date IS NOT NULL AND next_maintenance_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY) THEN 1 ELSE 0 END) AS dueSoonCount
-      FROM maintenance_records
-      WHERE company_id = ? AND deleted_at IS NULL`,
-      [companyId]
-    );
-
-    const costs = await this.queryOne(
-      `SELECT
+        SUM(CASE WHEN status NOT IN ('completed', 'cancelled') AND next_maintenance_date IS NOT NULL AND next_maintenance_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY) THEN 1 ELSE 0 END) AS dueSoonCount,
         COALESCE(SUM(CASE WHEN MONTH(completed_at) = MONTH(NOW()) AND YEAR(completed_at) = YEAR(NOW()) THEN actual_cost ELSE 0 END), 0) AS monthCost,
         COALESCE(SUM(CASE WHEN YEAR(completed_at) = YEAR(NOW()) THEN actual_cost ELSE 0 END), 0) AS yearCost,
         COALESCE(AVG(CASE WHEN status = 'completed' THEN actual_cost END), 0) AS averageCost
@@ -151,29 +144,26 @@ class MaintenanceRepository extends BaseRepository {
       [companyId]
     );
 
-    const statusDistribution = await this.query(
-      `SELECT status, COUNT(*) AS count
+    const distributions = await this.query(
+      `SELECT status, maintenance_type AS type, priority,
+        COUNT(*) AS count
       FROM maintenance_records
       WHERE company_id = ? AND deleted_at IS NULL
-      GROUP BY status`,
+      GROUP BY status, maintenance_type, priority`,
       [companyId]
     );
 
-    const typeDistribution = await this.query(
-      `SELECT maintenance_type AS type, COUNT(*) AS count
-      FROM maintenance_records
-      WHERE company_id = ? AND deleted_at IS NULL
-      GROUP BY maintenance_type`,
-      [companyId]
-    );
-
-    const priorityDistribution = await this.query(
-      `SELECT priority, COUNT(*) AS count
-      FROM maintenance_records
-      WHERE company_id = ? AND deleted_at IS NULL
-      GROUP BY priority`,
-      [companyId]
-    );
+    const statusDistribution = {};
+    const typeDistribution = {};
+    const priorityDistribution = {};
+    for (const row of distributions) {
+      statusDistribution[row.status] = (statusDistribution[row.status] || 0) + Number(row.count);
+      typeDistribution[row.type] = (typeDistribution[row.type] || 0) + Number(row.count);
+      priorityDistribution[row.priority] = (priorityDistribution[row.priority] || 0) + Number(row.count);
+    }
+    const statusDistArr = Object.entries(statusDistribution).map(([status, count]) => ({ status, count }));
+    const typeDistArr = Object.entries(typeDistribution).map(([type, count]) => ({ type, count }));
+    const priorityDistArr = Object.entries(priorityDistribution).map(([priority, count]) => ({ priority, count }));
 
     const monthlyEvolution = await this.query(
       `SELECT
@@ -234,12 +224,12 @@ class MaintenanceRepository extends BaseRepository {
       urgentCount: Number(totals?.urgentCount || 0),
       lateCount: Number(totals?.lateCount || 0),
       dueSoonCount: Number(totals?.dueSoonCount || 0),
-      monthCost: Number(costs?.monthCost || 0),
-      yearCost: Number(costs?.yearCost || 0),
-      averageCost: Number(costs?.averageCost || 0),
-      statusDistribution,
-      typeDistribution,
-      priorityDistribution,
+      monthCost: Number(totals?.monthCost || 0),
+      yearCost: Number(totals?.yearCost || 0),
+      averageCost: Number(totals?.averageCost || 0),
+      statusDistribution: statusDistArr,
+      typeDistribution: typeDistArr,
+      priorityDistribution: priorityDistArr,
       monthlyEvolution,
       topWorkshops,
       topVehicles,

@@ -98,43 +98,25 @@ class FileRepository extends BaseRepository {
       params
     );
 
-    const typeDistribution = await this.query(
-      `SELECT f.extension AS type, COUNT(f.id) AS count
+    const grouped = await this.query(
+      `SELECT f.extension AS type, f.visibility, f.category,
+        COUNT(f.id) AS count, COALESCE(SUM(f.size), 0) AS totalSize
        FROM files f
        ${baseCondition}
-       GROUP BY f.extension
-       ORDER BY count DESC`,
+       GROUP BY f.extension, f.visibility, f.category`,
       params
     );
 
-    const visibilityDistribution = await this.query(
-      `SELECT f.visibility, COUNT(f.id) AS count
-       FROM files f
-       ${baseCondition}
-       GROUP BY f.visibility`,
-      params
-    );
-
-    const sizeByType = await this.query(
-      `SELECT f.extension AS type, COUNT(f.id) AS count, COALESCE(SUM(f.size), 0) AS totalSize
-       FROM files f
-       ${baseCondition}
-       GROUP BY f.extension
-       ORDER BY totalSize DESC`,
-      params
-    );
-
-    const categoryDistribution = await this.query(
-      `SELECT f.category, COUNT(f.id) AS count
-       FROM files f
-       ${baseCondition}
-       GROUP BY f.category`,
-      params
-    );
-
+    const typeMap = {};
+    const sizeByTypeMap = {};
+    const visibilityMap = {};
     const categoryMap = {};
-    for (const row of categoryDistribution) {
-      categoryMap[row.category || 'autre'] = Number(row.count);
+    for (const row of grouped) {
+      const type = row.type || 'unknown';
+      typeMap[type] = (typeMap[type] || 0) + Number(row.count);
+      sizeByTypeMap[type] = (sizeByTypeMap[type] || 0) + Number(row.totalSize);
+      visibilityMap[row.visibility] = (visibilityMap[row.visibility] || 0) + Number(row.count);
+      categoryMap[row.category || 'autre'] = (categoryMap[row.category || 'autre'] || 0) + Number(row.count);
     }
 
     return {
@@ -150,19 +132,9 @@ class FileRepository extends BaseRepository {
       publicCount: Number(totals?.publicCount || 0),
       privateCount: Number(totals?.privateCount || 0),
       restrictedCount: Number(totals?.restrictedCount || 0),
-      typeDistribution: typeDistribution.map((r) => ({
-        type: r.type,
-        count: Number(r.count),
-      })),
-      visibilityDistribution: visibilityDistribution.map((r) => ({
-        visibility: r.visibility,
-        count: Number(r.count),
-      })),
-      sizeByType: sizeByType.map((r) => ({
-        type: r.type,
-        count: Number(r.count),
-        totalSize: Number(r.totalSize),
-      })),
+      typeDistribution: Object.entries(typeMap).map(([type, count]) => ({ type, count })),
+      visibilityDistribution: Object.entries(visibilityMap).map(([visibility, count]) => ({ visibility, count })),
+      sizeByType: Object.entries(sizeByTypeMap).map(([type, totalSize]) => ({ type, count: typeMap[type], totalSize })),
       categoryDistribution: categoryMap,
       generatedAt: new Date().toISOString(),
     };

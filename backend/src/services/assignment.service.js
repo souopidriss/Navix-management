@@ -1,6 +1,7 @@
 import assignmentRepository from '../repositories/AssignmentRepository.js';
 import vehicleRepository from '../repositories/VehicleRepository.js';
 import driverRepository from '../repositories/DriverRepository.js';
+import { getPool } from '../database/index.js';
 import { ConflictError, NotFoundError, ValidationError, BadRequestError } from '../errors/index.js';
 import { VALID_STATUS_TRANSITIONS } from '../modules/assignments/index.js';
 import { recordAudit } from './audit.service.js';
@@ -305,25 +306,27 @@ export async function endAssignment(id, data, { companyId, userName }) {
     throw new BadRequestError('Cette affectation est annulée.');
   }
 
-  const conn = await assignmentRepository.beginTransaction();
+  const pool = getPool();
+  const conn = await pool.getConnection();
   try {
+    await conn.beginTransaction();
     const endDate = data.endDate || new Date().toISOString().split('T')[0];
 
-    await assignmentRepository.queryWithConnection(conn,
+    await conn.query(
       `UPDATE assignments SET status = 'completed', end_date = ?, end_mileage = ?, fuel_level_end = ?, validated_by = ?, updated_at = NOW() WHERE id = ?`,
-      [
-        endDate,
-        data.endMileage || 0,
-        data.fuelLevelEnd || 0,
-        userName || null,
-        id,
-      ]
+      [endDate, data.endMileage || 0, data.fuelLevelEnd || 0, userName || null, id]
     );
 
-    await vehicleRepository.update(existing.vehicle_id, { status: 'available' });
-    await driverRepository.update(existing.driver_id, { status: 'available', availability: 'available' });
+    await conn.query(
+      `UPDATE vehicles SET status = 'available', updated_at = NOW() WHERE id = ? AND deleted_at IS NULL`,
+      [existing.vehicle_id]
+    );
+    await conn.query(
+      `UPDATE drivers SET status = 'available', availability = 'available', updated_at = NOW() WHERE id = ? AND deleted_at IS NULL`,
+      [existing.driver_id]
+    );
 
-    await assignmentRepository.commitTransaction(conn);
+    await conn.commit();
 
     await recordAudit({
       action: 'UPDATE',
@@ -339,8 +342,10 @@ export async function endAssignment(id, data, { companyId, userName }) {
     const full = await assignmentRepository.findByCompanyIdAndId(companyId, id);
     return formatAssignmentResponse(full);
   } catch (error) {
-    await assignmentRepository.rollbackTransaction(conn);
+    await conn.rollback();
     throw error;
+  } finally {
+    conn.release();
   }
 }
 
@@ -362,17 +367,26 @@ export async function startAssignment(id, { companyId, userName }) {
     throw new ConflictError('Ce chauffeur est déjà affecté activement à une autre affectation.');
   }
 
-  const conn = await assignmentRepository.beginTransaction();
+  const pool = getPool();
+  const conn = await pool.getConnection();
   try {
-    await assignmentRepository.queryWithConnection(conn,
+    await conn.beginTransaction();
+
+    await conn.query(
       `UPDATE assignments SET status = 'active', validated_by = ?, updated_at = NOW() WHERE id = ?`,
       [userName || null, id]
     );
 
-    await vehicleRepository.update(existing.vehicle_id, { status: 'in_use' });
-    await driverRepository.update(existing.driver_id, { status: 'on_mission', availability: 'busy' });
+    await conn.query(
+      `UPDATE vehicles SET status = 'in_use', updated_at = NOW() WHERE id = ? AND deleted_at IS NULL`,
+      [existing.vehicle_id]
+    );
+    await conn.query(
+      `UPDATE drivers SET status = 'on_mission', availability = 'busy', updated_at = NOW() WHERE id = ? AND deleted_at IS NULL`,
+      [existing.driver_id]
+    );
 
-    await assignmentRepository.commitTransaction(conn);
+    await conn.commit();
 
     await recordAudit({
       action: 'UPDATE',
@@ -388,8 +402,10 @@ export async function startAssignment(id, { companyId, userName }) {
     const full = await assignmentRepository.findByCompanyIdAndId(companyId, id);
     return formatAssignmentResponse(full);
   } catch (error) {
-    await assignmentRepository.rollbackTransaction(conn);
+    await conn.rollback();
     throw error;
+  } finally {
+    conn.release();
   }
 }
 
@@ -407,19 +423,28 @@ export async function cancelAssignment(id, { companyId }) {
     throw new BadRequestError(`Transition invalide : ${existing.status} → cancelled.`);
   }
 
-  const conn = await assignmentRepository.beginTransaction();
+  const pool = getPool();
+  const conn = await pool.getConnection();
   try {
-    await assignmentRepository.queryWithConnection(conn,
+    await conn.beginTransaction();
+
+    await conn.query(
       `UPDATE assignments SET status = 'cancelled', updated_at = NOW() WHERE id = ?`,
       [id]
     );
 
     if (existing.status === 'active') {
-      await vehicleRepository.update(existing.vehicle_id, { status: 'available' });
-      await driverRepository.update(existing.driver_id, { status: 'available', availability: 'available' });
+      await conn.query(
+        `UPDATE vehicles SET status = 'available', updated_at = NOW() WHERE id = ? AND deleted_at IS NULL`,
+        [existing.vehicle_id]
+      );
+      await conn.query(
+        `UPDATE drivers SET status = 'available', availability = 'available', updated_at = NOW() WHERE id = ? AND deleted_at IS NULL`,
+        [existing.driver_id]
+      );
     }
 
-    await assignmentRepository.commitTransaction(conn);
+    await conn.commit();
 
     await recordAudit({
       action: 'UPDATE',
@@ -435,8 +460,10 @@ export async function cancelAssignment(id, { companyId }) {
     const full = await assignmentRepository.findByCompanyIdAndId(companyId, id);
     return formatAssignmentResponse(full);
   } catch (error) {
-    await assignmentRepository.rollbackTransaction(conn);
+    await conn.rollback();
     throw error;
+  } finally {
+    conn.release();
   }
 }
 

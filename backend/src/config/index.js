@@ -37,10 +37,10 @@ const config = {
     name: optionalEnv('DB_NAME', 'navix_management'),
     user: optionalEnv('DB_USER', 'root'),
     password: optionalEnv('DB_PASSWORD', ''),
-    connectionLimit: parseInt(optionalEnv('DB_CONNECTION_LIMIT', '10'), 10),
+    connectionLimit: parseInt(optionalEnv('DB_CONNECTION_LIMIT', '20'), 10),
     acquireTimeout: parseInt(optionalEnv('DB_ACQUIRE_TIMEOUT', '10000'), 10),
     waitForConnections: true,
-    queueLimit: 0,
+    queueLimit: parseInt(optionalEnv('DB_QUEUE_LIMIT', '50'), 10),
   },
 
   jwt: {

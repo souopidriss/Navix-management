@@ -6,6 +6,8 @@ const ALLOWED_FILTER_FIELDS = [
   'status', 'name', 'email', 'phone', 'code', 'type',
 ];
 
+const MAX_PAGE_SIZE = 100;
+
 export class BaseRepository {
   constructor(tableName) {
     this.tableName = tableName;
@@ -61,7 +63,9 @@ export class BaseRepository {
     const { where, params } = this.buildWhereClause(filters);
     const allowedSort = this.sanitizeSortField(sort);
     const allowedOrder = order.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
-    const offset = (page - 1) * limit;
+    const safePage = Math.max(1, Math.floor(page));
+    const safeLimit = Math.min(Math.max(1, Math.floor(limit)), MAX_PAGE_SIZE);
+    const offset = (safePage - 1) * safeLimit;
 
     const countResult = await this.queryOne(
       `SELECT COUNT(*) as total FROM ${this.tableName} ${where}`,
@@ -71,7 +75,7 @@ export class BaseRepository {
 
     const rows = await this.query(
       `SELECT * FROM ${this.tableName} ${where} ORDER BY ${allowedSort} ${allowedOrder} LIMIT ? OFFSET ?`,
-      [...params, limit, offset]
+      [...params, safeLimit, offset]
     );
 
     return { rows, total };

@@ -99,7 +99,11 @@ class FinancialTransactionRepository extends BaseRepository {
 
     const where = `WHERE ${conditions.join(' AND ')}`;
 
-    const stats = await this.queryOne(
+    const now = new Date();
+    const currentMonthStart = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
+    const currentMonthEnd = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-31 23:59:59`;
+
+    const row = await this.queryOne(
       `SELECT
         COALESCE(SUM(CASE WHEN direction = 'in' THEN amount ELSE 0 END), 0) as totalIncome,
         COALESCE(SUM(CASE WHEN direction = 'out' THEN amount ELSE 0 END), 0) as totalExpense,
@@ -107,32 +111,26 @@ class FinancialTransactionRepository extends BaseRepository {
         COALESCE(SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END), 0) as pendingCount,
         COALESCE(SUM(CASE WHEN status = 'completed' OR status = 'success' THEN 1 ELSE 0 END), 0) as completedCount,
         COALESCE(SUM(CASE WHEN status = 'failed' THEN 1 ELSE 0 END), 0) as failedCount,
-        COALESCE(SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END), 0) as cancelledCount
+        COALESCE(SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END), 0) as cancelledCount,
+        COALESCE(SUM(CASE WHEN direction = 'in' AND transaction_date >= ? AND transaction_date <= ? THEN amount ELSE 0 END), 0) as incomeMonth,
+        COALESCE(SUM(CASE WHEN direction = 'out' AND transaction_date >= ? AND transaction_date <= ? THEN amount ELSE 0 END), 0) as expenseMonth,
+        SUM(CASE WHEN transaction_date >= ? AND transaction_date <= ? THEN 1 ELSE 0 END) as transactionsMonth
        FROM financial_transactions ${where}`,
-      params
-    );
-
-    const now = new Date();
-    const currentMonthStart = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
-    const currentMonthEnd = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-31 23:59:59`;
-
-    const monthStats = await this.queryOne(
-      `SELECT
-        COALESCE(SUM(CASE WHEN direction = 'in' THEN amount ELSE 0 END), 0) as incomeMonth,
-        COALESCE(SUM(CASE WHEN direction = 'out' THEN amount ELSE 0 END), 0) as expenseMonth,
-        COUNT(*) as transactionsMonth
-       FROM financial_transactions
-       WHERE company_id = ? AND status IN ('completed', 'success')
-       AND transaction_date >= ? AND transaction_date <= ?`,
-      [companyId, currentMonthStart, currentMonthEnd]
+      [currentMonthStart, currentMonthEnd, currentMonthStart, currentMonthEnd, currentMonthStart, currentMonthEnd, ...params]
     );
 
     return {
-      ...stats,
-      incomeMonth: Number(monthStats?.incomeMonth) || 0,
-      expenseMonth: Number(monthStats?.expenseMonth) || 0,
-      transactionsMonth: Number(monthStats?.transactionsMonth) || 0,
-      netBalance: (Number(stats?.totalIncome) || 0) - (Number(stats?.totalExpense) || 0),
+      totalIncome: Number(row?.totalIncome) || 0,
+      totalExpense: Number(row?.totalExpense) || 0,
+      transactionCount: Number(row?.transactionCount) || 0,
+      pendingCount: Number(row?.pendingCount) || 0,
+      completedCount: Number(row?.completedCount) || 0,
+      failedCount: Number(row?.failedCount) || 0,
+      cancelledCount: Number(row?.cancelledCount) || 0,
+      incomeMonth: Number(row?.incomeMonth) || 0,
+      expenseMonth: Number(row?.expenseMonth) || 0,
+      transactionsMonth: Number(row?.transactionsMonth) || 0,
+      netBalance: (Number(row?.totalIncome) || 0) - (Number(row?.totalExpense) || 0),
     };
   }
 

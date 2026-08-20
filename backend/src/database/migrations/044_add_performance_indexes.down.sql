@@ -1,0 +1,21 @@
+SET @dbname = DATABASE();
+
+DROP INDEX IF EXISTS idx_vehicles_company_status ON vehicles;
+DROP INDEX IF EXISTS idx_drivers_company_status ON drivers;
+DROP INDEX IF EXISTS idx_trips_company_status ON trips;
+DROP INDEX IF EXISTS idx_assignments_company_status ON assignments;
+DROP INDEX IF EXISTS idx_fuel_company_status ON fuel_records;
+DROP INDEX IF EXISTS idx_maintenance_company_status ON maintenance_records;
+DROP INDEX IF EXISTS idx_maintenance_company_vehicle ON maintenance_records;
+DROP INDEX IF EXISTS idx_fuel_company_vehicle ON fuel_records;
+DROP INDEX IF EXISTS idx_fuel_vehicle_mileage ON fuel_records;
+DROP INDEX IF EXISTS idx_notifications_user_status ON notifications;
+DROP INDEX IF EXISTS idx_audit_company_created ON audit_logs;
+DROP INDEX IF EXISTS idx_audit_company_entity ON audit_logs;
+DROP INDEX IF EXISTS idx_ft_company_status_direction ON financial_transactions;
+DROP INDEX IF EXISTS idx_ft_company_date ON financial_transactions;
+DROP INDEX IF EXISTS idx_ft_company_category ON financial_transactions;
+DROP INDEX IF EXISTS idx_files_company_created ON files;
+DROP INDEX IF EXISTS idx_trips_driver_company ON trips;
+DROP INDEX IF EXISTS idx_assignments_vehicle_status ON assignments;
+DROP INDEX IF EXISTS idx_assignments_driver_status ON assignments;

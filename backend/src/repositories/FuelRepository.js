@@ -124,21 +124,13 @@ class FuelRepository extends BaseRepository {
         COUNT(*) AS fuel_count,
         COALESCE(SUM(total_amount), 0) AS total_cost,
         COALESCE(SUM(quantity), 0) AS total_quantity,
-        COALESCE(AVG(unit_price), 0) AS avg_unit_price
+        COALESCE(AVG(unit_price), 0) AS avg_unit_price,
+        COALESCE(SUM(CASE WHEN DATE_FORMAT(filled_at, '%Y-%m') = ? THEN total_amount ELSE 0 END), 0) AS month_total_cost,
+        COALESCE(SUM(CASE WHEN DATE_FORMAT(filled_at, '%Y-%m') = ? THEN quantity ELSE 0 END), 0) AS month_quantity,
+        SUM(CASE WHEN DATE_FORMAT(filled_at, '%Y-%m') = ? THEN 1 ELSE 0 END) AS month_count
       FROM fuel_records
       WHERE company_id = ? AND deleted_at IS NULL`,
-      [companyId]
-    );
-
-    const monthly = await this.queryOne(
-      `SELECT
-        COALESCE(SUM(total_amount), 0) AS month_total_cost,
-        COALESCE(SUM(quantity), 0) AS month_quantity,
-        COUNT(*) AS month_count
-      FROM fuel_records
-      WHERE company_id = ? AND deleted_at IS NULL
-        AND DATE_FORMAT(filled_at, '%Y-%m') = ?`,
-      [companyId, currentMonth]
+      [currentMonth, currentMonth, currentMonth, companyId]
     );
 
     const topVehicles = await this.query(
@@ -172,9 +164,9 @@ class FuelRepository extends BaseRepository {
       fuelCount: Number(totals?.fuel_count || 0),
       totalQuantity: Number(totals?.total_quantity || 0),
       avgUnitPrice: Number(totals?.avg_unit_price || 0),
-      monthTotalCost: Number(monthly?.month_total_cost || 0),
-      monthQuantity: Number(monthly?.month_quantity || 0),
-      monthCount: Number(monthly?.month_count || 0),
+      monthTotalCost: Number(totals?.month_total_cost || 0),
+      monthQuantity: Number(totals?.month_quantity || 0),
+      monthCount: Number(totals?.month_count || 0),
       pendingCount: 0,
       validatedCount: 0,
       cancelledCount: 0,
