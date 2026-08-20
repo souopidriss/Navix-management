@@ -28,14 +28,46 @@ class PermissionRepository extends BaseRepository {
 
   async findAll() {
     return this.query(
-      `SELECT id, name, code, module, action FROM permissions ORDER BY module, action`
+      `SELECT id, name, code, module, action, description FROM permissions ORDER BY module, action`
     );
   }
 
   async findByModule(module) {
     return this.query(
-      `SELECT id, name, code, module, action FROM permissions WHERE module = ? ORDER BY action`,
+      `SELECT id, name, code, module, action, description FROM permissions WHERE module = ? ORDER BY action`,
       [module]
+    );
+  }
+
+  async getModules() {
+    return this.query(
+      `SELECT module, COUNT(*) as count FROM permissions GROUP BY module ORDER BY module`
+    );
+  }
+
+  async getStatistics() {
+    const total = await this.queryOne(`SELECT COUNT(*) as count FROM permissions`);
+    const byModule = await this.getModules();
+    return {
+      total: total?.count || 0,
+      modules: byModule.length,
+      byModule,
+    };
+  }
+
+  async findByCode(code) {
+    return this.queryOne(
+      `SELECT * FROM ${this.tableName} WHERE code = ?`,
+      [code]
+    );
+  }
+
+  async findManyByCodes(codes) {
+    if (!codes || codes.length === 0) return [];
+    const placeholders = codes.map(() => '?').join(', ');
+    return this.query(
+      `SELECT id, name, code, module, action FROM ${this.tableName} WHERE code IN (${placeholders})`,
+      codes
     );
   }
 }

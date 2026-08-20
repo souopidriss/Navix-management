@@ -26,6 +26,7 @@ router.use(tenantScope);
 
 router.get('/invoices', validateQuery(billingInvoiceQuerySchema), listInvoicesHandler);
 router.get('/invoices/statistics', getStatisticsHandler);
+router.get('/statistics', getStatisticsHandler);
 router.get('/invoices/:id', validateParams(billingInvoiceIdParamSchema), getInvoiceByIdHandler);
 router.get('/invoices/:id/items', validateParams(billingInvoiceIdParamSchema), getInvoiceItemsHandler);
 router.get('/invoices/:id/download', validateParams(billingInvoiceIdParamSchema), downloadInvoiceHandler);

@@ -40,7 +40,7 @@ router.post('/export', requirePermission('reports:export'), validate(exportRepor
 router.get('/', requirePermission('reports:view'), validateQuery(savedReportQuerySchema), listSavedReports);
 router.get('/:id', requirePermission('reports:view'), validateParams(savedReportIdParamSchema), getSavedReport);
 router.post('/', requirePermission('reports:view'), validate(savedReportSchema), createSavedReport);
-router.post('/:id', requirePermission('reports:view'), validateParams(savedReportIdParamSchema), validate(savedReportUpdateSchema), updateSavedReport);
+router.put('/:id', requirePermission('reports:view'), validateParams(savedReportIdParamSchema), validate(savedReportUpdateSchema), updateSavedReport);
 router.delete('/:id', requirePermission('reports:view'), validateParams(savedReportIdParamSchema), deleteSavedReport);
 
 export default router;

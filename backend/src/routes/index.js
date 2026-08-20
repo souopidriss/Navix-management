@@ -14,10 +14,16 @@ import documentRoutes from '../modules/documents/document.routes.js';
 import notificationRoutes from '../modules/notifications/notification.routes.js';
 import auditRoutes from '../modules/audit/audit.routes.js';
 import financeRoutes from '../modules/finance/finance.routes.js';
+import invoiceRoutes from '../modules/invoices/invoice.routes.js';
 import subscriptionRoutes from '../modules/subscriptions/subscription.routes.js';
 import billingRoutes from '../modules/billing/billing.routes.js';
 import reportRoutes from '../modules/reports/report.routes.js';
 import exportRoutes from '../modules/exports/export.routes.js';
+import userRoutes from '../modules/users/user.routes.js';
+import roleRoutes from '../modules/roles/role.routes.js';
+import permissionRoutes from '../modules/permissions/permission.routes.js';
+import agencyRoutes from '../modules/agencies/agency.routes.js';
+import dashboardRoutes from '../modules/dashboard/dashboard.routes.js';
 
 const router = Router();
 
@@ -30,15 +36,21 @@ router.use('/drivers', driverRoutes);
 router.use('/assignments', assignmentRoutes);
 router.use('/trips', tripRoutes);
 router.use('/fuel', fuelRoutes);
-router.use('/maintenances', maintenanceRoutes);
+router.use('/maintenance', maintenanceRoutes);
 router.use('/documents', documentRoutes);
 router.use('/notifications', notificationRoutes);
 router.use('/audit-logs', auditRoutes);
 router.use('/finance', financeRoutes);
+router.use('/invoices', invoiceRoutes);
 router.use('/subscriptions', subscriptionRoutes);
 router.use('/billing', billingRoutes);
 router.use('/reports', reportRoutes);
 router.use('/exports', exportRoutes);
+router.use('/users', userRoutes);
+router.use('/roles', roleRoutes);
+router.use('/permissions', permissionRoutes);
+router.use('/agencies', agencyRoutes);
+router.use('/dashboard', dashboardRoutes);
 
 router.get('/', (req, res) => {
   res.json({
