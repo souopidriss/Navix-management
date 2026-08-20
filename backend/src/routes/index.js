@@ -14,6 +14,8 @@ import documentRoutes from '../modules/documents/document.routes.js';
 import notificationRoutes from '../modules/notifications/notification.routes.js';
 import auditRoutes from '../modules/audit/audit.routes.js';
 import financeRoutes from '../modules/finance/finance.routes.js';
+import subscriptionRoutes from '../modules/subscriptions/subscription.routes.js';
+import billingRoutes from '../modules/billing/billing.routes.js';
 
 const router = Router();
 
@@ -31,6 +33,8 @@ router.use('/documents', documentRoutes);
 router.use('/notifications', notificationRoutes);
 router.use('/audit-logs', auditRoutes);
 router.use('/finance', financeRoutes);
+router.use('/subscriptions', subscriptionRoutes);
+router.use('/billing', billingRoutes);
 
 router.get('/', (req, res) => {
   res.json({
