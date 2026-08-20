@@ -39,8 +39,10 @@ class DriverRepository extends BaseRepository {
     const allowedOrder = order.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
     const offset = (page - 1) * limit;
 
+    const whereClause = where ? `${where} AND d.deleted_at IS NULL` : 'WHERE d.deleted_at IS NULL';
+
     const countResult = await this.queryOne(
-      `SELECT COUNT(*) as total FROM drivers d ${where}`,
+      `SELECT COUNT(*) as total FROM drivers d ${whereClause}`,
       params
     );
     const total = countResult?.total || 0;
@@ -49,7 +51,7 @@ class DriverRepository extends BaseRepository {
       SELECT d.*, a.name AS agency_name
       FROM drivers d
       LEFT JOIN agencies a ON a.id = d.agency_id
-      ${where}
+      ${whereClause}
       ORDER BY d.${allowedSort} ${allowedOrder}
       LIMIT ? OFFSET ?
     `, [...params, limit, offset]);

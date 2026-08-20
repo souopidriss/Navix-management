@@ -39,8 +39,10 @@ class VehicleRepository extends BaseRepository {
     const allowedOrder = order.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
     const offset = (page - 1) * limit;
 
+    const whereClause = where ? `${where} AND v.deleted_at IS NULL` : 'WHERE v.deleted_at IS NULL';
+
     const countResult = await this.queryOne(
-      `SELECT COUNT(*) as total FROM vehicles v ${where}`,
+      `SELECT COUNT(*) as total FROM vehicles v ${whereClause}`,
       params
     );
     const total = countResult?.total || 0;
@@ -51,7 +53,7 @@ class VehicleRepository extends BaseRepository {
       FROM vehicles v
       LEFT JOIN vehicle_types vt ON vt.id = v.vehicle_type_id
       LEFT JOIN vehicle_groups vg ON vg.code = v.group_code
-      ${where}
+      ${whereClause}
       ORDER BY v.${allowedSort} ${allowedOrder}
       LIMIT ? OFFSET ?
     `, [...params, limit, offset]);
