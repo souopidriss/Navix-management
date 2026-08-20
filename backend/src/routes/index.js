@@ -13,6 +13,7 @@ import maintenanceRoutes from '../modules/maintenance/maintenance.routes.js';
 import documentRoutes from '../modules/documents/document.routes.js';
 import notificationRoutes from '../modules/notifications/notification.routes.js';
 import auditRoutes from '../modules/audit/audit.routes.js';
+import financeRoutes from '../modules/finance/finance.routes.js';
 
 const router = Router();
 
@@ -29,6 +30,7 @@ router.use('/maintenances', maintenanceRoutes);
 router.use('/documents', documentRoutes);
 router.use('/notifications', notificationRoutes);
 router.use('/audit-logs', auditRoutes);
+router.use('/finance', financeRoutes);
 
 router.get('/', (req, res) => {
   res.json({
