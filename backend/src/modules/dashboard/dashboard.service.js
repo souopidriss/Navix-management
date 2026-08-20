@@ -65,16 +65,16 @@ export async function getOverview({ companyId, period, dateFrom, dateTo }) {
 
   const tripsQuery = pool.query(
     `SELECT COUNT(*) AS activeTrips
-     FROM trips t WHERE t.status IN ('in_progress', 'paused')
-     AND t.start_time >= ? AND t.start_time <= ?
+     FROM trips t WHERE t.status IN ('in_progress')
+     AND t.departure_date >= ? AND t.departure_date <= ?
      ${companyId ? 'AND t.company_id = ?' : ''}`,
     companyId ? [start, end, companyId] : [start, end]
   );
 
   const driversQuery = pool.query(
     `SELECT COUNT(DISTINCT t.driver_id) AS driversOnMission
-     FROM trips t WHERE t.status IN ('in_progress', 'paused')
-     AND t.start_time >= ? AND t.start_time <= ?
+     FROM trips t WHERE t.status IN ('in_progress')
+     AND t.departure_date >= ? AND t.departure_date <= ?
      ${companyId ? 'AND t.company_id = ?' : ''}`,
     companyId ? [start, end, companyId] : [start, end]
   );
@@ -89,7 +89,7 @@ export async function getOverview({ companyId, period, dateFrom, dateTo }) {
 
   const docsQuery = pool.query(
     `SELECT COUNT(*) AS expiringDocuments
-     FROM files
+     FROM vehicles
      WHERE (inspection_expiry < DATE_ADD(CURDATE(), INTERVAL 30 DAY)
             OR insurance_expiry < DATE_ADD(CURDATE(), INTERVAL 30 DAY))
      AND deleted_at IS NULL
@@ -311,9 +311,9 @@ export async function getTopVehicles({ companyId, period, dateFrom, dateTo }) {
   const result = await pool.query(
     `SELECT vehicle_id AS vehicleId,
       COUNT(*) AS tripCount,
-      COALESCE(SUM(distance_km), 0) AS distanceKm
+      COALESCE(SUM(distance), 0) AS distanceKm
      FROM trips
-     WHERE start_time >= ? AND start_time <= ?
+     WHERE departure_date >= ? AND departure_date <= ?
      AND status = 'completed'
      ${companyId ? 'AND company_id = ?' : ''}
      GROUP BY vehicle_id
@@ -331,9 +331,9 @@ export async function getTopDrivers({ companyId, period, dateFrom, dateTo }) {
   const result = await pool.query(
     `SELECT driver_id AS driverId,
       COUNT(*) AS tripCount,
-      COALESCE(SUM(distance_km), 0) AS distanceKm
+      COALESCE(SUM(distance), 0) AS distanceKm
      FROM trips
-     WHERE start_time >= ? AND start_time <= ?
+     WHERE departure_date >= ? AND departure_date <= ?
      AND status = 'completed'
      ${companyId ? 'AND company_id = ?' : ''}
      GROUP BY driver_id

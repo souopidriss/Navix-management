@@ -36,7 +36,7 @@ class AgencyRepository extends BaseRepository {
     const rows = await this.query(
       `SELECT a.*,
         (SELECT COUNT(*) FROM vehicles v WHERE v.agency_id = a.id AND v.deleted_at IS NULL) AS vehicle_count,
-        (SELECT COUNT(*) FROM users u WHERE u.agency_id = a.id AND u.deleted_at IS NULL) AS driver_count
+        0 AS driver_count
        FROM agencies a ${where}
        ORDER BY a.${allowedSort} ${allowedOrder}
        LIMIT ? OFFSET ?`,
@@ -50,7 +50,7 @@ class AgencyRepository extends BaseRepository {
     return this.queryOne(
       `SELECT a.*,
         (SELECT COUNT(*) FROM vehicles v WHERE v.agency_id = a.id AND v.deleted_at IS NULL) AS vehicle_count,
-        (SELECT COUNT(*) FROM users u WHERE u.agency_id = a.id AND u.deleted_at IS NULL) AS driver_count
+        0 AS driver_count
        FROM agencies a
        WHERE a.id = ? AND a.deleted_at IS NULL`,
       [id]
@@ -66,7 +66,7 @@ class AgencyRepository extends BaseRepository {
 
   async findDriversByAgency(agencyId) {
     return this.query(
-      `SELECT * FROM users WHERE agency_id = ? AND deleted_at IS NULL ORDER BY created_at DESC`,
+      `SELECT * FROM drivers WHERE agency_id = ? AND deleted_at IS NULL ORDER BY created_at DESC`,
       [agencyId]
     );
   }
@@ -99,8 +99,8 @@ class AgencyRepository extends BaseRepository {
       `(SELECT 'vehicle' AS type, v.brand AS title, v.status AS description, v.created_at AS date
         FROM vehicles v WHERE v.agency_id = ? AND v.deleted_at IS NULL
         UNION ALL
-        SELECT 'driver' AS type, CONCAT(u.first_name, ' ', u.last_name) AS title, u.status AS description, u.created_at AS date
-        FROM users u WHERE u.agency_id = ? AND u.deleted_at IS NULL
+        SELECT 'driver' AS type, d.full_name AS title, d.status AS description, d.created_at AS date
+        FROM drivers d WHERE d.agency_id = ? AND d.deleted_at IS NULL
         ORDER BY date DESC LIMIT ?)`,
       [agencyId, agencyId, limit]
     );
