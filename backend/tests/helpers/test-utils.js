@@ -95,7 +95,7 @@ export async function createDriver(req, token, overrides = {}) {
   return { status: res.status, data: res.data?.data, id: res.data?.data?.id };
 }
 
-export function ULIDS = {
+export const ULIDS = {
   VALID: '01ARZ3NDEKTSV4RRFFQ69G5FAV',
   INVALID_FORMAT: 'not-a-ulid-at-all!!',
   ZEROS: '00000000000000000000000000',
