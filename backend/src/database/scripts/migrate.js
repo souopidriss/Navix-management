@@ -42,7 +42,7 @@ export async function migrate() {
         .filter((s) => s.length > 0);
 
       for (const statement of statements) {
-        await pool.execute(statement);
+        await pool.query(statement);
       }
 
       await markMigration(file, batch);

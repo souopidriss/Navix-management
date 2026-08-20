@@ -7,9 +7,7 @@ ALTER TABLE subscriptions
   ADD COLUMN IF NOT EXISTS plan_changed_at TIMESTAMP NULL AFTER renewal_date,
   ADD COLUMN IF NOT EXISTS metadata_json JSON AFTER usage_data;
 
-CREATE UNIQUE INDEX IF NOT EXISTS idx_sub_active_unique
-  ON subscriptions (company_id, status)
-  WHERE status IN ('trialing', 'active', 'past_due');
+SELECT 1 AS skip_partial_index;
 
 CREATE TABLE IF NOT EXISTS billing_invoices (
   id CHAR(26) PRIMARY KEY,

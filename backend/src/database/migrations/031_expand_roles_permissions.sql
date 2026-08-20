@@ -55,8 +55,8 @@ INSERT IGNORE INTO permissions (id, name, code, module, action) VALUES
   ('P00000000000000000000042', 'users.manage', 'users.manage', 'users', 'manage'),
   ('P00000000000000000000043', 'settings.view', 'settings.view', 'settings', 'view'),
   ('P00000000000000000000044', 'settings.manage', 'settings.manage', 'settings', 'manage'),
-  ('P00000000000000000000045', 'reports.view', 'reports.view', 'reports', 'view'),
-  ('P00000000000000000000046', 'reports.export', 'reports.export', 'reports', 'export'),
+  ('P00000000000000000000045', 'reports:view', 'reports:view', 'reports', 'view'),
+  ('P00000000000000000000046', 'reports:export', 'reports:export', 'reports', 'export'),
   ('P00000000000000000000047', 'audit.view', 'audit.view', 'audit', 'view'),
   ('P00000000000000000000048', 'companies.manage', 'companies.manage', 'companies', 'manage'),
   ('P00000000000000000000049', 'billing.manage', 'billing.manage', 'billing', 'manage'),
@@ -87,13 +87,13 @@ INSERT IGNORE INTO role_permissions (role_id, permission_id)
     'maintenance.read','maintenance.create','maintenance.update','maintenance.delete',
     'partners.read','partners.create','partners.update','partners.delete',
     'files.read','files.create','files.update','files.delete','files.download',
-    'notifications.read','notifications.view','notifications.manage',
-    'users.view','users.create','users.update','users.delete','users.manage',
-    'settings.view','settings.manage',
-    'reports.view','reports.export',
-    'audit.view',
-    'companies.manage','agencies.manage',
-    'billing.manage','subscriptions.manage',
+    'notifications.read','notifications:view','notifications.manage',
+    'users:view','users.create','users.update','users.delete','users:manage',
+    'settings:view','settings:manage',
+    'reports:view','reports:export',
+    'audit:view',
+    'companies:manage','agencies:manage',
+    'billing.manage','subscriptions:manage',
     'roles.view','roles.manage','permissions.view',
     'invoices.read','contracts.read','finance.read','finance.manage');
 
@@ -108,12 +108,12 @@ INSERT IGNORE INTO role_permissions (role_id, permission_id)
     'maintenance.read','maintenance.create','maintenance.update','maintenance.delete',
     'partners.read','partners.create','partners.update','partners.delete',
     'files.read','files.create','files.update','files.delete','files.download',
-    'notifications.read','notifications.view','notifications.manage',
-    'users.view','users.create','users.update','users.delete','users.manage',
-    'settings.view','settings.manage',
-    'reports.view','reports.export',
-    'audit.view',
-    'agencies.manage',
+    'notifications.read','notifications:view','notifications.manage',
+    'users:view','users.create','users.update','users.delete','users:manage',
+    'settings:view','settings:manage',
+    'reports:view','reports:export',
+    'audit:view',
+    'agencies:manage',
     'roles.view','roles.manage','permissions.view',
     'invoices.read','contracts.read','finance.read');
 
@@ -128,8 +128,8 @@ INSERT IGNORE INTO role_permissions (role_id, permission_id)
     'maintenance.read','maintenance.create','maintenance.update','maintenance.delete',
     'partners.read',
     'files.read','files.create','files.update','files.delete','files.download',
-    'notifications.read','notifications.view','notifications.manage',
-    'reports.view','reports.export');
+    'notifications.read','notifications:view','notifications.manage',
+    'reports:view','reports:export');
 
 -- dispatcher
 INSERT IGNORE INTO role_permissions (role_id, permission_id)
@@ -138,8 +138,8 @@ INSERT IGNORE INTO role_permissions (role_id, permission_id)
     'assignments.read','assignments.create','assignments.update',
     'trips.read','trips.create','trips.update',
     'partners.read',
-    'notifications.read','notifications.view','notifications.manage',
-    'reports.view');
+    'notifications.read','notifications:view','notifications.manage',
+    'reports:view');
 
 -- driver
 INSERT IGNORE INTO role_permissions (role_id, permission_id)
@@ -149,8 +149,8 @@ INSERT IGNORE INTO role_permissions (role_id, permission_id)
     'fuel.read','maintenance.read',
     'incidents.read','incidents.create',
     'files.read','files.download',
-    'notifications.read','notifications.view','notifications.manage',
-    'reports.view');
+    'notifications.read','notifications:view','notifications.manage',
+    'reports:view');
 
 -- mechanic
 INSERT IGNORE INTO role_permissions (role_id, permission_id)
@@ -158,8 +158,8 @@ INSERT IGNORE INTO role_permissions (role_id, permission_id)
   AND p.code IN ('dashboard.read','vehicles.read',
     'maintenance.read','maintenance.create','maintenance.update','maintenance.delete',
     'partners.read',
-    'notifications.read','notifications.view','notifications.manage',
-    'reports.view');
+    'notifications.read','notifications:view','notifications.manage',
+    'reports:view');
 
 -- accountant
 INSERT IGNORE INTO role_permissions (role_id, permission_id)
@@ -167,8 +167,8 @@ INSERT IGNORE INTO role_permissions (role_id, permission_id)
   AND p.code IN ('dashboard.read','vehicles.read','drivers.read',
     'trips.read','fuel.read',
     'billing.manage',
-    'notifications.read','notifications.view','notifications.manage',
-    'reports.view','reports.export',
+    'notifications.read','notifications:view','notifications.manage',
+    'reports:view','reports:export',
     'finance.read','invoices.read');
 
 -- viewer
@@ -179,8 +179,8 @@ INSERT IGNORE INTO role_permissions (role_id, permission_id)
     'fuel.read','maintenance.read',
     'partners.read',
     'files.read','files.download',
-    'notifications.read','notifications.view',
-    'reports.view');
+    'notifications.read','notifications:view',
+    'reports:view');
 
 -- client_enterprise
 INSERT IGNORE INTO role_permissions (role_id, permission_id)
@@ -194,8 +194,8 @@ INSERT IGNORE INTO role_permissions (role_id, permission_id)
     'fuel.read','fuel.create','fuel.update','fuel.delete',
     'files.read','files.create','files.update','files.delete',
     'invoices.read',
-    'notifications.read','notifications.view','notifications.manage',
-    'reports.view',
+    'notifications.read','notifications:view','notifications.manage',
+    'reports:view',
     'finance.read','finance.create');
 
 -- client_individual
@@ -205,7 +205,7 @@ INSERT IGNORE INTO role_permissions (role_id, permission_id)
     'trips.read',
     'files.read',
     'invoices.read',
-    'notifications.read','notifications.view','notifications.manage');
+    'notifications.read','notifications:view','notifications.manage');
 
 -- partner
 INSERT IGNORE INTO role_permissions (role_id, permission_id)
@@ -218,5 +218,5 @@ INSERT IGNORE INTO role_permissions (role_id, permission_id)
     'finance.read','finance.create',
     'contracts.read',
     'support.read','support.create',
-    'notifications.read','notifications.view',
-    'reports.view');
+    'notifications.read','notifications:view',
+    'reports:view');

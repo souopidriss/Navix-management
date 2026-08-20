@@ -16,6 +16,7 @@ import auditRoutes from '../modules/audit/audit.routes.js';
 import financeRoutes from '../modules/finance/finance.routes.js';
 import subscriptionRoutes from '../modules/subscriptions/subscription.routes.js';
 import billingRoutes from '../modules/billing/billing.routes.js';
+import reportRoutes from '../modules/reports/report.routes.js';
 
 const router = Router();
 
@@ -35,6 +36,7 @@ router.use('/audit-logs', auditRoutes);
 router.use('/finance', financeRoutes);
 router.use('/subscriptions', subscriptionRoutes);
 router.use('/billing', billingRoutes);
+router.use('/reports', reportRoutes);
 
 router.get('/', (req, res) => {
   res.json({
