@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-navix_root_password}
+      MYSQL_DATABASE: ${DB_NAME:-navix_management}
+      MYSQL_USER: ${DB_USER:-navix}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-navix_root_password}
+    ports:
+      - '${DB_PORT:-3306}:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - '${PORT:-8000}:8000'
+    environment:
+      NODE_ENV: production
+      PORT: 8000
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME:-navix_management}
+      DB_USER: ${DB_USER:-navix}
+      DB_PASSWORD: ${DB_PASSWORD:-navix_root_password}
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      CORS_ORIGIN: ${CORS_ORIGIN:-http://localhost:5173}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - uploads_data:/app/uploads
+      - logs_data:/app/logs
+
+volumes:
+  mysql_data:
+  uploads_data:
+  logs_data:

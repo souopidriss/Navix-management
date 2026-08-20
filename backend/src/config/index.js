@@ -103,16 +103,30 @@ function validateConfig() {
   }
 
   if (isProduction) {
-    const insecureJwt = [];
+    const errors = [];
+
     if (!process.env.JWT_ACCESS_SECRET || process.env.JWT_ACCESS_SECRET.length < 32) {
-      insecureJwt.push('JWT_ACCESS_SECRET (must be at least 32 characters)');
+      errors.push('JWT_ACCESS_SECRET (must be at least 32 characters)');
     }
     if (!process.env.JWT_REFRESH_SECRET || process.env.JWT_REFRESH_SECRET.length < 32) {
-      insecureJwt.push('JWT_REFRESH_SECRET (must be at least 32 characters)');
+      errors.push('JWT_REFRESH_SECRET (must be at least 32 characters)');
     }
-    if (insecureJwt.length > 0) {
+    if (process.env.CORS_ORIGIN === '*') {
+      errors.push('CORS_ORIGIN must not be * in production');
+    }
+    if (!process.env.CORS_ORIGIN || process.env.CORS_ORIGIN === 'http://localhost:5173') {
+      errors.push('CORS_ORIGIN must be set to a production domain');
+    }
+    if (!process.env.DB_PASSWORD) {
+      errors.push('DB_PASSWORD is required in production');
+    }
+    if (process.env.DB_HOST === 'localhost' && process.env.DB_ALLOW_LOCALHOST !== 'true') {
+      errors.push('DB_HOST should not be localhost in production (set DB_ALLOW_LOCALHOST=true to override)');
+    }
+
+    if (errors.length > 0) {
       throw new Error(
-        `Missing or insecure required environment variables: ${insecureJwt.join(', ')}`
+        `Production configuration errors:\n  - ${errors.join('\n  - ')}`
       );
     }
   }

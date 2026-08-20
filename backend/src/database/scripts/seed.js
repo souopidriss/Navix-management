@@ -8,6 +8,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export async function seed() {
+  if (process.env.NODE_ENV === 'production') {
+    logger.warn('Seed execution in production — use with caution');
+  }
+
   const pool = getPool();
   const seedsDir = join(__dirname, '..', 'seeds');
   const files = readdirSync(seedsDir)

@@ -15,6 +15,10 @@ validateConfig();
 
 const app = express();
 
+if (config.isProduction) {
+  app.set('trust proxy', 1);
+}
+
 app.use(helmet());
 app.use(cors(config.cors));
 app.use(requestIdMiddleware);

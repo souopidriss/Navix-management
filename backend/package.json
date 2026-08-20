@@ -13,7 +13,8 @@
     "db:migrate:status": "node src/database/scripts/cli.js status",
     "db:rollback": "node src/database/scripts/cli.js rollback",
     "db:seed": "node src/database/scripts/cli.js seed",
-    "db:reset": "node src/database/scripts/reset.js"
+    "db:reset": "node src/database/scripts/reset.js",
+    "audit": "npm audit --omit=dev"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
