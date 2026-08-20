@@ -64,7 +64,7 @@ const forceLogout = () => {
   }
   localStorage.removeItem(STORAGE_KEYS.AUTH);
   localStorage.removeItem(STORAGE_KEYS.RBAC);
-  window.location.href = '/login';
+  window.location.href = '/';
 };
 
 export const responseInterceptor = {

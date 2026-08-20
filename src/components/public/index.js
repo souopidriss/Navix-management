@@ -50,3 +50,4 @@ export { default as ContactFAQ } from './ContactFAQ';
 export { default as ContactCTA } from './ContactCTA';
 export { default as ResourcesHero } from './ResourcesHero';
 export { default as ResourcesComingSoon } from './ResourcesComingSoon';
+export { default as FleetShowcase } from './FleetShowcase';

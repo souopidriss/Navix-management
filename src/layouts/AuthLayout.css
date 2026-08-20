@@ -1,0 +1,130 @@
+/* ==========================================================================
+   Navix Auth — AuthLayout
+   --------------------------------------------------------------------------
+   Mise en page premium des pages d'authentification.
+   Le fond sombre est appliqué DIRECTEMENT sur ce conteneur (pas via un
+   composant fixed qui se retrouve sous le body Bootstrap).
+   ========================================================================== */
+
+/* ─── Conteneur racine — fond premium intégré ────────────────────────────── */
+.navix-auth-layout {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--navix-space-6) var(--navix-space-4);
+
+  /* Fond premium sombre — remplace le body bg en light/dark */
+  background-color: #020617;
+  background-image:
+    linear-gradient(160deg, #020617 0%, #0a1628 20%, #0f172a 40%, #111a36 60%, #0d1530 80%, #020617 100%),
+    radial-gradient(50vw 50vw at 85% -15%, rgba(37, 99, 235, 0.5) 0%, transparent 70%),
+    radial-gradient(45vw 45vw at -12% 120%, rgba(79, 70, 229, 0.5) 0%, transparent 70%),
+    radial-gradient(35vw 35vw at 50% 40%, rgba(124, 58, 237, 0.3) 0%, transparent 70%);
+  overflow: hidden;
+}
+
+/* ─── Grille géométrique ─────────────────────────────────────────────────── */
+.navix-auth-layout::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
+  pointer-events: none;
+}
+
+/* ─── Halos lumineux animés ──────────────────────────────────────────────── */
+.navix-auth-layout::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 10%;
+  right: 20%;
+  border-radius: 50%;
+  background: rgba(37, 99, 235, 0.15);
+  filter: blur(100px);
+  animation: navix-auth-glow-drift 14s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+/* ─── Boîte centralisée (logo + sous-titre + carte) ─────────────────────── */
+.navix-auth-layout__container {
+  position: relative;
+  width: 100%;
+  max-width: 26rem;
+  z-index: 1;
+}
+
+/* ─── En-tête (logo + tagline) ──────────────────────────────────────────── */
+.navix-auth-layout__header {
+  text-align: center;
+  margin-bottom: var(--navix-space-6);
+}
+
+.navix-auth-layout__logo {
+  justify-content: center;
+}
+
+.navix-auth-layout__tagline {
+  margin-top: var(--navix-space-2);
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: var(--navix-font-size-sm);
+  letter-spacing: var(--navix-letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+/* ─── Animations ─────────────────────────────────────────────────────────── */
+@keyframes navix-auth-glow-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(30px, -20px) scale(1.15);
+    opacity: 0.7;
+  }
+}
+
+/* ─── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .navix-auth-layout::after {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navix-auth-layout {
+    padding: var(--navix-space-4) var(--navix-space-3);
+  }
+
+  .navix-auth-layout__container {
+    max-width: 100%;
+  }
+
+  .navix-auth-layout__header {
+    margin-bottom: var(--navix-space-4);
+  }
+
+  .navix-auth-layout::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navix-auth-layout::after {
+    animation: none;
+  }
+}

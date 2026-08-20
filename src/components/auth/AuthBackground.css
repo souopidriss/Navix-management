@@ -1,0 +1,221 @@
+/* ==========================================================================
+   Navix Auth — AuthBackground
+   --------------------------------------------------------------------------
+   Fond visuel premium multi-couches pour les pages d'authentification.
+   Toutes les couleurs proviennent des tokens variables.css.
+   Aucune animation lourde : uniquement des transitions lentes.
+   Respect de prefers-reduced-motion.
+   ========================================================================== */
+
+/* ─── Conteneur racine ─────────────────────────────────────────────────── */
+.navix-auth-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background-color: #020617;
+}
+
+/* ─── Layer 1 : Gradient base deep navy ─────────────────────────────────── */
+.navix-auth-bg__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    #020617 0%,
+    #0a1628 20%,
+    #0f172a 40%,
+    #111a36 60%,
+    #0d1530 80%,
+    #020617 100%
+  );
+}
+
+/* ─── Layer 2 : Radials bleu / indigo ───────────────────────────────────── */
+.navix-auth-bg__radial {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+}
+
+.navix-auth-bg__radial--blue {
+  width: 50vw;
+  height: 50vw;
+  max-width: 700px;
+  max-height: 700px;
+  top: -15%;
+  right: -10%;
+  background: radial-gradient(circle, #2563eb 0%, transparent 70%);
+}
+
+.navix-auth-bg__radial--indigo {
+  width: 45vw;
+  height: 45vw;
+  max-width: 600px;
+  max-height: 600px;
+  bottom: -20%;
+  left: -12%;
+  background: radial-gradient(circle, #4f46e5 0%, transparent 70%);
+}
+
+.navix-auth-bg__radial--violet {
+  width: 35vw;
+  height: 35vw;
+  max-width: 500px;
+  max-height: 500px;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
+  opacity: 0.3;
+}
+
+/* ─── Layer 3 : Image fleet / transport ─────────────────────────────────── */
+.navix-auth-bg__image {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1920&h=1080&fit=crop&q=80');
+  background-size: cover;
+  background-position: center 40%;
+  opacity: 0.07;
+}
+
+/* ─── Layer 4 : Overlay sombre ──────────────────────────────────────────── */
+.navix-auth-bg__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(2, 6, 23, 0.7) 0%,
+    rgba(2, 6, 23, 0.5) 40%,
+    rgba(2, 6, 23, 0.8) 100%
+  );
+}
+
+/* ─── Layer 5 : Grille géométrique subtile ──────────────────────────────── */
+.navix-auth-bg__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, black 30%, transparent 80%);
+}
+
+/* ─── Layer 6 : Halos lumineux animés ───────────────────────────────────── */
+.navix-auth-bg__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: navix-auth-glow-drift 12s ease-in-out infinite alternate;
+}
+
+.navix-auth-bg__glow--1 {
+  width: 300px;
+  height: 300px;
+  top: 10%;
+  right: 20%;
+  background: rgba(37, 99, 235, 0.15);
+  animation-duration: 14s;
+}
+
+.navix-auth-bg__glow--2 {
+  width: 250px;
+  height: 250px;
+  bottom: 15%;
+  left: 15%;
+  background: rgba(79, 70, 229, 0.12);
+  animation-duration: 11s;
+  animation-delay: -3s;
+}
+
+.navix-auth-bg__glow--3 {
+  width: 200px;
+  height: 200px;
+  top: 55%;
+  right: 35%;
+  background: rgba(124, 58, 237, 0.1);
+  animation-duration: 16s;
+  animation-delay: -7s;
+}
+
+@keyframes navix-auth-glow-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(30px, -20px) scale(1.15);
+    opacity: 0.7;
+  }
+}
+
+/* ─── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .navix-auth-bg__radial--blue {
+    width: 70vw;
+    height: 70vw;
+    top: -10%;
+    right: -20%;
+  }
+
+  .navix-auth-bg__radial--indigo {
+    width: 60vw;
+    height: 60vw;
+    bottom: -15%;
+    left: -20%;
+  }
+
+  .navix-auth-bg__radial--violet {
+    width: 50vw;
+    height: 50vw;
+    opacity: 0.2;
+  }
+
+  .navix-auth-bg__glow--1 {
+    width: 200px;
+    height: 200px;
+  }
+
+  .navix-auth-bg__glow--2 {
+    width: 160px;
+    height: 160px;
+  }
+
+  .navix-auth-bg__glow--3 {
+    display: none;
+  }
+
+  .navix-auth-bg__grid {
+    opacity: 0.025;
+    background-size: 40px 40px;
+  }
+
+  .navix-auth-bg__image {
+    opacity: 0.04;
+  }
+}
+
+@media (max-width: 480px) {
+  .navix-auth-bg__glow--1,
+  .navix-auth-bg__glow--2 {
+    display: none;
+  }
+
+  .navix-auth-bg__grid {
+    display: none;
+  }
+}
+
+/* ─── Reduced motion ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .navix-auth-bg__glow {
+    animation: none;
+  }
+}

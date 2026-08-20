@@ -1,7 +1,8 @@
 /* ==========================================================================
    Navix Auth — RoleSelection
    --------------------------------------------------------------------------
-   Cartes de sélection de rôle pour l'inscription.
+   Cartes de sélection de rôle pour l'inscription, adaptées au fond sombre
+   premium. Utilise des styles glass légers cohérents avec AuthCard.
    ========================================================================== */
 
 .nv-role-selection {
@@ -13,19 +14,21 @@
   align-items: center;
   gap: 1rem;
   padding: 1rem 1.25rem;
-  border: 1px solid var(--navix-border-color, #e2e8f0);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 0.75rem;
-  background-color: var(--navix-surface, #fff);
+  background-color: rgba(255, 255, 255, 0.04);
   transition:
     border-color var(--navix-transition-fast) var(--navix-ease-out),
     box-shadow var(--navix-transition-fast) var(--navix-ease-out),
+    background-color var(--navix-transition-fast) var(--navix-ease-out),
     transform var(--navix-transition-fast) var(--navix-ease-out);
   color: inherit;
 }
 
 .nv-role-card:hover {
-  border-color: var(--navix-primary, #f27b21);
-  box-shadow: 0 2px 8px rgba(242, 123, 33, 0.12);
+  border-color: rgba(68, 83, 242, 0.45);
+  background-color: rgba(68, 83, 242, 0.08);
+  box-shadow: 0 2px 12px rgba(68, 83, 242, 0.15);
   transform: translateY(-1px);
   color: inherit;
 }
@@ -43,8 +46,8 @@
   width: 48px;
   height: 48px;
   border-radius: 0.625rem;
-  background-color: var(--navix-primary-light, #fff3e6);
-  color: var(--navix-primary, #f27b21);
+  background-color: rgba(68, 83, 242, 0.15);
+  color: #818cf8;
   font-size: 1.25rem;
   flex-shrink: 0;
 }
@@ -58,24 +61,24 @@
   font-size: 0.9375rem;
   font-weight: 600;
   margin: 0 0 0.125rem;
-  color: var(--navix-text-primary, #1a1a2e);
+  color: #f1f5f9;
 }
 
 .nv-role-card__desc {
   font-size: 0.8125rem;
-  color: var(--navix-text-muted, #6b7280);
+  color: rgba(148, 163, 184, 0.8);
   margin: 0;
   line-height: 1.4;
 }
 
 .nv-role-card__arrow {
-  color: var(--navix-text-muted, #6b7280);
+  color: rgba(148, 163, 184, 0.6);
   font-size: 0.875rem;
   flex-shrink: 0;
-  transition: transform var(--navix-transition-fast) var(--navix-ease-out);
+  transition: transform var(--navix-transition-fast) var(--navix-ease-out), color var(--navix-transition-fast) var(--navix-ease-out);
 }
 
 .nv-role-card:hover .nv-role-card__arrow {
   transform: translateX(2px);
-  color: var(--navix-primary, #f27b21);
+  color: #818cf8;
 }

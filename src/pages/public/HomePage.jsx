@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { HeroSection, HeroFeatureCards, HomePreviewSection, CTASection } from '@/components/public';
+import { HeroSection, HeroFeatureCards, FleetShowcase, HomePreviewSection, CTASection } from '@/components/public';
 
 const HomePage = () => (
   <>
@@ -18,6 +18,7 @@ const HomePage = () => (
     <main>
       <HeroSection />
       <HeroFeatureCards />
+      <FleetShowcase />
       <HomePreviewSection />
       <CTASection />
     </main>

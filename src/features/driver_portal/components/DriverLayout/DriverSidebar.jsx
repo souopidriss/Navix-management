@@ -19,7 +19,7 @@ const DriverSidebar = ({ collapsed = false, onNavigate }) => {
 
   const handleLogout = async () => {
     await logout();
-    navigate(ROUTES.LOGIN, { replace: true });
+    navigate(ROUTES.HOME, { replace: true });
   };
 
   const renderItem = (item) => {

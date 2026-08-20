@@ -1,26 +1,56 @@
 /* ==========================================================================
    Navix Auth — AuthCard
    --------------------------------------------------------------------------
-   Espacement de la coquille d'authentification. Les couleurs proviennent
-   uniquement des tokens (variables.css) ; le corps de la carte est géré
-   par le composant UI Card (padding xl).
+   Coquille d'authentification avec effet glass premium sur fond sombre.
+   Le composant Card fournit le conteneur ; ce fichier applique :
+     - Fond translucide + backdrop-blur
+     - Bordure lumineuse subtile
+     - Ombre portée plus forte sur fond sombre
+     - En-tête / pied avec opacité légèrement différente
    ========================================================================== */
 
+.navix-auth-card {
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(68, 83, 242, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+  border-radius: var(--navix-radius-xl) !important;
+}
+
+/* Supprime le liseré lumineux natif du Card (remplacé par notre bordure) */
+.navix-auth-card::before {
+  display: none !important;
+}
+
+/* ─── En-tête ────────────────────────────────────────────────────────────── */
 .navix-auth-card__header {
-  margin-bottom: var(--navix-space-3);
+  margin-bottom: var(--navix-space-4);
+  padding-bottom: var(--navix-space-4) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
 }
 
 .navix-auth-card__title {
-  margin-bottom: var(--navix-space-1);
-  font-weight: var(--navix-font-weight-bold);
+  color: #f1f5f9 !important;
 }
 
 .navix-auth-card__subtitle {
-  margin-bottom: 0;
+  color: rgba(148, 163, 184, 0.85) !important;
 }
 
+/* ─── Pied de carte ──────────────────────────────────────────────────────── */
 .navix-auth-card__footer {
-  margin-top: var(--navix-space-4);
-  padding-top: var(--navix-space-3);
-  border-top: 1px solid var(--navix-border-color);
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: rgba(148, 163, 184, 0.75);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .navix-auth-card {
+    border-radius: var(--navix-radius-lg) !important;
+  }
 }

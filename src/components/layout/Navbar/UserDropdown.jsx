@@ -10,7 +10,7 @@ const UserDropdown = () => {
 
   const handleLogout = async () => {
     await logout();
-    navigate(ROUTES.LOGIN, { replace: true });
+    navigate(ROUTES.HOME, { replace: true });
   };
 
   return (
