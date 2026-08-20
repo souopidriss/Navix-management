@@ -1,7 +1,9 @@
 import * as reportService from './report.service.js';
+import * as exportService from '../exports/export.service.js';
 import savedReportRepository from '../../repositories/SavedReportRepository.js';
 import reportRepository from '../../repositories/ReportRepository.js';
 import { generateId } from '../../utils/id.js';
+import { EXPORT_FORMATS } from '../exports/index.js';
 
 /* -----------------------------------------------------------------------
    REPORT GENERATION HANDLERS
@@ -132,21 +134,17 @@ export async function exportReport(req, res, next) {
   try {
     const reportType = req.body.reportType || req.body.filters?.reportType || 'fleet';
     const companyId = req.isGlobalAccess ? (req.body.filters?.companyId || req.tenantId) : req.tenantId;
-    const filters = req.body.filters || {};
-    const format = req.body.format || 'csv';
+    const format = EXPORT_FORMATS.includes(req.body.format) ? req.body.format : 'csv';
+    const filters = { ...req.body.filters };
 
-    const report = await reportService.generateReportByType(reportType, companyId, filters);
-    const rows = Array.isArray(report.rows) ? report.rows : [];
+    const result = await exportService.generateReportExport(reportType, format, companyId, filters);
 
-    res.json({
-      success: true,
-      data: {
-        format,
-        count: rows.length,
-        rows,
-        exportedAt: new Date().toISOString(),
-      },
-    });
+    res.setHeader('Content-Type', result.contentType);
+    res.setHeader('Content-Disposition', result.contentDisposition);
+    res.setHeader('X-Export-Count', String(result.count));
+    res.setHeader('X-Export-Format', result.format);
+    res.setHeader('X-Exported-At', result.exportedAt);
+    res.send(result.buffer);
   } catch (error) { next(error); }
 }
 

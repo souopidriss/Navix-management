@@ -17,6 +17,7 @@ import financeRoutes from '../modules/finance/finance.routes.js';
 import subscriptionRoutes from '../modules/subscriptions/subscription.routes.js';
 import billingRoutes from '../modules/billing/billing.routes.js';
 import reportRoutes from '../modules/reports/report.routes.js';
+import exportRoutes from '../modules/exports/export.routes.js';
 
 const router = Router();
 
@@ -37,6 +38,7 @@ router.use('/finance', financeRoutes);
 router.use('/subscriptions', subscriptionRoutes);
 router.use('/billing', billingRoutes);
 router.use('/reports', reportRoutes);
+router.use('/exports', exportRoutes);
 
 router.get('/', (req, res) => {
   res.json({
