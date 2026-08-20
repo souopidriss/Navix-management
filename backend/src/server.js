@@ -14,18 +14,30 @@ async function startServer() {
       logger.info(`API prefix: ${config.api.prefix}`);
     });
 
+    let isShuttingDown = false;
+
     async function gracefulShutdown(signal) {
+      if (isShuttingDown) return;
+      isShuttingDown = true;
+
       logger.info(`${signal} received. Starting graceful shutdown...`);
 
       server.close(async () => {
-        logger.info('HTTP server closed');
-        await closePool();
-        logger.info('Database pool closed');
+        logger.info('HTTP server closed — no longer accepting new connections');
+
+        try {
+          await closePool();
+          logger.info('Database pool closed');
+        } catch (err) {
+          logger.error('Error closing database pool', { error: err.message });
+        }
+
+        logger.info('Graceful shutdown complete');
         process.exit(0);
       });
 
       setTimeout(() => {
-        logger.error('Forced shutdown after timeout');
+        logger.error('Forced shutdown after 10s timeout — active connections terminated');
         process.exit(1);
       }, 10000);
     }
@@ -34,17 +46,24 @@ async function startServer() {
     process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
     process.on('unhandledRejection', (reason) => {
-      logger.error('Unhandled Rejection:', { reason: String(reason) });
+      logger.error('Unhandled Promise Rejection', {
+        reason: reason instanceof Error ? reason.message : String(reason),
+        stack: reason instanceof Error ? reason.stack : undefined,
+      });
     });
 
     process.on('uncaughtException', (error) => {
-      logger.error('Uncaught Exception:', { message: error.message, stack: error.stack });
+      logger.error('Uncaught Exception — shutting down', {
+        message: error.message,
+        stack: error.stack,
+        name: error.name,
+      });
       gracefulShutdown('UNCAUGHT_EXCEPTION');
     });
 
     return server;
   } catch (error) {
-    logger.error('Failed to start server:', error.message);
+    logger.error('Failed to start server', { message: error.message, stack: error.stack });
     process.exit(1);
   }
 }

@@ -2,6 +2,8 @@ import mysql from 'mysql2/promise';
 import config from '../config/index.js';
 import logger from '../logs/logger.js';
 
+const SLOW_QUERY_THRESHOLD_MS = parseInt(process.env.SLOW_QUERY_THRESHOLD_MS || '500', 10);
+
 let pool = null;
 
 function createPool() {
@@ -21,7 +23,12 @@ function createPool() {
     dateStrings: true,
   });
 
-  logger.info('MySQL connection pool created');
+  logger.info('MySQL connection pool created', {
+    host: config.database.host,
+    port: config.database.port,
+    database: config.database.name,
+    connectionLimit: config.database.connectionLimit,
+  });
   return pool;
 }
 
@@ -39,17 +46,34 @@ async function testConnection() {
     connection.release();
     return { status: 'up', message: 'Database connection successful' };
   } catch (error) {
-    logger.error('Database connection failed:', error.message);
+    logger.error('Database connection failed', { error: error.message });
     return { status: 'down', message: error.message };
   }
 }
 
 async function query(sql, params = []) {
+  const start = Date.now();
   try {
     const [rows] = await getPool().query(sql, params);
+    const duration = Date.now() - start;
+    if (duration > SLOW_QUERY_THRESHOLD_MS) {
+      logger.warn('Slow query detected', {
+        duration: `${duration}ms`,
+        durationMs: duration,
+        sql: sql.substring(0, 300),
+        threshold: `${SLOW_QUERY_THRESHOLD_MS}ms`,
+      });
+    }
     return rows;
   } catch (error) {
-    logger.error('Query execution failed:', { sql: sql.substring(0, 200), error: error.message });
+    const duration = Date.now() - start;
+    logger.error('Query execution failed', {
+      sql: sql.substring(0, 300),
+      error: error.message,
+      errno: error.errno,
+      code: error.code,
+      duration: `${duration}ms`,
+    });
     throw error;
   }
 }
@@ -68,7 +92,7 @@ async function transaction(callback) {
     return result;
   } catch (error) {
     await connection.rollback();
-    logger.error('Transaction rolled back:', error.message);
+    logger.error('Transaction rolled back', { error: error.message });
     throw error;
   } finally {
     connection.release();

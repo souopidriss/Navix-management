@@ -78,6 +78,8 @@ const config = {
 
   logging: {
     level: optionalEnv('LOG_LEVEL', isProduction ? 'info' : 'debug'),
+    slowRequestThresholdMs: parseInt(optionalEnv('SLOW_REQUEST_THRESHOLD_MS', '1000'), 10),
+    slowQueryThresholdMs: parseInt(optionalEnv('SLOW_QUERY_THRESHOLD_MS', '500'), 10),
   },
 
   security: {

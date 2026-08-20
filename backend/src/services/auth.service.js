@@ -18,6 +18,7 @@ import {
   ValidationError,
 } from '../errors/index.js';
 import { recordAudit } from './audit.service.js';
+import logger from '../logs/logger.js';
 
 function normalizeEmail(email) {
   return email?.trim().toLowerCase();
@@ -63,19 +64,23 @@ export async function login({ email, password, rememberMe = false }, { ipAddress
 
   const user = await userRepository.findByEmail(normalizedEmail);
   if (!user) {
+    logger.warn('Login attempt with unknown email', { email: normalizedEmail, ip: ipAddress });
     throw new AuthenticationError('Identifiants invalides. Vérifiez votre adresse email et votre mot de passe.');
   }
 
   if (user.status === 'inactive' || user.status === 'suspended') {
+    logger.warn('Login attempt on disabled account', { userId: user.id, status: user.status, ip: ipAddress });
     throw new AuthenticationError('Identifiants invalides. Vérifiez votre adresse email et votre mot de passe.');
   }
 
   if (user.status === 'pending') {
+    logger.warn('Login attempt on pending account', { userId: user.id, ip: ipAddress });
     throw new AuthenticationError('Identifiants invalides. Vérifiez votre adresse email et votre mot de passe.');
   }
 
   const passwordValid = await comparePassword(password, user.password_hash);
   if (!passwordValid) {
+    logger.warn('Login failed: invalid password', { userId: user.id, email: normalizedEmail, ip: ipAddress });
     await recordAudit({
       action: 'LOGIN',
       actionType: 'authentication',
@@ -97,6 +102,14 @@ export async function login({ email, password, rememberMe = false }, { ipAddress
   });
 
   await userRepository.updateLastLogin(user.id);
+
+  logger.info('Login successful', {
+    userId: user.id,
+    email: normalizedEmail,
+    role: user.role,
+    companyId: user.company_id,
+    ip: ipAddress,
+  });
 
   await recordAudit({
     action: 'LOGIN',
@@ -234,6 +247,8 @@ async function register(payload, { ipAddress, userAgent } = {}) {
     req: { ip: ipAddress, headers: { 'user-agent': userAgent }, user: { id: userId, companyId } },
   });
 
+  logger.info('User registered', { userId, email: normalizedEmail, role, companyId });
+
   return {
     ...formatAuthResponse(user, company),
     tokens: {
@@ -254,6 +269,7 @@ export async function logout(userId, refreshToken) {
   } else {
     await revokeAllSessions(userId);
   }
+  logger.info('User logged out', { userId });
   await recordAudit({
     action: 'LOGOUT',
     actionType: 'authentication',

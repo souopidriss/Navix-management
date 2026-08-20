@@ -1,4 +1,5 @@
 import permissionRepository from '../repositories/PermissionRepository.js';
+import logger from '../logs/logger.js';
 
 export function requirePermission(...requiredPermissions) {
   return async (req, res, next) => {
@@ -26,6 +27,16 @@ export function requirePermission(...requiredPermissions) {
     if (hasPermission) {
       return next();
     }
+
+    logger.warn('Permission denied', {
+      userId: req.user.id,
+      companyId: req.user.companyId,
+      requiredPermissions,
+      userRole: req.user.role,
+      method: req.method,
+      path: req.originalUrl ? req.originalUrl.split('?')[0] : 'unknown',
+      requestId: req.id,
+    });
 
     return res.status(403).json({
       success: false,

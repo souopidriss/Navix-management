@@ -7,6 +7,7 @@ export function notFoundHandler(req, res, _next) {
     error: {
       code: 'ROUTE_NOT_FOUND',
       message: `Route ${req.method} ${safeUrl} not found`,
+      requestId: req.id || undefined,
     },
   });
 }

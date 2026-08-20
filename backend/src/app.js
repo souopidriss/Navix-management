@@ -21,6 +21,28 @@ app.use(requestIdMiddleware);
 app.use(express.json({ limit: config.security.bodyLimit }));
 app.use(express.urlencoded({ extended: true, limit: config.security.bodyLimit }));
 
+app.use((err, _req, res, next) => {
+  if (err.type === 'entity.parse.failed') {
+    return res.status(400).json({
+      success: false,
+      error: {
+        code: 'INVALID_JSON',
+        message: 'Le corps de la requête contient un JSON invalide.',
+      },
+    });
+  }
+  if (err.type === 'entity.too.large') {
+    return res.status(413).json({
+      success: false,
+      error: {
+        code: 'PAYLOAD_TOO_LARGE',
+        message: 'Le corps de la requête est trop volumineux.',
+      },
+    });
+  }
+  next(err);
+});
+
 const limiter = rateLimit({
   windowMs: config.security.rateLimitWindowMs,
   max: config.security.rateLimitMax,
