@@ -1,5 +1,6 @@
 import driverRepository from '../repositories/DriverRepository.js';
 import { ConflictError, NotFoundError, ValidationError, BadRequestError } from '../errors/index.js';
+import { recordAudit } from './audit.service.js';
 
 const VALID_STATUS_TRANSITIONS = {
   active: ['on_mission', 'available', 'suspended', 'on_leave', 'inactive'],
@@ -160,6 +161,16 @@ export async function createDriver(data, { companyId }) {
     is_active: true,
   });
 
+  await recordAudit({
+    action: 'CREATE',
+    actionType: 'creation',
+    entityType: 'driver',
+    entityId: driver.id,
+    description: `Chauffeur créé: ${fullName} (${payload.employee_code})`,
+    newValues: { employeeCode: payload.employee_code, firstName: payload.first_name, lastName: payload.last_name },
+    companyId,
+  });
+
   const full = await driverRepository.findByIdWithDetails(driver.id);
   return formatDriverResponse(full);
 }
@@ -248,6 +259,14 @@ export async function updateDriver(id, data, { companyId }) {
   }
 
   await driverRepository.update(id, payload);
+  await recordAudit({
+    action: 'UPDATE',
+    actionType: 'modification',
+    entityType: 'driver',
+    entityId: id,
+    description: `Chauffeur mis à jour: ${existing.first_name} ${existing.last_name}`,
+    companyId,
+  });
   const full = await driverRepository.findByIdWithDetails(id);
   return formatDriverResponse(full);
 }
@@ -267,6 +286,14 @@ export async function deleteDriver(id, { companyId }) {
   }
 
   await driverRepository.softDelete(id);
+  await recordAudit({
+    action: 'DELETE',
+    actionType: 'suppression',
+    entityType: 'driver',
+    entityId: id,
+    description: `Chauffeur supprimé: ${existing.first_name} ${existing.last_name}`,
+    companyId,
+  });
   return { message: 'Chauffeur supprimé avec succès.' };
 }
 
@@ -289,6 +316,16 @@ export async function changeDriverStatus(id, newStatus, { companyId }) {
   }
 
   await driverRepository.update(id, { status: newStatus });
+  await recordAudit({
+    action: 'UPDATE',
+    actionType: 'modification',
+    entityType: 'driver',
+    entityId: id,
+    description: `Statut changé: ${existing.status} → ${newStatus} (${existing.first_name} ${existing.last_name})`,
+    oldValues: { status: existing.status },
+    newValues: { status: newStatus },
+    companyId,
+  });
   const full = await driverRepository.findByIdWithDetails(id);
   return formatDriverResponse(full);
 }

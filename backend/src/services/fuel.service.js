@@ -3,8 +3,9 @@ import vehicleRepository from '../repositories/VehicleRepository.js';
 import driverRepository from '../repositories/DriverRepository.js';
 import tripRepository from '../repositories/TripRepository.js';
 import { getPool } from '../database/index.js';
-import { NotFoundError, ConflictError, ValidationError } from '../errors/index.js';
+import { NotFoundError, ConflictError } from '../errors/index.js';
 import { VALID_STATUS_TRANSITIONS } from '../modules/fuel/index.js';
+import { recordAudit } from './audit.service.js';
 
 function formatFuelResponse(row) {
   if (!row) return null;
@@ -106,6 +107,16 @@ export async function createFuelRecord(payload, { companyId, userName }) {
     }
 
     await conn.commit();
+
+    await recordAudit({
+      action: 'CREATE',
+      actionType: 'creation',
+      entityType: 'fuel',
+      entityId: id,
+      description: `Plein créé: ${fuelNumber} (${payload.fuelType}, ${payload.quantity}L)`,
+      newValues: { fuelNumber, fuelType: payload.fuelType, quantity: payload.quantity, vehicleId: payload.vehicleId },
+      companyId,
+    });
 
     const full = await fuelRepository.findByCompanyIdAndId(companyId, id);
     return formatFuelResponse(full);
@@ -233,6 +244,15 @@ export async function updateFuelRecord(id, payload, { companyId }) {
     );
   }
 
+  await recordAudit({
+    action: 'UPDATE',
+    actionType: 'modification',
+    entityType: 'fuel',
+    entityId: id,
+    description: `Plein mis à jour: ${existing.fuel_number}`,
+    companyId,
+  });
+
   const full = await fuelRepository.findByCompanyIdAndId(companyId, id);
   return formatFuelResponse(full);
 }
@@ -241,6 +261,16 @@ export async function deleteFuelRecord(id, { companyId }) {
   const existing = await fuelRepository.findByCompanyIdAndId(companyId, id);
   if (!existing) throw new NotFoundError('Plein de carburant');
   await fuelRepository.softDelete(id);
+
+  await recordAudit({
+    action: 'DELETE',
+    actionType: 'suppression',
+    entityType: 'fuel',
+    entityId: id,
+    description: `Plein supprimé: ${existing.fuel_number}`,
+    companyId,
+  });
+
   return { id };
 }
 

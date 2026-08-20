@@ -3,6 +3,7 @@ import assignmentRepository from '../repositories/AssignmentRepository.js';
 
 import { ConflictError, NotFoundError, ValidationError, BadRequestError } from '../errors/index.js';
 import { VALID_STATUS_TRANSITIONS } from '../modules/trips/index.js';
+import { recordAudit } from './audit.service.js';
 
 function normalizeTripPayload(data) {
   const out = {};
@@ -179,6 +180,16 @@ export async function createTrip(data, { companyId, userName }) {
     created_by: userName || null,
   });
 
+  await recordAudit({
+    action: 'CREATE',
+    actionType: 'creation',
+    entityType: 'trip',
+    entityId: newId,
+    description: `Trajet créé: ${tripNumber}`,
+    newValues: { tripNumber, origin: payload.origin, destination: payload.destination, assignmentId: payload.assignment_id },
+    companyId,
+  });
+
   const full = await tripRepository.findByCompanyIdAndId(companyId, newId);
   return formatTripResponse(full);
 }
@@ -270,6 +281,16 @@ export async function updateTrip(id, data, { companyId }) {
   }
 
   await tripRepository.update(id, updateData);
+
+  await recordAudit({
+    action: 'UPDATE',
+    actionType: 'modification',
+    entityType: 'trip',
+    entityId: id,
+    description: `Trajet mis à jour: ${existing.trip_number}`,
+    companyId,
+  });
+
   const full = await tripRepository.findByCompanyIdAndId(companyId, id);
   return formatTripResponse(full);
 }
@@ -284,6 +305,16 @@ export async function deleteTrip(id, { companyId }) {
   }
 
   await tripRepository.softDelete(id);
+
+  await recordAudit({
+    action: 'DELETE',
+    actionType: 'suppression',
+    entityType: 'trip',
+    entityId: id,
+    description: `Trajet supprimé: ${existing.trip_number}`,
+    companyId,
+  });
+
   return { id, message: 'Trajet supprimé avec succès.' };
 }
 
@@ -317,6 +348,17 @@ export async function startTrip(id, { companyId, userName }) {
     }
 
     await tripRepository.commitTransaction(conn);
+
+    await recordAudit({
+      action: 'UPDATE',
+      actionType: 'status_change',
+      entityType: 'trip',
+      entityId: id,
+      description: `Trajet démarré: ${existing.trip_number}`,
+      oldValues: { status: existing.status },
+      newValues: { status: 'in_progress' },
+      companyId,
+    });
 
     const full = await tripRepository.findByCompanyIdAndId(companyId, id);
     return formatTripResponse(full);
@@ -464,6 +506,17 @@ export async function finishTrip(id, data, { companyId, userName: _userName }) {
     }
 
     await tripRepository.commitTransaction(conn);
+
+    await recordAudit({
+      action: 'UPDATE',
+      actionType: 'status_change',
+      entityType: 'trip',
+      entityId: id,
+      description: `Trajet terminé: ${existing.trip_number}`,
+      oldValues: { status: existing.status },
+      newValues: { status: 'completed', actualDistance, arrivalMileage },
+      companyId,
+    });
 
     const full = await tripRepository.findByCompanyIdAndId(companyId, id);
     return formatTripResponse(full);

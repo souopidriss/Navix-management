@@ -1,5 +1,6 @@
 import vehicleRepository from '../repositories/VehicleRepository.js';
 import { ConflictError, NotFoundError, ValidationError, BadRequestError } from '../errors/index.js';
+import { recordAudit } from './audit.service.js';
 
 const VALID_STATUS_TRANSITIONS = {
   available: ['in_use', 'maintenance', 'out_of_service'],
@@ -137,6 +138,16 @@ export async function createVehicle(data, { companyId }) {
     is_active: true,
   });
 
+  await recordAudit({
+    action: 'CREATE',
+    actionType: 'creation',
+    entityType: 'vehicle',
+    entityId: vehicle.id,
+    description: `Véhicule créé: ${payload.brand} ${payload.model} (${payload.registration_number})`,
+    newValues: { registrationNumber: payload.registration_number, brand: payload.brand, model: payload.model, status: payload.status || 'available' },
+    companyId,
+  });
+
   const full = await vehicleRepository.findByIdWithDetails(vehicle.id);
   return formatVehicleResponse(full);
 }
@@ -216,6 +227,15 @@ export async function updateVehicle(id, data, { companyId }) {
   }
 
   await vehicleRepository.update(id, payload);
+  await recordAudit({
+    action: 'UPDATE',
+    actionType: 'modification',
+    entityType: 'vehicle',
+    entityId: id,
+    description: `Véhicule mis à jour: ${existing.registration_number}`,
+    companyId,
+  });
+
   const full = await vehicleRepository.findByIdWithDetails(id);
   return formatVehicleResponse(full);
 }
@@ -235,6 +255,15 @@ export async function deleteVehicle(id, { companyId }) {
   }
 
   await vehicleRepository.softDelete(id);
+  await recordAudit({
+    action: 'DELETE',
+    actionType: 'suppression',
+    entityType: 'vehicle',
+    entityId: id,
+    description: `Véhicule supprimé: ${existing.registration_number}`,
+    companyId,
+  });
+
   return { message: 'Véhicule supprimé avec succès.' };
 }
 
@@ -258,6 +287,17 @@ export async function changeVehicleStatus(id, newStatus, { companyId }) {
   }
 
   await vehicleRepository.update(id, { status: newStatus });
+  await recordAudit({
+    action: 'UPDATE',
+    actionType: 'modification',
+    entityType: 'vehicle',
+    entityId: id,
+    description: `Statut changé: ${existing.status} → ${newStatus} (${existing.registration_number})`,
+    oldValues: { status: existing.status },
+    newValues: { status: newStatus },
+    companyId,
+  });
+
   const full = await vehicleRepository.findByIdWithDetails(id);
   return formatVehicleResponse(full);
 }

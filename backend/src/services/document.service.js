@@ -3,6 +3,7 @@ import fileTypeRepository from '../repositories/FileTypeRepository.js';
 import { getPool } from '../database/index.js';
 import { generateId } from '../utils/id.js';
 import { NotFoundError, ValidationError } from '../errors/index.js';
+import { recordAudit } from './audit.service.js';
 
 function parseJsonColumn(value) {
   if (Array.isArray(value)) return value;
@@ -100,6 +101,16 @@ export async function createDocument(data, { companyId }) {
       ]
     );
 
+    await recordAudit({
+      action: 'CREATE',
+      actionType: 'creation',
+      entityType: 'document',
+      entityId: id,
+      description: `Document créé: ${fileNumber}`,
+      newValues: { fileNumber, name: fileName, fileTypeId: data.fileTypeId },
+      companyId,
+    });
+
     const full = await fileRepository.findByCompanyIdAndId(companyId, id);
     return formatDocumentResponse(full);
   } finally {
@@ -136,6 +147,15 @@ export async function updateDocument(id, data, { companyId }) {
 
   await fileRepository.update(id, updateData);
 
+  await recordAudit({
+    action: 'UPDATE',
+    actionType: 'modification',
+    entityType: 'document',
+    entityId: id,
+    description: `Document mis à jour: ${existing.file_number}`,
+    companyId,
+  });
+
   const updated = await fileRepository.findByCompanyIdAndId(companyId, id);
   return formatDocumentResponse(updated);
 }
@@ -144,6 +164,14 @@ export async function deleteDocument(id, { companyId }) {
   const existing = await fileRepository.findByCompanyIdAndId(companyId, id);
   if (!existing) throw new NotFoundError('Document');
   await fileRepository.softDelete(id);
+  await recordAudit({
+    action: 'DELETE',
+    actionType: 'suppression',
+    entityType: 'document',
+    entityId: id,
+    description: `Document supprimé: ${existing.file_number}`,
+    companyId,
+  });
   return { id };
 }
 

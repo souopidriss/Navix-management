@@ -12,6 +12,7 @@ import fuelRoutes from '../modules/fuel/fuel.routes.js';
 import maintenanceRoutes from '../modules/maintenance/maintenance.routes.js';
 import documentRoutes from '../modules/documents/document.routes.js';
 import notificationRoutes from '../modules/notifications/notification.routes.js';
+import auditRoutes from '../modules/audit/audit.routes.js';
 
 const router = Router();
 
@@ -27,6 +28,7 @@ router.use('/fuel', fuelRoutes);
 router.use('/maintenances', maintenanceRoutes);
 router.use('/documents', documentRoutes);
 router.use('/notifications', notificationRoutes);
+router.use('/audit-logs', auditRoutes);
 
 router.get('/', (req, res) => {
   res.json({

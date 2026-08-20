@@ -17,6 +17,7 @@ import {
   NotFoundError,
   ValidationError,
 } from '../errors/index.js';
+import { recordAudit } from './audit.service.js';
 
 function normalizeEmail(email) {
   return email?.trim().toLowerCase();
@@ -75,6 +76,16 @@ export async function login({ email, password, rememberMe = false }, { ipAddress
 
   const passwordValid = await comparePassword(password, user.password_hash);
   if (!passwordValid) {
+    await recordAudit({
+      action: 'LOGIN',
+      actionType: 'authentication',
+      entityType: 'user',
+      entityId: user.id,
+      description: `Tentative de connexion échouée: ${normalizedEmail}`,
+      status: 'failed',
+      severity: 'medium',
+      req: { ip: ipAddress, headers: { 'user-agent': userAgent }, user: { id: user.id, companyId: user.company_id } },
+    });
     throw new AuthenticationError('Identifiants invalides. Vérifiez votre adresse email et votre mot de passe.');
   }
 
@@ -86,6 +97,17 @@ export async function login({ email, password, rememberMe = false }, { ipAddress
   });
 
   await userRepository.updateLastLogin(user.id);
+
+  await recordAudit({
+    action: 'LOGIN',
+    actionType: 'authentication',
+    entityType: 'user',
+    entityId: user.id,
+    description: `Connexion réussie: ${normalizedEmail}`,
+    status: 'success',
+    severity: 'low',
+    req: { ip: ipAddress, headers: { 'user-agent': userAgent }, user: { id: user.id, companyId: user.company_id } },
+  });
 
   let company = null;
   if (user.company_id) {
@@ -200,6 +222,18 @@ async function register(payload, { ipAddress, userAgent } = {}) {
 
   const accessToken = generateAccessToken(tokenPayload);
 
+  await recordAudit({
+    action: 'CREATE',
+    actionType: 'authentication',
+    entityType: 'user',
+    entityId: userId,
+    description: `Nouvel utilisateur créé: ${normalizedEmail} (${role})`,
+    newValues: { email: normalizedEmail, role, firstName, lastName },
+    status: 'success',
+    severity: 'low',
+    req: { ip: ipAddress, headers: { 'user-agent': userAgent }, user: { id: userId, companyId } },
+  });
+
   return {
     ...formatAuthResponse(user, company),
     tokens: {
@@ -220,6 +254,16 @@ export async function logout(userId, refreshToken) {
   } else {
     await revokeAllSessions(userId);
   }
+  await recordAudit({
+    action: 'LOGOUT',
+    actionType: 'authentication',
+    entityType: 'user',
+    entityId: userId,
+    description: 'Déconnexion',
+    status: 'success',
+    severity: 'low',
+    userId,
+  });
   return { success: true };
 }
 
@@ -293,6 +337,17 @@ export async function changePassword(userId, { currentPassword, newPassword }) {
   await userRepository.updatePasswordHash(userId, passwordHash);
 
   await revokeAllSessions(userId);
+
+  await recordAudit({
+    action: 'PASSWORD_RESET',
+    actionType: 'security',
+    entityType: 'user',
+    entityId: userId,
+    description: 'Changement de mot de passe',
+    status: 'success',
+    severity: 'medium',
+    userId,
+  });
 
   return { success: true };
 }

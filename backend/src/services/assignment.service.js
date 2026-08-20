@@ -3,6 +3,7 @@ import vehicleRepository from '../repositories/VehicleRepository.js';
 import driverRepository from '../repositories/DriverRepository.js';
 import { ConflictError, NotFoundError, ValidationError, BadRequestError } from '../errors/index.js';
 import { VALID_STATUS_TRANSITIONS } from '../modules/assignments/index.js';
+import { recordAudit } from './audit.service.js';
 
 function normalizeAssignmentPayload(data) {
   const out = {};
@@ -169,6 +170,16 @@ export async function createAssignment(data, { companyId, userName }) {
 
     await assignmentRepository.commitTransaction(conn);
 
+    await recordAudit({
+      action: 'CREATE',
+      actionType: 'creation',
+      entityType: 'assignment',
+      entityId: newId,
+      description: `Affectation créée: ${assignmentNumber}`,
+      newValues: { assignmentNumber, vehicleId: payload.vehicle_id, driverId: payload.driver_id, startDate: payload.start_date },
+      companyId,
+    });
+
     const full = await assignmentRepository.findByCompanyIdAndId(companyId, insertResult.insertId ? newId : newId);
     return formatAssignmentResponse(full);
   } catch (error) {
@@ -268,6 +279,16 @@ export async function updateAssignment(id, data, { companyId }) {
   }
 
   await assignmentRepository.update(id, updateData);
+
+  await recordAudit({
+    action: 'UPDATE',
+    actionType: 'modification',
+    entityType: 'assignment',
+    entityId: id,
+    description: `Affectation mise à jour: ${existing.assignment_number}`,
+    companyId,
+  });
+
   const full = await assignmentRepository.findByCompanyIdAndId(companyId, id);
   return formatAssignmentResponse(full);
 }
@@ -303,6 +324,17 @@ export async function endAssignment(id, data, { companyId, userName }) {
     await driverRepository.update(existing.driver_id, { status: 'available', availability: 'available' });
 
     await assignmentRepository.commitTransaction(conn);
+
+    await recordAudit({
+      action: 'UPDATE',
+      actionType: 'status_change',
+      entityType: 'assignment',
+      entityId: id,
+      description: `Affectation terminée: ${existing.assignment_number}`,
+      oldValues: { status: existing.status },
+      newValues: { status: 'completed' },
+      companyId,
+    });
 
     const full = await assignmentRepository.findByCompanyIdAndId(companyId, id);
     return formatAssignmentResponse(full);
@@ -342,6 +374,17 @@ export async function startAssignment(id, { companyId, userName }) {
 
     await assignmentRepository.commitTransaction(conn);
 
+    await recordAudit({
+      action: 'UPDATE',
+      actionType: 'status_change',
+      entityType: 'assignment',
+      entityId: id,
+      description: `Affectation démarrée: ${existing.assignment_number}`,
+      oldValues: { status: existing.status },
+      newValues: { status: 'active' },
+      companyId,
+    });
+
     const full = await assignmentRepository.findByCompanyIdAndId(companyId, id);
     return formatAssignmentResponse(full);
   } catch (error) {
@@ -378,6 +421,17 @@ export async function cancelAssignment(id, { companyId }) {
 
     await assignmentRepository.commitTransaction(conn);
 
+    await recordAudit({
+      action: 'UPDATE',
+      actionType: 'status_change',
+      entityType: 'assignment',
+      entityId: id,
+      description: `Affectation annulée: ${existing.assignment_number}`,
+      oldValues: { status: existing.status },
+      newValues: { status: 'cancelled' },
+      companyId,
+    });
+
     const full = await assignmentRepository.findByCompanyIdAndId(companyId, id);
     return formatAssignmentResponse(full);
   } catch (error) {
@@ -396,6 +450,16 @@ export async function deleteAssignment(id, { companyId }) {
   }
 
   await assignmentRepository.softDelete(id);
+
+  await recordAudit({
+    action: 'DELETE',
+    actionType: 'suppression',
+    entityType: 'assignment',
+    entityId: id,
+    description: `Affectation supprimée: ${existing.assignment_number}`,
+    companyId,
+  });
+
   return { message: 'Affectation supprimée avec succès.' };
 }
 

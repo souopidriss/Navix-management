@@ -4,6 +4,7 @@ import { getPool } from '../database/index.js';
 import { generateId } from '../utils/id.js';
 import { NotFoundError, ConflictError, ValidationError } from '../errors/index.js';
 import { VALID_STATUS_TRANSITIONS, FINISHED_STATUSES, IMMOBILIZING_STATUSES, DEFAULT_CURRENCY } from '../modules/maintenance/index.js';
+import { recordAudit } from './audit.service.js';
 
 function formatDate(value) {
   if (!value) return '';
@@ -121,6 +122,16 @@ export async function createMaintenance(data, { companyId, userName }) {
       ]
     );
 
+    await recordAudit({
+      action: 'CREATE',
+      actionType: 'creation',
+      entityType: 'maintenance',
+      entityId: id,
+      description: `Entretien créé: ${maintenanceNumber}`,
+      newValues: { maintenanceNumber, vehicleId: data.vehicleId, maintenanceType: data.maintenanceType || 'autre', priority: data.priority || 'normal' },
+      companyId,
+    });
+
     const full = await maintenanceRepository.findByCompanyIdAndId(companyId, id);
     return formatMaintenanceResponse(full);
   } finally {
@@ -227,6 +238,15 @@ export async function updateMaintenance(id, data, { companyId }) {
 
   await maintenanceRepository.update(id, updateData);
 
+  await recordAudit({
+    action: 'UPDATE',
+    actionType: 'modification',
+    entityType: 'maintenance',
+    entityId: id,
+    description: `Entretien mis à jour: ${existing.maintenance_number}`,
+    companyId,
+  });
+
   const full = await maintenanceRepository.findByCompanyIdAndId(companyId, id);
   return formatMaintenanceResponse(full);
 }
@@ -235,6 +255,16 @@ export async function deleteMaintenance(id, { companyId }) {
   const existing = await maintenanceRepository.findByCompanyIdAndId(companyId, id);
   if (!existing) throw new NotFoundError('Enregistrement d\'entretien');
   await maintenanceRepository.softDelete(id);
+
+  await recordAudit({
+    action: 'DELETE',
+    actionType: 'suppression',
+    entityType: 'maintenance',
+    entityId: id,
+    description: `Entretien supprimé: ${existing.maintenance_number}`,
+    companyId,
+  });
+
   return { id };
 }
 
@@ -267,6 +297,17 @@ export async function startMaintenance(id, { companyId }) {
     );
 
     await conn.commit();
+
+    await recordAudit({
+      action: 'UPDATE',
+      actionType: 'status_change',
+      entityType: 'maintenance',
+      entityId: id,
+      description: `Entretien démarré: ${existing.maintenance_number}`,
+      oldValues: { status: existing.status },
+      newValues: { status: 'in_progress' },
+      companyId,
+    });
 
     const full = await maintenanceRepository.findByCompanyIdAndId(companyId, id);
     return formatMaintenanceResponse(full);
@@ -310,6 +351,17 @@ export async function completeMaintenance(id, { companyId }) {
 
     await conn.commit();
 
+    await recordAudit({
+      action: 'UPDATE',
+      actionType: 'status_change',
+      entityType: 'maintenance',
+      entityId: id,
+      description: `Entretien terminé: ${existing.maintenance_number}`,
+      oldValues: { status: existing.status },
+      newValues: { status: 'completed' },
+      companyId,
+    });
+
     const full = await maintenanceRepository.findByCompanyIdAndId(companyId, id);
     return formatMaintenanceResponse(full);
   } catch (err) {
@@ -329,6 +381,17 @@ export async function cancelMaintenance(id, { companyId }) {
   }
 
   await maintenanceRepository.update(id, { status: 'cancelled' });
+
+  await recordAudit({
+    action: 'UPDATE',
+    actionType: 'status_change',
+    entityType: 'maintenance',
+    entityId: id,
+    description: `Entretien annulé: ${existing.maintenance_number}`,
+    oldValues: { status: existing.status },
+    newValues: { status: 'cancelled' },
+    companyId,
+  });
 
   const full = await maintenanceRepository.findByCompanyIdAndId(companyId, id);
   return formatMaintenanceResponse(full);
