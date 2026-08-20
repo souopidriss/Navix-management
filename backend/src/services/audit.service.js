@@ -125,9 +125,19 @@ export async function listAuditLogs(query, { companyId, isGlobalAccess }) {
   };
 }
 
-export async function getAuditLogById(id) {
-  const log = await auditRepository.findByIdWithJoins(id);
-  return log;
+export async function getAuditLogById(id, { companyId, isGlobalAccess } = {}) {
+  const filters = { id };
+  if (!isGlobalAccess && companyId) {
+    filters.company_id = companyId;
+  }
+  const result = await auditRepository.findAllWithJoins({
+    page: 1,
+    limit: 1,
+    filters,
+    sort: 'created_at',
+    order: 'DESC',
+  });
+  return result.rows[0] || null;
 }
 
 export async function getStatistics(companyId) {

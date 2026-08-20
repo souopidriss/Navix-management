@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
 import { validate } from '../../middlewares/validate.js';
 import { authenticate } from '../../middlewares/authenticate.js';
 import {
@@ -26,9 +27,37 @@ import {
 
 const router = Router();
 
-router.post('/login', validate(loginSchema), login);
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    error: {
+      code: 'RATE_LIMIT_EXCEEDED',
+      message: 'Trop de tentatives. Réessayez dans 15 minutes.',
+    },
+  },
+});
 
-router.post('/register', (req, res, next) => {
+const refreshLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    error: {
+      code: 'RATE_LIMIT_EXCEEDED',
+      message: 'Trop de requêtes. Réessayez plus tard.',
+    },
+  },
+});
+
+router.post('/login', authLimiter, validate(loginSchema), login);
+
+router.post('/register', authLimiter, (req, res, next) => {
   const { role } = req.body;
   switch (role) {
     case 'client_enterprise':
@@ -47,10 +76,10 @@ router.post('/register', (req, res, next) => {
 
 router.post('/logout', authenticate, validate(logoutSchema), logout);
 router.post('/logout-all', authenticate, logoutAll);
-router.post('/refresh', validate(refreshTokenSchema), refresh);
+router.post('/refresh', refreshLimiter, validate(refreshTokenSchema), refresh);
 router.get('/me', authenticate, me);
 router.post('/change-password', authenticate, validate(changePasswordSchema), changePassword);
-router.post('/forgot-password', validate(forgotPasswordSchema), forgotPassword);
-router.post('/reset-password', validate(resetPasswordSchema), resetPassword);
+router.post('/forgot-password', authLimiter, validate(forgotPasswordSchema), forgotPassword);
+router.post('/reset-password', authLimiter, validate(resetPasswordSchema), resetPassword);
 
 export default router;

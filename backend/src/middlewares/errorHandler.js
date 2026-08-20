@@ -41,7 +41,7 @@ export function errorHandler(err, req, res, _next) {
     },
   };
 
-  if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development') {
     response.error.internalMessage = err.message;
     if (err.stack) {
       response.error.stack = err.stack.split('\n').slice(0, 5);

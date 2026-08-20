@@ -67,11 +67,11 @@ export async function login({ email, password, rememberMe = false }, { ipAddress
   }
 
   if (user.status === 'inactive' || user.status === 'suspended') {
-    throw new AuthenticationError('Votre compte est désactivé. Contactez l\'administrateur.');
+    throw new AuthenticationError('Identifiants invalides. Vérifiez votre adresse email et votre mot de passe.');
   }
 
   if (user.status === 'pending') {
-    throw new AuthenticationError('Votre compte est en attente de validation.');
+    throw new AuthenticationError('Identifiants invalides. Vérifiez votre adresse email et votre mot de passe.');
   }
 
   const passwordValid = await comparePassword(password, user.password_hash);
@@ -357,7 +357,7 @@ export async function forgotPassword(email) {
   const user = await userRepository.findByEmail(normalizedEmail);
 
   if (!user) {
-    return { success: true, email: normalizedEmail };
+    return { success: true };
   }
 
   const resetToken = crypto.randomBytes(32).toString('hex');
@@ -398,7 +398,7 @@ export async function forgotPassword(email) {
     // Email not configured — silently continue (token still created)
   }
 
-  return { success: true, email: normalizedEmail };
+  return { success: true };
 }
 
 export async function resetPassword({ token, password, confirmPassword }) {

@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { HTTP_STATUS } from '../../constants/index.js';
 import { testConnection } from '../../database/index.js';
-import config from '../../config/index.js';
 import logger from '../../logs/logger.js';
 
 const router = Router();
@@ -16,7 +15,6 @@ router.get('/health', async (req, res) => {
       api: 'up',
       database: dbHealth.status,
       timestamp: new Date().toISOString(),
-      environment: config.env,
       version: '1.0.0',
     };
 

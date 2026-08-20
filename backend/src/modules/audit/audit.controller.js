@@ -19,18 +19,12 @@ export async function list(req, res, next) {
 
 export async function getById(req, res, next) {
   try {
-    const log = await auditService.getAuditLogById(req.params.id);
+    const ctx = tenantCtx(req);
+    const log = await auditService.getAuditLogById(req.params.id, ctx);
     if (!log) {
       return res.status(404).json({
         success: false,
         error: { code: 'NOT_FOUND', message: 'Entrée du journal introuvable.' },
-      });
-    }
-    const ctx = tenantCtx(req);
-    if (!ctx.isGlobalAccess && ctx.companyId && log.companyId !== ctx.companyId) {
-      return res.status(403).json({
-        success: false,
-        error: { code: 'FORBIDDEN', message: 'Accès non autorisé à cette entrée.' },
       });
     }
     res.json({ success: true, data: log });

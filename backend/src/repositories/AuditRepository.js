@@ -61,6 +61,10 @@ class AuditRepository extends BaseRepository {
       conditions.push('a.company_id = ?');
       params.push(filters.company_id);
     }
+    if (filters.id) {
+      conditions.push('a.id = ?');
+      params.push(filters.id);
+    }
     if (filters.user_id) {
       conditions.push('a.user_id = ?');
       params.push(filters.user_id);

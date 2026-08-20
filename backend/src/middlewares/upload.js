@@ -1,25 +1,47 @@
 import multer from 'multer';
 import path from 'path';
 import { generateId } from '../utils/id.js';
+import config from '../config/index.js';
+
+const ALLOWED_MIME_TYPES = [
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/vnd.ms-excel',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/vnd.ms-powerpoint',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  'text/csv',
+  'text/plain',
+  'image/jpeg',
+  'image/png',
+  'image/gif',
+  'image/webp',
+  'image/svg+xml',
+];
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, config.uploads.dir);
   },
   filename(req, file, cb) {
-    const ext = path.extname(file.originalname);
+    const ext = path.extname(file.originalname).toLowerCase();
     cb(null, `${generateId()}${ext}`);
   },
 });
 
 const fileFilter = (req, file, cb) => {
-  cb(null, true);
+  if (ALLOWED_MIME_TYPES.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error('Type de fichier non autorisé.'), false);
+  }
 };
 
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 100 * 1024 * 1024 },
+  limits: { fileSize: config.uploads.maxFileSize },
 });
 
 export function parseDocumentUpload(req, res, next) {
@@ -37,6 +59,12 @@ export function parseDocumentUpload(req, res, next) {
         return res.status(400).json({
           success: false,
           error: { code: 'TOO_MANY_FILES', message: 'Trop de fichiers.' },
+        });
+      }
+      if (err.message === 'Type de fichier non autorisé.') {
+        return res.status(400).json({
+          success: false,
+          error: { code: 'INVALID_FILE_TYPE', message: 'Type de fichier non autorisé.' },
         });
       }
       return next(err);

@@ -2,43 +2,38 @@ import { verifyAccessToken } from '../services/token.service.js';
 import userRepository from '../repositories/UserRepository.js';
 import { AuthenticationError } from '../errors/index.js';
 
+const GENERIC_AUTH_ERROR = 'Token invalide ou expiré.';
+
 export async function authenticate(req, res, next) {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      throw new AuthenticationError('Token d\'authentification requis.');
+      throw new AuthenticationError(GENERIC_AUTH_ERROR);
     }
 
     const token = authHeader.split(' ')[1];
     if (!token) {
-      throw new AuthenticationError('Token d\'authentification requis.');
+      throw new AuthenticationError(GENERIC_AUTH_ERROR);
     }
 
     let decoded;
     try {
       decoded = verifyAccessToken(token);
-    } catch (error) {
-      if (error.name === 'TokenExpiredError') {
-        throw new AuthenticationError('Token expiré. Veuillez vous reconnecter.');
-      }
-      throw new AuthenticationError('Token invalide.');
+    } catch {
+      throw new AuthenticationError(GENERIC_AUTH_ERROR);
     }
 
     if (decoded.type && decoded.type !== 'access') {
-      throw new AuthenticationError('Type de token invalide.');
+      throw new AuthenticationError(GENERIC_AUTH_ERROR);
     }
 
     const user = await userRepository.findByIdWithCompany(decoded.sub);
     if (!user) {
-      throw new AuthenticationError('Utilisateur non trouvé.');
+      throw new AuthenticationError(GENERIC_AUTH_ERROR);
     }
 
-    if (user.status === 'inactive' || user.status === 'suspended') {
-      throw new AuthenticationError('Votre compte est désactivé.');
-    }
-
-    if (user.status === 'pending') {
-      throw new AuthenticationError('Votre compte est en attente de validation.');
+    if (user.status === 'inactive' || user.status === 'suspended' || user.status === 'pending') {
+      throw new AuthenticationError(GENERIC_AUTH_ERROR);
     }
 
     req.user = {

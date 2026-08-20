@@ -88,25 +88,31 @@ const config = {
 };
 
 function validateConfig() {
-  const requiredInProd = ['JWT_SECRET', 'REFRESH_TOKEN_SECRET', 'DB_HOST', 'DB_NAME', 'DB_USER'];
-  const requiredAlways = ['DB_HOST', 'DB_NAME', 'DB_USER'];
-  const missing = [];
-
-  const required = isProduction ? requiredInProd : requiredAlways;
-  for (const key of required) {
+  const missingDb = [];
+  for (const key of ['DB_HOST', 'DB_NAME', 'DB_USER']) {
     if (!process.env[key]) {
-      missing.push(key);
+      missingDb.push(key);
     }
   }
-
-  if (isProduction && !process.env.JWT_SECRET) {
-    missing.push('JWT_SECRET');
+  if (missingDb.length > 0) {
+    throw new Error(
+      `Missing required environment variables: ${missingDb.join(', ')}`
+    );
   }
 
-  if (missing.length > 0) {
-    throw new Error(
-      `Missing required environment variables: ${missing.join(', ')}`
-    );
+  if (isProduction) {
+    const insecureJwt = [];
+    if (!process.env.JWT_ACCESS_SECRET || process.env.JWT_ACCESS_SECRET.length < 32) {
+      insecureJwt.push('JWT_ACCESS_SECRET (must be at least 32 characters)');
+    }
+    if (!process.env.JWT_REFRESH_SECRET || process.env.JWT_REFRESH_SECRET.length < 32) {
+      insecureJwt.push('JWT_REFRESH_SECRET (must be at least 32 characters)');
+    }
+    if (insecureJwt.length > 0) {
+      throw new Error(
+        `Missing or insecure required environment variables: ${insecureJwt.join(', ')}`
+      );
+    }
   }
 }
 
