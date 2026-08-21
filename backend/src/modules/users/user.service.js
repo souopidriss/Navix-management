@@ -95,6 +95,13 @@ export async function updateUser(id, data, { companyId, isGlobalAccess } = {}) {
     if (duplicate) throw new ConflictError('Un utilisateur avec cet email existe déjà');
   }
 
+  const PRIVILEGED_ROLES = ['super_admin', 'company_owner'];
+  if (data.role && PRIVILEGED_ROLES.includes(data.role)) {
+    if (!isGlobalAccess) {
+      throw new NotFoundError('Utilisateur');
+    }
+  }
+
   const updateData = {};
   if (data.firstName) updateData.first_name = data.firstName;
   if (data.lastName) updateData.last_name = data.lastName;

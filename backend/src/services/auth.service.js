@@ -432,12 +432,25 @@ export async function resetPassword({ token, password, confirmPassword }) {
   }
 
   const [users] = await getPool().execute(
-    `SELECT id, refresh_token_hash FROM users WHERE refresh_token_hash IS NOT NULL AND deleted_at IS NULL`
+    `SELECT id, refresh_token_hash, updated_at FROM users WHERE refresh_token_hash IS NOT NULL AND deleted_at IS NULL`
   );
+
+  const expiresMinutes = config.auth.passwordResetTokenExpiresMinutes || 15;
 
   for (const user of users[0] || users) {
     const match = await bcrypt.compare(token, user.refresh_token_hash);
     if (match) {
+      if (user.updated_at) {
+        const tokenAge = (Date.now() - new Date(user.updated_at).getTime()) / (1000 * 60);
+        if (tokenAge > expiresMinutes) {
+          await getPool().execute(
+            `UPDATE users SET refresh_token_hash = NULL, updated_at = NOW() WHERE id = ?`,
+            [user.id]
+          );
+          throw new BadRequestError('Token de réinitialisation invalide ou expiré.');
+        }
+      }
+
       const passwordHash = await hashPassword(password);
       await userRepository.updatePasswordHash(user.id, passwordHash);
       await getPool().execute(

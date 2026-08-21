@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const statusEnum = z.enum(['active', 'inactive', 'suspended', 'pending']);
-const roleEnum = z.enum(['super_admin', 'company_owner', 'company_admin', 'fleet_manager', 'dispatcher', 'driver', 'mechanic', 'accountant', 'viewer', 'client_enterprise', 'client_individual', 'partner']);
+const roleEnum = z.enum(['company_owner', 'company_admin', 'fleet_manager', 'dispatcher', 'driver', 'mechanic', 'accountant', 'viewer', 'client_enterprise', 'client_individual', 'partner']);
 
 export const createUserSchema = z.object({
   firstName: z.string().min(1, 'Le prénom est requis').max(100).trim(),

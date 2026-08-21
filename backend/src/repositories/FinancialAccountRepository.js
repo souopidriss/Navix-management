@@ -53,12 +53,26 @@ class FinancialAccountRepository extends BaseRepository {
     );
   }
 
-  async updateBalance(accountId, amount, connection = null) {
+  async updateBalance(accountId, amount, connection = null, retries = 3) {
     const executor = connection || this;
-    await executor.query(
-      `UPDATE financial_accounts SET balance = balance + ?, total_in = IF(? > 0, total_in + ?, total_in), total_out = IF(? < 0, total_out + ABS(?), total_out), updated_at = NOW() WHERE id = ?`,
-      [amount, amount, amount, amount, amount, accountId]
-    );
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        await executor.query(
+          `UPDATE financial_accounts SET balance = balance + ?, total_in = IF(? > 0, total_in + ?, total_in), total_out = IF(? < 0, total_out + ABS(?), total_out), updated_at = NOW() WHERE id = ?`,
+          [amount, amount, amount, amount, amount, accountId]
+        );
+        return;
+      } catch (error) {
+        const isDeadlock = error.errno === 1213;
+        const isLastAttempt = attempt === retries;
+        if (isDeadlock && !isLastAttempt) {
+          const delay = Math.min(100 * attempt, 500);
+          await new Promise((resolve) => setTimeout(resolve, delay));
+          continue;
+        }
+        throw error;
+      }
+    }
   }
 
   async createDefaultAccount(companyId, currency = 'XAF') {

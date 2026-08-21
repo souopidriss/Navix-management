@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { authenticate } from '../../middlewares/authenticate.js';
 import { tenantScope } from '../../middlewares/tenantScope.js';
+import { subscriptionGuard } from '../../middlewares/subscriptionGuard.js';
 import { validate, validateParams, validateQuery } from '../../middlewares/validate.js';
 import {
   createVehicleSchema,
@@ -43,6 +44,7 @@ router.get(
 
 router.post(
   '/',
+  subscriptionGuard,
   validate(createVehicleSchema),
   vehicleController.create
 );

@@ -74,11 +74,25 @@ export async function createCompanyWithOwner(data, ownerData) {
     throw new ValidationError('Le nom de l\'entreprise est requis');
   }
 
+  if (!ownerData || !ownerData.email || !ownerData.firstName || !ownerData.lastName || !ownerData.password) {
+    throw new ValidationError('Les données du propriétaire (firstName, lastName, email, password) sont requises');
+  }
+
+  if (ownerData.password.length < 8) {
+    throw new ValidationError('Le mot de passe du propriétaire doit contenir au moins 8 caractères');
+  }
+
   if (payload.email && await companyRepository.emailExists(payload.email)) {
     throw new ConflictError('Une entreprise avec cet email existe déjà.');
   }
   if (payload.code && await companyRepository.codeExists(payload.code)) {
     throw new ConflictError('Une entreprise avec ce code existe déjà.');
+  }
+
+  const ownerEmail = ownerData.email.trim().toLowerCase();
+  const existingUser = await (await import('../repositories/UserRepository.js')).default.findByEmail(ownerEmail);
+  if (existingUser) {
+    throw new ConflictError('Un utilisateur avec cet email existe déjà.');
   }
 
   const slug = generateSlug(payload.name);
