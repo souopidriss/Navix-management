@@ -1,12 +1,21 @@
 import app from './app.js';
 import config from './config/index.js';
-import { createPool, closePool } from './database/index.js';
+import { createPool, closePool, testConnection } from './database/index.js';
 import logger from './logs/logger.js';
 
 async function startServer() {
   try {
-    createPool();
-    logger.info('Database pool created');
+    try {
+      createPool();
+      const result = await testConnection();
+      if (result.status === 'down') {
+        logger.warn('Database unreachable — starting in degraded mode', { error: result.message });
+      } else {
+        logger.info('Database pool created and verified');
+      }
+    } catch (dbError) {
+      logger.warn('Database connection failed — starting in degraded mode', { error: dbError.message });
+    }
 
     const server = app.listen(config.server.port, () => {
       logger.info(`Navix Management API running on port ${config.server.port}`);

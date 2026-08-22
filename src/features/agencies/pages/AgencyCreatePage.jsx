@@ -48,6 +48,8 @@ const AgencyCreatePage = () => {
     if (result.success) {
       toast.success(`Agence « ${result.data.name} » créée avec succès.`);
       navigate(agencyDetailPath(result.data.id));
+    } else {
+      toast.error(result.error || "Impossible de créer l'agence.");
     }
   };
 

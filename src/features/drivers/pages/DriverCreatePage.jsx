@@ -44,6 +44,8 @@ const DriverCreatePage = () => {
     if (result.success) {
       toast.success(`Chauffeur « ${values.firstName} ${values.lastName} » créé avec succès.`);
       navigate(driverDetailPath(result.data.id));
+    } else {
+      toast.error(result.error || 'Impossible de créer le chauffeur.');
     }
   };
 

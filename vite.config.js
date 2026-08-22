@@ -18,6 +18,16 @@ export default defineConfig({
   },
   build: {
     sourcemap: false,
-    chunkSizeWarningLimit: 600,
+    chunkSizeWarningLimit: 750,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          ui: ['bootstrap', 'react-hot-toast'],
+          forms: ['zod', 'react-hook-form'],
+          utils: ['axios', 'dayjs', 'zustand', 'react-helmet-async'],
+        },
+      },
+    },
   },
 });

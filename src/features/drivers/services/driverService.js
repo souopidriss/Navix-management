@@ -23,7 +23,8 @@ import { apiConfig } from '@/services/config';
 import { mockResponse } from '@/services/utils';
 import { ApiError } from '@/services/errors';
 import { getTenantScopeCompanyId } from '@/utils/tenantScope';
-import { MOCK_DRIVERS, MOCK_DRIVER_AGENCIES } from '../mocks';
+import { MOCK_DRIVERS } from '../mocks';
+import { MOCK_AGENCIES } from '@/features/agencies/mocks';
 
 const CROCKFORD = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
 
@@ -81,7 +82,7 @@ export const driverService = {
    * @returns {Promise<Array<object>>}
    */
   async getAgencies() {
-    return mockResponse(MOCK_DRIVER_AGENCIES.map((agency) => ({ ...agency })));
+    return mockResponse(MOCK_AGENCIES.map((agency) => ({ id: agency.id, companyId: agency.companyId, name: agency.name, city: agency.city })));
   },
 
   /**
@@ -122,12 +123,10 @@ export const driverService = {
         });
       }
 
-      const companyId = getTenantScopeCompanyId();
       const now = new Date().toISOString();
       const driver = {
         ...payload,
         id: generateUlid(),
-        companyId,
         fullName: buildFullName(payload),
         createdAt: now,
         updatedAt: now,

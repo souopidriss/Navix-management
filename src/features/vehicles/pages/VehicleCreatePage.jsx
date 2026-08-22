@@ -41,6 +41,8 @@ const VehicleCreatePage = () => {
     if (result.success) {
       toast.success(`Véhicule « ${values.registrationNumber} » créé avec succès.`);
       navigate(ROUTES.VEHICLES);
+    } else {
+      toast.error(result.error || 'Impossible de créer le véhicule.');
     }
   };
 

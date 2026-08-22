@@ -44,9 +44,9 @@ const config = {
   },
 
   jwt: {
-    accessSecret: optionalEnv('JWT_ACCESS_SECRET', isTest ? 'test-access-secret' : optionalEnv('JWT_SECRET', '')),
+    accessSecret: optionalEnv('JWT_ACCESS_SECRET', isTest ? 'test-access-secret' : optionalEnv('JWT_SECRET', isDevelopment ? `dev-access-secret-${Date.now()}` : '')),
     accessExpiresIn: optionalEnv('JWT_ACCESS_EXPIRES_IN', '15m'),
-    refreshSecret: optionalEnv('JWT_REFRESH_SECRET', isTest ? 'test-refresh-secret' : optionalEnv('REFRESH_TOKEN_SECRET', '')),
+    refreshSecret: optionalEnv('JWT_REFRESH_SECRET', isTest ? 'test-refresh-secret' : optionalEnv('REFRESH_TOKEN_SECRET', isDevelopment ? `dev-refresh-secret-${Date.now()}` : '')),
     refreshExpiresIn: optionalEnv('JWT_REFRESH_EXPIRES_IN', '7d'),
   },
 
